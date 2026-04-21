@@ -23,45 +23,41 @@ async function obtenerDatos() {
         const fechaCruda = valores[0].replace(/['"]/g, ''); 
         const alturaCruda = parseFloat(valores[3]).toFixed(2);
         
-        // Transformamos: "2026-04-21 19:50:00" -> "21/04/2026 a las 19:50"
         const [fechaParte, horaParte] = fechaCruda.split(' ');
         const [anio, mes, dia] = fechaParte.split('-');
         const fechaFormateada = `${dia}/${mes}/${anio} a las ${horaParte.substring(0,5)}`;
         console.log(`✅ Altura extraída: ${alturaCruda}m`);
 
-        // --- 2. OBTENER VIENTO (Vía Open-Meteo) ---
+        // --- 2. OBTENER VIENTO CON SU HORA EXACTA ---
         let infoViento = "No disponible";
         try {
             const resClima = await fetch(urlClima);
             const dataClima = await resClima.json();
             const velViento = dataClima.current_weather.windspeed;
             const dirViento = gradosACardinal(dataClima.current_weather.winddirection);
-            infoViento = `${velViento} km/h desde el ${dirViento}`;
+            
+            // Extraemos la hora del reporte (Viene como "YYYY-MM-DDTHH:MM")
+            const horaVientoIso = dataClima.current_weather.time; 
+            const horaViento = horaVientoIso.split('T')[1]; // Nos quedamos con "HH:MM"
+            
+            infoViento = `${velViento} km/h desde el ${dirViento} (Medido a las ${horaViento} hs)`;
             console.log(`✅ Viento extraído: ${infoViento}`);
         } catch (e) {
             console.log("⚠️ No se pudo obtener el viento.");
         }
 
-        // --- 3. OBTENER PRONÓSTICO ESPECÍFICO (Pleamar/Bajamar) ---
+        // --- 3. OBTENER PRONÓSTICO ESPECÍFICO ---
         let infoPronostico = "Datos de marea no disponibles.";
         try {
             const resPronostico = await fetch(urlPronostico);
             const htmlPronostico = await resPronostico.text();
-            
-            // Limpiamos etiquetas HTML y reducimos múltiples espacios a uno solo
             const textoLimpio = htmlPronostico.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
             
-            // Buscamos los datos exactos de La Plata usando una Expresión Regular
-            // Capturamos: Hora Pleamar, Altura Pleamar, Hora Bajamar, Altura Bajamar
             const regexMarea = /PUERTO LA PLATA\s*PLEAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2}).*?BAJAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})/i;
             const match = textoLimpio.match(regexMarea);
             
             if (match) {
                 infoPronostico = `📈 Pleamar: *${match[2]}m* a las ${match[1]} hs\n📉 Bajamar: *${match[4]}m* a las ${match[3]} hs`;
-                console.log(`✅ Pronóstico extraído correctamente.`);
-            } else {
-                infoPronostico = "No se encontró la tabla en SHN.";
-                console.log("⚠️ No hizo match la Regex del pronóstico.");
             }
         } catch (e) {
             console.log("⚠️ Error al obtener el pronóstico del SHN.");
@@ -76,13 +72,11 @@ async function obtenerDatos() {
             return;
         }
 
-        // Armamos el mensaje final estructurado
         const mensaje = `🌊 *Puerto La Plata*\n📅 ${fechaFormateada} hs\n📏 Altura actual: *${alturaCruda} metros*\n🌬️ Viento: ${infoViento}\n\n*Pronóstico SHN:*\n${infoPronostico}`;
         
         const textoCodificado = encodeURIComponent(mensaje);
         const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?phone=${telefono}&text=${textoCodificado}&apikey=${apiKey}`;
         
-        console.log("Enviando mensaje de WhatsApp...");
         const botResponse = await fetch(callMeBotUrl);
         
         if (botResponse.ok) {
