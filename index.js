@@ -1,7 +1,7 @@
 // index.js
 
 const urlAltura = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
-const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true";
+const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
 
 // Convierte los grados del viento en puntos cardinales
