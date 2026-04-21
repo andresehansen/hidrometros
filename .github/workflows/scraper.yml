@@ -1,9 +1,7 @@
 name: Scraper Altura Río La Plata
 
 on:
-  # 1. Nos permite ejecutar el script manualmente con un botón
   workflow_dispatch:
-  # 2. Ejecuta el script automáticamente (Ejemplo: cada 1 hora)
   schedule:
     - cron: '0 * * * *'
 
@@ -12,16 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso A: Clona tu repositorio en el servidor gratuito de GitHub
       - name: Obtener el código
         uses: actions/checkout@v4
 
-      # Paso B: Instala Node.js para poder correr tu script
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Paso C: Ejecuta el archivo que creaste
       - name: Ejecutar script de Node.js
+        # Aquí le inyectamos de forma segura los secretos a nuestro script
+        env:
+          TELEFONO: ${{ secrets.TELEFONO }}
+          API_KEY: ${{ secrets.API_KEY }}
         run: node index.js
