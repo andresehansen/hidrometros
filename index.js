@@ -48,14 +48,17 @@ async function obtenerDatos() {
         let infoPronostico = "N/D";
         try {
             const resPronostico = await fetch(urlPronostico);
+            // Limpiamos el HTML para que quede como texto plano separado por espacios
             const htmlPronostico = await resPronostico.text().then(t => t.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' '));
             
-            // Regex mejorado para capturar: Día (dd/mm), Hora (hh:mm) y Altura
-            const matchPleamar = htmlPronostico.match(/PUERTO LA PLATA.*?(\d{2}\/\d{2})\s+(\d{2}:\d{2})\s+(\d+\.\d{2})\s+PLEAMAR/i);
-            const matchBajamar = htmlPronostico.match(/PUERTO LA PLATA.*?(\d{2}\/\d{2})\s+(\d{2}:\d{2})\s+(\d+\.\d{2})\s+BAJAMAR/i);
+            // Buscamos: Estado -> Hora (Grupo 1) -> Altura (Grupo 2) -> Fecha (Grupo 3)
+            // Usamos PLEA-?MAR por si el gobierno a veces le pone el guion y a veces no
+            const matchPleamar = htmlPronostico.match(/PUERTO LA PLATA.*?PLEA-?MAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})\s*(\d{2}\/\d{2}\/\d{4})/i);
+            const matchBajamar = htmlPronostico.match(/PUERTO LA PLATA.*?BAJAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})\s*(\d{2}\/\d{2}\/\d{4})/i);
             
-            const txtPleamar = matchPleamar ? `${matchPleamar[3]}m el ${matchPleamar[1]} a las ${matchPleamar[2]} hs` : "Sin datos";
-            const txtBajamar = matchBajamar ? `${matchBajamar[3]}m el ${matchBajamar[1]} a las ${matchBajamar[2]} hs` : "Sin datos";
+            // Armamos el texto cortando el año para que quede más prolijo (ej. 22/04)
+            const txtPleamar = matchPleamar ? `${matchPleamar[2]}m el ${matchPleamar[3].substring(0,5)} a las ${matchPleamar[1]} hs` : "Sin datos";
+            const txtBajamar = matchBajamar ? `${matchBajamar[2]}m el ${matchBajamar[3].substring(0,5)} a las ${matchBajamar[1]} hs` : "Sin datos";
             
             infoPronostico = `📈 Pleamar: ${txtPleamar}\n📉 Bajamar: ${txtBajamar}`;
         } catch (e) {}
