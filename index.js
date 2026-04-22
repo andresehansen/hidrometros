@@ -44,34 +44,47 @@ async function obtenerDatos() {
             if (matchMarea) infoPronostico = `📈 Pleamar: ${matchMarea[2]}m a las ${matchMarea[1]} hs\n📉 Bajamar: ${matchMarea[4]}m a las ${matchMarea[3]} hs`;
         } catch (e) {}
 
-        // --- 2. IGUAZÚ ---
+        // --- 2. IGUAZÚ CON HORA ---
         let alturaIguazu = "N/D";
         try {
             const resIguazu = await fetch(urlIguazu);
             if (resIguazu.ok) {
                 const dataIguazu = await resIguazu.text();
                 const valoresIg = dataIguazu.trim().split('\n').pop().split(',');
-                alturaIguazu = parseFloat(valoresIg[3]).toFixed(2) + "m";
+                
+                // Extraemos la hora tal cual lo hicimos en La Plata
+                const fechaCrudaIg = valoresIg[0].replace(/['"]/g, '');
+                const horaIg = fechaCrudaIg.split(' ')[1].substring(0,5);
+                
+                alturaIguazu = `${parseFloat(valoresIg[3]).toFixed(2)}m (a las ${horaIg} hs)`;
             } else {
-                alturaIguazu = "Error de URL (Revisar F12)";
+                alturaIguazu = "Error de URL";
             }
         } catch (e) {}
 
-        // --- 3. CONCORDIA ---
+        // --- 3. CONCORDIA CON HORA ---
         let alturaConcordia = "N/D";
         try {
             const resConcordia = await fetch(urlConcordia);
             const htmlConcordia = await resConcordia.text();
             const textoLimpioCo = htmlConcordia.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
             
-            // Buscamos "Concordia" y capturamos el primer número con decimales que le siga
-            const regexConcordia = /Concordia.*?(\d+[,.]\d{1,2})/i;
-            const matchCo = textoLimpioCo.match(regexConcordia);
-            
-            if (matchCo) {
-                alturaConcordia = matchCo[1].replace(',', '.') + "m";
+            // Buscamos la palabra Concordia
+            const indexCo = textoLimpioCo.indexOf("Concordia");
+            if (indexCo !== -1) {
+                // Aislamos un bloque de texto justo después de la palabra "Concordia"
+                const bloqueConcordia = textoLimpioCo.substring(indexCo, indexCo + 150);
+                
+                // Buscamos la altura y una hora en formato HH:MM dentro de ese bloque
+                const matchAltura = bloqueConcordia.match(/(\d+[,.]\d{1,2})/);
+                const matchHora = bloqueConcordia.match(/(\d{2}:\d{2})/);
+                
+                const altCo = matchAltura ? matchAltura[1].replace(',', '.') + "m" : "N/D";
+                const horaCo = matchHora ? ` (a las ${matchHora[1]} hs)` : "";
+                
+                alturaConcordia = altCo + horaCo;
             } else {
-                alturaConcordia = "Dato no encontrado en la tabla";
+                alturaConcordia = "No encontrado en tabla";
             }
         } catch (e) {
             alturaConcordia = "Error de conexión";
@@ -83,7 +96,6 @@ async function obtenerDatos() {
 
         if (!telefono || !apiKey) return console.log("⚠️ Faltan Secrets en GitHub.");
 
-        // Diseñamos un reporte limpio y ordenado
         const mensaje = `🌊 *REPORTE FLUVIAL* 🌊\n📅 ${fechaFormateada} hs\n\n📍 *Puerto La Plata*\n📏 Altura: *${alturaLP}m*\n🌬️ Viento: ${infoViento}\n*Pronóstico SHN:*\n${infoPronostico}\n\n📍 *Puerto Iguazú*\n📏 Altura: *${alturaIguazu}*\n\n📍 *Concordia*\n📏 Altura: *${alturaConcordia}*`;
         
         const textoCodificado = encodeURIComponent(mensaje);
