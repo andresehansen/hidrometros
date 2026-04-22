@@ -15,16 +15,28 @@ async function obtenerDatos() {
     try {
         console.log("Iniciando recolección masiva de datos fluviales...");
 
-        // --- 1. LA PLATA ---
-        const resAltura = await fetch(urlLaPlata);
-        const dataAltura = await resAltura.text();
-        const valoresLP = dataAltura.trim().split('\n').pop().split(',');
-        const fechaCruda = valoresLP[0].replace(/['"]/g, ''); 
-        const alturaLP = parseFloat(valoresLP[3]).toFixed(2);
-        
-        const [fechaParte, horaParte] = fechaCruda.split(' ');
-        const [anio, mes, dia] = fechaParte.split('-');
-        const fechaFormateada = `${dia}/${mes}/${anio} a las ${horaParte.substring(0,5)}`;
+        // Fecha actual para el reporte (por si falla La Plata)
+        const ahora = new Date();
+        const fechaReporte = `${ahora.getDate().toString().padStart(2, '0')}/${(ahora.getMonth()+1).toString().padStart(2, '0')}/${ahora.getFullYear()} a las ${ahora.getHours().toString().padStart(2, '0')}:${ahora.getMinutes().toString().padStart(2, '0')} hs`;
+
+        // --- 1. LA PLATA (AHORA CON RED DE SEGURIDAD) ---
+        let alturaLP = "N/D (Servidor Caído)";
+        let fechaFormateada = fechaReporte;
+        try {
+            const resAltura = await fetch(urlLaPlata);
+            if (resAltura.ok) {
+                const dataAltura = await resAltura.text();
+                const valoresLP = dataAltura.trim().split('\n').pop().split(',');
+                const fechaCruda = valoresLP[0].replace(/['"]/g, ''); 
+                alturaLP = parseFloat(valoresLP[3]).toFixed(2) + "m";
+                
+                const [fechaParte, horaParte] = fechaCruda.split(' ');
+                const [anio, mes, dia] = fechaParte.split('-');
+                fechaFormateada = `${dia}/${mes}/${anio} a las ${horaParte.substring(0,5)} hs (medición)`;
+            }
+        } catch (e) {
+            console.log("⚠️ Servidor de La Plata no respondió.");
+        }
 
         // Viento La Plata
         let infoViento = "N/D";
@@ -35,60 +47,51 @@ async function obtenerDatos() {
             infoViento = `${dataClima.current_weather.windspeed} km/h ${gradosACardinal(dataClima.current_weather.winddirection)} (${horaViento} hs)`;
         } catch (e) {}
 
-        // Pronóstico La Plata
+        // Pronóstico La Plata (BÚSQUEDA INDEPENDIENTE)
         let infoPronostico = "N/D";
         try {
             const resPronostico = await fetch(urlPronostico);
             const htmlPronostico = await resPronostico.text().then(t => t.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' '));
-            const matchMarea = htmlPronostico.match(/PUERTO LA PLATA\s*PLEAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2}).*?BAJAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})/i);
-            if (matchMarea) infoPronostico = `📈 Pleamar: ${matchMarea[2]}m a las ${matchMarea[1]} hs\n📉 Bajamar: ${matchMarea[4]}m a las ${matchMarea[3]} hs`;
+            
+            // Buscamos Pleamar y Bajamar por separado para evitar problemas de orden
+            const matchPleamar = htmlPronostico.match(/PUERTO LA PLATA.*?PLEAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})/i);
+            const matchBajamar = htmlPronostico.match(/PUERTO LA PLATA.*?BAJAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})/i);
+            
+            const txtPleamar = matchPleamar ? `${matchPleamar[2]}m a las ${matchPleamar[1]} hs` : "Sin datos";
+            const txtBajamar = matchBajamar ? `${matchBajamar[2]}m a las ${matchBajamar[1]} hs` : "Sin datos";
+            
+            infoPronostico = `📈 Pleamar: ${txtPleamar}\n📉 Bajamar: ${txtBajamar}`;
         } catch (e) {}
 
-        // --- 2. IGUAZÚ CON HORA ---
+        // --- 2. IGUAZÚ ---
         let alturaIguazu = "N/D";
         try {
             const resIguazu = await fetch(urlIguazu);
             if (resIguazu.ok) {
                 const dataIguazu = await resIguazu.text();
                 const valoresIg = dataIguazu.trim().split('\n').pop().split(',');
-                
-                // Extraemos la hora tal cual lo hicimos en La Plata
                 const fechaCrudaIg = valoresIg[0].replace(/['"]/g, '');
                 const horaIg = fechaCrudaIg.split(' ')[1].substring(0,5);
-                
                 alturaIguazu = `${parseFloat(valoresIg[3]).toFixed(2)}m (a las ${horaIg} hs)`;
-            } else {
-                alturaIguazu = "Error de URL";
             }
         } catch (e) {}
 
-        // --- 3. CONCORDIA CON HORA ---
+        // --- 3. CONCORDIA ---
         let alturaConcordia = "N/D";
         try {
             const resConcordia = await fetch(urlConcordia);
             const htmlConcordia = await resConcordia.text();
             const textoLimpioCo = htmlConcordia.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
-            
-            // Buscamos la palabra Concordia
             const indexCo = textoLimpioCo.indexOf("Concordia");
             if (indexCo !== -1) {
-                // Aislamos un bloque de texto justo después de la palabra "Concordia"
                 const bloqueConcordia = textoLimpioCo.substring(indexCo, indexCo + 150);
-                
-                // Buscamos la altura y una hora en formato HH:MM dentro de ese bloque
                 const matchAltura = bloqueConcordia.match(/(\d+[,.]\d{1,2})/);
                 const matchHora = bloqueConcordia.match(/(\d{2}:\d{2})/);
-                
                 const altCo = matchAltura ? matchAltura[1].replace(',', '.') + "m" : "N/D";
                 const horaCo = matchHora ? ` (a las ${matchHora[1]} hs)` : "";
-                
                 alturaConcordia = altCo + horaCo;
-            } else {
-                alturaConcordia = "No encontrado en tabla";
             }
-        } catch (e) {
-            alturaConcordia = "Error de conexión";
-        }
+        } catch (e) {}
 
         // --- 4. ARMADO Y ENVÍO DEL MENSAJE ---
         const telefono = process.env.TELEFONO; 
@@ -96,16 +99,16 @@ async function obtenerDatos() {
 
         if (!telefono || !apiKey) return console.log("⚠️ Faltan Secrets en GitHub.");
 
-        const mensaje = `🌊 *REPORTE FLUVIAL* 🌊\n📅 ${fechaFormateada} hs\n\n📍 *Puerto La Plata*\n📏 Altura: *${alturaLP}m*\n🌬️ Viento: ${infoViento}\n*Pronóstico SHN:*\n${infoPronostico}\n\n📍 *Puerto Iguazú*\n📏 Altura: *${alturaIguazu}*\n\n📍 *Concordia*\n📏 Altura: *${alturaConcordia}*`;
+        const mensaje = `🌊 *REPORTE FLUVIAL* 🌊\n📅 ${fechaFormateada}\n\n📍 *Puerto La Plata*\n📏 Altura: *${alturaLP}*\n🌬️ Viento: ${infoViento}\n*Pronóstico SHN:*\n${infoPronostico}\n\n📍 *Puerto Iguazú*\n📏 Altura: *${alturaIguazu}*\n\n📍 *Concordia*\n📏 Altura: *${alturaConcordia}*`;
         
         const textoCodificado = encodeURIComponent(mensaje);
         const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?phone=${telefono}&text=${textoCodificado}&apikey=${apiKey}`;
         
-        const botResponse = await fetch(callMeBotUrl);
-        if (botResponse.ok) console.log("✅ ¡Reporte masivo enviado con éxito!");
+        await fetch(callMeBotUrl);
+        console.log("✅ ¡Reporte masivo enviado con éxito!");
 
     } catch (error) {
-        console.error("❌ Error general:", error.message);
+        console.error("❌ Error fatal general:", error.message);
     }
 }
 
