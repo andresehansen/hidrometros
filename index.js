@@ -3,9 +3,7 @@
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
-
-// Nuevas URLs
-const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTOIGUAZU.dat"; // Podría llamarse IGUAZU.dat, a confirmar
+const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
 const urlConcordia = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 function gradosACardinal(grados) {
