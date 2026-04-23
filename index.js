@@ -66,38 +66,43 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
 async function fetchCarpNorden() {
     try {
         console.log("Activando Plan B: Consultando CARP Pilote Norden...");
-        // Usamos la URL y el comando exacto que atrapaste con F12
-        const url = "https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=0.226381808367227";
-        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
-        const texto = await res.text();
         
-        // Separamos la cabecera del JSON
+        // Generamos un número aleatorio nuevo idéntico al que genera el navegador
+        const numeroAleatorio = Math.random();
+        const url = `https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${numeroAleatorio}`;
+        
+        const res = await fetch(url, { 
+            headers: { 
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "*/*",
+                "Referer": "https://www.comisionriodelaplata.org/" // La tarjeta de invitación
+            } 
+        });
+        
+        const texto = await res.text();
         const jsonPart = JSON.parse(texto.split('JSON**')[1]);
 
         if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
-            // Decodificamos el HTML que viene encriptado en formato URL
             const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
-            
-            // Usamos un REGEX para pescar la fecha y la altura dentro de las etiquetas <td> de la tabla
-            // Buscamos: <td>YYYY-MM-DD HH:MM:SS</td><td>ALTURA</td>
             const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
             
             if (match) {
-                const fechaRaw = match[1]; // "2026-04-23 14:30:00"
-                const altura = match[2];   // "0.76"
+                const fechaRaw = match[1];
+                const altura = match[2];
                 
                 const [f, h] = fechaRaw.split(' ');
                 const [y, m, d] = f.split('-');
-                const fechaFinal = `${d}/${m}/${y}`;
-                const horaFinal = h.substring(0,5);
 
                 return {
-                    altura: `${altura}m (a las ${horaFinal} hs) *(Fuente: CARP Norden)*`,
-                    fecha: fechaFinal
+                    altura: `${altura}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`,
+                    fecha: `${d}/${m}/${y}`
                 };
             }
         }
-    } catch (e) { console.log("Error CARP Norden:", e.message); }
+    } catch (e) { 
+        // Agregamos e.cause para que nos confiese el motivo exacto si vuelve a fallar la conexión
+        console.log("Error CARP Norden:", e.message, e.cause || ""); 
+    }
     return null;
 }
 
