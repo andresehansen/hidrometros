@@ -38,7 +38,7 @@ async function obtenerFallbackINA() {
         ayer.setDate(hoy.getDate() - 2); // Pedimos últimos 2 días
 
         // Usamos el código 79 correcto
-        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos?timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=79&varId=2&format=json`;
+        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos&timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=79&varId=2&format=json`;
         
         const res = await fetch(urlINA);
         if (!res.ok) throw new Error("INA no respondió");
