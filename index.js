@@ -1,4 +1,7 @@
-// index.js - Versión Alta Disponibilidad (Con Zona Horaria Argentina)
+// index.js - Versión Alta Disponibilidad
+
+// 1. IGNORAR CERTIFICADOS VENCIDOS DEL GOBIERNO (Clave para que fetch no muera)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
@@ -12,40 +15,45 @@ function gradosACardinal(grados) {
     return direcciones[Math.round(grados / 45) % 8];
 }
 
-// Forzamos al servidor de GitHub a darnos la hora de Argentina (UTC-3)
 function obtenerHoraArgentina() {
     return new Date(Date.now() - 3 * 3600 * 1000);
 }
 
-// Devuelve fecha formato YYYY-MM-DD para la API del INA
 function formatoFechaAPI(fecha) {
     return `${fecha.getFullYear()}-${(fecha.getMonth()+1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')}`;
 }
 
-// Calcula si la diferencia entre ahora y una fecha es mayor a 24 horas
 function esAntiguo(fechaMedicion) {
     const ahora = obtenerHoraArgentina();
     const diferenciaHoras = Math.abs(ahora - fechaMedicion) / 36e5;
     return diferenciaHoras > 24;
 }
 
-// Lógica de respaldo: Consultando API del INA para Concordia
+// Lógica de respaldo: Consultando API del INA para Concordia (VERSIÓN BLINDADA)
 async function obtenerFallbackINA() {
     try {
         console.log("Activando Plan B: Consultando API del INA para Concordia...");
         const hoy = obtenerHoraArgentina();
         const ayer = new Date(hoy);
-        ayer.setDate(hoy.getDate() - 2); // Pedimos últimos 2 días
+        ayer.setDate(hoy.getDate() - 5); // Buscamos hasta 5 días atrás para asegurar el dato
 
-        // Usamos el código 79 correcto
+        // Usamos el infame "&" que descubriste
         const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos&timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=79&varId=2&format=json`;
         
-        const res = await fetch(urlINA);
-        if (!res.ok) throw new Error("INA no respondió");
+        // Disfrazamos al robot de navegador Chrome
+        const res = await fetch(urlINA, {
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "application/json"
+            }
+        });
         
-        const data = await res.json();
-        // Si INA tiene datos recientes, los usamos
-        if (data && data.length > 0) {
+        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+        
+        const textoBruto = await res.text();
+        const data = JSON.parse(textoBruto);
+        
+        if (Array.isArray(data) && data.length > 0) {
             const ultimoRegistro = data[data.length - 1]; 
             const fechaINA = new Date(ultimoRegistro.timestart);
             
@@ -63,6 +71,7 @@ async function obtenerFallbackINA() {
         }
         return null;
     } catch (e) {
+        console.log("⚠️ Error en Fallback INA:", e.message);
         return null;
     }
 }
