@@ -1,4 +1,4 @@
-// index.js - Versión Alta Disponibilidad con Fallback INA y Fechas
+// index.js - Versión Alta Disponibilidad (Con Zona Horaria Argentina)
 
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
@@ -12,6 +12,11 @@ function gradosACardinal(grados) {
     return direcciones[Math.round(grados / 45) % 8];
 }
 
+// Forzamos al servidor de GitHub a darnos la hora de Argentina (UTC-3)
+function obtenerHoraArgentina() {
+    return new Date(Date.now() - 3 * 3600 * 1000);
+}
+
 // Devuelve fecha formato YYYY-MM-DD para la API del INA
 function formatoFechaAPI(fecha) {
     return `${fecha.getFullYear()}-${(fecha.getMonth()+1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')}`;
@@ -19,33 +24,31 @@ function formatoFechaAPI(fecha) {
 
 // Calcula si la diferencia entre ahora y una fecha es mayor a 24 horas
 function esAntiguo(fechaMedicion) {
-    const ahora = new Date();
+    const ahora = obtenerHoraArgentina();
     const diferenciaHoras = Math.abs(ahora - fechaMedicion) / 36e5;
     return diferenciaHoras > 24;
 }
 
-// Lógica de respaldo: Consulta la API oficial del INA para Concordia
+// Lógica de respaldo: Consultando API del INA para Concordia
 async function obtenerFallbackINA() {
     try {
         console.log("Activando Plan B: Consultando API del INA para Concordia...");
-        const hoy = new Date();
+        const hoy = obtenerHoraArgentina();
         const ayer = new Date(hoy);
-        ayer.setDate(hoy.getDate() - 2); // Pedimos últimos 2 días por si acaso
+        ayer.setDate(hoy.getDate() - 2); // Pedimos últimos 2 días
 
-        // siteCode=79 (Concordia) | varId=2 (Altura Hidrométrica)
-        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos?timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=1016&varId=2&format=json`;
+        // Usamos el código 79 correcto
+        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos?timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=79&varId=2&format=json`;
         
         const res = await fetch(urlINA);
         if (!res.ok) throw new Error("INA no respondió");
         
         const data = await res.json();
-        // Buscar el último registro válido
+        // Si INA tiene datos recientes, los usamos
         if (data && data.length > 0) {
-            // El INA suele devolver los datos al final o principio del array. Asumimos el último como el más reciente.
             const ultimoRegistro = data[data.length - 1]; 
             const fechaINA = new Date(ultimoRegistro.timestart);
             
-            // Formatear la fecha para nuestro mensaje
             const dia = fechaINA.getDate().toString().padStart(2, '0');
             const mes = (fechaINA.getMonth()+1).toString().padStart(2, '0');
             const anio = fechaINA.getFullYear();
@@ -60,7 +63,6 @@ async function obtenerFallbackINA() {
         }
         return null;
     } catch (e) {
-        console.log("⚠️ Falló también el respaldo del INA.");
         return null;
     }
 }
@@ -69,7 +71,7 @@ async function obtenerDatos() {
     try {
         console.log("Iniciando recolección masiva de datos fluviales...");
 
-        const ahora = new Date();
+        const ahora = obtenerHoraArgentina();
         const fechaReporte = `${ahora.getDate().toString().padStart(2, '0')}/${(ahora.getMonth()+1).toString().padStart(2, '0')}/${ahora.getFullYear()} a las ${ahora.getHours().toString().padStart(2, '0')}:${ahora.getMinutes().toString().padStart(2, '0')} hs`;
         const fechaCortaHoy = `${ahora.getDate().toString().padStart(2, '0')}/${(ahora.getMonth()+1).toString().padStart(2, '0')}/${ahora.getFullYear()}`;
 
@@ -131,7 +133,7 @@ async function obtenerDatos() {
             }
         } catch (e) {}
 
-        // --- 3. CONCORDIA (CON LÓGICA DE FALLBACK 24HS) ---
+        // --- 3. CONCORDIA ---
         let alturaConcordia = "N/D";
         let fechaConcordiaStr = fechaCortaHoy;
         let usarINA = false;
@@ -148,7 +150,7 @@ async function obtenerDatos() {
                 const bloqueConcordia = textoLimpioCo.substring(indexCo, indexCo + 150);
                 const matchAltura = bloqueConcordia.match(/(\d+[,.]\d{1,2})/);
                 const matchHora = bloqueConcordia.match(/(\d{2}:\d{2})/);
-                const matchFecha = bloqueConcordia.match(/(\d{2}\/\d{2}\/\d{4})/); // Asumiendo formato DD/MM/YYYY en CARU
+                const matchFecha = bloqueConcordia.match(/(\d{2}\/\d{2}\/\d{4})/); 
 
                 if (matchAltura && matchHora) {
                     const altCo = matchAltura[1].replace(',', '.') + "m";
@@ -161,22 +163,21 @@ async function obtenerDatos() {
                         const fechaMedicion = new Date(y, m - 1, d, H, M);
                         
                         if (esAntiguo(fechaMedicion)) {
-                            usarINA = true; // El dato es viejo, saltamos al INA
+                            usarINA = true; 
                         } else {
                             alturaConcordia = `${altCo} (a las ${horaCo} hs)`;
                         }
                     } else {
-                        // Si por algún motivo no encontramos fecha en la web pero sí hora, lo mandamos
                         alturaConcordia = `${altCo} (a las ${horaCo} hs)`;
                     }
                 } else {
-                    usarINA = true; // Falla el regex
+                    usarINA = true; 
                 }
             } else {
-                usarINA = true; // No encontró la palabra Concordia
+                usarINA = true; 
             }
         } catch (e) {
-            usarINA = true; // Falla la petición (Servidor caído)
+            usarINA = true; 
         }
 
         // Ejecutar Fallback si la fuente primaria falló o es vieja
@@ -187,6 +188,8 @@ async function obtenerDatos() {
                 fechaConcordiaStr = datosRespaldo.fechaStr;
             } else {
                 alturaConcordia = "N/D (Servidores caídos)";
+                // Si falla también, ponemos la fecha de ayer o anterior para que se entienda que no hay dato fresco
+                fechaConcordiaStr = "Sin dato reciente";
             }
         }
 
