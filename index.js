@@ -65,62 +65,79 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
 // --- LÓGICA DE RESPALDO CARP (Pilote Norden para La Plata) ---
 async function fetchCarpNorden() {
     return new Promise((resolve) => {
-        console.log("Activando Plan B: Consultando CARP Pilote Norden...");
+        console.log("Activando Plan B: Consultando CARP Pilote Norden (Táctica de 2 Pasos)...");
         const https = require('https');
         const crypto = require('crypto');
         
-        const numeroAleatorio = Math.random();
-        const urlStr = `https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${numeroAleatorio}`;
-        
-        const options = {
-            headers: { 
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                "Referer": "https://www.comisionriodelaplata.org/"
-            },
+        // Configuraciones base (Nivel de seguridad 0 y disfraz de Chrome)
+        const optionsBase = {
+            hostname: 'meteo.comisionriodelaplata.org',
+            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" },
             rejectUnauthorized: false,
-            ciphers: 'DEFAULT:@SECLEVEL=0', 
+            ciphers: 'DEFAULT:@SECLEVEL=0',
             secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT
         };
 
-        https.get(urlStr, options, (res) => {
-            let texto = '';
-            res.on('data', chunk => texto += chunk);
-            res.on('end', () => {
-                // EL ESPÍA: Vemos qué respondió exactamente el servidor
-                if (!texto.includes('JSON**')) {
-                    console.log("🔍 Respuesta cruda de la CARP (No es JSON):", texto.substring(0, 300));
-                    resolve(null);
-                    return;
-                }
+        // PASO 1: Visitar la entrada principal para pedir una "Cookie" (Credencial)
+        const optPaso1 = { ...optionsBase, path: '/' };
+        
+        https.get(optPaso1, (res1) => {
+            // Recolectamos la credencial que nos tiró el servidor en la cabeza
+            let cookies = "";
+            if (res1.headers['set-cookie']) {
+                // Guardamos la galleta de sesión (PHPSESSID u otra)
+                cookies = res1.headers['set-cookie'].map(c => c.split(';')[0]).join('; ');
+            }
 
-                try {
-                    const jsonPart = JSON.parse(texto.split('JSON**')[1]);
-                    if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
-                        const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
-                        const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
-                        
-                        if (match) {
-                            const fechaRaw = match[1];
-                            const altura = match[2];
-                            const [f, h] = fechaRaw.split(' ');
-                            const [y, m, d] = f.split('-');
-                            
-                            resolve({
-                                altura: `${altura}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`,
-                                fecha: `${d}/${m}/${y}`
-                            });
-                            return;
-                        }
-                    }
-                    resolve(null);
-                } catch (e) {
-                    resolve(null);
+            // PASO 2: Usar la Cookie para entrar por la puerta trasera a buscar los datos
+            const numeroAleatorio = Math.random();
+            const optPaso2 = {
+                ...optionsBase,
+                path: `/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${numeroAleatorio}`,
+                headers: {
+                    ...optionsBase.headers,
+                    "Cookie": cookies, // Aquí mostramos la credencial robada
+                    "Referer": "https://meteo.comisionriodelaplata.org/",
+                    "X-Requested-With": "XMLHttpRequest" // Mentimos diciendo que somos una petición web interna
                 }
-            });
-        }).on('error', (e) => resolve(null));
+            };
+
+            https.get(optPaso2, (res2) => {
+                let texto = '';
+                res2.on('data', chunk => texto += chunk);
+                res2.on('end', () => {
+                    if (!texto.includes('JSON**')) {
+                        console.log("🔍 Falló el Paso 2. Respuesta:", texto.substring(0, 150));
+                        resolve(null);
+                        return;
+                    }
+
+                    try {
+                        const jsonPart = JSON.parse(texto.split('JSON**')[1]);
+                        if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
+                            const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
+                            const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
+                            
+                            if (match) {
+                                const [f, h] = match[1].split(' ');
+                                const [y, m, d] = f.split('-');
+                                
+                                resolve({
+                                    altura: `${match[2]}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`,
+                                    fecha: `${d}/${m}/${y}`
+                                });
+                                return;
+                            }
+                        }
+                        resolve(null);
+                    } catch (e) {
+                        resolve(null);
+                    }
+                });
+            }).on('error', () => resolve(null));
+        }).on('error', () => resolve(null));
     });
 }
-
 // --- ORQUESTADOR PRINCIPAL ---
 async function obtenerDatos() {
     try {
