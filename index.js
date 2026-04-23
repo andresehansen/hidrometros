@@ -66,25 +66,36 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
 async function fetchCarpNorden() {
     try {
         console.log("Activando Plan B: Consultando CARP Pilote Norden...");
-        // Usamos el comando específico para obtener datos de sensores
-        const url = "https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FgetStationData&station_id=2";
+        // Usamos la URL y el comando exacto que atrapaste con F12
+        const url = "https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=0.226381808367227";
         const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
         const texto = await res.text();
+        
+        // Separamos la cabecera del JSON
         const jsonPart = JSON.parse(texto.split('JSON**')[1]);
 
-        if (jsonPart && jsonPart.last_data) {
-            const altura = jsonPart.last_data.find(d => d.variable_id === "1")?.value; // Variable 1 es Nivel
-            const fechaRaw = jsonPart.date_time; // "2026-04-23 14:12:00"
+        if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
+            // Decodificamos el HTML que viene encriptado en formato URL
+            const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
             
-            const [f, h] = fechaRaw.split(' ');
-            const [y, m, d] = f.split('-');
-            const fechaFinal = `${d}/${m}/${y}`;
-            const horaFinal = h.substring(0,5);
+            // Usamos un REGEX para pescar la fecha y la altura dentro de las etiquetas <td> de la tabla
+            // Buscamos: <td>YYYY-MM-DD HH:MM:SS</td><td>ALTURA</td>
+            const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
+            
+            if (match) {
+                const fechaRaw = match[1]; // "2026-04-23 14:30:00"
+                const altura = match[2];   // "0.76"
+                
+                const [f, h] = fechaRaw.split(' ');
+                const [y, m, d] = f.split('-');
+                const fechaFinal = `${d}/${m}/${y}`;
+                const horaFinal = h.substring(0,5);
 
-            return {
-                altura: `${parseFloat(altura).toFixed(2)}m (a las ${horaFinal} hs) *(Fuente: CARP Norden)*`,
-                fecha: fechaFinal
-            };
+                return {
+                    altura: `${altura}m (a las ${horaFinal} hs) *(Fuente: CARP Norden)*`,
+                    fecha: fechaFinal
+                };
+            }
         }
     } catch (e) { console.log("Error CARP Norden:", e.message); }
     return null;
