@@ -33,7 +33,7 @@ async function obtenerFallbackINA() {
         ayer.setDate(hoy.getDate() - 2); // Pedimos últimos 2 días por si acaso
 
         // siteCode=79 (Concordia) | varId=2 (Altura Hidrométrica)
-        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos?timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=79&varId=2&format=json`;
+        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos?timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=1016&varId=2&format=json`;
         
         const res = await fetch(urlINA);
         if (!res.ok) throw new Error("INA no respondió");
