@@ -51,15 +51,13 @@ async function obtenerFallbackINA() {
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
         
         const textoBruto = await res.text();
+        const jsonParseado = JSON.parse(textoBruto);
         
-        // --- AGREGAMOS ESTE ESPÍA ---
-        console.log("🔍 Respuesta CRUDA del INA:", textoBruto); 
-        // -----------------------------
-        
-        const data = JSON.parse(textoBruto);
-        
-        if (Array.isArray(data) && data.length > 0) {
-            const ultimoRegistro = data[data.length - 1]; 
+        // Ahora buscamos el array DENTRO de la propiedad .data
+        if (jsonParseado.data && Array.isArray(jsonParseado.data) && jsonParseado.data.length > 0) {
+            const registros = jsonParseado.data;
+            const ultimoRegistro = registros[registros.length - 1]; // Agarramos el último (el del día 22)
+            
             const fechaINA = new Date(ultimoRegistro.timestart);
             
             const dia = fechaINA.getDate().toString().padStart(2, '0');
