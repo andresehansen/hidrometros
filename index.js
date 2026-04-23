@@ -51,6 +51,11 @@ async function obtenerFallbackINA() {
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
         
         const textoBruto = await res.text();
+        
+        // --- AGREGAMOS ESTE ESPÍA ---
+        console.log("🔍 Respuesta CRUDA del INA:", textoBruto); 
+        // -----------------------------
+        
         const data = JSON.parse(textoBruto);
         
         if (Array.isArray(data) && data.length > 0) {
