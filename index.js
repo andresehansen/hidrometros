@@ -2,10 +2,11 @@
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
+// ENVENENAMOS LAS URLS PARA SIMULAR CAÍDA
+const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA_ROTO.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
-const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
+const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU_ROTO.dat";
 const urlConcordia = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 // --- FUNCIONES AUXILIARES ---
