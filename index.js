@@ -34,11 +34,16 @@ async function obtenerFallbackINA() {
     try {
         console.log("Activando Plan B: Consultando API del INA para Concordia...");
         const hoy = obtenerHoraArgentina();
-        const ayer = new Date(hoy);
-        ayer.setDate(hoy.getDate() - 5); // Buscamos hasta 5 días atrás para asegurar el dato
+        
+        // Creamos "manana" para engañar al filtro de la API
+        const manana = new Date(hoy);
+        manana.setDate(hoy.getDate() + 1);
+        
+        const fechaInicio = new Date(hoy);
+        fechaInicio.setDate(hoy.getDate() - 5); // Buscamos hasta 5 días atrás
 
-        // Usamos el infame "&" que descubriste
-        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos&timeStart=${formatoFechaAPI(ayer)}&timeEnd=${formatoFechaAPI(hoy)}&siteCode=79&varId=2&format=json`;
+        // Usamos manana como límite final (timeEnd)
+        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos&timeStart=${formatoFechaAPI(fechaInicio)}&timeEnd=${formatoFechaAPI(manana)}&siteCode=79&varId=2&format=json`;
         
         // Disfrazamos al robot de navegador Chrome
         const res = await fetch(urlINA, {
