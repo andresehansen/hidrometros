@@ -1,8 +1,8 @@
-// index.js - Versión Blindada: Triple Fallback (INA + CARP)
+// index.js - Versión Blindada Definitiva
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-// ENVENENAMOS LAS URLS PARA SIMULAR CAÍDA
+// URLS (Mantenemos LAPLATA_ROTO para la prueba)
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA_ROTO.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
@@ -30,11 +30,42 @@ function esAntiguo(fechaMedicion) {
 }
 
 // --- LÓGICA DE RESPALDO INA (Iguazú y Concordia) ---
+async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
+    try {
+        console.log(`Activando Plan B: Consultando INA para ${nombrePuerto}...`);
+        const hoy = obtenerHoraArgentina();
+        const manana = new Date(hoy);
+        manana.setDate(hoy.getDate() + 1);
+        const inicio = new Date(hoy);
+        inicio.setDate(hoy.getDate() - 5);
+
+        const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(manana)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=150&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
+
+        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
+        const data = await res.json();
+
+        if (data.features && data.features.length > 0) {
+            const prop = data.features[0].properties;
+            const fechaZ = new Date(prop.fecha);
+            const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
+            
+            const fechaStr = `${argTime.getUTCDate().toString().padStart(2, '0')}/${(argTime.getUTCMonth()+1).toString().padStart(2, '0')}/${argTime.getUTCFullYear()}`;
+            const horaStr = `${argTime.getUTCHours().toString().padStart(2, '0')}:${argTime.getUTCMinutes().toString().padStart(2, '0')}`;
+            
+            let tag = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " *(Fuente: INA)*";
+            return {
+                altura: `${parseFloat(prop.valor).toFixed(2)}m (a las ${horaStr} hs)${tag}`,
+                fecha: fechaStr
+            };
+        }
+    } catch (e) { console.log(`Error INA ${nombrePuerto}:`, e.message); }
+    return null;
+}
+
+// --- LÓGICA DE RESPALDO CARP (Pilote Norden para La Plata) ---
 async function fetchCarpNorden() {
     return new Promise((resolve) => {
         console.log("Activando Plan B: Consultando CARP Pilote Norden...");
-        
-        // Importamos las herramientas profundas de Node.js
         const https = require('https');
         const crypto = require('crypto');
         
@@ -43,11 +74,10 @@ async function fetchCarpNorden() {
         
         const options = {
             headers: { 
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
                 "Referer": "https://www.comisionriodelaplata.org/"
             },
             rejectUnauthorized: false,
-            // LA CLAVE: Forzamos a OpenSSL a aceptar firmas antiguas (Nivel 0)
             ciphers: 'DEFAULT:@SECLEVEL=0', 
             secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT
         };
@@ -56,6 +86,13 @@ async function fetchCarpNorden() {
             let texto = '';
             res.on('data', chunk => texto += chunk);
             res.on('end', () => {
+                // EL ESPÍA: Vemos qué respondió exactamente el servidor
+                if (!texto.includes('JSON**')) {
+                    console.log("🔍 Respuesta cruda de la CARP (No es JSON):", texto.substring(0, 300));
+                    resolve(null);
+                    return;
+                }
+
                 try {
                     const jsonPart = JSON.parse(texto.split('JSON**')[1]);
                     if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
@@ -77,17 +114,14 @@ async function fetchCarpNorden() {
                     }
                     resolve(null);
                 } catch (e) {
-                    console.log("Error parseando CARP:", e.message);
                     resolve(null);
                 }
             });
-        }).on('error', (e) => {
-            console.log("Error de conexión CARP:", e.message);
-            resolve(null);
-        });
+        }).on('error', (e) => resolve(null));
     });
 }
 
+// --- ORQUESTADOR PRINCIPAL ---
 async function obtenerDatos() {
     try {
         console.log("Iniciando recolección...");
@@ -99,6 +133,7 @@ async function obtenerDatos() {
         let altLP = "N/D"; let fecLP = hoy; let usarCarp = false;
         try {
             const r = await fetch(urlLaPlata);
+            if (!r.ok) throw new Error("Falla HTTP");
             const t = await r.text();
             const v = t.trim().split('\n').pop().split(',');
             altLP = parseFloat(v[3]).toFixed(2) + "m (a las " + v[0].replace(/['"]/g, '').split(' ')[1].substring(0,5) + " hs)";
@@ -112,7 +147,7 @@ async function obtenerDatos() {
             if (r) { altLP = r.altura; fecLP = r.fecha; }
         }
 
-        // Viento y Pronóstico (Igual que antes)
+        // Viento y Pronóstico
         let infoV = "N/D"; try { const rc = await fetch(urlClima); const dc = await rc.json(); infoV = `${dc.current_weather.windspeed} km/h ${gradosACardinal(dc.current_weather.winddirection)}`; } catch(e){}
         let infoP = "N/D"; try {
             const rp = await fetch(urlPronostico); const hp = await rp.text().then(t => t.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' '));
@@ -125,6 +160,7 @@ async function obtenerDatos() {
         let altIg = "N/D"; let fecIg = hoy; let usarInaIg = false;
         try {
             const r = await fetch(urlIguazu);
+            if (!r.ok) throw new Error("Falla HTTP");
             const t = await r.text();
             const v = t.trim().split('\n').pop().split(',');
             altIg = parseFloat(v[3]).toFixed(2) + "m (a las " + v[0].replace(/['"]/g, '').split(' ')[1].substring(0,5) + " hs)";
@@ -142,6 +178,7 @@ async function obtenerDatos() {
         let altCo = "N/D"; let fecCo = hoy; let usarInaCo = false;
         try {
             const r = await fetch(urlConcordia);
+            if (!r.ok) throw new Error("Falla HTTP");
             const t = await r.text();
             const tx = t.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
             const idx = tx.indexOf("Concordia");
