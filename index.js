@@ -32,58 +32,57 @@ function esAntiguo(fechaMedicion) {
 // Lógica de respaldo: Consultando API del INA para Concordia (VERSIÓN BLINDADA)
 async function obtenerFallbackINA() {
     try {
-        console.log("Activando Plan B: Consultando API del INA para Concordia...");
+        console.log("Activando Plan B: Consultando túnel GeoServer para Concordia...");
         const hoy = obtenerHoraArgentina();
         
-        // Creamos "manana" para engañar al filtro de la API
         const manana = new Date(hoy);
         manana.setDate(hoy.getDate() + 1);
         
         const fechaInicio = new Date(hoy);
-        fechaInicio.setDate(hoy.getDate() - 5); // Buscamos hasta 5 días atrás
+        fechaInicio.setDate(hoy.getDate() - 5); 
 
-        // Usamos manana como límite final (timeEnd)
-        const urlINA = `https://alerta.ina.gob.ar/pub/datos/datos&timeStart=${formatoFechaAPI(fechaInicio)}&timeEnd=${formatoFechaAPI(manana)}&siteCode=79&varId=2&format=json`;
+        // Usamos la URL secreta que descubriste con las fechas dinámicas
+        const urlGeoServer = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(fechaInicio)}%3BtimeEnd%3A${formatoFechaAPI(manana)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=150&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=-31.41860783100128%2C-58.03407669067383%2C-31.38393223285675%2C-57.9994010925293`;
         
-        // Disfrazamos al robot de navegador Chrome
-        const res = await fetch(urlINA, {
+        const res = await fetch(urlGeoServer, {
             headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
                 "Accept": "application/json"
             }
         });
         
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
         
-        const textoBruto = await res.text();
-        const jsonParseado = JSON.parse(textoBruto);
+        const data = await res.json();
         
-        // Ahora buscamos el array DENTRO de la propiedad .data
-        if (jsonParseado.data && Array.isArray(jsonParseado.data) && jsonParseado.data.length > 0) {
-            const registros = jsonParseado.data;
-            const ultimoRegistro = registros[registros.length - 1]; // Agarramos el último (el del día 22)
+        // Entramos a las "features" del mapa
+        if (data.features && data.features.length > 0) {
+            const propiedades = data.features[0].properties;
+            const valorFluvial = propiedades.valor; // Atrapamos el 5.3 directo
             
-            const fechaINA = new Date(ultimoRegistro.timestart);
+            // La fecha viene como "2026-04-23T03:00:00Z". (La Z significa Hora Universal).
+            // Le restamos 3 horas para que diga "00:00 hs" de Argentina.
+            const fechaZ = new Date(propiedades.fecha);
+            const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
             
-            const dia = fechaINA.getDate().toString().padStart(2, '0');
-            const mes = (fechaINA.getMonth()+1).toString().padStart(2, '0');
-            const anio = fechaINA.getFullYear();
-            const hora = fechaINA.getHours().toString().padStart(2, '0') + ":" + fechaINA.getMinutes().toString().padStart(2, '0');
+            const dia = argTime.getUTCDate().toString().padStart(2, '0');
+            const mes = (argTime.getUTCMonth()+1).toString().padStart(2, '0');
+            const anio = argTime.getUTCFullYear();
+            const hora = argTime.getUTCHours().toString().padStart(2, '0') + ":" + argTime.getUTCMinutes().toString().padStart(2, '0');
             
-            let advertencia = esAntiguo(fechaINA) ? " ⚠️ (Dato desactualizado)" : " *(Fuente: INA)*";
+            let advertencia = esAntiguo(argTime) ? " ⚠️ (Dato desactualizado)" : " *(Fuente: INA)*";
             
             return {
-                altura: `${parseFloat(ultimoRegistro.valor).toFixed(2)}m (a las ${hora} hs)${advertencia}`,
+                altura: `${parseFloat(valorFluvial).toFixed(2)}m (a las ${hora} hs)${advertencia}`,
                 fechaStr: `${dia}/${mes}/${anio}`
             };
         }
         return null;
     } catch (e) {
-        console.log("⚠️ Error en Fallback INA:", e.message);
+        console.log("⚠️ Error en Fallback Geoserver:", e.message);
         return null;
     }
 }
-
 async function obtenerDatos() {
     try {
         console.log("Iniciando recolección masiva de datos fluviales...");
