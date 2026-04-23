@@ -30,80 +30,62 @@ function esAntiguo(fechaMedicion) {
 }
 
 // --- LÓGICA DE RESPALDO INA (Iguazú y Concordia) ---
-async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
-    try {
-        console.log(`Activando Plan B: Consultando INA para ${nombrePuerto}...`);
-        const hoy = obtenerHoraArgentina();
-        const manana = new Date(hoy);
-        manana.setDate(hoy.getDate() + 1);
-        const inicio = new Date(hoy);
-        inicio.setDate(hoy.getDate() - 5);
-
-        const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(manana)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=150&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
-
-        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
-        const data = await res.json();
-
-        if (data.features && data.features.length > 0) {
-            const prop = data.features[0].properties;
-            const fechaZ = new Date(prop.fecha);
-            const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
-            
-            const fechaStr = `${argTime.getUTCDate().toString().padStart(2, '0')}/${(argTime.getUTCMonth()+1).toString().padStart(2, '0')}/${argTime.getUTCFullYear()}`;
-            const horaStr = `${argTime.getUTCHours().toString().padStart(2, '0')}:${argTime.getUTCMinutes().toString().padStart(2, '0')}`;
-            
-            let tag = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " *(Fuente: INA)*";
-            return {
-                altura: `${parseFloat(prop.valor).toFixed(2)}m (a las ${horaStr} hs)${tag}`,
-                fecha: fechaStr
-            };
-        }
-    } catch (e) { console.log(`Error INA ${nombrePuerto}:`, e.message); }
-    return null;
-}
-
-// --- LÓGICA DE RESPALDO CARP (Pilote Norden para La Plata) ---
 async function fetchCarpNorden() {
-    try {
+    return new Promise((resolve) => {
         console.log("Activando Plan B: Consultando CARP Pilote Norden...");
         
-        // Generamos un número aleatorio nuevo idéntico al que genera el navegador
-        const numeroAleatorio = Math.random();
-        const url = `https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${numeroAleatorio}`;
+        // Importamos las herramientas profundas de Node.js
+        const https = require('https');
+        const crypto = require('crypto');
         
-        const res = await fetch(url, { 
+        const numeroAleatorio = Math.random();
+        const urlStr = `https://meteo.comisionriodelaplata.org/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${numeroAleatorio}`;
+        
+        const options = {
             headers: { 
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36",
-                "Accept": "*/*",
-                "Referer": "https://www.comisionriodelaplata.org/" // La tarjeta de invitación
-            } 
+                "Referer": "https://www.comisionriodelaplata.org/"
+            },
+            rejectUnauthorized: false,
+            // LA CLAVE: Forzamos a OpenSSL a aceptar firmas antiguas (Nivel 0)
+            ciphers: 'DEFAULT:@SECLEVEL=0', 
+            secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT
+        };
+
+        https.get(urlStr, options, (res) => {
+            let texto = '';
+            res.on('data', chunk => texto += chunk);
+            res.on('end', () => {
+                try {
+                    const jsonPart = JSON.parse(texto.split('JSON**')[1]);
+                    if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
+                        const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
+                        const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
+                        
+                        if (match) {
+                            const fechaRaw = match[1];
+                            const altura = match[2];
+                            const [f, h] = fechaRaw.split(' ');
+                            const [y, m, d] = f.split('-');
+                            
+                            resolve({
+                                altura: `${altura}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`,
+                                fecha: `${d}/${m}/${y}`
+                            });
+                            return;
+                        }
+                    }
+                    resolve(null);
+                } catch (e) {
+                    console.log("Error parseando CARP:", e.message);
+                    resolve(null);
+                }
+            });
+        }).on('error', (e) => {
+            console.log("Error de conexión CARP:", e.message);
+            resolve(null);
         });
-        
-        const texto = await res.text();
-        const jsonPart = JSON.parse(texto.split('JSON**')[1]);
-
-        if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
-            const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
-            const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
-            
-            if (match) {
-                const fechaRaw = match[1];
-                const altura = match[2];
-                
-                const [f, h] = fechaRaw.split(' ');
-                const [y, m, d] = f.split('-');
-
-                return {
-                    altura: `${altura}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`,
-                    fecha: `${d}/${m}/${y}`
-                };
-            }
-        }
-    } catch (e) { 
-        // Agregamos e.cause para que nos confiese el motivo exacto si vuelve a fallar la conexión
-        console.log("Error CARP Norden:", e.message, e.cause || ""); 
-    }
-    return null;
+    });
 }
 
 async function obtenerDatos() {
