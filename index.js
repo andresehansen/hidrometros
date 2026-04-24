@@ -1,9 +1,8 @@
-// index.js - Versión Blindada Definitiva (Prueba Final CARP)
+// index.js - Versión Final Optimizada (Doble Fallback INA)
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-// URLS (Mantenemos LAPLATA_ROTO solo para la prueba de CARP)
-const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA_ROTO.dat";
+const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
 const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
@@ -41,7 +40,7 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
 
         const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(manana)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=150&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
 
-        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
+        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" } });
         const data = await res.json();
 
         if (data.features && data.features.length > 0) {
@@ -62,75 +61,6 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
     return null;
 }
 
-// --- LÓGICA DE RESPALDO CARP (Intento Final de Infiltración) ---
-async function fetchCarpNorden() {
-    return new Promise((resolve) => {
-        console.log("Activando Plan B: CARP Norden (Infiltración Profunda)...");
-        const https = require('https');
-        const crypto = require('crypto');
-        
-        const optBase = {
-            hostname: 'meteo.comisionriodelaplata.org',
-            rejectUnauthorized: false,
-            ciphers: 'DEFAULT:@SECLEVEL=0',
-            secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT,
-            headers: { 
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-                "Accept-Language": "es-AR,es;q=0.9,en-US;q=0.8,en;q=0.7",
-                "Connection": "keep-alive"
-            }
-        };
-
-        // PASO 1: Golpear la puerta principal
-        https.get({ ...optBase, path: '/' }, (res1) => {
-            let cookies = "";
-            if (res1.headers['set-cookie']) {
-                cookies = res1.headers['set-cookie'].map(c => c.split(';')[0]).join('; ');
-            }
-            console.log(`🔑 Estado Paso 1: HTTP ${res1.statusCode} | Cookies atrapadas: ${cookies || "NINGUNA"}`);
-
-            // PASO 2: Entrar al túnel de telemetría
-            const rnd = Math.random();
-            const req2 = https.get({
-                ...optBase,
-                path: `/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${rnd}`,
-                headers: {
-                    ...optBase.headers,
-                    "Cookie": cookies,
-                    "Referer": "https://meteo.comisionriodelaplata.org/",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Accept": "*/*"
-                }
-            }, (res2) => {
-                let texto = '';
-                res2.on('data', c => texto += c);
-                res2.on('end', () => {
-                    if (!texto.includes('JSON**')) {
-                        console.log("⚠️ MariWeb bloqueó la petición. Táctica rechazada. Respuesta:", texto.substring(0, 100));
-                        resolve(null);
-                        return;
-                    }
-                    try {
-                        const jsonPart = JSON.parse(texto.split('JSON**')[1]);
-                        if (jsonPart?.tide?.latest) {
-                            const m = decodeURIComponent(jsonPart.tide.latest).match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
-                            if (m) {
-                                const [f, h] = m[1].split(' ');
-                                const [y, mm, d] = f.split('-');
-                                console.log("✅ ¡Infiltración Exitosa! Altura extraída.");
-                                resolve({ altura: `${m[2]}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`, fecha: `${d}/${mm}/${y}` });
-                                return;
-                            }
-                        }
-                        resolve(null);
-                    } catch (e) { resolve(null); }
-                });
-            }).on('error', e => { console.log("Error Red Paso 2:", e.message); resolve(null); });
-        }).on('error', e => { console.log("Error Red Paso 1:", e.message); resolve(null); });
-    });
-}
-
 // --- ORQUESTADOR PRINCIPAL ---
 async function obtenerDatos() {
     try {
@@ -140,7 +70,7 @@ async function obtenerDatos() {
         const hoy = `${ahora.getDate().toString().padStart(2, '0')}/${(ahora.getMonth()+1).toString().padStart(2, '0')}/${ahora.getFullYear()}`;
 
         // --- 1. LA PLATA ---
-        let altLP = "N/D"; let fecLP = hoy; let usarCarp = false;
+        let altLP = "N/D"; let fecLP = hoy;
         try {
             const r = await fetch(urlLaPlata);
             if (!r.ok) throw new Error("Falla HTTP");
@@ -149,13 +79,7 @@ async function obtenerDatos() {
             altLP = parseFloat(v[3]).toFixed(2) + "m (a las " + v[0].replace(/['"]/g, '').split(' ')[1].substring(0,5) + " hs)";
             const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
             fecLP = `${d}/${m}/${y}`;
-            if (esAntiguo(new Date(v[0].replace(/['"]/g, '')))) usarCarp = true;
-        } catch (e) { usarCarp = true; }
-
-        if (usarCarp) {
-            const r = await fetchCarpNorden();
-            if (r) { altLP = r.altura; fecLP = r.fecha; }
-        }
+        } catch (e) { console.log("⚠️ Error en La Plata primario"); }
 
         // Viento y Pronóstico
         let infoV = "N/D"; try { const rc = await fetch(urlClima); const dc = await rc.json(); infoV = `${dc.current_weather.windspeed} km/h ${gradosACardinal(dc.current_weather.winddirection)}`; } catch(e){}
