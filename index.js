@@ -1,12 +1,12 @@
-// index.js - Versión Blindada Definitiva
+// index.js - Versión Blindada Definitiva (Prueba Final CARP)
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-// URLS (Mantenemos LAPLATA_ROTO para la prueba)
+// URLS (Mantenemos LAPLATA_ROTO solo para la prueba de CARP)
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA_ROTO.dat";
 const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
-const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU_ROTO.dat";
+const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
 const urlConcordia = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 // --- FUNCIONES AUXILIARES ---
@@ -62,82 +62,75 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
     return null;
 }
 
-// --- LÓGICA DE RESPALDO CARP (Pilote Norden para La Plata) ---
+// --- LÓGICA DE RESPALDO CARP (Intento Final de Infiltración) ---
 async function fetchCarpNorden() {
     return new Promise((resolve) => {
-        console.log("Activando Plan B: Consultando CARP Pilote Norden (Táctica de 2 Pasos)...");
+        console.log("Activando Plan B: CARP Norden (Infiltración Profunda)...");
         const https = require('https');
         const crypto = require('crypto');
         
-        // Configuraciones base (Nivel de seguridad 0 y disfraz de Chrome)
-        const optionsBase = {
+        const optBase = {
             hostname: 'meteo.comisionriodelaplata.org',
-            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" },
             rejectUnauthorized: false,
             ciphers: 'DEFAULT:@SECLEVEL=0',
-            secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT
+            secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT,
+            headers: { 
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "es-AR,es;q=0.9,en-US;q=0.8,en;q=0.7",
+                "Connection": "keep-alive"
+            }
         };
 
-        // PASO 1: Visitar la entrada principal para pedir una "Cookie" (Credencial)
-        const optPaso1 = { ...optionsBase, path: '/' };
-        
-        https.get(optPaso1, (res1) => {
-            // Recolectamos la credencial que nos tiró el servidor en la cabeza
+        // PASO 1: Golpear la puerta principal
+        https.get({ ...optBase, path: '/' }, (res1) => {
             let cookies = "";
             if (res1.headers['set-cookie']) {
-                // Guardamos la galleta de sesión (PHPSESSID u otra)
                 cookies = res1.headers['set-cookie'].map(c => c.split(';')[0]).join('; ');
             }
+            console.log(`🔑 Estado Paso 1: HTTP ${res1.statusCode} | Cookies atrapadas: ${cookies || "NINGUNA"}`);
 
-            // PASO 2: Usar la Cookie para entrar por la puerta trasera a buscar los datos
-            const numeroAleatorio = Math.random();
-            const optPaso2 = {
-                ...optionsBase,
-                path: `/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${numeroAleatorio}`,
+            // PASO 2: Entrar al túnel de telemetría
+            const rnd = Math.random();
+            const req2 = https.get({
+                ...optBase,
+                path: `/ecsCommand.php?c=telemetry%2FupdateTelemetry&s=${rnd}`,
                 headers: {
-                    ...optionsBase.headers,
-                    "Cookie": cookies, // Aquí mostramos la credencial robada
+                    ...optBase.headers,
+                    "Cookie": cookies,
                     "Referer": "https://meteo.comisionriodelaplata.org/",
-                    "X-Requested-With": "XMLHttpRequest" // Mentimos diciendo que somos una petición web interna
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Accept": "*/*"
                 }
-            };
-
-            https.get(optPaso2, (res2) => {
+            }, (res2) => {
                 let texto = '';
-                res2.on('data', chunk => texto += chunk);
+                res2.on('data', c => texto += c);
                 res2.on('end', () => {
                     if (!texto.includes('JSON**')) {
-                        console.log("🔍 Falló el Paso 2. Respuesta:", texto.substring(0, 150));
+                        console.log("⚠️ MariWeb bloqueó la petición. Táctica rechazada. Respuesta:", texto.substring(0, 100));
                         resolve(null);
                         return;
                     }
-
                     try {
                         const jsonPart = JSON.parse(texto.split('JSON**')[1]);
-                        if (jsonPart && jsonPart.tide && jsonPart.tide.latest) {
-                            const htmlDecodificado = decodeURIComponent(jsonPart.tide.latest);
-                            const match = htmlDecodificado.match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
-                            
-                            if (match) {
-                                const [f, h] = match[1].split(' ');
-                                const [y, m, d] = f.split('-');
-                                
-                                resolve({
-                                    altura: `${match[2]}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`,
-                                    fecha: `${d}/${m}/${y}`
-                                });
+                        if (jsonPart?.tide?.latest) {
+                            const m = decodeURIComponent(jsonPart.tide.latest).match(/<td[^>]*>(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})<\/td><td[^>]*>(\d+\.\d{2})<\/td>/i);
+                            if (m) {
+                                const [f, h] = m[1].split(' ');
+                                const [y, mm, d] = f.split('-');
+                                console.log("✅ ¡Infiltración Exitosa! Altura extraída.");
+                                resolve({ altura: `${m[2]}m (a las ${h.substring(0,5)} hs) *(Fuente: CARP Norden)*`, fecha: `${d}/${mm}/${y}` });
                                 return;
                             }
                         }
                         resolve(null);
-                    } catch (e) {
-                        resolve(null);
-                    }
+                    } catch (e) { resolve(null); }
                 });
-            }).on('error', () => resolve(null));
-        }).on('error', () => resolve(null));
+            }).on('error', e => { console.log("Error Red Paso 2:", e.message); resolve(null); });
+        }).on('error', e => { console.log("Error Red Paso 1:", e.message); resolve(null); });
     });
 }
+
 // --- ORQUESTADOR PRINCIPAL ---
 async function obtenerDatos() {
     try {
@@ -220,6 +213,8 @@ async function obtenerDatos() {
         const key = process.env.API_KEY;
         const msg = `🌊 *REPORTE FLUVIAL* 🌊\n📅 ${fechaReporte}\n\n📍 *La Plata* (${fecLP})\n📏 Altura: *${altLP}*\n🌬️ Viento: ${infoV}\n*SHN:*\n${infoP}\n\n📍 *Iguazú* (${fecIg})\n📏 Altura: *${altIg}*\n\n📍 *Concordia* (${fecCo})\n📏 Altura: *${altCo}*`;
         
+        console.log("📝 MENSAJE GENERADO:\n", msg);
+
         for (const t of tels) { await fetch(`https://api.callmebot.com/whatsapp.php?phone=${t.trim()}&text=${encodeURIComponent(msg)}&apikey=${key}`); }
         console.log("✅ Reporte enviado!");
     } catch (e) { console.error("Error fatal:", e.message); }
