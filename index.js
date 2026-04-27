@@ -132,15 +132,48 @@ async function obtenerDatos() {
             if (r) { altCo = r.altura; fecCo = r.fecha; }
         }
 
-        // --- ENVÍO ---
-        const tels = process.env.TELEFONO ? process.env.TELEFONO.split(',') : [];
-        const key = process.env.API_KEY;
+        // --- ENVÍO POR FACEBOOK MESSENGER ---
+        const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
+        // Permite múltiples IDs separados por coma (para cuando agregues a tu mamá)
+        const userIds = process.env.FACEBOOK_USER_ID ? process.env.FACEBOOK_USER_ID.split(',') : [];
+        
         const msg = `🌊 *REPORTE FLUVIAL* 🌊\n📅 ${fechaReporte}\n\n📍 *La Plata* (${fecLP})\n📏 Altura: *${altLP}*\n🌬️ Viento: ${infoV}\n*SHN:*\n${infoP}\n\n📍 *Iguazú* (${fecIg})\n📏 Altura: *${altIg}*\n\n📍 *Concordia* (${fecCo})\n📏 Altura: *${altCo}*`;
         
         console.log("📝 MENSAJE GENERADO:\n", msg);
 
-        for (const t of tels) { await fetch(`https://api.callmebot.com/whatsapp.php?phone=${t.trim()}&text=${encodeURIComponent(msg)}&apikey=${key}`); }
-        console.log("✅ Reporte enviado!");
+        // Verificamos que existan las credenciales
+        if (!pageAccessToken || userIds.length === 0) {
+            console.log("⚠️ No se encontraron credenciales de Facebook. Abortando envío.");
+            return;
+        }
+
+        // Enviamos el mensaje a cada usuario configurado
+        for (const id of userIds) { 
+            try {
+                // Endpoint oficial de la Graph API de Meta para enviar mensajes
+                const urlFb = `https://graph.facebook.com/v19.0/me/messages?access_token=${pageAccessToken}`;
+                
+                const res = await fetch(urlFb, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        recipient: { id: id.trim() },
+                        message: { text: msg }
+                    })
+                });
+                
+                const data = await res.json();
+                
+                // Manejo de errores amigable por si el token vence o el ID está mal
+                if (data.error) {
+                    console.error(`❌ Error de Facebook al enviar a ${id}:`, data.error.message);
+                } else {
+                    console.log(`✅ Reporte enviado por Messenger al ID ${id}!`);
+                }
+            } catch (err) {
+                console.error(`❌ Error de red al intentar enviar a ${id}:`, err.message);
+            }
+        }
     } catch (e) { console.error("Error fatal:", e.message); }
 }
 
