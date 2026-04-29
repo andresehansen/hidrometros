@@ -1,5 +1,4 @@
-// index.js - Versión Final Optimizada (Doble Fallback INA)
-
+// index.js - Versión Final para Publicación en Muro de Facebook
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
@@ -51,7 +50,7 @@ async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
             const fechaStr = `${argTime.getUTCDate().toString().padStart(2, '0')}/${(argTime.getUTCMonth()+1).toString().padStart(2, '0')}/${argTime.getUTCFullYear()}`;
             const horaStr = `${argTime.getUTCHours().toString().padStart(2, '0')}:${argTime.getUTCMinutes().toString().padStart(2, '0')}`;
             
-            let tag = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " *(Fuente: INA)*";
+            let tag = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
             return {
                 altura: `${parseFloat(prop.valor).toFixed(2)}m (a las ${horaStr} hs)${tag}`,
                 fecha: fechaStr
@@ -132,51 +131,40 @@ async function obtenerDatos() {
             if (r) { altCo = r.altura; fecCo = r.fecha; }
         }
 
-        // --- ENVÍO POR FACEBOOK MESSENGER ---
+        // --- PUBLICACIÓN EN EL MURO DE FACEBOOK ---
         const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
-        // Permite múltiples IDs separados por coma (para cuando agregues a tu mamá)
-        const userIds = process.env.FACEBOOK_USER_ID ? process.env.FACEBOOK_USER_ID.split(',') : [];
+        const pageId = process.env.FACEBOOK_PAGE_ID;
         
-        const msg = `🌊 *REPORTE FLUVIAL* 🌊\n📅 ${fechaReporte}\n\n📍 *La Plata* (${fecLP})\n📏 Altura: *${altLP}*\n🌬️ Viento: ${infoV}\n*SHN:*\n${infoP}\n\n📍 *Iguazú* (${fecIg})\n📏 Altura: *${altIg}*\n\n📍 *Concordia* (${fecCo})\n📏 Altura: *${altCo}*`;
+        const msg = `🌊 REPORTE FLUVIAL 🌊\n📅 ${fechaReporte}\n\n📍 LA PLATA (${fecLP})\n📏 Altura: ${altLP}\n🌬️ Viento: ${infoV}\n\n⚓ SHN:\n${infoP}\n\n📍 IGUAZÚ (${fecIg})\n📏 Altura: ${altIg}\n\n📍 CONCORDIA (${fecCo})\n📏 Altura: ${altCo}`;
         
-        console.log("📝 MENSAJE GENERADO:\n", msg);
+        console.log("📝 PUBLICACIÓN GENERADA:\n", msg);
 
-        // Verificamos que existan las credenciales
-        if (!pageAccessToken || userIds.length === 0) {
-            console.log("⚠️ No se encontraron credenciales de Facebook. Abortando envío.");
+        if (!pageAccessToken || !pageId) {
+            console.log("⚠️ Faltan credenciales (Token o Page ID). Abortando.");
             return;
         }
 
-        // Enviamos el mensaje a cada usuario configurado
-        for (const id of userIds) { 
-            try {
-                // Endpoint oficial de la Graph API de Meta para enviar mensajes
-                const urlFb = `https://graph.facebook.com/v19.0/me/messages?access_token=${pageAccessToken}`;
-                
-                const res = await fetch(urlFb, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        recipient: { id: id.trim() },
-                        message: { text: msg },
-                        // --- AGREGAMOS ESTAS DOS LÍNEAS ---
-                        messaging_type: "MESSAGE_TAG",
-                        tag: "ACCOUNT_UPDATE"
-                        // ----------------------------------
-                    })
-                });
-                
-                const data = await res.json();
-                
-                // Manejo de errores amigable
-                if (data.error) {
-                    console.error(`❌ Error de Facebook al enviar a ${id}:`, data.error.message);
-                } else {
-                    console.log(`✅ Reporte enviado por Messenger al ID ${id}!`);
-                }
-            } catch (err) {
-                console.error(`❌ Error de red al intentar enviar a ${id}:`, err.message);
+        try {
+            const urlFb = `https://graph.facebook.com/v19.0/${pageId}/feed`;
+            
+            const res = await fetch(urlFb, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_token: pageAccessToken,
+                    message: msg
+                })
+            });
+            
+            const data = await res.json();
+            
+            if (data.error) {
+                console.error(`❌ Error al publicar en Facebook:`, data.error.message);
+            } else {
+                console.log(`✅ ¡Reporte publicado con éxito en el muro! ID del post: ${data.id}`);
             }
+        } catch (err) {
+            console.error(`❌ Error de red al intentar publicar:`, err.message);
         }
     } catch (e) { console.error("Error fatal:", e.message); }
 }
