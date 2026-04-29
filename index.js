@@ -158,13 +158,17 @@ async function obtenerDatos() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         recipient: { id: id.trim() },
-                        message: { text: msg }
+                        message: { text: msg },
+                        // --- AGREGAMOS ESTAS DOS LÍNEAS ---
+                        messaging_type: "MESSAGE_TAG",
+                        tag: "ACCOUNT_UPDATE"
+                        // ----------------------------------
                     })
                 });
                 
                 const data = await res.json();
                 
-                // Manejo de errores amigable por si el token vence o el ID está mal
+                // Manejo de errores amigable
                 if (data.error) {
                     console.error(`❌ Error de Facebook al enviar a ${id}:`, data.error.message);
                 } else {
