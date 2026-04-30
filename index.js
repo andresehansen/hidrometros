@@ -1,4 +1,4 @@
-// index.js - Versión Final para Publicación en Muro de Facebook
+// index.js - Versión Final con Negritas Unicode para Facebook Wall
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
@@ -8,6 +8,18 @@ const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
 const urlConcordia = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 // --- FUNCIONES AUXILIARES ---
+
+// Función para convertir texto normal en "Negrita Unicode" (para Facebook Wall)
+function aNegrita(texto) {
+    const normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const negrita = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵";
+    return texto.split('').map(char => {
+        const index = normal.indexOf(char);
+        // Cada caracter negrita unicode ocupa 2 posiciones en el string de mapeo
+        return index > -1 ? negrita.slice(index * 2, index * 2 + 2) : char;
+    }).join('');
+}
+
 function gradosACardinal(grados) {
     const direcciones = ['Norte (N)', 'Noreste (NE)', 'Este (E)', 'Sureste (SE)', 'Sur (S)', 'Suroeste (SW)', 'Oeste (W)', 'Noroeste (NW)'];
     return direcciones[Math.round(grados / 45) % 8];
@@ -135,7 +147,14 @@ async function obtenerDatos() {
         const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
         const pageId = process.env.FACEBOOK_PAGE_ID;
         
-        const msg = `🌊 REPORTE FLUVIAL 🌊\n📅 ${fechaReporte}\n\n📍 LA PLATA (${fecLP})\n📏 Altura: ${altLP}\n🌬️ Viento: ${infoV}\n\n⚓ SHN:\n${infoP}\n\n📍 IGUAZÚ (${fecIg})\n📏 Altura: ${altIg}\n\n📍 CONCORDIA (${fecCo})\n📏 Altura: ${altCo}`;
+        // Formateo visual con Negritas Unicode
+        const titulo = aNegrita("REPORTE FLUVIAL");
+        const lpTit = aNegrita("LA PLATA");
+        const igTit = aNegrita("IGUAZÚ");
+        const coTit = aNegrita("CONCORDIA");
+        const shnTit = aNegrita("⚓ SHN:");
+
+        const msg = `🌊 ${titulo} 🌊\n📅 ${fechaReporte}\n\n📍 ${lpTit} (${fecLP})\n📏 Altura: ${aNegrita(altLP)}\n🌬️ Viento: ${infoV}\n\n${shnTit}\n${infoP}\n\n📍 ${igTit} (${fecIg})\n📏 Altura: ${aNegrita(altIg)}\n\n📍 ${coTit} (${fecCo})\n📏 Altura: ${aNegrita(altCo)}`;
         
         console.log("📝 PUBLICACIÓN GENERADA:\n", msg);
 
