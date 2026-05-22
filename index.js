@@ -128,22 +128,32 @@ async function obtenerDatos() {
         const hoy          = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()}`;
 
         // ---- 1. LA PLATA ----
+        // Bbox para Puerto La Plata: -34.92,-57.93 a -34.83,-57.86
+        const BBOX_LA_PLATA = "-34.92,-57.93,-34.83,-57.86";
         let lpDatos = null;
         try {
-            const r = await fetch(urlLaPlata);
-            if (!r.ok) throw new Error("HTTP error");
+            console.log("  → Fuente primaria AGPSE para La Plata...");
+            const r = await fetch(urlLaPlata, { signal: AbortSignal.timeout(12000) });
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
             const t = await r.text();
             const v = t.trim().split('\n').pop().split(',');
             const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
+            const fechaMed = new Date(v[0].replace(/['"]/g, '').replace(' ', 'T') + '-03:00');
+            const antiguo  = esAntiguo(fechaMed);
             lpDatos = {
                 altura:   parseFloat(v[3]).toFixed(2),
                 horaStr:  v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5),
                 fechaStr: `${d}/${m}/${y}`,
                 fuente:   "AGPSE",
-                antiguo:  false,
+                antiguo,
                 textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
             };
-        } catch (e) { console.log("⚠️ Error La Plata:", e.message); }
+            if (antiguo) lpDatos = null; // fuerza fallback si el dato es viejo
+        } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
+
+        if (!lpDatos) {
+            lpDatos = await fetchGeoServerINA(BBOX_LA_PLATA, "La Plata");
+        }
 
         // ---- VIENTO ----
         let viento = null;
