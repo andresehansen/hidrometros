@@ -1,28 +1,27 @@
-// index.js - Versión Final con Negritas Unicode para Facebook Wall
+// index.js - Reporte Fluvial
+// Publica en Facebook Y genera data.json para el sitio web
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const urlLaPlata = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
-const urlClima = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
+const urlLaPlata    = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
+const urlClima      = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
-const urlIguazu = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
-const urlConcordia = "http://190.0.152.194:8080/alturas/web/user/alturas";
+const urlIguazu     = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
+const urlConcordia  = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 // --- FUNCIONES AUXILIARES ---
 
-// Función para convertir texto normal en "Negrita Unicode" (para Facebook Wall)
 function aNegrita(texto) {
-    const normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const normal  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const negrita = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵";
     return texto.split('').map(char => {
         const index = normal.indexOf(char);
-        // Cada caracter negrita unicode ocupa 2 posiciones en el string de mapeo
         return index > -1 ? negrita.slice(index * 2, index * 2 + 2) : char;
     }).join('');
 }
 
 function gradosACardinal(grados) {
-    const direcciones = ['Norte (N)', 'Noreste (NE)', 'Este (E)', 'Sureste (SE)', 'Sur (S)', 'Suroeste (SW)', 'Oeste (W)', 'Noroeste (NW)'];
-    return direcciones[Math.round(grados / 45) % 8];
+    const dir = ['Norte (N)', 'Noreste (NE)', 'Este (E)', 'Sureste (SE)', 'Sur (S)', 'Suroeste (SW)', 'Oeste (W)', 'Noroeste (NW)'];
+    return dir[Math.round(grados / 45) % 8];
 }
 
 function obtenerHoraArgentina() {
@@ -30,161 +29,260 @@ function obtenerHoraArgentina() {
 }
 
 function formatoFechaAPI(fecha) {
-    return `${fecha.getFullYear()}-${(fecha.getMonth()+1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')}`;
+    return `${fecha.getFullYear()}-${(fecha.getMonth()+1).toString().padStart(2,'0')}-${fecha.getDate().toString().padStart(2,'0')}`;
 }
 
 function esAntiguo(fechaMedicion) {
-    const ahora = obtenerHoraArgentina();
-    const diferenciaHoras = Math.abs(ahora - fechaMedicion) / 36e5;
-    return diferenciaHoras > 24;
+    return Math.abs(obtenerHoraArgentina() - fechaMedicion) / 36e5 > 24;
 }
 
-// --- LÓGICA DE RESPALDO INA (Iguazú y Concordia) ---
-async function fetchGeoServerINA(unid, bbox, nombrePuerto) {
+// --- LÓGICA DE RESPALDO INA ---
+async function fetchGeoServerINA(bbox, nombrePuerto) {
     try {
-        console.log(`Activando Plan B: Consultando INA para ${nombrePuerto}...`);
-        const hoy = obtenerHoraArgentina();
-        const manana = new Date(hoy);
-        manana.setDate(hoy.getDate() + 1);
-        const inicio = new Date(hoy);
-        inicio.setDate(hoy.getDate() - 5);
+        console.log(`  → Plan B INA para ${nombrePuerto}...`);
+        const hoy    = obtenerHoraArgentina();
+        const manana = new Date(hoy); manana.setDate(hoy.getDate() + 1);
+        const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 5);
 
         const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(manana)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=150&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
 
-        const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" } });
+        const res  = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" } });
         const data = await res.json();
 
         if (data.features && data.features.length > 0) {
-            const prop = data.features[0].properties;
-            const fechaZ = new Date(prop.fecha);
+            const prop    = data.features[0].properties;
+            const fechaZ  = new Date(prop.fecha);
             const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
-            
-            const fechaStr = `${argTime.getUTCDate().toString().padStart(2, '0')}/${(argTime.getUTCMonth()+1).toString().padStart(2, '0')}/${argTime.getUTCFullYear()}`;
-            const horaStr = `${argTime.getUTCHours().toString().padStart(2, '0')}:${argTime.getUTCMinutes().toString().padStart(2, '0')}`;
-            
-            let tag = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
+            const fecha   = `${argTime.getUTCDate().toString().padStart(2,'0')}/${(argTime.getUTCMonth()+1).toString().padStart(2,'0')}/${argTime.getUTCFullYear()}`;
+            const hora    = `${argTime.getUTCHours().toString().padStart(2,'0')}:${argTime.getUTCMinutes().toString().padStart(2,'0')}`;
+            const tag     = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
             return {
-                altura: `${parseFloat(prop.valor).toFixed(2)}m (a las ${horaStr} hs)${tag}`,
-                fecha: fechaStr
+                altura:    parseFloat(prop.valor).toFixed(2),
+                horaStr:   hora,
+                fechaStr:  fecha,
+                fuente:    "INA",
+                antiguo:   esAntiguo(argTime),
+                textoFB:   `${parseFloat(prop.valor).toFixed(2)}m (a las ${hora} hs)${tag}`
             };
         }
-    } catch (e) { console.log(`Error INA ${nombrePuerto}:`, e.message); }
+    } catch (e) { console.log(`  ⚠️ Error INA ${nombrePuerto}:`, e.message); }
     return null;
+}
+
+// --- PUBLICAR data.json EN EL REPO (para que el sitio web lo lea) ---
+async function publicarDataJson(datos) {
+    const token = process.env.GITHUB_TOKEN;
+    const owner = process.env.GITHUB_REPOSITORY?.split('/')[0];
+    const repo  = process.env.GITHUB_REPOSITORY?.split('/')[1];
+
+    if (!token || !owner || !repo) {
+        console.log("⚠️  Sin GITHUB_TOKEN o GITHUB_REPOSITORY — no se genera data.json");
+        return;
+    }
+
+    const contenido = Buffer.from(JSON.stringify(datos, null, 2)).toString('base64');
+    const apiUrl    = `https://api.github.com/repos/${owner}/${repo}/contents/data.json`;
+
+    // Obtener SHA del archivo actual (necesario para actualizar)
+    let sha = undefined;
+    try {
+        const getRes = await fetch(apiUrl, {
+            headers: { Authorization: `token ${token}`, "User-Agent": "hidrometros-bot" }
+        });
+        if (getRes.ok) {
+            const getData = await getRes.json();
+            sha = getData.sha;
+        }
+    } catch (e) { /* Primera vez, no hay SHA */ }
+
+    const body = {
+        message: `datos: actualización ${datos.fechaReporte}`,
+        content: contenido,
+        ...(sha && { sha })
+    };
+
+    const putRes = await fetch(apiUrl, {
+        method:  "PUT",
+        headers: {
+            Authorization:  `token ${token}`,
+            "Content-Type": "application/json",
+            "User-Agent":   "hidrometros-bot"
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (putRes.ok) {
+        console.log("✅ data.json actualizado en el repo");
+    } else {
+        const err = await putRes.json();
+        console.error("❌ Error actualizando data.json:", err.message);
+    }
 }
 
 // --- ORQUESTADOR PRINCIPAL ---
 async function obtenerDatos() {
     try {
         console.log("Iniciando recolección...");
-        const ahora = obtenerHoraArgentina();
-        const fechaReporte = `${ahora.getDate().toString().padStart(2, '0')}/${(ahora.getMonth()+1).toString().padStart(2, '0')}/${ahora.getFullYear()} a las ${ahora.getHours().toString().padStart(2, '0')}:${ahora.getMinutes().toString().padStart(2, '0')} hs`;
-        const hoy = `${ahora.getDate().toString().padStart(2, '0')}/${(ahora.getMonth()+1).toString().padStart(2, '0')}/${ahora.getFullYear()}`;
+        const ahora        = obtenerHoraArgentina();
+        const fechaReporte = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()} a las ${ahora.getHours().toString().padStart(2,'0')}:${ahora.getMinutes().toString().padStart(2,'0')} hs`;
+        const hoy          = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()}`;
 
-        // --- 1. LA PLATA ---
-        let altLP = "N/D"; let fecLP = hoy;
+        // ---- 1. LA PLATA ----
+        let lpDatos = null;
         try {
             const r = await fetch(urlLaPlata);
-            if (!r.ok) throw new Error("Falla HTTP");
+            if (!r.ok) throw new Error("HTTP error");
             const t = await r.text();
             const v = t.trim().split('\n').pop().split(',');
-            altLP = parseFloat(v[3]).toFixed(2) + "m (a las " + v[0].replace(/['"]/g, '').split(' ')[1].substring(0,5) + " hs)";
             const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
-            fecLP = `${d}/${m}/${y}`;
-        } catch (e) { console.log("⚠️ Error en La Plata primario"); }
+            lpDatos = {
+                altura:   parseFloat(v[3]).toFixed(2),
+                horaStr:  v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5),
+                fechaStr: `${d}/${m}/${y}`,
+                fuente:   "AGPSE",
+                antiguo:  false,
+                textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
+            };
+        } catch (e) { console.log("⚠️ Error La Plata:", e.message); }
 
-        // Viento y Pronóstico
-        let infoV = "N/D"; try { const rc = await fetch(urlClima); const dc = await rc.json(); infoV = `${dc.current_weather.windspeed} km/h ${gradosACardinal(dc.current_weather.winddirection)}`; } catch(e){}
-        let infoP = "N/D"; try {
-            const rp = await fetch(urlPronostico); const hp = await rp.text().then(t => t.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' '));
+        // ---- VIENTO ----
+        let viento = null;
+        try {
+            const rc = await fetch(urlClima);
+            const dc = await rc.json();
+            viento = {
+                velocidad:  dc.current_weather.windspeed,
+                direccion:  gradosACardinal(dc.current_weather.winddirection),
+                temperatura: dc.current_weather.temperature
+            };
+        } catch (e) { console.log("⚠️ Error clima:", e.message); }
+
+        // ---- PRONÓSTICO ----
+        let pronostico = null;
+        try {
+            const rp = await fetch(urlPronostico);
+            const hp = (await rp.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
             const mp = hp.match(/PUERTO LA PLATA.*?PLEA-?MAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})\s*(\d{2}\/\d{2}\/\d{4})/i);
             const mb = hp.match(/PUERTO LA PLATA.*?BAJAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})\s*(\d{2}\/\d{2}\/\d{4})/i);
-            infoP = `📈 Pleamar: ${mp?mp[2]+'m el '+mp[3].substring(0,5)+' '+mp[1]:'S/D'}\n📉 Bajamar: ${mb?mb[2]+'m el '+mb[3].substring(0,5)+' '+mb[1]:'S/D'}`;
-        } catch(e){}
+            pronostico = {
+                pleamar: mp ? { hora: mp[1], altura: mp[2], fecha: mp[3].substring(0, 5) } : null,
+                bajamar: mb ? { hora: mb[1], altura: mb[2], fecha: mb[3].substring(0, 5) } : null
+            };
+        } catch (e) { console.log("⚠️ Error pronóstico:", e.message); }
 
-        // --- 2. IGUAZÚ ---
-        let altIg = "N/D"; let fecIg = hoy; let usarInaIg = false;
+        // ---- 2. IGUAZÚ ----
+        let igDatos = null;
         try {
             const r = await fetch(urlIguazu);
-            if (!r.ok) throw new Error("Falla HTTP");
+            if (!r.ok) throw new Error("HTTP error");
             const t = await r.text();
             const v = t.trim().split('\n').pop().split(',');
-            altIg = parseFloat(v[3]).toFixed(2) + "m (a las " + v[0].replace(/['"]/g, '').split(' ')[1].substring(0,5) + " hs)";
             const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
-            fecIg = `${d}/${m}/${y}`;
-            if (esAntiguo(new Date(v[0].replace(/['"]/g, '')))) usarInaIg = true;
-        } catch (e) { usarInaIg = true; }
+            const fechaMed = new Date(v[0].replace(/['"]/g, ''));
+            const antiguo  = esAntiguo(fechaMed);
+            igDatos = {
+                altura:   parseFloat(v[3]).toFixed(2),
+                horaStr:  v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5),
+                fechaStr: `${d}/${m}/${y}`,
+                fuente:   "AGPSE",
+                antiguo,
+                textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
+            };
+            if (antiguo) igDatos = null; // fuerza fallback a INA si es viejo
+        } catch (e) { console.log("⚠️ Error Iguazú primario:", e.message); }
 
-        if (usarInaIg) {
-            const r = await fetchGeoServerINA(9, "-25.648033618927002%2C-54.64118957519531%2C-25.509331226348877%2C-54.50248718261719", "Iguazú");
-            if (r) { altIg = r.altura; fecIg = r.fecha; }
+        if (!igDatos) {
+            igDatos = await fetchGeoServerINA(
+                "-25.648033618927002,-54.64118957519531,-25.509331226348877,-54.50248718261719",
+                "Iguazú"
+            );
         }
 
-        // --- 3. CONCORDIA ---
-        let altCo = "N/D"; let fecCo = hoy; let usarInaCo = false;
+        // ---- 3. CONCORDIA ----
+        let coDatos = null;
         try {
-            const r = await fetch(urlConcordia);
-            if (!r.ok) throw new Error("Falla HTTP");
-            const t = await r.text();
-            const tx = t.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
-            const idx = tx.indexOf("Concordia");
-            const blq = tx.substring(idx, idx + 150);
-            const mA = blq.match(/(\d+[,.]\d{1,2})/);
-            const mH = blq.match(/(\d{2}:\d{2})/);
-            const mF = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
+            const r  = await fetch(urlConcordia);
+            if (!r.ok) throw new Error("HTTP error");
+            const t  = (await r.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+            const idx = t.indexOf("Concordia");
+            const blq = t.substring(idx, idx + 150);
+            const mA  = blq.match(/(\d+[,.]\d{1,2})/);
+            const mH  = blq.match(/(\d{2}:\d{2})/);
+            const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
             if (mA && mH && mF) {
-                const [d,m,y] = mF[1].split('/');
-                if (esAntiguo(new Date(y, m-1, d))) usarInaCo = true;
-                else { altCo = mA[1].replace(',','.')+"m (a las "+mH[1]+" hs)"; fecCo = mF[1]; }
-            } else usarInaCo = true;
-        } catch (e) { usarInaCo = true; }
+                const [d, m, y] = mF[1].split('/');
+                const fechaMed  = new Date(y, m - 1, d);
+                const antiguo   = esAntiguo(fechaMed);
+                if (!antiguo) {
+                    coDatos = {
+                        altura:   mA[1].replace(',', '.'),
+                        horaStr:  mH[1],
+                        fechaStr: mF[1],
+                        fuente:   "SRH",
+                        antiguo:  false,
+                        textoFB:  `${mA[1].replace(',','.')}m (a las ${mH[1]} hs)`
+                    };
+                }
+            }
+        } catch (e) { console.log("⚠️ Error Concordia primario:", e.message); }
 
-        if (usarInaCo) {
-            const r = await fetchGeoServerINA(79, "-31.41860783100128%2C-58.03407669067383%2C-31.38393223285675%2C-57.9994010925293", "Concordia");
-            if (r) { altCo = r.altura; fecCo = r.fecha; }
+        if (!coDatos) {
+            coDatos = await fetchGeoServerINA(
+                "-31.41860783100128,-58.03407669067383,-31.38393223285675,-57.9994010925293",
+                "Concordia"
+            );
         }
 
-        // --- PUBLICACIÓN EN EL MURO DE FACEBOOK ---
-        const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
-        const pageId = process.env.FACEBOOK_PAGE_ID;
-        
-        // Formateo visual con Negritas Unicode
-        const titulo = aNegrita("REPORTE FLUVIAL");
-        const lpTit = aNegrita("LA PLATA");
-        const igTit = aNegrita("IGUAZÚ");
-        const coTit = aNegrita("CONCORDIA");
-        const shnTit = aNegrita("⚓ SHN:");
+        // ---- GENERAR data.json PARA EL SITIO WEB ----
+        const dataJson = {
+            fechaReporte,
+            generadoEn: ahora.toISOString(),
+            laplata:    lpDatos,
+            viento,
+            pronostico,
+            iguazu:     igDatos,
+            concordia:  coDatos
+        };
 
-        const msg = `🌊 ${titulo} 🌊\n📅 ${fechaReporte}\n\n📍 ${lpTit} (${fecLP})\n📏 Altura: ${aNegrita(altLP)}\n🌬️ Viento: ${infoV}\n\n${shnTit}\n${infoP}\n\n📍 ${igTit} (${fecIg})\n📏 Altura: ${aNegrita(altIg)}\n\n📍 ${coTit} (${fecCo})\n📏 Altura: ${aNegrita(altCo)}`;
-        
-        console.log("📝 PUBLICACIÓN GENERADA:\n", msg);
+        console.log("\n📊 DATOS RECOLECTADOS:");
+        console.log(JSON.stringify(dataJson, null, 2));
+
+        await publicarDataJson(dataJson);
+
+        // ---- PUBLICAR EN FACEBOOK ----
+        const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
+        const pageId          = process.env.FACEBOOK_PAGE_ID;
+
+        const lpTxt = lpDatos   ? lpDatos.textoFB   : "N/D";
+        const igTxt = igDatos   ? igDatos.textoFB   : "N/D";
+        const coTxt = coDatos   ? coDatos.textoFB   : "N/D";
+        const viTxt = viento    ? `${viento.velocidad} km/h ${viento.direccion}` : "N/D";
+        const prTxt = pronostico
+            ? `📈 Pleamar: ${pronostico.pleamar ? pronostico.pleamar.altura+'m el '+pronostico.pleamar.fecha+' '+pronostico.pleamar.hora : 'S/D'}\n📉 Bajamar: ${pronostico.bajamar ? pronostico.bajamar.altura+'m el '+pronostico.bajamar.fecha+' '+pronostico.bajamar.hora : 'S/D'}`
+            : "N/D";
+
+        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊\n📅 ${fechaReporte}\n\n📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(lpTxt)}\n🌬️ Viento: ${viTxt}\n\n⚓ ${aNegrita("SHN:")}\n${prTxt}\n\n📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(igTxt)}\n\n📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(coTxt)}`;
+
+        console.log("\n📝 PUBLICACIÓN FACEBOOK:\n", msg);
 
         if (!pageAccessToken || !pageId) {
-            console.log("⚠️ Faltan credenciales (Token o Page ID). Abortando.");
+            console.log("⚠️  Sin credenciales Facebook — saltando publicación.");
             return;
         }
 
-        try {
-            const urlFb = `https://graph.facebook.com/v19.0/${pageId}/feed`;
-            
-            const res = await fetch(urlFb, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    access_token: pageAccessToken,
-                    message: msg
-                })
-            });
-            
-            const data = await res.json();
-            
-            if (data.error) {
-                console.error(`❌ Error al publicar en Facebook:`, data.error.message);
-            } else {
-                console.log(`✅ ¡Reporte publicado con éxito en el muro! ID del post: ${data.id}`);
-            }
-        } catch (err) {
-            console.error(`❌ Error de red al intentar publicar:`, err.message);
+        const fbRes  = await fetch(`https://graph.facebook.com/v19.0/${pageId}/feed`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ access_token: pageAccessToken, message: msg })
+        });
+        const fbData = await fbRes.json();
+
+        if (fbData.error) {
+            console.error("❌ Error Facebook:", fbData.error.message);
+        } else {
+            console.log(`✅ Publicado en Facebook. ID: ${fbData.id}`);
         }
+
     } catch (e) { console.error("Error fatal:", e.message); }
 }
 
