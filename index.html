@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+<title>Reporte Fluvial</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+  :root{--azul-rio:#0a3d62;--azul-medio:#1a6fa8;--azul-claro:#e8f4fd;--verde-ok:#1e7e34;--verde-bg:#d4edda;--naranja-alerta:#c96c00;--naranja-bg:#fff3cd;--texto:#1a1a2e;--blanco:#ffffff;--radio:20px;--sombra:0 6px 32px rgba(10,61,98,0.13)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(160deg,#d6eaf8 0%,#eaf4fb 40%,#f0f8ff 100%);min-height:100vh;color:var(--texto);-webkit-tap-highlight-color:transparent}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");background-size:100px 20px;pointer-events:none;z-index:0}
+  .contenedor{position:relative;z-index:1;max-width:750px;margin:0 auto;padding:20px 16px 60px}
+  .encabezado{text-align:center;background:var(--azul-rio);border-radius:var(--radio);padding:28px 24px 24px;margin-bottom:20px;box-shadow:var(--sombra);position:relative;overflow:hidden}
+  .encabezado::after{content:'🌊';position:absolute;font-size:120px;opacity:.07;right:-20px;top:-20px;pointer-events:none}
+  .encabezado h1{font-family:'Merriweather',serif;font-size:2rem;font-weight:900;color:var(--blanco);line-height:1.2}
+  .encabezado .subtitulo{font-size:1rem;color:rgba(255,255,255,.8);margin-top:6px}
+  .fecha-actualizacion{display:inline-block;margin-top:14px;background:rgba(255,255,255,.15);color:var(--blanco);padding:8px 18px;border-radius:50px;font-size:.95rem;font-weight:600}
+  .btn-actualizar{display:block;width:100%;background:var(--azul-medio);color:var(--blanco);border:none;border-radius:var(--radio);padding:20px;font-size:1.25rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:20px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none}
+  .btn-actualizar:active{background:#145a8a;transform:scale(.98)}
+  .btn-actualizar:disabled{background:#7aaccc;cursor:default;transform:none}
+  .tarjeta{background:var(--blanco);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .tarjeta-titulo{font-family:'Merriweather',serif;font-size:1.35rem;font-weight:700;color:var(--azul-rio);margin-bottom:4px}
+  .tarjeta-fecha{font-size:.9rem;color:#607080;margin-bottom:16px}
+  .dato-fila{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid #e8eef4}
+  .dato-fila:first-of-type{border-top:none;padding-top:0}
+  .dato-icono{font-size:1.6rem;width:40px;text-align:center;flex-shrink:0;margin-top:2px}
+  .dato-contenido{flex:1}
+  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:#7090a0;font-weight:700;margin-bottom:3px}
+  .dato-valor{font-size:1.5rem;font-weight:700;color:var(--texto);line-height:1.2}
+  .dato-valor.grande{font-size:2rem;color:var(--azul-rio)}
+  .dato-sub{font-size:.9rem;color:#607080;margin-top:3px}
+  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.9rem;font-weight:700;margin-top:6px}
+  .badge-ok{background:var(--verde-bg);color:var(--verde-ok)}
+  .badge-alerta{background:var(--naranja-bg);color:var(--naranja-alerta)}
+  .badge-nd{background:#e9ecef;color:#6c757d}
+  .pronostico-fila{display:flex;gap:12px;margin-top:4px}
+  .pronostico-item{flex:1;background:var(--azul-claro);border-radius:12px;padding:14px;text-align:center}
+  .pronostico-item .tipo{font-size:.85rem;font-weight:700;text-transform:uppercase;color:var(--azul-medio);margin-bottom:6px}
+  .pronostico-item .valor{font-size:1.4rem;font-weight:700;color:var(--azul-rio)}
+  .pronostico-item .detalle{font-size:.85rem;color:#5080a0;margin-top:3px}
+  .cargando{text-align:center;padding:40px 20px;color:var(--azul-medio)}
+  .spinner{width:60px;height:60px;border:6px solid #d0e8f8;border-top-color:var(--azul-medio);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .cargando p{font-size:1.1rem;font-weight:600}
+  .aviso-info{background:#fffbe6;border:2px solid #ffe066;border-radius:var(--radio);padding:16px 20px;font-size:.95rem;color:#7a5c00;margin-bottom:16px;line-height:1.5}
+  .pie{text-align:center;color:#90aabf;font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <header class="encabezado">
+    <h1>🌊 Reporte Fluvial</h1>
+    <p class="subtitulo">Niveles de ríos — Argentina</p>
+    <span class="fecha-actualizacion" id="fechaActualizacion">⏳ Cargando...</span>
+  </header>
+  <button class="btn-actualizar" id="btnActualizar" onclick="cargarDatos()">🔄 &nbsp; Actualizar</button>
+  <div id="contenidoPrincipal">
+    <div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>
+  </div>
+  <footer class="pie">
+    Datos: AGPSE, SHN, INA y Open-Meteo &nbsp;·&nbsp; Se actualiza automáticamente cada 3 horas
+  </footer>
+</div>
+<script>
+// ──────────────────────────────────────────────────────────────
+// Si movés el proyecto a otro repo, cambiá esta URL:
+const DATA_URL = "https://raw.githubusercontent.com/andresehansen/hidrometros/main/data.json";
+// ──────────────────────────────────────────────────────────────
+
+function fechaLegible(str) {
+  if (!str) return '—';
+  const [d,m,y] = str.split('/');
+  return new Date(+y,+m-1,+d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+function badge(antiguo,fuente){return antiguo?`<span class="badge badge-alerta">⚠️ Dato con más de 24 hs</span>`:`<span class="badge badge-ok">✅ Actualizado · ${fuente}</span>`}
+const badgeND=()=>`<span class="badge badge-nd">No disponible ahora</span>`;
+
+function tarjetaLP(d,viento,pron){
+  const vTxt=viento?`${viento.velocidad} km/h · ${viento.direccion}`:'No disponible';
+  const tTxt=viento?`Temperatura: ${viento.temperatura}°C`:'';
+  let pronHTML=`<p style="color:#90aabf;font-size:.95rem">No disponible</p>`;
+  if(pron&&(pron.pleamar||pron.bajamar)){
+    pronHTML=`<div class="pronostico-fila">`;
+    if(pron.pleamar) pronHTML+=`<div class="pronostico-item"><div class="tipo">📈 Pleamar</div><div class="valor">${pron.pleamar.altura} m</div><div class="detalle">${pron.pleamar.fecha} · ${pron.pleamar.hora} hs</div></div>`;
+    if(pron.bajamar) pronHTML+=`<div class="pronostico-item"><div class="tipo">📉 Bajamar</div><div class="valor">${pron.bajamar.altura} m</div><div class="detalle">${pron.bajamar.fecha} · ${pron.bajamar.hora} hs</div></div>`;
+    pronHTML+=`</div>`;
+  }
+  return `<div class="tarjeta">
+    <div class="tarjeta-titulo">⚓ La Plata</div>
+    <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
+    <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
+      <div class="dato-etiqueta">Altura del río</div>
+      ${d?`<div class="dato-valor grande">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div>${badge(d.antiguo,d.fuente)}`:badgeND()}
+    </div></div>
+    <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
+      <div class="dato-etiqueta">Viento</div>
+      <div class="dato-valor">${vTxt}</div>
+      ${tTxt?`<div class="dato-sub">${tTxt}</div>`:''}
+    </div></div>
+    <div class="dato-fila"><div class="dato-icono">🌊</div><div class="dato-contenido">
+      <div class="dato-etiqueta">Pronóstico de mareas (SHN)</div>
+      ${pronHTML}
+    </div></div>
+  </div>`;
+}
+
+function tarjetaRio(nombre,emoji,d){
+  return `<div class="tarjeta">
+    <div class="tarjeta-titulo">${emoji} ${nombre}</div>
+    <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
+    <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
+      <div class="dato-etiqueta">Altura del río</div>
+      ${d?`<div class="dato-valor grande">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div>${badge(d.antiguo,d.fuente)}`:badgeND()}
+    </div></div>
+  </div>`;
+}
+
+async function cargarDatos(){
+  const btn=document.getElementById('btnActualizar');
+  const panel=document.getElementById('contenidoPrincipal');
+  const fEl=document.getElementById('fechaActualizacion');
+  btn.disabled=true; btn.textContent='⏳  Cargando...';
+  panel.innerHTML=`<div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>`;
+  try{
+    const res=await fetch(DATA_URL+'?t='+Date.now());
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const d=await res.json();
+    fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
+    panel.innerHTML=tarjetaLP(d.laplata,d.viento,d.pronostico)+tarjetaRio('Iguazú','🏞️',d.iguazu)+tarjetaRio('Concordia','🌿',d.concordia);
+  }catch(err){
+    console.error(err);
+    fEl.textContent='⚠️ Sin datos';
+    panel.innerHTML=`<div class="aviso-info">😕 No se pudo cargar el reporte en este momento.<br><br>Puede que el reporte aún no se haya generado, o que no haya conexión a Internet. Volvé a intentarlo en unos minutos.</div>`;
+  }
+  btn.disabled=false; btn.textContent='🔄   Actualizar';
+}
+cargarDatos();
+</script>
+</body>
+</html>
