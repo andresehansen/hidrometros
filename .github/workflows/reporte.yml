@@ -1,0 +1,30 @@
+name: Reporte Fluvial
+
+on:
+  schedule:
+    # Cada 3 horas (hora Argentina = UTC-3)
+    - cron: '0 */3 * * *'
+  workflow_dispatch:  # También permite ejecución manual desde GitHub
+
+jobs:
+  reporte:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Necesario para que el script pueda escribir data.json en el repo
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Ejecutar reporte fluvial
+        env:
+          PAGE_ACCESS_TOKEN:  ${{ secrets.PAGE_ACCESS_TOKEN }}
+          FACEBOOK_PAGE_ID:   ${{ secrets.FACEBOOK_PAGE_ID }}
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY:  ${{ github.repository }}
+        run: node index.js
