@@ -1,5 +1,6 @@
 // index.js - Reporte Fluvial
 // Publica en Facebook Y genera data.json para el sitio web
+const https = require('https');  // necesario para TLS inválido en AGPSE
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const urlLaPlata    = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
@@ -234,8 +235,9 @@ async function obtenerDatos() {
             // El log mostrará cuál funcionó para confirmación futura
             lpDatos = await fetchGeoServerINA(
                 "-35.1,-58.2,-34.5,-57.5",   // bbox amplio: cubre Ensenada, La Plata, Berisso
-                "La Plata",
-                [26, 2023, 2029, 2030, 3474, 3475]  // series_id candidatos a probar
+                "La Plata"
+                // Sin series_id: la serie 26 del INA tiene datos con semanas de delay
+                // El GeoServer bbox es el único fallback válido si AGPSE falla
             );
         }
 
