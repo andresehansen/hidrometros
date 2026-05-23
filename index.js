@@ -36,37 +36,86 @@ function esAntiguo(fechaMedicion) {
     return Math.abs(obtenerHoraArgentina() - fechaMedicion) / 36e5 > 24;
 }
 
-// --- LÓGICA DE RESPALDO INA ---
-async function fetchGeoServerINA(bbox, nombrePuerto) {
-    try {
-        console.log(`  → Plan B INA para ${nombrePuerto}...`);
-        const hoy    = obtenerHoraArgentina();
-        const manana = new Date(hoy); manana.setDate(hoy.getDate() + 1);
-        const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 5);
+// --- HELPERS INA ---
 
-        const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(manana)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=150&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
+// Convierte una observación INA a nuestro formato estándar
+function parsearObsINA(prop) {
+    const fechaZ  = new Date(prop.fecha);
+    const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
+    const fecha   = `${argTime.getUTCDate().toString().padStart(2,'0')}/${(argTime.getUTCMonth()+1).toString().padStart(2,'0')}/${argTime.getUTCFullYear()}`;
+    const hora    = `${argTime.getUTCHours().toString().padStart(2,'0')}:${argTime.getUTCMinutes().toString().padStart(2,'0')}`;
+    const antiguo = esAntiguo(argTime);
+    const tag     = antiguo ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
+    return {
+        altura:   parseFloat(prop.valor).toFixed(2),
+        horaStr:  hora,
+        fechaStr: fecha,
+        fuente:   "INA",
+        antiguo,
+        textoFB:  `${parseFloat(prop.valor).toFixed(2)}m (a las ${hora} hs)${tag}`
+    };
+}
 
-        const res  = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" } });
-        const data = await res.json();
+// --- Plan B opción 1: API a5 por series_id (más directa y estable) ---
+async function fetchINA_a5(seriesIds, nombrePuerto) {
+    const hoy    = obtenerHoraArgentina();
+    const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 3);
+    const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 1);
 
-        if (data.features && data.features.length > 0) {
-            const prop    = data.features[0].properties;
-            const fechaZ  = new Date(prop.fecha);
-            const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
-            const fecha   = `${argTime.getUTCDate().toString().padStart(2,'0')}/${(argTime.getUTCMonth()+1).toString().padStart(2,'0')}/${argTime.getUTCFullYear()}`;
-            const hora    = `${argTime.getUTCHours().toString().padStart(2,'0')}:${argTime.getUTCMinutes().toString().padStart(2,'0')}`;
-            const tag     = esAntiguo(argTime) ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
-            return {
-                altura:    parseFloat(prop.valor).toFixed(2),
-                horaStr:   hora,
-                fechaStr:  fecha,
-                fuente:    "INA",
-                antiguo:   esAntiguo(argTime),
-                textoFB:   `${parseFloat(prop.valor).toFixed(2)}m (a las ${hora} hs)${tag}`
-            };
-        }
-    } catch (e) { console.log(`  ⚠️ Error INA ${nombrePuerto}:`, e.message); }
+    for (const sid of seriesIds) {
+        try {
+            console.log(`  → INA a5 series_id=${sid} para ${nombrePuerto}...`);
+            const url = `https://alerta.ina.gob.ar/a5/obs/puntual/series/${sid}/observaciones?timestart=${formatoFechaAPI(inicio)}&timeend=${formatoFechaAPI(fin)}&order=desc&limit=1`;
+            const res = await fetch(url, {
+                headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
+                signal: AbortSignal.timeout(12000)
+            });
+            if (!res.ok) { console.log(`  ⚠️ a5 series ${sid}: HTTP ${res.status}`); continue; }
+            const data = await res.json();
+            const obs  = Array.isArray(data) ? data[0] : (data.observaciones || [])[0];
+            if (obs && obs.valor !== null) {
+                console.log(`  ✅ a5 series_id=${sid}: ${obs.valor}m @ ${obs.timestart}`);
+                return parsearObsINA({ valor: obs.valor, fecha: obs.timestart });
+            }
+        } catch(e) { console.log(`  ⚠️ a5 series ${sid} error: ${e.message}`); }
+    }
     return null;
+}
+
+// --- Plan B opción 2: GeoServer WMS por bbox (fallback geográfico) ---
+async function fetchINA_geoserver(bbox, nombrePuerto) {
+    try {
+        console.log(`  → INA GeoServer bbox para ${nombrePuerto}...`);
+        const hoy    = obtenerHoraArgentina();
+        const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 5);
+        const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 1);
+
+        const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(fin)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
+        const res  = await fetch(url, {
+            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" },
+            signal: AbortSignal.timeout(15000)
+        });
+        const data = await res.json();
+        if (data.features && data.features.length > 0) {
+            // Loguear todas las estaciones encontradas en el bbox para diagnóstico
+            console.log(`  → Estaciones en bbox (${data.features.length}):`);
+            data.features.forEach(f => console.log(`     · ${f.properties.nombre || '?'} | ${f.properties.valor}m | ${f.properties.fecha}`));
+            return parsearObsINA(data.features[0].properties);
+        }
+        console.log(`  ⚠️ GeoServer: 0 estaciones en bbox para ${nombrePuerto}`);
+    } catch (e) { console.log(`  ⚠️ GeoServer ${nombrePuerto} error: ${e.message}`); }
+    return null;
+}
+
+// --- Wrapper unificado ---
+async function fetchGeoServerINA(bbox, nombrePuerto, seriesIds = []) {
+    // Primero intenta por series_id si se proveen
+    if (seriesIds.length > 0) {
+        const res = await fetchINA_a5(seriesIds, nombrePuerto);
+        if (res) return res;
+    }
+    // Fallback al GeoServer por bbox
+    return fetchINA_geoserver(bbox, nombrePuerto);
 }
 
 // --- PUBLICAR data.json EN EL REPO (para que el sitio web lo lea) ---
@@ -128,8 +177,6 @@ async function obtenerDatos() {
         const hoy          = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()}`;
 
         // ---- 1. LA PLATA ----
-        // Bbox para Puerto La Plata: -34.92,-57.93 a -34.83,-57.86
-        const BBOX_LA_PLATA = "-34.92,-57.93,-34.83,-57.86";
         let lpDatos = null;
         try {
             console.log("  → Fuente primaria AGPSE para La Plata...");
@@ -152,7 +199,14 @@ async function obtenerDatos() {
         } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
 
         if (!lpDatos) {
-            lpDatos = await fetchGeoServerINA(BBOX_LA_PLATA, "La Plata");
+            // Series IDs candidatos para Puerto La Plata / Ensenada en el INA
+            // (26 = La Plata histórico, 2023/2024/2025 pueden variar)
+            // El log mostrará cuál funcionó para confirmación futura
+            lpDatos = await fetchGeoServerINA(
+                "-35.1,-58.2,-34.5,-57.5",   // bbox amplio: cubre Ensenada, La Plata, Berisso
+                "La Plata",
+                [26, 2023, 2029, 2030, 3474, 3475]  // series_id candidatos a probar
+            );
         }
 
         // ---- VIENTO ----
