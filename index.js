@@ -59,23 +59,44 @@ function parsearObsINA(prop) {
 // --- Plan B opción 1: API a5 por series_id (más directa y estable) ---
 async function fetchINA_a5(seriesIds, nombrePuerto) {
     const hoy    = obtenerHoraArgentina();
-    const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 3);
+    // Ventana amplia: 7 días (la serie 26 de La Plata puede tener delay de días)
+    const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 7);
     const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 1);
 
     for (const sid of seriesIds) {
         try {
             console.log(`  → INA a5 series_id=${sid} para ${nombrePuerto}...`);
+            // order=desc + limit=1 = observación más reciente disponible
             const url = `https://alerta.ina.gob.ar/a5/obs/puntual/series/${sid}/observaciones?timestart=${formatoFechaAPI(inicio)}&timeend=${formatoFechaAPI(fin)}&order=desc&limit=1`;
             const res = await fetch(url, {
                 headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
-                signal: AbortSignal.timeout(12000)
+                signal: AbortSignal.timeout(15000)
             });
             if (!res.ok) { console.log(`  ⚠️ a5 series ${sid}: HTTP ${res.status}`); continue; }
             const data = await res.json();
-            const obs  = Array.isArray(data) ? data[0] : (data.observaciones || [])[0];
-            if (obs && obs.valor !== null) {
+            const obs = Array.isArray(data) ? data[0] : (data.observaciones || [])[0];
+            if (obs && obs.valor !== null && obs.valor !== undefined) {
                 console.log(`  ✅ a5 series_id=${sid}: ${obs.valor}m @ ${obs.timestart}`);
-                return parsearObsINA({ valor: obs.valor, fecha: obs.timestart });
+                // timestart viene como ISO con timezone, parseamos directamente
+                const fechaLocal = new Date(obs.timestart);
+                const antiguo = esAntiguo(fechaLocal);
+                const dd   = fechaLocal.getDate().toString().padStart(2,'0');
+                const mm   = (fechaLocal.getMonth()+1).toString().padStart(2,'0');
+                const yyyy = fechaLocal.getFullYear();
+                const hh   = fechaLocal.getHours().toString().padStart(2,'0');
+                const min  = fechaLocal.getMinutes().toString().padStart(2,'0');
+                const tag  = antiguo ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
+                console.log(`  → Fecha local: ${dd}/${mm}/${yyyy} ${hh}:${min} | antiguo=${antiguo}`);
+                return {
+                    altura:   parseFloat(obs.valor).toFixed(2),
+                    horaStr:  `${hh}:${min}`,
+                    fechaStr: `${dd}/${mm}/${yyyy}`,
+                    fuente:   "INA",
+                    antiguo,
+                    textoFB:  `${parseFloat(obs.valor).toFixed(2)}m (a las ${hh}:${min} hs)${tag}`
+                };
+            } else {
+                console.log(`  ⚠️ a5 series ${sid}: sin datos en ventana de 7 días`);
             }
         } catch(e) { console.log(`  ⚠️ a5 series ${sid} error: ${e.message}`); }
     }
@@ -177,13 +198,22 @@ async function obtenerDatos() {
         const hoy          = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()}`;
 
         // ---- 1. LA PLATA ----
+        // Usamos https.request con rejectUnauthorized:false porque el servidor
+        // de AGPSE tiene TLS inválido — fetch() no permite bypasear esto.
         let lpDatos = null;
         try {
-            console.log("  → Fuente primaria AGPSE para La Plata...");
-            const r = await fetch(urlLaPlata, { signal: AbortSignal.timeout(12000) });
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            const t = await r.text();
-            const v = t.trim().split('\n').pop().split(',');
+            console.log("  → Fuente primaria AGPSE para La Plata (https.request)...");
+            const txtDat = await new Promise((resolve, reject) => {
+                const req = https.request(urlLaPlata, { rejectUnauthorized: false }, (res) => {
+                    let buf = '';
+                    res.on('data', chunk => buf += chunk);
+                    res.on('end', () => resolve(buf));
+                });
+                req.on('error', reject);
+                req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
+                req.end();
+            });
+            const v = txtDat.trim().split('\n').pop().split(',');
             const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
             const fechaMed = new Date(v[0].replace(/['"]/g, '').replace(' ', 'T') + '-03:00');
             const antiguo  = esAntiguo(fechaMed);
@@ -195,9 +225,9 @@ async function obtenerDatos() {
                 antiguo,
                 textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
             };
-            if (antiguo) lpDatos = null; // fuerza fallback si el dato es viejo
+            console.log(`  ✅ AGPSE La Plata: ${lpDatos.altura}m @ ${lpDatos.fechaStr} ${lpDatos.horaStr} | antiguo=${antiguo}`);
+            if (antiguo) { console.log("  ⚠️ Dato viejo, intentando fallback..."); lpDatos = null; }
         } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
-
         if (!lpDatos) {
             // Series IDs candidatos para Puerto La Plata / Ensenada en el INA
             // (26 = La Plata histórico, 2023/2024/2025 pueden variar)
