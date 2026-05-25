@@ -67,7 +67,6 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
     for (const sid of seriesIds) {
         try {
             console.log(`  → INA a5 series_id=${sid} para ${nombrePuerto}...`);
-            // order=desc + limit=1 = observación más reciente disponible
             const url = `https://alerta.ina.gob.ar/a5/obs/puntual/series/${sid}/observaciones?timestart=${formatoFechaAPI(inicio)}&timeend=${formatoFechaAPI(fin)}&order=desc&limit=1`;
             const res = await fetch(url, {
                 headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
@@ -78,7 +77,6 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
             const obs = Array.isArray(data) ? data[0] : (data.observaciones || [])[0];
             if (obs && obs.valor !== null && obs.valor !== undefined) {
                 console.log(`  ✅ a5 series_id=${sid}: ${obs.valor}m @ ${obs.timestart}`);
-                // timestart viene como ISO con timezone, parseamos directamente
                 const fechaLocal = new Date(obs.timestart);
                 const antiguo = esAntiguo(fechaLocal);
                 const dd   = fechaLocal.getDate().toString().padStart(2,'0');
@@ -87,7 +85,6 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
                 const hh   = fechaLocal.getHours().toString().padStart(2,'0');
                 const min  = fechaLocal.getMinutes().toString().padStart(2,'0');
                 const tag  = antiguo ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
-                console.log(`  → Fecha local: ${dd}/${mm}/${yyyy} ${hh}:${min} | antiguo=${antiguo}`);
                 return {
                     altura:   parseFloat(obs.valor).toFixed(2),
                     horaStr:  `${hh}:${min}`,
@@ -96,8 +93,6 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
                     antiguo,
                     textoFB:  `${parseFloat(obs.valor).toFixed(2)}m (a las ${hh}:${min} hs)${tag}`
                 };
-            } else {
-                console.log(`  ⚠️ a5 series ${sid}: sin datos en ventana de 7 días`);
             }
         } catch(e) { console.log(`  ⚠️ a5 series ${sid} error: ${e.message}`); }
     }
@@ -114,33 +109,27 @@ async function fetchINA_geoserver(bbox, nombrePuerto) {
 
         const url = `https://alerta.ina.gob.ar/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=public2%3Aultimas_alturas_con_timeseries&LAYERS=public2%3Aultimas_alturas_con_timeseries&VIEWPARAMS=timeStart%3A${formatoFechaAPI(inicio)}%3BtimeEnd%3A${formatoFechaAPI(fin)}%3B&STYLES=&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&I=50&J=50&CRS=EPSG%3A4326&WIDTH=101&HEIGHT=101&BBOX=${bbox}`;
         const res  = await fetch(url, {
-            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36" },
+            headers: { "User-Agent": "Mozilla/5.0" },
             signal: AbortSignal.timeout(15000)
         });
         const data = await res.json();
         if (data.features && data.features.length > 0) {
-            // Loguear todas las estaciones encontradas en el bbox para diagnóstico
-            console.log(`  → Estaciones en bbox (${data.features.length}):`);
-            data.features.forEach(f => console.log(`     · ${f.properties.nombre || '?'} | ${f.properties.valor}m | ${f.properties.fecha}`));
             return parsearObsINA(data.features[0].properties);
         }
-        console.log(`  ⚠️ GeoServer: 0 estaciones en bbox para ${nombrePuerto}`);
     } catch (e) { console.log(`  ⚠️ GeoServer ${nombrePuerto} error: ${e.message}`); }
     return null;
 }
 
 // --- Wrapper unificado ---
 async function fetchGeoServerINA(bbox, nombrePuerto, seriesIds = []) {
-    // Primero intenta por series_id si se proveen
     if (seriesIds.length > 0) {
         const res = await fetchINA_a5(seriesIds, nombrePuerto);
         if (res) return res;
     }
-    // Fallback al GeoServer por bbox
     return fetchINA_geoserver(bbox, nombrePuerto);
 }
 
-// --- PUBLICAR data.json EN EL REPO (para que el sitio web lo lea) ---
+// --- PUBLICAR data.json EN EL REPO ---
 async function publicarDataJson(datos) {
     const token = process.env.GITHUB_TOKEN;
     const owner = process.env.GITHUB_REPOSITORY?.split('/')[0];
@@ -154,7 +143,6 @@ async function publicarDataJson(datos) {
     const contenido = Buffer.from(JSON.stringify(datos, null, 2)).toString('base64');
     const apiUrl    = `https://api.github.com/repos/${owner}/${repo}/contents/data.json`;
 
-    // Obtener SHA del archivo actual (necesario para actualizar)
     let sha = undefined;
     try {
         const getRes = await fetch(apiUrl, {
@@ -198,12 +186,23 @@ async function obtenerDatos() {
         const fechaReporte = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()} a las ${ahora.getHours().toString().padStart(2,'0')}:${ahora.getMinutes().toString().padStart(2,'0')} hs`;
         const hoy          = `${ahora.getDate().toString().padStart(2,'0')}/${(ahora.getMonth()+1).toString().padStart(2,'0')}/${ahora.getFullYear()}`;
 
+        // 0. OBTENER DATOS HISTÓRICOS ANTERIORES DESDE EL REPO
+        let datosAnteriores = {};
+        try {
+            console.log("  → Obteniendo data.json anterior para conservar historial...");
+            const urlDataJson = `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY || 'andresehansen/hidrometros'}/main/data.json?t=${Date.now()}`;
+            const resHist = await fetch(urlDataJson);
+            if (resHist.ok) {
+                datosAnteriores = await resHist.json();
+            }
+        } catch(e) {
+            console.log("  ⚠️ No se pudo obtener el data.json anterior. Se empezará desde cero.");
+        }
+
         // ---- 1. LA PLATA ----
-        // Usamos https.request con rejectUnauthorized:false porque el servidor
-        // de AGPSE tiene TLS inválido — fetch() no permite bypasear esto.
         let lpDatos = null;
         try {
-            console.log("  → Fuente primaria AGPSE para La Plata (https.request)...");
+            console.log("  → Fuente primaria AGPSE para La Plata...");
             const txtDat = await new Promise((resolve, reject) => {
                 const req = https.request(urlLaPlata, { rejectUnauthorized: false }, (res) => {
                     let buf = '';
@@ -226,19 +225,11 @@ async function obtenerDatos() {
                 antiguo,
                 textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
             };
-            console.log(`  ✅ AGPSE La Plata: ${lpDatos.altura}m @ ${lpDatos.fechaStr} ${lpDatos.horaStr} | antiguo=${antiguo}`);
-            if (antiguo) { console.log("  ⚠️ Dato viejo, intentando fallback..."); lpDatos = null; }
+            if (antiguo) lpDatos = null; 
         } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
+        
         if (!lpDatos) {
-            // Series IDs candidatos para Puerto La Plata / Ensenada en el INA
-            // (26 = La Plata histórico, 2023/2024/2025 pueden variar)
-            // El log mostrará cuál funcionó para confirmación futura
-            lpDatos = await fetchGeoServerINA(
-                "-35.1,-58.2,-34.5,-57.5",   // bbox amplio: cubre Ensenada, La Plata, Berisso
-                "La Plata"
-                // Sin series_id: la serie 26 del INA tiene datos con semanas de delay
-                // El GeoServer bbox es el único fallback válido si AGPSE falla
-            );
+            lpDatos = await fetchGeoServerINA("-35.1,-58.2,-34.5,-57.5", "La Plata");
         }
 
         // ---- VIENTO ----
@@ -284,14 +275,11 @@ async function obtenerDatos() {
                 antiguo,
                 textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
             };
-            if (antiguo) igDatos = null; // fuerza fallback a INA si es viejo
+            if (antiguo) igDatos = null; 
         } catch (e) { console.log("⚠️ Error Iguazú primario:", e.message); }
 
         if (!igDatos) {
-            igDatos = await fetchGeoServerINA(
-                "-25.648033618927002,-54.64118957519531,-25.509331226348877,-54.50248718261719",
-                "Iguazú"
-            );
+            igDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú");
         }
 
         // ---- 3. CONCORDIA ----
@@ -323,11 +311,38 @@ async function obtenerDatos() {
         } catch (e) { console.log("⚠️ Error Concordia primario:", e.message); }
 
         if (!coDatos) {
-            coDatos = await fetchGeoServerINA(
-                "-31.41860783100128,-58.03407669067383,-31.38393223285675,-57.9994010925293",
-                "Concordia"
-            );
+            coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia");
         }
+
+        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE 20 REGISTROS ---
+        function getHistorico(puertoKey, nuevoDato) {
+            let hist = (datosAnteriores[puertoKey] && datosAnteriores[puertoKey].historico) ? datosAnteriores[puertoKey].historico : [];
+            if (nuevoDato && !nuevoDato.antiguo) {
+                const ultimo = hist.length > 0 ? hist[hist.length - 1] : null;
+                // Evitamos sumar la medición si ya está guardada (misma fecha y hora)
+                if (!ultimo || ultimo.fechaStr !== nuevoDato.fechaStr || ultimo.horaStr !== nuevoDato.horaStr) {
+                    hist.push({
+                        altura: nuevoDato.altura,
+                        fechaStr: nuevoDato.fechaStr,
+                        horaStr: nuevoDato.horaStr
+                    });
+                }
+            }
+            // Retorna solo los últimos 20 elementos
+            return hist.slice(-20);
+        }
+
+        // ---- ASIGNACIÓN DE HISTORIAL O RECUPERACIÓN DE FALLBACK ----
+        // Si no se pudo obtener el dato nuevo, preservamos el dato histórico viejo para que no desaparezca.
+        
+        if (lpDatos) lpDatos.historico = getHistorico('laplata', lpDatos);
+        else if (datosAnteriores.laplata) lpDatos = datosAnteriores.laplata;
+
+        if (igDatos) igDatos.historico = getHistorico('iguazu', igDatos);
+        else if (datosAnteriores.iguazu) igDatos = datosAnteriores.iguazu;
+
+        if (coDatos) coDatos.historico = getHistorico('concordia', coDatos);
+        else if (datosAnteriores.concordia) coDatos = datosAnteriores.concordia;
 
         // ---- GENERAR data.json PARA EL SITIO WEB ----
         const dataJson = {
@@ -339,9 +354,6 @@ async function obtenerDatos() {
             iguazu:     igDatos,
             concordia:  coDatos
         };
-
-        console.log("\n📊 DATOS RECOLECTADOS:");
-        console.log(JSON.stringify(dataJson, null, 2));
 
         await publicarDataJson(dataJson);
 
