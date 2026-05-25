@@ -248,18 +248,35 @@ async function obtenerDatos() {
             };
         } catch (e) { console.log("⚠️ Error clima:", e.message); }
 
-        // ---- PRONÓSTICO ----
+// ---- PRONÓSTICO ----
         let pronostico = null;
         try {
-            const rp = await fetch(urlPronostico);
-            const hp = (await rp.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+            // Reemplazamos fetch por https.request para bypasear TLS y agregar User-Agent
+            const rpText = await new Promise((resolve, reject) => {
+                const req = https.request(urlPronostico, { 
+                    rejectUnauthorized: false,
+                    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36' }
+                }, (res) => {
+                    let buf = '';
+                    res.on('data', chunk => buf += chunk);
+                    res.on('end', () => resolve(buf));
+                });
+                req.on('error', reject);
+                req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
+                req.end();
+            });
+
+            const hp = rpText.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
             const mp = hp.match(/PUERTO LA PLATA.*?PLEA-?MAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})\s*(\d{2}\/\d{2}\/\d{4})/i);
             const mb = hp.match(/PUERTO LA PLATA.*?BAJAMAR\s*(\d{2}:\d{2})\s*(\d+\.\d{2})\s*(\d{2}\/\d{2}\/\d{4})/i);
+            
             pronostico = {
                 pleamar: mp ? { hora: mp[1], altura: mp[2], fecha: mp[3].substring(0, 5) } : null,
                 bajamar: mb ? { hora: mb[1], altura: mb[2], fecha: mb[3].substring(0, 5) } : null
             };
-        } catch (e) { console.log("⚠️ Error pronóstico:", e.message); }
+        } catch (e) { 
+            console.log("⚠️ Error pronóstico:", e.message); 
+        }
 
         // ---- 2. IGUAZÚ ----
         let igDatos = null;
