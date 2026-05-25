@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "25/05/2026 a las 20:42 hs",
-  "generadoEn": "2026-05-25T20:42:13.730Z",
+  "fechaReporte": "25/05/2026 a las 20:54 hs",
+  "generadoEn": "2026-05-25T20:54:22.396Z",
   "laplata": {
     "altura": "0.73",
     "horaStr": "20:30",
@@ -28,17 +28,28 @@
   },
   "viento": {
     "velocidad": 1.5,
-    "direccion": "Este (E)",
-    "temperatura": 11.3
+    "direccion": "Sureste (SE)",
+    "temperatura": 11
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "03:00",
+      "altura": "0.90",
+      "fecha": "26/05"
+    },
+    "bajamar": {
+      "hora": "21:00",
+      "altura": "0.50",
+      "fecha": "25/05"
+    }
+  },
   "iguazu": {
-    "altura": "7.89",
-    "horaStr": "20:20",
+    "altura": "7.99",
+    "horaStr": "20:40",
     "fechaStr": "25/05/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "7.89m (a las 20:20 hs)",
+    "textoFB": "7.99m (a las 20:40 hs)",
     "historico": [
       {
         "altura": "6.76",
@@ -49,6 +60,11 @@
         "altura": "7.89",
         "fechaStr": "25/05/2026",
         "horaStr": "20:20"
+      },
+      {
+        "altura": "7.99",
+        "fechaStr": "25/05/2026",
+        "horaStr": "20:40"
       }
     ]
   },
