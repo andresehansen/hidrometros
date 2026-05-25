@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
 <title>Reporte Fluvial</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
   :root{--azul-rio:#0a3d62;--azul-medio:#1a6fa8;--azul-claro:#e8f4fd;--verde-ok:#1e7e34;--verde-bg:#d4edda;--naranja-alerta:#c96c00;--naranja-bg:#fff3cd;--texto:#1a1a2e;--blanco:#ffffff;--radio:20px;--sombra:0 6px 32px rgba(10,61,98,0.13)}
@@ -46,6 +47,13 @@
   .cargando p{font-size:1.1rem;font-weight:600}
   .aviso-info{background:#fffbe6;border:2px solid #ffe066;border-radius:var(--radio);padding:16px 20px;font-size:.95rem;color:#7a5c00;margin-bottom:16px;line-height:1.5}
   .pie{text-align:center;color:#90aabf;font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
+  
+  /* Estilos para el historial */
+  details { margin-top: 15px; border-top: 1px solid #e8eef4; padding-top: 12px; }
+  summary { font-size: 0.95rem; font-weight: 700; color: var(--azul-medio); cursor: pointer; list-style: none; user-select: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: '📊 '; }
+  .historial-chart { width: 100%; height: 140px; margin-top: 15px; }
 </style>
 </head>
 <body>
@@ -65,7 +73,6 @@
 </div>
 <script>
 // ──────────────────────────────────────────────────────────────
-// Si movés el proyecto a otro repo, cambiá esta URL:
 const DATA_URL = "https://raw.githubusercontent.com/andresehansen/hidrometros/main/data.json";
 // ──────────────────────────────────────────────────────────────
 
@@ -87,6 +94,16 @@ function tarjetaLP(d,viento,pron){
     if(pron.bajamar) pronHTML+=`<div class="pronostico-item"><div class="tipo">📉 Bajamar</div><div class="valor">${pron.bajamar.altura} m</div><div class="detalle">${pron.bajamar.fecha} · ${pron.bajamar.hora} hs</div></div>`;
     pronHTML+=`</div>`;
   }
+  
+  let histHTML = '';
+  if (d && d.historico && d.historico.length > 1) {
+    histHTML = `
+    <details>
+      <summary>Ver historial (últimas ${d.historico.length} mediciones)</summary>
+      <div class="historial-chart"><canvas id="chart-laplata"></canvas></div>
+    </details>`;
+  }
+
   return `<div class="tarjeta">
     <div class="tarjeta-titulo">⚓ La Plata</div>
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
@@ -103,10 +120,20 @@ function tarjetaLP(d,viento,pron){
       <div class="dato-etiqueta">Pronóstico de mareas (SHN)</div>
       ${pronHTML}
     </div></div>
+    ${histHTML}
   </div>`;
 }
 
-function tarjetaRio(nombre,emoji,d){
+function tarjetaRio(nombre,emoji,d,idChart){
+  let histHTML = '';
+  if (d && d.historico && d.historico.length > 1) {
+    histHTML = `
+    <details>
+      <summary>Ver historial (últimas ${d.historico.length} mediciones)</summary>
+      <div class="historial-chart"><canvas id="chart-${idChart}"></canvas></div>
+    </details>`;
+  }
+
   return `<div class="tarjeta">
     <div class="tarjeta-titulo">${emoji} ${nombre}</div>
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
@@ -114,7 +141,43 @@ function tarjetaRio(nombre,emoji,d){
       <div class="dato-etiqueta">Altura del río</div>
       ${d?`<div class="dato-valor grande">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div>${badge(d.antiguo,d.fuente)}`:badgeND()}
     </div></div>
+    ${histHTML}
   </div>`;
+}
+
+function renderizarGraficos(d) {
+  const render = (hist, idElement) => {
+    const canvas = document.getElementById(idElement);
+    if (!canvas) return;
+    new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: hist.map(h => h.horaStr),
+        datasets: [{
+          data: hist.map(h => parseFloat(h.altura)),
+          borderColor: '#1a6fa8',
+          backgroundColor: 'rgba(26,111,168,0.15)',
+          borderWidth: 2,
+          fill: true,
+          pointRadius: 3,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 45 } },
+          y: { ticks: { font: { size: 11 } } }
+        }
+      }
+    });
+  };
+
+  if (d.laplata && d.laplata.historico) render(d.laplata.historico, 'chart-laplata');
+  if (d.iguazu && d.iguazu.historico) render(d.iguazu.historico, 'chart-iguazu');
+  if (d.concordia && d.concordia.historico) render(d.concordia.historico, 'chart-concordia');
 }
 
 async function cargarDatos(){
@@ -128,7 +191,14 @@ async function cargarDatos(){
     if(!res.ok) throw new Error('HTTP '+res.status);
     const d=await res.json();
     fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
-    panel.innerHTML=tarjetaLP(d.laplata,d.viento,d.pronostico)+tarjetaRio('Iguazú','🏞️',d.iguazu)+tarjetaRio('Concordia','🌿',d.concordia);
+    
+    panel.innerHTML= tarjetaLP(d.laplata,d.viento,d.pronostico) + 
+                     tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu') + 
+                     tarjetaRio('Concordia','🌿',d.concordia,'concordia');
+                     
+    // Renderizamos los gráficos de Chart.js luego de inyectar el HTML
+    renderizarGraficos(d);
+                     
   }catch(err){
     console.error(err);
     fEl.textContent='⚠️ Sin datos';
