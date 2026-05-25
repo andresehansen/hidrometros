@@ -146,13 +146,16 @@ async function publicarDataJson(datos) {
     let sha = undefined;
     try {
         const getRes = await fetch(apiUrl, {
-            headers: { Authorization: `token ${token}`, "User-Agent": "hidrometros-bot" }
+            // Cambiado a Bearer y agregando Accept de la API v3
+            headers: { Authorization: `Bearer ${token}`, "User-Agent": "hidrometros-bot", "Accept": "application/vnd.github.v3+json" }
         });
         if (getRes.ok) {
             const getData = await getRes.json();
             sha = getData.sha;
+        } else {
+            console.log(`⚠️ No se pudo obtener el SHA anterior (HTTP ${getRes.status})`);
         }
-    } catch (e) { /* Primera vez, no hay SHA */ }
+    } catch (e) { console.log(`⚠️ Error red obteniendo SHA: ${e.message}`); }
 
     const body = {
         message: `datos: actualización ${datos.fechaReporte}`,
@@ -163,15 +166,16 @@ async function publicarDataJson(datos) {
     const putRes = await fetch(apiUrl, {
         method:  "PUT",
         headers: {
-            Authorization:  `token ${token}`,
+            Authorization:  `Bearer ${token}`,
             "Content-Type": "application/json",
-            "User-Agent":   "hidrometros-bot"
+            "User-Agent":   "hidrometros-bot",
+            "Accept":       "application/vnd.github.v3+json"
         },
         body: JSON.stringify(body)
     });
 
     if (putRes.ok) {
-        console.log("✅ data.json actualizado en el repo");
+        console.log("✅ data.json actualizado en el repo (Página Web al día)");
     } else {
         const err = await putRes.json();
         console.error("❌ Error actualizando data.json:", err.message);
