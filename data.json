@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "28/05/2026 a las 12:19 hs",
-  "generadoEn": "2026-05-28T12:19:19.440Z",
+  "fechaReporte": "28/05/2026 a las 13:19 hs",
+  "generadoEn": "2026-05-28T13:19:19.510Z",
   "laplata": {
-    "altura": "0.89",
-    "horaStr": "12:00",
+    "altura": "1.08",
+    "horaStr": "13:00",
     "fechaStr": "28/05/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.89m (a las 12:00 hs)",
+    "textoFB": "1.08m (a las 13:00 hs)",
     "historico": [
-      {
-        "altura": "0.82",
-        "fechaStr": "27/05/2026",
-        "horaStr": "20:30"
-      },
       {
         "altura": "0.78",
         "fechaStr": "27/05/2026",
@@ -108,39 +103,28 @@
         "altura": "0.89",
         "fechaStr": "28/05/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "1.08",
+        "fechaStr": "28/05/2026",
+        "horaStr": "13:00"
       }
     ]
   },
   "viento": {
-    "velocidad": 10.8,
+    "velocidad": 11.6,
     "direccion": "Este (E)",
     "temperatura": 14.1
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "17:00",
-      "altura": "1.45",
-      "fecha": "28/05"
-    },
-    "bajamar": {
-      "hora": "10:00",
-      "altura": "0.60",
-      "fecha": "28/05"
-    }
-  },
+  "pronostico": null,
   "iguazu": {
-    "altura": "8.05",
-    "horaStr": "12:00",
+    "altura": "8.80",
+    "horaStr": "00:00",
     "fechaStr": "28/05/2026",
-    "fuente": "AGPSE",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "8.05m (a las 12:00 hs)",
+    "textoFB": "8.80m (a las 00:00 hs) (Fuente: INA)",
     "historico": [
-      {
-        "altura": "8.44",
-        "fechaStr": "27/05/2026",
-        "horaStr": "03:00"
-      },
       {
         "altura": "8.15",
         "fechaStr": "27/05/2026",
@@ -235,16 +219,21 @@
         "altura": "8.05",
         "fechaStr": "28/05/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "8.80",
+        "fechaStr": "28/05/2026",
+        "horaStr": "00:00"
       }
     ]
   },
   "concordia": {
-    "altura": "4.12",
-    "horaStr": "00:00",
+    "altura": "2.2",
+    "horaStr": "12:00",
     "fechaStr": "28/05/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "4.12m (a las 00:00 hs)",
+    "textoFB": "2.2m (a las 12:00 hs)",
     "historico": [
       {
         "altura": "4.5",
@@ -280,6 +269,11 @@
         "altura": "4.12",
         "fechaStr": "28/05/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "2.2",
+        "fechaStr": "28/05/2026",
+        "horaStr": "12:00"
       }
     ]
   }
