@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "28/05/2026 a las 00:19 hs",
-  "generadoEn": "2026-05-28T00:19:18.458Z",
+  "fechaReporte": "28/05/2026 a las 01:19 hs",
+  "generadoEn": "2026-05-28T01:19:18.635Z",
   "laplata": {
-    "altura": "0.82",
-    "horaStr": "00:10",
+    "altura": "0.89",
+    "horaStr": "01:00",
     "fechaStr": "28/05/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.82m (a las 00:10 hs)",
+    "textoFB": "0.89m (a las 01:00 hs)",
     "historico": [
-      {
-        "altura": "0.43",
-        "fechaStr": "27/05/2026",
-        "horaStr": "10:10"
-      },
       {
         "altura": "0.63",
         "fechaStr": "27/05/2026",
@@ -108,13 +103,18 @@
         "altura": "0.82",
         "fechaStr": "28/05/2026",
         "horaStr": "00:10"
+      },
+      {
+        "altura": "0.89",
+        "fechaStr": "28/05/2026",
+        "horaStr": "01:00"
       }
     ]
   },
   "viento": {
-    "velocidad": 10.7,
-    "direccion": "Noreste (NE)",
-    "temperatura": 12.9
+    "velocidad": 8.6,
+    "direccion": "Norte (N)",
+    "temperatura": 12.8
   },
   "pronostico": {
     "pleamar": {
@@ -133,8 +133,8 @@
     "horaStr": "00:00",
     "fechaStr": "27/05/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "8.10m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "8.10m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "historico": [
       {
         "altura": "9.06",
@@ -239,12 +239,12 @@
     ]
   },
   "concordia": {
-    "altura": "2.72",
-    "horaStr": "12:00",
-    "fechaStr": "27/05/2026",
+    "altura": "4.12",
+    "horaStr": "00:00",
+    "fechaStr": "28/05/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "2.72m (a las 12:00 hs)",
+    "textoFB": "4.12m (a las 00:00 hs)",
     "historico": [
       {
         "altura": "4.5",
@@ -275,6 +275,11 @@
         "altura": "2.72",
         "fechaStr": "27/05/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "4.12",
+        "fechaStr": "28/05/2026",
+        "horaStr": "00:00"
       }
     ]
   }
