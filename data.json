@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "29/05/2026 a las 09:19 hs",
-  "generadoEn": "2026-05-29T09:19:19.069Z",
+  "fechaReporte": "29/05/2026 a las 09:28 hs",
+  "generadoEn": "2026-05-29T09:28:20.221Z",
   "laplata": {
     "altura": "0.70",
     "horaStr": "09:10",
@@ -116,20 +116,26 @@
     "direccion": "Este (E)",
     "temperatura": 12.7
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "19:00",
+      "altura": "1.00",
+      "fecha": "29/05"
+    },
+    "bajamar": {
+      "hora": "11:30",
+      "altura": "0.50",
+      "fecha": "29/05"
+    }
+  },
   "iguazu": {
-    "altura": "8.23",
-    "horaStr": "09:00",
+    "altura": "8.16",
+    "horaStr": "09:20",
     "fechaStr": "29/05/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "8.23m (a las 09:00 hs)",
+    "textoFB": "8.16m (a las 09:20 hs)",
     "historico": [
-      {
-        "altura": "8.80",
-        "fechaStr": "28/05/2026",
-        "horaStr": "00:00"
-      },
       {
         "altura": "7.84",
         "fechaStr": "28/05/2026",
@@ -224,6 +230,11 @@
         "altura": "8.23",
         "fechaStr": "29/05/2026",
         "horaStr": "09:00"
+      },
+      {
+        "altura": "8.16",
+        "fechaStr": "29/05/2026",
+        "horaStr": "09:20"
       }
     ]
   },
