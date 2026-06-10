@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "10/06/2026 a las 05:19 hs",
-  "generadoEn": "2026-06-10T05:19:20.493Z",
+  "fechaReporte": "10/06/2026 a las 06:19 hs",
+  "generadoEn": "2026-06-10T06:19:21.093Z",
   "laplata": {
-    "altura": "0.46",
-    "horaStr": "03:45",
+    "altura": "0.25",
+    "horaStr": "06:10",
     "fechaStr": "10/06/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.46m (a las 03:45 hs) (Fuente: INA)",
+    "textoFB": "0.25m (a las 06:10 hs)",
     "historico": [
-      {
-        "altura": "1.10",
-        "fechaStr": "09/06/2026",
-        "horaStr": "15:10"
-      },
       {
         "altura": "0.98",
         "fechaStr": "09/06/2026",
@@ -108,28 +103,39 @@
         "altura": "0.46",
         "fechaStr": "10/06/2026",
         "horaStr": "03:45"
+      },
+      {
+        "altura": "0.25",
+        "fechaStr": "10/06/2026",
+        "horaStr": "06:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 2.7,
-    "direccion": "Oeste (W)",
-    "temperatura": 10.1
+    "velocidad": 2.3,
+    "direccion": "Norte (N)",
+    "temperatura": 10.7
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "12:00",
+      "altura": "1.00",
+      "fecha": "10/06"
+    },
+    "bajamar": {
+      "hora": "06:00",
+      "altura": "0.50",
+      "fecha": "10/06"
+    }
+  },
   "iguazu": {
     "altura": "8.82",
-    "horaStr": "05:00",
+    "horaStr": "06:00",
     "fechaStr": "10/06/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "8.82m (a las 05:00 hs)",
+    "textoFB": "8.82m (a las 06:00 hs)",
     "historico": [
-      {
-        "altura": "8.42",
-        "fechaStr": "09/06/2026",
-        "horaStr": "06:00"
-      },
       {
         "altura": "8.53",
         "fechaStr": "09/06/2026",
@@ -224,6 +230,11 @@
         "altura": "8.82",
         "fechaStr": "10/06/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "8.82",
+        "fechaStr": "10/06/2026",
+        "horaStr": "06:00"
       }
     ]
   },
