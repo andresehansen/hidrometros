@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "17/06/2026 a las 10:19 hs",
-  "generadoEn": "2026-06-17T10:19:25.440Z",
+  "fechaReporte": "17/06/2026 a las 11:03 hs",
+  "generadoEn": "2026-06-17T11:03:56.011Z",
   "laplata": {
-    "altura": "1.68",
-    "horaStr": "10:10",
+    "altura": "1.57",
+    "horaStr": "10:50",
     "fechaStr": "17/06/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.68m (a las 10:10 hs)",
+    "textoFB": "1.57m (a las 10:50 hs)",
     "historico": [
-      {
-        "altura": "0.81",
-        "fechaStr": "16/06/2026",
-        "horaStr": "18:40"
-      },
       {
         "altura": "0.83",
         "fechaStr": "16/06/2026",
@@ -108,28 +103,39 @@
         "altura": "1.68",
         "fechaStr": "17/06/2026",
         "horaStr": "10:10"
+      },
+      {
+        "altura": "1.57",
+        "fechaStr": "17/06/2026",
+        "horaStr": "10:50"
       }
     ]
   },
   "viento": {
-    "velocidad": 7.6,
+    "velocidad": 8.4,
     "direccion": "Sureste (SE)",
-    "temperatura": 9.2
+    "temperatura": 10.9
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "19:00",
+      "altura": "1.60",
+      "fecha": "17/06"
+    },
+    "bajamar": {
+      "hora": "14:00",
+      "altura": "1.00",
+      "fecha": "17/06"
+    }
+  },
   "iguazu": {
-    "altura": "9.76",
-    "horaStr": "09:40",
+    "altura": "10.00",
+    "horaStr": "00:00",
     "fechaStr": "17/06/2026",
-    "fuente": "AGPSE",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "9.76m (a las 09:40 hs)",
+    "textoFB": "10.00m (a las 00:00 hs) (Fuente: INA)",
     "historico": [
-      {
-        "altura": "9.03",
-        "fechaStr": "16/06/2026",
-        "horaStr": "15:20"
-      },
       {
         "altura": "9.16",
         "fechaStr": "16/06/2026",
@@ -224,6 +230,11 @@
         "altura": "9.76",
         "fechaStr": "17/06/2026",
         "horaStr": "09:40"
+      },
+      {
+        "altura": "10.00",
+        "fechaStr": "17/06/2026",
+        "horaStr": "00:00"
       }
     ]
   },
