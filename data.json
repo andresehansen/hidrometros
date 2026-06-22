@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "22/06/2026 a las 02:19 hs",
-  "generadoEn": "2026-06-22T02:19:19.994Z",
+  "fechaReporte": "22/06/2026 a las 03:19 hs",
+  "generadoEn": "2026-06-22T03:19:21.276Z",
   "laplata": {
-    "altura": "0.76",
-    "horaStr": "02:10",
+    "altura": "0.65",
+    "horaStr": "03:10",
     "fechaStr": "22/06/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.76m (a las 02:10 hs)",
+    "textoFB": "0.65m (a las 03:10 hs)",
     "historico": [
-      {
-        "altura": "0.83",
-        "fechaStr": "21/06/2026",
-        "horaStr": "13:50"
-      },
       {
         "altura": "0.77",
         "fechaStr": "21/06/2026",
@@ -108,28 +103,39 @@
         "altura": "0.76",
         "fechaStr": "22/06/2026",
         "horaStr": "02:10"
+      },
+      {
+        "altura": "0.65",
+        "fechaStr": "22/06/2026",
+        "horaStr": "03:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 9.2,
-    "direccion": "Oeste (W)",
-    "temperatura": 8.5
+    "velocidad": 9.7,
+    "direccion": "Suroeste (SW)",
+    "temperatura": 7.5
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "00:00",
+      "altura": "1.10",
+      "fecha": "22/06"
+    },
+    "bajamar": {
+      "hora": "06:00",
+      "altura": "0.55",
+      "fecha": "22/06"
+    }
+  },
   "iguazu": {
-    "altura": "9.40",
-    "horaStr": "02:00",
+    "altura": "9.35",
+    "horaStr": "03:00",
     "fechaStr": "22/06/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "9.40m (a las 02:00 hs)",
+    "textoFB": "9.35m (a las 03:00 hs)",
     "historico": [
-      {
-        "altura": "8.83",
-        "fechaStr": "21/06/2026",
-        "horaStr": "07:40"
-      },
       {
         "altura": "8.80",
         "fechaStr": "21/06/2026",
@@ -224,6 +230,11 @@
         "altura": "9.40",
         "fechaStr": "22/06/2026",
         "horaStr": "02:00"
+      },
+      {
+        "altura": "9.35",
+        "fechaStr": "22/06/2026",
+        "horaStr": "03:00"
       }
     ]
   },
