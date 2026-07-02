@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "01/07/2026 a las 23:19 hs",
-  "generadoEn": "2026-07-01T23:19:19.819Z",
+  "fechaReporte": "02/07/2026 a las 00:19 hs",
+  "generadoEn": "2026-07-02T00:19:21.074Z",
   "laplata": {
-    "altura": "2.29",
-    "horaStr": "23:10",
-    "fechaStr": "01/07/2026",
+    "altura": "2.37",
+    "horaStr": "00:10",
+    "fechaStr": "02/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "2.29m (a las 23:10 hs)",
+    "textoFB": "2.37m (a las 00:10 hs)",
     "historico": [
-      {
-        "altura": "1.10",
-        "fechaStr": "01/07/2026",
-        "horaStr": "11:10"
-      },
       {
         "altura": "1.09",
         "fechaStr": "01/07/2026",
@@ -108,28 +103,39 @@
         "altura": "2.29",
         "fechaStr": "01/07/2026",
         "horaStr": "23:10"
+      },
+      {
+        "altura": "2.37",
+        "fechaStr": "02/07/2026",
+        "horaStr": "00:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 15.4,
+    "velocidad": 15.9,
     "direccion": "Sur (S)",
-    "temperatura": 7.4
+    "temperatura": 7.1
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "06:00",
+      "altura": "2.60",
+      "fecha": "02/07"
+    },
+    "bajamar": {
+      "hora": "15:00",
+      "altura": "1.40",
+      "fecha": "02/07"
+    }
+  },
   "iguazu": {
-    "altura": "16.76",
-    "horaStr": "21:20",
-    "fechaStr": "01/07/2026",
+    "altura": "16.90",
+    "horaStr": "00:00",
+    "fechaStr": "02/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "16.76m (a las 21:20 hs)",
+    "textoFB": "16.90m (a las 00:00 hs)",
     "historico": [
-      {
-        "altura": "16.13",
-        "fechaStr": "01/07/2026",
-        "horaStr": "06:00"
-      },
       {
         "altura": "16.16",
         "fechaStr": "01/07/2026",
@@ -224,6 +230,11 @@
         "altura": "16.76",
         "fechaStr": "01/07/2026",
         "horaStr": "21:20"
+      },
+      {
+        "altura": "16.90",
+        "fechaStr": "02/07/2026",
+        "horaStr": "00:00"
       }
     ]
   },
