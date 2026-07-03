@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "03/07/2026 a las 18:33 hs",
-  "generadoEn": "2026-07-03T18:33:41.308Z",
+  "fechaReporte": "03/07/2026 a las 18:52 hs",
+  "generadoEn": "2026-07-03T18:52:20.240Z",
   "laplata": {
     "altura": "1.09",
     "horaStr": "18:20",
@@ -111,7 +111,11 @@
       }
     ]
   },
-  "viento": null,
+  "viento": {
+    "velocidad": 4.5,
+    "direccion": "Suroeste (SW)",
+    "temperatura": 4.6
+  },
   "pronostico": {
     "pleamar": {
       "hora": "20:00",
@@ -125,18 +129,13 @@
     }
   },
   "iguazu": {
-    "altura": "15.94",
-    "horaStr": "18:20",
+    "altura": "16.00",
+    "horaStr": "18:40",
     "fechaStr": "03/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "15.94m (a las 18:20 hs)",
+    "textoFB": "16.00m (a las 18:40 hs)",
     "historico": [
-      {
-        "altura": "17.01",
-        "fechaStr": "02/07/2026",
-        "horaStr": "23:40"
-      },
       {
         "altura": "16.83",
         "fechaStr": "03/07/2026",
@@ -231,6 +230,11 @@
         "altura": "15.94",
         "fechaStr": "03/07/2026",
         "horaStr": "18:20"
+      },
+      {
+        "altura": "16.00",
+        "fechaStr": "03/07/2026",
+        "horaStr": "18:40"
       }
     ]
   },
