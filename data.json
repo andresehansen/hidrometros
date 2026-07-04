@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "04/07/2026 a las 14:28 hs",
-  "generadoEn": "2026-07-04T14:28:49.983Z",
+  "fechaReporte": "04/07/2026 a las 15:19 hs",
+  "generadoEn": "2026-07-04T15:19:22.455Z",
   "laplata": {
-    "altura": "0.84",
-    "horaStr": "14:10",
+    "altura": "0.76",
+    "horaStr": "15:10",
     "fechaStr": "04/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.84m (a las 14:10 hs)",
+    "textoFB": "0.76m (a las 15:10 hs)",
     "historico": [
-      {
-        "altura": "0.68",
-        "fechaStr": "04/07/2026",
-        "horaStr": "02:50"
-      },
       {
         "altura": "0.69",
         "fechaStr": "04/07/2026",
@@ -108,35 +103,39 @@
         "altura": "0.84",
         "fechaStr": "04/07/2026",
         "horaStr": "14:10"
+      },
+      {
+        "altura": "0.76",
+        "fechaStr": "04/07/2026",
+        "horaStr": "15:10"
       }
     ]
   },
-  "viento": null,
+  "viento": {
+    "velocidad": 6.6,
+    "direccion": "Noreste (NE)",
+    "temperatura": 10
+  },
   "pronostico": {
     "pleamar": {
-      "hora": "09:00",
-      "altura": "1.45",
+      "hora": "21:00",
+      "altura": "1.10",
       "fecha": "04/07"
     },
     "bajamar": {
-      "hora": "17:00",
-      "altura": "0.65",
-      "fecha": "04/07"
+      "hora": "03:00",
+      "altura": "0.90",
+      "fecha": "05/07"
     }
   },
   "iguazu": {
-    "altura": "14.98",
-    "horaStr": "14:20",
+    "altura": "14.93",
+    "horaStr": "15:00",
     "fechaStr": "04/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.98m (a las 14:20 hs)",
+    "textoFB": "14.93m (a las 15:00 hs)",
     "historico": [
-      {
-        "altura": "16.45",
-        "fechaStr": "03/07/2026",
-        "horaStr": "23:00"
-      },
       {
         "altura": "16.46",
         "fechaStr": "04/07/2026",
@@ -231,6 +230,11 @@
         "altura": "14.98",
         "fechaStr": "04/07/2026",
         "horaStr": "14:20"
+      },
+      {
+        "altura": "14.93",
+        "fechaStr": "04/07/2026",
+        "horaStr": "15:00"
       }
     ]
   },
