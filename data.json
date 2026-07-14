@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "13/07/2026 a las 20:19 hs",
-  "generadoEn": "2026-07-13T20:19:20.337Z",
+  "fechaReporte": "13/07/2026 a las 21:09 hs",
+  "generadoEn": "2026-07-13T21:09:22.627Z",
   "laplata": {
-    "altura": "0.53",
-    "horaStr": "20:10",
+    "altura": "0.47",
+    "horaStr": "21:00",
     "fechaStr": "13/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.53m (a las 20:10 hs)",
+    "textoFB": "0.47m (a las 21:00 hs)",
     "historico": [
-      {
-        "altura": "0.54",
-        "fechaStr": "13/07/2026",
-        "horaStr": "10:10"
-      },
       {
         "altura": "0.51",
         "fechaStr": "13/07/2026",
@@ -108,28 +103,39 @@
         "altura": "0.53",
         "fechaStr": "13/07/2026",
         "horaStr": "20:10"
+      },
+      {
+        "altura": "0.47",
+        "fechaStr": "13/07/2026",
+        "horaStr": "21:00"
       }
     ]
   },
   "viento": {
-    "velocidad": 15.7,
+    "velocidad": 15.8,
     "direccion": "Norte (N)",
-    "temperatura": 10
+    "temperatura": 9.1
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "17:00",
+      "altura": "0.90",
+      "fecha": "13/07"
+    },
+    "bajamar": {
+      "hora": "22:00",
+      "altura": "0.40",
+      "fecha": "13/07"
+    }
+  },
   "iguazu": {
-    "altura": "11.40",
-    "horaStr": "00:00",
+    "altura": "13.38",
+    "horaStr": "21:00",
     "fechaStr": "13/07/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "11.40m (a las 00:00 hs) (Fuente: INA)",
+    "textoFB": "13.38m (a las 21:00 hs)",
     "historico": [
-      {
-        "altura": "11.86",
-        "fechaStr": "12/07/2026",
-        "horaStr": "23:00"
-      },
       {
         "altura": "11.92",
         "fechaStr": "13/07/2026",
@@ -224,6 +230,11 @@
         "altura": "11.40",
         "fechaStr": "13/07/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "13.38",
+        "fechaStr": "13/07/2026",
+        "horaStr": "21:00"
       }
     ]
   },
