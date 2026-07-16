@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "16/07/2026 a las 19:19 hs",
-  "generadoEn": "2026-07-16T19:19:24.807Z",
+  "fechaReporte": "16/07/2026 a las 19:25 hs",
+  "generadoEn": "2026-07-16T19:25:50.185Z",
   "laplata": {
     "altura": "0.93",
     "horaStr": "19:10",
@@ -116,20 +116,26 @@
     "direccion": "Noreste (NE)",
     "temperatura": 17.6
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "19:30",
+      "altura": "0.90",
+      "fecha": "16/07"
+    },
+    "bajamar": {
+      "hora": "02:00",
+      "altura": "0.50",
+      "fecha": "17/07"
+    }
+  },
   "iguazu": {
-    "altura": "12.07",
-    "horaStr": "19:00",
+    "altura": "12.15",
+    "horaStr": "19:20",
     "fechaStr": "16/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.07m (a las 19:00 hs)",
+    "textoFB": "12.15m (a las 19:20 hs)",
     "historico": [
-      {
-        "altura": "13.29",
-        "fechaStr": "16/07/2026",
-        "horaStr": "02:00"
-      },
       {
         "altura": "13.22",
         "fechaStr": "16/07/2026",
@@ -224,6 +230,11 @@
         "altura": "12.07",
         "fechaStr": "16/07/2026",
         "horaStr": "19:00"
+      },
+      {
+        "altura": "12.15",
+        "fechaStr": "16/07/2026",
+        "horaStr": "19:20"
       }
     ]
   },
