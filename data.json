@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "20/07/2026 a las 08:19 hs",
-  "generadoEn": "2026-07-20T08:19:23.006Z",
+  "fechaReporte": "20/07/2026 a las 08:31 hs",
+  "generadoEn": "2026-07-20T08:31:13.674Z",
   "laplata": {
-    "altura": "1.92",
-    "horaStr": "07:45",
+    "altura": "2.00",
+    "horaStr": "08:10",
     "fechaStr": "20/07/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.92m (a las 07:45 hs) (Fuente: INA)",
+    "textoFB": "2.00m (a las 08:10 hs)",
     "historico": [
-      {
-        "altura": "2.04",
-        "fechaStr": "19/07/2026",
-        "horaStr": "18:40"
-      },
       {
         "altura": "1.88",
         "fechaStr": "19/07/2026",
@@ -108,15 +103,31 @@
         "altura": "1.92",
         "fechaStr": "20/07/2026",
         "horaStr": "07:45"
+      },
+      {
+        "altura": "2.00",
+        "fechaStr": "20/07/2026",
+        "horaStr": "08:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 11.6,
+    "velocidad": 11.7,
     "direccion": "Sureste (SE)",
-    "temperatura": 8.7
+    "temperatura": 8.9
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "09:30",
+      "altura": "2.00",
+      "fecha": "20/07"
+    },
+    "bajamar": {
+      "hora": "19:00",
+      "altura": "0.90",
+      "fecha": "20/07"
+    }
+  },
   "iguazu": {
     "altura": "10.13",
     "horaStr": "08:00",
