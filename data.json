@@ -1,19 +1,14 @@
 {
-  "fechaReporte": "22/07/2026 a las 08:19 hs",
-  "generadoEn": "2026-07-22T08:19:21.471Z",
+  "fechaReporte": "22/07/2026 a las 09:05 hs",
+  "generadoEn": "2026-07-22T09:05:24.301Z",
   "laplata": {
-    "altura": "1.44",
-    "horaStr": "08:10",
+    "altura": "1.58",
+    "horaStr": "08:50",
     "fechaStr": "22/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.44m (a las 08:10 hs)",
+    "textoFB": "1.58m (a las 08:50 hs)",
     "historico": [
-      {
-        "altura": "1.52",
-        "fechaStr": "21/07/2026",
-        "horaStr": "20:00"
-      },
       {
         "altura": "1.58",
         "fechaStr": "21/07/2026",
@@ -108,28 +103,39 @@
         "altura": "1.44",
         "fechaStr": "22/07/2026",
         "horaStr": "08:10"
+      },
+      {
+        "altura": "1.58",
+        "fechaStr": "22/07/2026",
+        "horaStr": "08:50"
       }
     ]
   },
   "viento": {
-    "velocidad": 14.5,
+    "velocidad": 14.2,
     "direccion": "Sur (S)",
-    "temperatura": 8.5
+    "temperatura": 8.6
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "13:00",
+      "altura": "1.90",
+      "fecha": "22/07"
+    },
+    "bajamar": {
+      "hora": "21:00",
+      "altura": "1.10",
+      "fecha": "22/07"
+    }
+  },
   "iguazu": {
-    "altura": "10.89",
-    "horaStr": "07:00",
+    "altura": "10.78",
+    "horaStr": "08:20",
     "fechaStr": "22/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "10.89m (a las 07:00 hs)",
+    "textoFB": "10.78m (a las 08:20 hs)",
     "historico": [
-      {
-        "altura": "11.00",
-        "fechaStr": "21/07/2026",
-        "horaStr": "02:20"
-      },
       {
         "altura": "10.90",
         "fechaStr": "21/07/2026",
@@ -224,6 +230,11 @@
         "altura": "10.89",
         "fechaStr": "22/07/2026",
         "horaStr": "07:00"
+      },
+      {
+        "altura": "10.78",
+        "fechaStr": "22/07/2026",
+        "horaStr": "08:20"
       }
     ]
   },
