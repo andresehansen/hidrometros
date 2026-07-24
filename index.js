@@ -353,17 +353,30 @@ async function obtenerDatos() {
             return hist.slice(-20);
         }
 
-        // ---- ASIGNACIÓN DE HISTORIAL O RECUPERACIÓN DE FALLBACK ----
-        // Si no se pudo obtener el dato nuevo, preservamos el dato histórico viejo para que no desaparezca.
-        
-        if (lpDatos) lpDatos.historico = getHistorico('laplata', lpDatos);
-        else if (datosAnteriores.laplata) lpDatos = datosAnteriores.laplata;
+        // ---- ASIGNACIÓN DE NIVELES DE ALERTA / EVACUACIÓN Y HISTORIAL ----
+        if (lpDatos) { 
+            lpDatos.alerta = 2.5; 
+            lpDatos.evacuacion = 2.8; 
+            lpDatos.historico = getHistorico('laplata', lpDatos);
+        } else if (datosAnteriores.laplata) {
+            lpDatos = datosAnteriores.laplata;
+        }
 
-        if (igDatos) igDatos.historico = getHistorico('iguazu', igDatos);
-        else if (datosAnteriores.iguazu) igDatos = datosAnteriores.iguazu;
+        if (igDatos) { 
+            igDatos.alerta = 25.0; 
+            igDatos.evacuacion = 28.0; 
+            igDatos.historico = getHistorico('iguazu', igDatos);
+        } else if (datosAnteriores.iguazu) {
+            igDatos = datosAnteriores.iguazu;
+        }
 
-        if (coDatos) coDatos.historico = getHistorico('concordia', coDatos);
-        else if (datosAnteriores.concordia) coDatos = datosAnteriores.concordia;
+        if (coDatos) { 
+            coDatos.alerta = 11.0; 
+            coDatos.evacuacion = 12.5; 
+            coDatos.historico = getHistorico('concordia', coDatos);
+        } else if (datosAnteriores.concordia) {
+            coDatos = datosAnteriores.concordia;
+        }
 
         // ---- GENERAR data.json PARA EL SITIO WEB ----
         const dataJson = {
@@ -382,9 +395,17 @@ async function obtenerDatos() {
         const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
         const pageId          = process.env.FACEBOOK_PAGE_ID;
 
-        const lpTxt = lpDatos   ? lpDatos.textoFB   : "N/D";
-        const igTxt = igDatos   ? igDatos.textoFB   : "N/D";
-        const coTxt = coDatos   ? coDatos.textoFB   : "N/D";
+        function tagEstadoFB(d) {
+            if (!d || d.altura === undefined) return '';
+            const alt = parseFloat(d.altura);
+            if (alt >= d.evacuacion) return ' 🚨 [EVACUACIÓN]';
+            if (alt >= d.alerta) return ' ⚠️ [ALERTA]';
+            return '';
+        }
+
+        const lpTxt = lpDatos   ? `${lpDatos.textoFB}${tagEstadoFB(lpDatos)}` : "N/D";
+        const igTxt = igDatos   ? `${igDatos.textoFB}${tagEstadoFB(igDatos)}` : "N/D";
+        const coTxt = coDatos   ? `${coDatos.textoFB}${tagEstadoFB(coDatos)}` : "N/D";
         const viTxt = viento    ? `${viento.velocidad} km/h ${viento.direccion}` : "N/D";
         const prTxt = pronostico
             ? `📈 Pleamar: ${pronostico.pleamar ? pronostico.pleamar.altura+'m el '+pronostico.pleamar.fecha+' '+pronostico.pleamar.hora : 'S/D'}\n📉 Bajamar: ${pronostico.bajamar ? pronostico.bajamar.altura+'m el '+pronostico.bajamar.fecha+' '+pronostico.bajamar.hora : 'S/D'}`

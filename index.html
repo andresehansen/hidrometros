@@ -7,7 +7,25 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
-  :root{--azul-rio:#0a3d62;--azul-medio:#1a6fa8;--azul-claro:#e8f4fd;--verde-ok:#1e7e34;--verde-bg:#d4edda;--naranja-alerta:#c96c00;--naranja-bg:#fff3cd;--texto:#1a1a2e;--blanco:#ffffff;--radio:20px;--sombra:0 6px 32px rgba(10,61,98,0.13)}
+  :root{
+    --azul-rio:#0a3d62;
+    --azul-medio:#1a6fa8;
+    --azul-claro:#e8f4fd;
+    --verde-ok:#1e7e34;
+    --verde-bg:#d4edda;
+    --naranja-alerta:#c96c00;
+    --naranja-bg:#fff3cd;
+    --amarillo-alerta:#d97706;
+    --amarillo-bg:#fef3c7;
+    --amarillo-border:#fde68a;
+    --rojo-evacuacion:#d9381e;
+    --rojo-bg:#fde8e8;
+    --rojo-border:#f8b4b4;
+    --texto:#1a1a2e;
+    --blanco:#ffffff;
+    --radio:20px;
+    --sombra:0 6px 32px rgba(10,61,98,0.13)
+  }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(160deg,#d6eaf8 0%,#eaf4fb 40%,#f0f8ff 100%);min-height:100vh;color:var(--texto);-webkit-tap-highlight-color:transparent}
   body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");background-size:100px 20px;pointer-events:none;z-index:0}
@@ -20,7 +38,11 @@
   .btn-actualizar{display:block;width:100%;background:var(--azul-medio);color:var(--blanco);border:none;border-radius:var(--radio);padding:20px;font-size:1.25rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:20px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none}
   .btn-actualizar:active{background:#145a8a;transform:scale(.98)}
   .btn-actualizar:disabled{background:#7aaccc;cursor:default;transform:none}
-  .tarjeta{background:var(--blanco);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both}
+  
+  .tarjeta{background:var(--blanco);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s}
+  .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%); }
+  .tarjeta.estado-evacuacion { border-left-color: var(--rojo-evacuacion); background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%); }
+
   @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .tarjeta-titulo{font-family:'Merriweather',serif;font-size:1.35rem;font-weight:700;color:var(--azul-rio);margin-bottom:4px}
   .tarjeta-fecha{font-size:.9rem;color:#607080;margin-bottom:16px}
@@ -31,11 +53,23 @@
   .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:#7090a0;font-weight:700;margin-bottom:3px}
   .dato-valor{font-size:1.5rem;font-weight:700;color:var(--texto);line-height:1.2}
   .dato-valor.grande{font-size:2rem;color:var(--azul-rio)}
+  .dato-valor.val-alerta{color:var(--amarillo-alerta)}
+  .dato-valor.val-evacuacion{color:var(--rojo-evacuacion)}
+
   .dato-sub{font-size:.9rem;color:#607080;margin-top:3px}
-  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.9rem;font-weight:700;margin-top:6px}
+  .badge-container{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.9rem;font-weight:700}
   .badge-ok{background:var(--verde-bg);color:var(--verde-ok)}
   .badge-alerta{background:var(--naranja-bg);color:var(--naranja-alerta)}
+  .badge-alerta-nivel{background:var(--amarillo-bg);color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);font-weight:700}
+  .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
   .badge-nd{background:#e9ecef;color:#6c757d}
+
+  .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:#f4f8fb;border-radius:12px;font-size:0.88rem;color:#506878}
+  .ref-item strong{font-weight:700}
+  .ref-item.ref-alerta strong{color:var(--amarillo-alerta)}
+  .ref-item.ref-evacuacion strong{color:var(--rojo-evacuacion)}
+
   .pronostico-fila{display:flex;gap:12px;margin-top:4px}
   .pronostico-item{flex:1;background:var(--azul-claro);border-radius:12px;padding:14px;text-align:center}
   .pronostico-item .tipo{font-size:.85rem;font-weight:700;text-transform:uppercase;color:var(--azul-medio);margin-bottom:6px}
@@ -74,17 +108,50 @@
 <script>
 // ──────────────────────────────────────────────────────────────
 const DATA_URL = "https://raw.githubusercontent.com/andresehansen/hidrometros/main/data.json";
+
+const DEFAULTS_PUERTO = {
+  laplata:   { alerta: 2.5,  evacuacion: 2.8 },
+  iguazu:    { alerta: 25.0, evacuacion: 28.0 },
+  concordia: { alerta: 11.0, evacuacion: 12.5 }
+};
 // ──────────────────────────────────────────────────────────────
+
+function getEstadoPuerto(alturaStr, alerta, evacuacion) {
+  if (alturaStr === null || alturaStr === undefined || isNaN(alturaStr)) return 'normal';
+  const alt = parseFloat(alturaStr);
+  if (alt >= evacuacion) return 'evacuacion';
+  if (alt >= alerta) return 'alerta';
+  return 'normal';
+}
+
+function renderBadgeNivel(estado) {
+  if (estado === 'evacuacion') return `<span class="badge badge-evacuacion-nivel">🚨 EVACUACIÓN</span>`;
+  if (estado === 'alerta') return `<span class="badge badge-alerta-nivel">⚠️ ALERTA</span>`;
+  return `<span class="badge badge-ok">🟢 Normal</span>`;
+}
+
+function renderReferenciaPill(alerta, evacuacion) {
+  return `
+    <div class="referencia-niveles">
+      <span class="ref-item ref-alerta">⚠️ Alerta: <strong>${alerta} m</strong></span>
+      <span class="ref-item ref-evacuacion">🚨 Evacuación: <strong>${evacuacion} m</strong></span>
+    </div>`;
+}
 
 function fechaLegible(str) {
   if (!str) return '—';
   const [d,m,y] = str.split('/');
   return new Date(+y,+m-1,+d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
+
 function badge(antiguo,fuente){return antiguo?`<span class="badge badge-alerta">⚠️ Dato con más de 24 hs</span>`:`<span class="badge badge-ok">✅ Actualizado · ${fuente}</span>`}
 const badgeND=()=>`<span class="badge badge-nd">No disponible ahora</span>`;
 
 function tarjetaLP(d,viento,pron){
+  const alerta = (d && d.alerta !== undefined) ? d.alerta : DEFAULTS_PUERTO.laplata.alerta;
+  const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : DEFAULTS_PUERTO.laplata.evacuacion;
+  const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
+
   const vTxt=viento?`${viento.velocidad} km/h · ${viento.direccion}`:'No disponible';
   const tTxt=viento?`Temperatura: ${viento.temperatura}°C`:'';
   let pronHTML=`<p style="color:#90aabf;font-size:.95rem">No disponible</p>`;
@@ -104,12 +171,14 @@ function tarjetaLP(d,viento,pron){
     </details>`;
   }
 
-  return `<div class="tarjeta">
+  const valClass = "dato-valor grande " + (estado === 'evacuacion' ? 'val-evacuacion' : (estado === 'alerta' ? 'val-alerta' : ''));
+
+  return `<div class="tarjeta estado-${estado}">
     <div class="tarjeta-titulo">⚓ La Plata</div>
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="dato-valor grande">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div>${badge(d.antiguo,d.fuente)}`:badgeND()}
+      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
       <div class="dato-etiqueta">Viento</div>
@@ -124,7 +193,12 @@ function tarjetaLP(d,viento,pron){
   </div>`;
 }
 
-function tarjetaRio(nombre,emoji,d,idChart){
+function tarjetaRio(nombre,emoji,d,idChart,keyPuerto){
+  const defaults = DEFAULTS_PUERTO[keyPuerto] || { alerta: 0, evacuacion: 0 };
+  const alerta = (d && d.alerta !== undefined) ? d.alerta : defaults.alerta;
+  const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : defaults.evacuacion;
+  const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
+
   let histHTML = '';
   if (d && d.historico && d.historico.length > 1) {
     histHTML = `
@@ -134,29 +208,43 @@ function tarjetaRio(nombre,emoji,d,idChart){
     </details>`;
   }
 
-  return `<div class="tarjeta">
+  const valClass = "dato-valor grande " + (estado === 'evacuacion' ? 'val-evacuacion' : (estado === 'alerta' ? 'val-alerta' : ''));
+
+  return `<div class="tarjeta estado-${estado}">
     <div class="tarjeta-titulo">${emoji} ${nombre}</div>
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="dato-valor grande">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div>${badge(d.antiguo,d.fuente)}`:badgeND()}
+      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
     </div></div>
     ${histHTML}
   </div>`;
 }
 
 function renderizarGraficos(d) {
-  const render = (hist, idElement) => {
+  const render = (hist, idElement, estado) => {
     const canvas = document.getElementById(idElement);
     if (!canvas) return;
+
+    let borderColor = '#1a6fa8';
+    let bgColor = 'rgba(26,111,168,0.15)';
+
+    if (estado === 'evacuacion') {
+      borderColor = '#d9381e';
+      bgColor = 'rgba(217,56,30,0.15)';
+    } else if (estado === 'alerta') {
+      borderColor = '#d97706';
+      bgColor = 'rgba(217,119,6,0.15)';
+    }
+
     new Chart(canvas, {
       type: 'line',
       data: {
         labels: hist.map(h => h.horaStr),
         datasets: [{
           data: hist.map(h => parseFloat(h.altura)),
-          borderColor: '#1a6fa8',
-          backgroundColor: 'rgba(26,111,168,0.15)',
+          borderColor: borderColor,
+          backgroundColor: bgColor,
           borderWidth: 2,
           fill: true,
           pointRadius: 3,
@@ -175,9 +263,18 @@ function renderizarGraficos(d) {
     });
   };
 
-  if (d.laplata && d.laplata.historico) render(d.laplata.historico, 'chart-laplata');
-  if (d.iguazu && d.iguazu.historico) render(d.iguazu.historico, 'chart-iguazu');
-  if (d.concordia && d.concordia.historico) render(d.concordia.historico, 'chart-concordia');
+  if (d.laplata && d.laplata.historico) {
+    const st = getEstadoPuerto(d.laplata.altura, d.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta, d.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion);
+    render(d.laplata.historico, 'chart-laplata', st);
+  }
+  if (d.iguazu && d.iguazu.historico) {
+    const st = getEstadoPuerto(d.iguazu.altura, d.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta, d.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion);
+    render(d.iguazu.historico, 'chart-iguazu', st);
+  }
+  if (d.concordia && d.concordia.historico) {
+    const st = getEstadoPuerto(d.concordia.altura, d.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta, d.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion);
+    render(d.concordia.historico, 'chart-concordia', st);
+  }
 }
 
 async function cargarDatos(){
@@ -187,14 +284,20 @@ async function cargarDatos(){
   btn.disabled=true; btn.textContent='⏳  Cargando...';
   panel.innerHTML=`<div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>`;
   try{
-    const res=await fetch(DATA_URL+'?t='+Date.now());
+    let res;
+    try {
+      res = await fetch('./data.json?t=' + Date.now());
+      if (!res.ok) throw new Error('Local fail');
+    } catch(e) {
+      res = await fetch(DATA_URL + '?t=' + Date.now());
+    }
     if(!res.ok) throw new Error('HTTP '+res.status);
     const d=await res.json();
     fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
     
     panel.innerHTML= tarjetaLP(d.laplata,d.viento,d.pronostico) + 
-                     tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu') + 
-                     tarjetaRio('Concordia','🌿',d.concordia,'concordia');
+                     tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu','iguazu') + 
+                     tarjetaRio('Concordia','🌿',d.concordia,'concordia','concordia');
                      
     // Renderizamos los gráficos de Chart.js luego de inyectar el HTML
     renderizarGraficos(d);
