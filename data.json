@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "24/07/2026 a las 11:19 hs",
-  "generadoEn": "2026-07-24T11:19:22.839Z",
+  "fechaReporte": "24/07/2026 a las 11:52 hs",
+  "generadoEn": "2026-07-24T11:52:55.491Z",
   "laplata": {
-    "altura": "3.58",
+    "altura": "0.59",
+    "horaStr": "11:30",
+    "fechaStr": "24/07/2026",
+    "fuente": "AGPSE",
+    "antiguo": false,
+    "textoFB": "0.59m (a las 11:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
-    "horaStr": "10:45",
-    "fechaStr": "24/07/2026",
-    "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "0.58m (a las 10:45 hs) (Fuente: INA)",
     "historico": [
-      {
-        "altura": "1.05",
-        "fechaStr": "24/07/2026",
-        "horaStr": "00:30"
-      },
       {
         "altura": "1.01",
         "fechaStr": "24/07/2026",
@@ -110,13 +105,18 @@
         "altura": "0.58",
         "fechaStr": "24/07/2026",
         "horaStr": "10:45"
+      },
+      {
+        "altura": "0.59",
+        "fechaStr": "24/07/2026",
+        "horaStr": "11:30"
       }
     ]
   },
   "viento": {
-    "velocidad": 9.5,
+    "velocidad": 8.4,
     "direccion": "Norte (N)",
-    "temperatura": 13
+    "temperatura": 13.4
   },
   "pronostico": {
     "pleamar": {
@@ -131,20 +131,15 @@
     }
   },
   "iguazu": {
-    "altura": "28.84",
-    "alerta": 25,
-    "evacuacion": 28,
-    "horaStr": "11:00",
+    "altura": "16.73",
+    "horaStr": "11:40",
     "fechaStr": "24/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "16.84m (a las 11:00 hs)",
+    "textoFB": "16.73m (a las 11:40 hs)",
+    "alerta": 25,
+    "evacuacion": 28,
     "historico": [
-      {
-        "altura": "15.40",
-        "fechaStr": "23/07/2026",
-        "horaStr": "13:40"
-      },
       {
         "altura": "15.47",
         "fechaStr": "23/07/2026",
@@ -239,18 +234,23 @@
         "altura": "16.84",
         "fechaStr": "24/07/2026",
         "horaStr": "11:00"
+      },
+      {
+        "altura": "16.73",
+        "fechaStr": "24/07/2026",
+        "horaStr": "11:40"
       }
     ]
   },
   "concordia": {
-    "altura": "13.4",
-    "alerta": 11,
-    "evacuacion": 12.5,
+    "altura": "8.4",
     "horaStr": "00:00",
     "fechaStr": "24/07/2026",
     "fuente": "SRH",
     "antiguo": false,
     "textoFB": "8.4m (a las 00:00 hs)",
+    "alerta": 11,
+    "evacuacion": 12.5,
     "historico": [
       {
         "altura": "6.3",
