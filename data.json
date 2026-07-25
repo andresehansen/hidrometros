@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "24/07/2026 a las 22:19 hs",
-  "generadoEn": "2026-07-24T22:19:22.207Z",
+  "fechaReporte": "24/07/2026 a las 23:19 hs",
+  "generadoEn": "2026-07-24T23:19:22.624Z",
   "laplata": {
-    "altura": "0.61",
-    "horaStr": "22:10",
+    "altura": "0.76",
+    "horaStr": "23:10",
     "fechaStr": "24/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.61m (a las 22:10 hs)",
+    "textoFB": "0.76m (a las 23:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.40",
-        "fechaStr": "24/07/2026",
-        "horaStr": "09:10"
-      },
       {
         "altura": "0.44",
         "fechaStr": "24/07/2026",
@@ -110,41 +105,41 @@
         "altura": "0.61",
         "fechaStr": "24/07/2026",
         "horaStr": "22:10"
+      },
+      {
+        "altura": "0.76",
+        "fechaStr": "24/07/2026",
+        "horaStr": "23:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 3.6,
+    "velocidad": 5,
     "direccion": "Norte (N)",
-    "temperatura": 10.5
+    "temperatura": 10.3
   },
   "pronostico": {
     "pleamar": {
       "hora": "02:00",
-      "altura": "0.75",
+      "altura": "0.90",
       "fecha": "25/07"
     },
     "bajamar": {
-      "hora": "20:30",
-      "altura": "0.45",
-      "fecha": "24/07"
+      "hora": "09:30",
+      "altura": "0.40",
+      "fecha": "25/07"
     }
   },
   "iguazu": {
-    "altura": "17.10",
-    "horaStr": "22:00",
+    "altura": "14.20",
+    "horaStr": "00:00",
     "fechaStr": "24/07/2026",
-    "fuente": "AGPSE",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "17.10m (a las 22:00 hs)",
+    "textoFB": "14.20m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.01",
-        "fechaStr": "24/07/2026",
-        "horaStr": "03:00"
-      },
       {
         "altura": "17.98",
         "fechaStr": "24/07/2026",
@@ -239,6 +234,11 @@
         "altura": "17.10",
         "fechaStr": "24/07/2026",
         "horaStr": "22:00"
+      },
+      {
+        "altura": "14.20",
+        "fechaStr": "24/07/2026",
+        "horaStr": "00:00"
       }
     ]
   },
