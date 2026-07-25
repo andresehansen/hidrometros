@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "25/07/2026 a las 12:19 hs",
-  "generadoEn": "2026-07-25T12:19:21.959Z",
+  "fechaReporte": "25/07/2026 a las 12:30 hs",
+  "generadoEn": "2026-07-25T12:30:04.338Z",
   "laplata": {
-    "altura": "0.48",
-    "horaStr": "09:30",
+    "altura": "0.82",
+    "horaStr": "11:45",
     "fechaStr": "25/07/2026",
-    "fuente": "AGPSE",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "0.48m (a las 09:30 hs)",
+    "textoFB": "0.82m (a las 11:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.51",
-        "fechaStr": "24/07/2026",
-        "horaStr": "19:45"
-      },
       {
         "altura": "0.52",
         "fechaStr": "24/07/2026",
@@ -110,13 +105,18 @@
         "altura": "0.48",
         "fechaStr": "25/07/2026",
         "horaStr": "09:30"
+      },
+      {
+        "altura": "0.82",
+        "fechaStr": "25/07/2026",
+        "horaStr": "11:45"
       }
     ]
   },
   "viento": {
-    "velocidad": 7,
+    "velocidad": 7.2,
     "direccion": "Norte (N)",
-    "temperatura": 14.5
+    "temperatura": 14.7
   },
   "pronostico": {
     "pleamar": {
@@ -131,20 +131,15 @@
     }
   },
   "iguazu": {
-    "altura": "14.20",
-    "horaStr": "00:00",
-    "fechaStr": "24/07/2026",
-    "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "14.20m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "altura": "16.24",
+    "horaStr": "12:20",
+    "fechaStr": "25/07/2026",
+    "fuente": "AGPSE",
+    "antiguo": false,
+    "textoFB": "16.24m (a las 12:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "17.84",
-        "fechaStr": "24/07/2026",
-        "horaStr": "04:40"
-      },
       {
         "altura": "17.68",
         "fechaStr": "24/07/2026",
@@ -239,6 +234,11 @@
         "altura": "16.48",
         "fechaStr": "25/07/2026",
         "horaStr": "11:00"
+      },
+      {
+        "altura": "16.24",
+        "fechaStr": "25/07/2026",
+        "horaStr": "12:20"
       }
     ]
   },
