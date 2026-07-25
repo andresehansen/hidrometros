@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "25/07/2026 a las 16:19 hs",
-  "generadoEn": "2026-07-25T16:19:23.046Z",
+  "fechaReporte": "25/07/2026 a las 16:36 hs",
+  "generadoEn": "2026-07-25T16:36:31.330Z",
   "laplata": {
-    "altura": "1.11",
-    "horaStr": "15:45",
+    "altura": "0.48",
+    "horaStr": "09:30",
     "fechaStr": "25/07/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.11m (a las 15:45 hs) (Fuente: INA)",
+    "textoFB": "0.48m (a las 09:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.61",
-        "fechaStr": "24/07/2026",
-        "horaStr": "22:10"
-      },
       {
         "altura": "0.76",
         "fechaStr": "24/07/2026",
@@ -110,41 +105,30 @@
         "altura": "1.11",
         "fechaStr": "25/07/2026",
         "horaStr": "15:45"
+      },
+      {
+        "altura": "0.48",
+        "fechaStr": "25/07/2026",
+        "horaStr": "09:30"
       }
     ]
   },
   "viento": {
-    "velocidad": 4.8,
+    "velocidad": 5,
     "direccion": "Norte (N)",
     "temperatura": 12.7
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "03:00",
-      "altura": "1.15",
-      "fecha": "26/07"
-    },
-    "bajamar": {
-      "hora": "22:00",
-      "altura": "0.65",
-      "fecha": "25/07"
-    }
-  },
+  "pronostico": null,
   "iguazu": {
-    "altura": "15.66",
-    "horaStr": "16:00",
+    "altura": "15.61",
+    "horaStr": "16:20",
     "fechaStr": "25/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "15.66m (a las 16:00 hs)",
+    "textoFB": "15.61m (a las 16:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "16.84",
-        "fechaStr": "24/07/2026",
-        "horaStr": "11:00"
-      },
       {
         "altura": "16.68",
         "fechaStr": "24/07/2026",
@@ -239,6 +223,11 @@
         "altura": "15.66",
         "fechaStr": "25/07/2026",
         "horaStr": "16:00"
+      },
+      {
+        "altura": "15.61",
+        "fechaStr": "25/07/2026",
+        "horaStr": "16:20"
       }
     ]
   },
