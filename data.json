@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "27/07/2026 a las 07:19 hs",
-  "generadoEn": "2026-07-27T07:19:22.073Z",
+  "fechaReporte": "27/07/2026 a las 08:19 hs",
+  "generadoEn": "2026-07-27T08:19:24.194Z",
   "laplata": {
-    "altura": "1.37",
-    "horaStr": "06:45",
+    "altura": "1.26",
+    "horaStr": "07:45",
     "fechaStr": "27/07/2026",
     "fuente": "INA",
     "antiguo": false,
-    "textoFB": "1.37m (a las 06:45 hs) (Fuente: INA)",
+    "textoFB": "1.26m (a las 07:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.59",
-        "fechaStr": "26/07/2026",
-        "horaStr": "07:45"
-      },
       {
         "altura": "0.48",
         "fechaStr": "25/07/2026",
@@ -110,30 +105,41 @@
         "altura": "1.37",
         "fechaStr": "27/07/2026",
         "horaStr": "06:45"
+      },
+      {
+        "altura": "1.26",
+        "fechaStr": "27/07/2026",
+        "horaStr": "07:45"
       }
     ]
   },
   "viento": {
     "velocidad": 9.4,
-    "direccion": "Noreste (NE)",
-    "temperatura": 12
+    "direccion": "Norte (N)",
+    "temperatura": 12.1
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "12:00",
+      "altura": "1.05",
+      "fecha": "27/07"
+    },
+    "bajamar": {
+      "hora": "22:00",
+      "altura": "0.75",
+      "fecha": "27/07"
+    }
+  },
   "iguazu": {
-    "altura": "14.37",
-    "horaStr": "06:40",
+    "altura": "14.11",
+    "horaStr": "08:00",
     "fechaStr": "27/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.37m (a las 06:40 hs)",
+    "textoFB": "14.11m (a las 08:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "15.45",
-        "fechaStr": "26/07/2026",
-        "horaStr": "08:20"
-      },
       {
         "altura": "15.26",
         "fechaStr": "26/07/2026",
@@ -228,6 +234,11 @@
         "altura": "14.37",
         "fechaStr": "27/07/2026",
         "horaStr": "06:40"
+      },
+      {
+        "altura": "14.11",
+        "fechaStr": "27/07/2026",
+        "horaStr": "08:00"
       }
     ]
   },
