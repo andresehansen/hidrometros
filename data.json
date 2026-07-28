@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "28/07/2026 a las 16:00 hs",
-  "generadoEn": "2026-07-28T16:00:29.646Z",
+  "fechaReporte": "28/07/2026 a las 16:19 hs",
+  "generadoEn": "2026-07-28T16:19:30.030Z",
   "laplata": {
-    "altura": "1.03",
-    "horaStr": "14:45",
+    "altura": "1.20",
+    "horaStr": "16:10",
     "fechaStr": "28/07/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.03m (a las 14:45 hs) (Fuente: INA)",
+    "textoFB": "1.20m (a las 16:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.06",
-        "fechaStr": "28/07/2026",
-        "horaStr": "03:45"
-      },
       {
         "altura": "1.05",
         "fechaStr": "28/07/2026",
@@ -110,30 +105,37 @@
         "altura": "1.03",
         "fechaStr": "28/07/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "1.20",
+        "fechaStr": "28/07/2026",
+        "horaStr": "16:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 14.6,
+    "velocidad": 14.2,
     "direccion": "Este (E)",
-    "temperatura": 13
+    "temperatura": 12.7
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "18:00",
+      "altura": "1.20",
+      "fecha": "28/07"
+    },
+    "bajamar": null
+  },
   "iguazu": {
-    "altura": "13.11",
-    "horaStr": "15:40",
+    "altura": "13.14",
+    "horaStr": "16:00",
     "fechaStr": "28/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "13.11m (a las 15:40 hs)",
+    "textoFB": "13.14m (a las 16:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "13.57",
-        "fechaStr": "27/07/2026",
-        "horaStr": "11:40"
-      },
       {
         "altura": "13.44",
         "fechaStr": "27/07/2026",
@@ -228,6 +230,11 @@
         "altura": "13.11",
         "fechaStr": "28/07/2026",
         "horaStr": "15:40"
+      },
+      {
+        "altura": "13.14",
+        "fechaStr": "28/07/2026",
+        "horaStr": "16:00"
       }
     ]
   },
