@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "28/07/2026 a las 19:19 hs",
-  "generadoEn": "2026-07-28T19:19:21.519Z",
+  "fechaReporte": "28/07/2026 a las 20:19 hs",
+  "generadoEn": "2026-07-28T20:19:28.188Z",
   "laplata": {
-    "altura": "1.39",
-    "horaStr": "18:45",
+    "altura": "1.38",
+    "horaStr": "20:10",
     "fechaStr": "28/07/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.39m (a las 18:45 hs) (Fuente: INA)",
+    "textoFB": "1.38m (a las 20:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.89",
-        "fechaStr": "28/07/2026",
-        "horaStr": "07:50"
-      },
       {
         "altura": "0.87",
         "fechaStr": "28/07/2026",
@@ -110,30 +105,37 @@
         "altura": "1.39",
         "fechaStr": "28/07/2026",
         "horaStr": "18:45"
+      },
+      {
+        "altura": "1.38",
+        "fechaStr": "28/07/2026",
+        "horaStr": "20:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 12.6,
+    "velocidad": 13.7,
     "direccion": "Sureste (SE)",
-    "temperatura": 11.7
+    "temperatura": 11.2
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "18:00",
+      "altura": "1.20",
+      "fecha": "28/07"
+    },
+    "bajamar": null
+  },
   "iguazu": {
-    "altura": "13.87",
-    "horaStr": "19:00",
+    "altura": "13.95",
+    "horaStr": "19:20",
     "fechaStr": "28/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "13.87m (a las 19:00 hs)",
+    "textoFB": "13.95m (a las 19:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "13.56",
-        "fechaStr": "27/07/2026",
-        "horaStr": "18:00"
-      },
       {
         "altura": "13.87",
         "fechaStr": "27/07/2026",
@@ -228,6 +230,11 @@
         "altura": "13.87",
         "fechaStr": "28/07/2026",
         "horaStr": "19:00"
+      },
+      {
+        "altura": "13.95",
+        "fechaStr": "28/07/2026",
+        "horaStr": "19:20"
       }
     ]
   },
