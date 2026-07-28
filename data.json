@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "28/07/2026 a las 13:26 hs",
-  "generadoEn": "2026-07-28T13:26:04.891Z",
+  "fechaReporte": "28/07/2026 a las 13:52 hs",
+  "generadoEn": "2026-07-28T13:52:17.144Z",
   "laplata": {
-    "altura": "0.74",
-    "horaStr": "13:00",
+    "altura": "0.84",
+    "horaStr": "13:30",
     "fechaStr": "28/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.74m (a las 13:00 hs)",
+    "textoFB": "0.84m (a las 13:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.80",
-        "fechaStr": "28/07/2026",
-        "horaStr": "00:10"
-      },
       {
         "altura": "0.77",
         "fechaStr": "27/07/2026",
@@ -110,13 +105,18 @@
         "altura": "0.74",
         "fechaStr": "28/07/2026",
         "horaStr": "13:00"
+      },
+      {
+        "altura": "0.84",
+        "fechaStr": "28/07/2026",
+        "horaStr": "13:30"
       }
     ]
   },
   "viento": {
-    "velocidad": 8.4,
+    "velocidad": 10,
     "direccion": "Este (E)",
-    "temperatura": 17.6
+    "temperatura": 17.1
   },
   "pronostico": {
     "pleamar": {
@@ -131,20 +131,15 @@
     }
   },
   "iguazu": {
-    "altura": "13.17",
-    "horaStr": "13:00",
+    "altura": "13.14",
+    "horaStr": "13:40",
     "fechaStr": "28/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "13.17m (a las 13:00 hs)",
+    "textoFB": "13.14m (a las 13:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.00",
-        "fechaStr": "27/07/2026",
-        "horaStr": "08:40"
-      },
       {
         "altura": "13.93",
         "fechaStr": "27/07/2026",
@@ -239,24 +234,24 @@
         "altura": "13.17",
         "fechaStr": "28/07/2026",
         "horaStr": "13:00"
+      },
+      {
+        "altura": "13.14",
+        "fechaStr": "28/07/2026",
+        "horaStr": "13:40"
       }
     ]
   },
   "concordia": {
-    "altura": "9.96",
-    "horaStr": "00:00",
+    "altura": "0.04",
+    "horaStr": "12:00",
     "fechaStr": "28/07/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "9.96m (a las 00:00 hs)",
+    "textoFB": "0.04m (a las 12:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "5.52",
-        "fechaStr": "18/07/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "6.12",
         "fechaStr": "19/07/2026",
@@ -351,6 +346,11 @@
         "altura": "9.96",
         "fechaStr": "28/07/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "0.04",
+        "fechaStr": "28/07/2026",
+        "horaStr": "12:00"
       }
     ]
   }
