@@ -393,7 +393,7 @@ async function obtenerDatos() {
             coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia");
         }
 
-        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE 20 REGISTROS ---
+        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE 20 REGISTROS Y TENDENCIA ---
         function getHistorico(puertoKey, nuevoDato) {
             let hist = (datosAnteriores[puertoKey] && datosAnteriores[puertoKey].historico) ? datosAnteriores[puertoKey].historico : [];
             if (nuevoDato && !nuevoDato.antiguo) {
@@ -411,11 +411,34 @@ async function obtenerDatos() {
             return hist.slice(-20);
         }
 
+        function calcularTendencia(historico) {
+            if (!historico || historico.length < 2) {
+                return { tendencia: 'estacionario', variacionStr: '0.00 m', icono: '➡️' };
+            }
+            const actual = parseFloat(historico[historico.length - 1].altura);
+            const anterior = parseFloat(historico[historico.length - 2].altura);
+            if (isNaN(actual) || isNaN(anterior)) {
+                return { tendencia: 'estacionario', variacionStr: '0.00 m', icono: '➡️' };
+            }
+            const diff = actual - anterior;
+            if (diff > 0.01) {
+                return { tendencia: 'subiendo', variacionStr: `+${diff.toFixed(2)} m`, icono: '↗️' };
+            } else if (diff < -0.01) {
+                return { tendencia: 'bajando', variacionStr: `${diff.toFixed(2)} m`, icono: '↘️' };
+            } else {
+                return { tendencia: 'estacionario', variacionStr: '0.00 m', icono: '➡️' };
+            }
+        }
+
         // ---- ASIGNACIÓN DE NIVELES DE ALERTA / EVACUACIÓN Y HISTORIAL ----
         if (lpDatos) { 
             lpDatos.alerta = 2.5; 
             lpDatos.evacuacion = 2.8; 
             lpDatos.historico = getHistorico('laplata', lpDatos);
+            const tend = calcularTendencia(lpDatos.historico);
+            lpDatos.tendencia = tend.tendencia;
+            lpDatos.variacionStr = tend.variacionStr;
+            lpDatos.iconoTendencia = tend.icono;
         } else if (datosAnteriores.laplata) {
             lpDatos = datosAnteriores.laplata;
         }
@@ -424,6 +447,10 @@ async function obtenerDatos() {
             igDatos.alerta = 25.0; 
             igDatos.evacuacion = 28.0; 
             igDatos.historico = getHistorico('iguazu', igDatos);
+            const tend = calcularTendencia(igDatos.historico);
+            igDatos.tendencia = tend.tendencia;
+            igDatos.variacionStr = tend.variacionStr;
+            igDatos.iconoTendencia = tend.icono;
         } else if (datosAnteriores.iguazu) {
             igDatos = datosAnteriores.iguazu;
         }
@@ -432,6 +459,10 @@ async function obtenerDatos() {
             coDatos.alerta = 11.0; 
             coDatos.evacuacion = 12.5; 
             coDatos.historico = getHistorico('concordia', coDatos);
+            const tend = calcularTendencia(coDatos.historico);
+            coDatos.tendencia = tend.tendencia;
+            coDatos.variacionStr = tend.variacionStr;
+            coDatos.iconoTendencia = tend.icono;
         } else if (datosAnteriores.concordia) {
             coDatos = datosAnteriores.concordia;
         }

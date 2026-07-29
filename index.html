@@ -3,95 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
-<title>Reporte Fluvial</title>
+<title>Reporte Fluvial — Niveles de Ríos</title>
+<meta name="description" content="Información en tiempo real de la altura de los ríos en La Plata, Iguazú y Concordia con estado de alertas y pronóstico.">
+<meta name="theme-color" content="#0a3d62">
+
+<!-- OpenGraph / Redes Sociales -->
+<meta property="og:title" content="Reporte Fluvial — Alturas y Niveles de Ríos">
+<meta property="og:description" content="Niveles de ríos en tiempo real (La Plata, Iguazú, Concordia), estado de alerta y pronóstico de mareas.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://andresehansen.github.io/hidrometros/">
+<meta property="og:image" content="favicon.svg">
+
+<!-- Favicon y PWA -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="manifest" href="manifest.json">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
-  :root{
-    --azul-rio:#0a3d62;
-    --azul-medio:#1a6fa8;
-    --azul-claro:#e8f4fd;
-    --verde-ok:#1e7e34;
-    --verde-bg:#d4edda;
-    --naranja-alerta:#c96c00;
-    --naranja-bg:#fff3cd;
-    --amarillo-alerta:#d97706;
-    --amarillo-bg:#fef3c7;
-    --amarillo-border:#fde68a;
-    --rojo-evacuacion:#d9381e;
-    --rojo-bg:#fde8e8;
-    --rojo-border:#f8b4b4;
-    --texto:#1a1a2e;
-    --blanco:#ffffff;
-    --radio:20px;
-    --sombra:0 6px 32px rgba(10,61,98,0.13)
+  
+  :root {
+    --bg-body: linear-gradient(160deg, #d6eaf8 0%, #eaf4fb 40%, #f0f8ff 100%);
+    --bg-card: #ffffff;
+    --azul-rio: #0a3d62;
+    --azul-medio: #1a6fa8;
+    --azul-claro: #e8f4fd;
+    --verde-ok: #1e7e34;
+    --verde-bg: #d4edda;
+    --naranja-alerta: #c96c00;
+    --naranja-bg: #fff3cd;
+    --amarillo-alerta: #d97706;
+    --amarillo-bg: #fef3c7;
+    --amarillo-border: #fde68a;
+    --rojo-evacuacion: #d9381e;
+    --rojo-bg: #fde8e8;
+    --rojo-border: #f8b4b4;
+    --texto: #1a1a2e;
+    --texto-sub: #607080;
+    --border-color: #e8eef4;
+    --radio: 20px;
+    --sombra: 0 6px 32px rgba(10,61,98,0.13);
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(160deg,#d6eaf8 0%,#eaf4fb 40%,#f0f8ff 100%);min-height:100vh;color:var(--texto);-webkit-tap-highlight-color:transparent}
-  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");background-size:100px 20px;pointer-events:none;z-index:0}
-  .contenedor{position:relative;z-index:1;max-width:750px;margin:0 auto;padding:20px 16px 60px}
-  .encabezado{text-align:center;background:var(--azul-rio);border-radius:var(--radio);padding:28px 24px 24px;margin-bottom:20px;box-shadow:var(--sombra);position:relative;overflow:hidden}
-  .encabezado::after{content:'🌊';position:absolute;font-size:120px;opacity:.07;right:-20px;top:-20px;pointer-events:none}
-  .encabezado h1{font-family:'Merriweather',serif;font-size:2rem;font-weight:900;color:var(--blanco);line-height:1.2}
-  .encabezado .subtitulo{font-size:1rem;color:rgba(255,255,255,.8);margin-top:6px}
-  .fecha-actualizacion{display:inline-block;margin-top:14px;background:rgba(255,255,255,.15);color:var(--blanco);padding:8px 18px;border-radius:50px;font-size:.95rem;font-weight:600}
-  .btn-actualizar{display:block;width:100%;background:var(--azul-medio);color:var(--blanco);border:none;border-radius:var(--radio);padding:20px;font-size:1.25rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:20px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none}
-  .btn-actualizar:active{background:#145a8a;transform:scale(.98)}
-  .btn-actualizar:disabled{background:#7aaccc;cursor:default;transform:none}
+
+  [data-theme="dark"] {
+    --bg-body: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+    --bg-card: #1e293b;
+    --azul-rio: #38bdf8;
+    --azul-medio: #38bdf8;
+    --azul-claro: #0f172a;
+    --verde-ok: #4ade80;
+    --verde-bg: rgba(74, 222, 128, 0.15);
+    --naranja-alerta: #fbbf24;
+    --naranja-bg: rgba(251, 191, 36, 0.15);
+    --amarillo-alerta: #f59e0b;
+    --amarillo-bg: rgba(245, 158, 11, 0.15);
+    --amarillo-border: rgba(245, 158, 11, 0.3);
+    --rojo-evacuacion: #f87171;
+    --rojo-bg: rgba(248, 113, 113, 0.15);
+    --rojo-border: rgba(248, 113, 113, 0.3);
+    --texto: #f8fafc;
+    --texto-sub: #94a3b8;
+    --border-color: #334155;
+    --sombra: 0 6px 32px rgba(0,0,0,0.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg-body);
+    min-height: 100vh;
+    color: var(--texto);
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.3s, color 0.3s;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 100px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .contenedor { position: relative; z-index: 1; max-width: 750px; margin: 0 auto; padding: 20px 16px 60px; }
   
-  .tarjeta{background:var(--blanco);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s}
-  .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%); }
-  .tarjeta.estado-evacuacion { border-left-color: var(--rojo-evacuacion); background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%); }
+  .header-actions { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+  .btn-theme {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--texto);
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-theme:active { transform: scale(0.95); }
 
-  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-  .tarjeta-titulo{font-family:'Merriweather',serif;font-size:1.35rem;font-weight:700;color:var(--azul-rio);margin-bottom:4px}
-  .tarjeta-fecha{font-size:.9rem;color:#607080;margin-bottom:16px}
-  .dato-fila{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid #e8eef4}
-  .dato-fila:first-of-type{border-top:none;padding-top:0}
-  .dato-icono{font-size:1.6rem;width:40px;text-align:center;flex-shrink:0;margin-top:2px}
-  .dato-contenido{flex:1}
-  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:#7090a0;font-weight:700;margin-bottom:3px}
-  .dato-valor{font-size:1.5rem;font-weight:700;color:var(--texto);line-height:1.2}
-  .dato-valor.grande{font-size:2rem;color:var(--azul-rio)}
-  .dato-valor.val-alerta{color:var(--amarillo-alerta)}
-  .dato-valor.val-evacuacion{color:var(--rojo-evacuacion)}
-
-  .dato-sub{font-size:.9rem;color:#607080;margin-top:3px}
-  .badge-container{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.9rem;font-weight:700}
-  .badge-ok{background:var(--verde-bg);color:var(--verde-ok)}
-  .badge-alerta{background:var(--naranja-bg);color:var(--naranja-alerta)}
-  .badge-alerta-nivel{background:var(--amarillo-bg);color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);font-weight:700}
-  .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
-  .badge-nd{background:#e9ecef;color:#6c757d}
-
-  .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:#f4f8fb;border-radius:12px;font-size:0.88rem;color:#506878}
-  .ref-item strong{font-weight:700}
-  .ref-item.ref-alerta strong{color:var(--amarillo-alerta)}
-  .ref-item.ref-evacuacion strong{color:var(--rojo-evacuacion)}
-
-  .pronostico-fila{display:flex;gap:12px;margin-top:4px}
-  .pronostico-item{flex:1;background:var(--azul-claro);border-radius:12px;padding:14px;text-align:center}
-  .pronostico-item .tipo{font-size:.85rem;font-weight:700;text-transform:uppercase;color:var(--azul-medio);margin-bottom:6px}
-  .pronostico-item .valor{font-size:1.4rem;font-weight:700;color:var(--azul-rio)}
-  .pronostico-item .detalle{font-size:.85rem;color:#5080a0;margin-top:3px}
-  .cargando{text-align:center;padding:40px 20px;color:var(--azul-medio)}
-  .spinner{width:60px;height:60px;border:6px solid #d0e8f8;border-top-color:var(--azul-medio);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .cargando p{font-size:1.1rem;font-weight:600}
-  .aviso-info{background:#fffbe6;border:2px solid #ffe066;border-radius:var(--radio);padding:16px 20px;font-size:.95rem;color:#7a5c00;margin-bottom:16px;line-height:1.5}
-  .pie{text-align:center;color:#90aabf;font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
+  .encabezado {
+    text-align: center;
+    background: #0a3d62;
+    border-radius: var(--radio);
+    padding: 28px 24px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--sombra);
+    position: relative;
+    overflow: hidden;
+  }
+  .encabezado::after { content: '🌊'; position: absolute; font-size: 120px; opacity: .07; right: -20px; top: -20px; pointer-events: none; }
+  .encabezado h1 { font-family: 'Merriweather', serif; font-size: 2rem; font-weight: 900; color: #ffffff; line-height: 1.2; }
+  .encabezado .subtitulo { font-size: 1rem; color: rgba(255,255,255,.8); margin-top: 6px; }
+  .fecha-actualizacion { display: inline-block; margin-top: 14px; background: rgba(255,255,255,.15); color: #ffffff; padding: 8px 18px; border-radius: 50px; font-size: .95rem; font-weight: 600; }
   
-  /* Estilos para el historial */
-  details { margin-top: 15px; border-top: 1px solid #e8eef4; padding-top: 12px; }
+  .btn-actualizar {
+    display: block; width: 100%; background: var(--azul-medio); color: #ffffff; border: none; border-radius: var(--radio); padding: 20px; font-size: 1.25rem; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(26,111,168,.35); transition: background .2s, transform .1s; touch-action: manipulation; -webkit-user-select: none;
+  }
+  .btn-actualizar:active { transform: scale(.98); }
+  .btn-actualizar:disabled { opacity: 0.7; cursor: default; transform: none; }
+  
+  /* Banner Alerta Crítica */
+  .banner-critico {
+    background: var(--rojo-bg);
+    border: 2px solid var(--rojo-evacuacion);
+    color: var(--rojo-evacuacion);
+    border-radius: var(--radio);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    animation: fadeIn .4s ease both;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tarjeta {
+    background: var(--bg-card);
+    border-radius: var(--radio);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--sombra);
+    border-left: 6px solid var(--azul-medio);
+    animation: fadeIn .4s ease both;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); }
+  .tarjeta.estado-evacuacion { border-left-color: var(--rojo-evacuacion); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .tarjeta-titulo { font-family: 'Merriweather', serif; font-size: 1.35rem; font-weight: 700; color: var(--azul-rio); margin-bottom: 4px; }
+  .tarjeta-fecha { font-size: .9rem; color: var(--texto-sub); margin-bottom: 16px; }
+  .dato-fila { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border-color); }
+  .dato-fila:first-of-type { border-top: none; padding-top: 0; }
+  .dato-icono { font-size: 1.6rem; width: 40px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+  .dato-contenido { flex: 1; }
+  .dato-etiqueta { font-size: .88rem; text-transform: uppercase; letter-spacing: .8px; color: var(--texto-sub); font-weight: 700; margin-bottom: 3px; }
+  .dato-valor { font-size: 1.5rem; font-weight: 700; color: var(--texto); line-height: 1.2; }
+  .dato-valor.grande { font-size: 2rem; color: var(--azul-rio); }
+  .dato-valor.val-alerta { color: var(--amarillo-alerta); }
+  .dato-valor.val-evacuacion { color: var(--rojo-evacuacion); }
+
+  .dato-sub { font-size: .9rem; color: var(--texto-sub); margin-top: 3px; }
+  .badge-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .badge { display: inline-block; padding: 5px 14px; border-radius: 50px; font-size: .9rem; font-weight: 700; }
+  .badge-ok { background: var(--verde-bg); color: var(--verde-ok); }
+  .badge-alerta { background: var(--naranja-bg); color: var(--naranja-alerta); }
+  .badge-alerta-nivel { background: var(--amarillo-bg); color: var(--amarillo-alerta); border: 1px solid var(--amarillo-border); font-weight: 700; }
+  .badge-evacuacion-nivel { background: var(--rojo-bg); color: var(--rojo-evacuacion); border: 1px solid var(--rojo-border); font-weight: 800; }
+  .badge-tendencia { background: var(--azul-claro); color: var(--azul-rio); border: 1px solid var(--border-color); font-weight: 700; }
+  .badge-nd { background: #e9ecef; color: #6c757d; }
+
+  .referencia-niveles { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 10px; padding: 10px 14px; background: var(--azul-claro); border-radius: 12px; font-size: 0.88rem; color: var(--texto-sub); }
+  .ref-item strong { font-weight: 700; }
+  .ref-item.ref-alerta strong { color: var(--amarillo-alerta); }
+  .ref-item.ref-evacuacion strong { color: var(--rojo-evacuacion); }
+
+  .pronostico-fila { display: flex; gap: 12px; margin-top: 4px; }
+  .pronostico-item { flex: 1; background: var(--azul-claro); border-radius: 12px; padding: 14px; text-align: center; }
+  .pronostico-item .tipo { font-size: .85rem; font-weight: 700; text-transform: uppercase; color: var(--azul-medio); margin-bottom: 6px; }
+  .pronostico-item .valor { font-size: 1.4rem; font-weight: 700; color: var(--azul-rio); }
+  .pronostico-item .detalle { font-size: .85rem; color: var(--texto-sub); margin-top: 3px; }
+  .cargando { text-align: center; padding: 40px 20px; color: var(--azul-medio); }
+  .spinner { width: 60px; height: 60px; border: 6px solid var(--azul-claro); border-top-color: var(--azul-medio); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .cargando p { font-size: 1.1rem; font-weight: 600; }
+  .aviso-info { background: #fffbe6; border: 2px solid #ffe066; border-radius: var(--radio); padding: 16px 20px; font-size: .95rem; color: #7a5c00; margin-bottom: 16px; line-height: 1.5; }
+  .pie { text-align: center; color: var(--texto-sub); font-size: .85rem; margin-top: 30px; padding: 0 10px; line-height: 1.6; }
+  
+  /* Historial */
+  details { margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 12px; }
   summary { font-size: 0.95rem; font-weight: 700; color: var(--azul-medio); cursor: pointer; list-style: none; user-select: none; }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: '📊 '; }
-  .historial-chart { width: 100%; height: 140px; margin-top: 15px; }
+  .historial-chart { width: 100%; height: 160px; margin-top: 15px; }
 </style>
 </head>
 <body>
 <div class="contenedor">
+  <div class="header-actions">
+    <button class="btn-theme" id="btnTheme" onclick="toggleTheme()">🌙 Modo Oscuro</button>
+  </div>
   <header class="encabezado">
     <h1>🌊 Reporte Fluvial</h1>
     <p class="subtitulo">Niveles de ríos — Argentina</p>
@@ -114,8 +228,31 @@ const DEFAULTS_PUERTO = {
   iguazu:    { alerta: 25.0, evacuacion: 28.0 },
   concordia: { alerta: 11.0, evacuacion: 12.5 }
 };
-// ──────────────────────────────────────────────────────────────
 
+// --- MODO OSCURO ---
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('btnTheme').textContent = '☀️ Modo Claro';
+  }
+}
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+    document.getElementById('btnTheme').textContent = '🌙 Modo Oscuro';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+    document.getElementById('btnTheme').textContent = '☀️ Modo Claro';
+  }
+}
+initTheme();
+
+// --- ESTADO Y TENDENCIA ---
 function getEstadoPuerto(alturaStr, alerta, evacuacion) {
   if (alturaStr === null || alturaStr === undefined || isNaN(alturaStr)) return 'normal';
   const alt = parseFloat(alturaStr);
@@ -128,6 +265,14 @@ function renderBadgeNivel(estado) {
   if (estado === 'evacuacion') return `<span class="badge badge-evacuacion-nivel">🚨 EVACUACIÓN</span>`;
   if (estado === 'alerta') return `<span class="badge badge-alerta-nivel">⚠️ ALERTA</span>`;
   return `<span class="badge badge-ok">🟢 Normal</span>`;
+}
+
+function renderBadgeTendencia(d) {
+  if (!d) return '';
+  let icono = d.iconoTendencia || '➡️';
+  let varStr = d.variacionStr ? ` (${d.variacionStr})` : '';
+  let label = d.tendencia ? d.tendencia.charAt(0).toUpperCase() + d.tendencia.slice(1) : 'Estacionario';
+  return `<span class="badge badge-tendencia">${icono} ${label}${varStr}</span>`;
 }
 
 function renderReferenciaPill(alerta, evacuacion) {
@@ -154,7 +299,7 @@ function tarjetaLP(d,viento,pron){
 
   const vTxt=viento?`${viento.velocidad} km/h · ${viento.direccion}`:'No disponible';
   const tTxt=viento?`Temperatura: ${viento.temperatura}°C`:'';
-  let pronHTML=`<p style="color:#90aabf;font-size:.95rem">No disponible</p>`;
+  let pronHTML=`<p style="color:var(--texto-sub);font-size:.95rem">No disponible</p>`;
   if(pron&&(pron.pleamar||pron.bajamar)){
     pronHTML=`<div class="pronostico-fila">`;
     if(pron.pleamar) pronHTML+=`<div class="pronostico-item"><div class="tipo">📈 Pleamar</div><div class="valor">${pron.pleamar.altura} m</div><div class="detalle">${pron.pleamar.fecha} · ${pron.pleamar.hora} hs</div></div>`;
@@ -178,7 +323,7 @@ function tarjetaLP(d,viento,pron){
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
+      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
       <div class="dato-etiqueta">Viento</div>
@@ -215,14 +360,14 @@ function tarjetaRio(nombre,emoji,d,idChart,keyPuerto){
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
+      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
     </div></div>
     ${histHTML}
   </div>`;
 }
 
 function renderizarGraficos(d) {
-  const render = (hist, idElement, estado) => {
+  const render = (hist, idElement, estado, alertaVal, evacuacionVal) => {
     const canvas = document.getElementById(idElement);
     if (!canvas) return;
 
@@ -237,24 +382,52 @@ function renderizarGraficos(d) {
       bgColor = 'rgba(217,119,6,0.15)';
     }
 
+    const labels = hist.map(h => h.horaStr);
+    const dataValues = hist.map(h => parseFloat(h.altura));
+
+    const datasets = [{
+      label: 'Altura (m)',
+      data: dataValues,
+      borderColor: borderColor,
+      backgroundColor: bgColor,
+      borderWidth: 2.5,
+      fill: true,
+      pointRadius: 4,
+      tension: 0.3
+    }];
+
+    if (alertaVal) {
+      datasets.push({
+        label: `Alerta (${alertaVal}m)`,
+        data: Array(hist.length).fill(alertaVal),
+        borderColor: '#d97706',
+        borderWidth: 1.5,
+        borderDash: [5, 5],
+        pointRadius: 0,
+        fill: false
+      });
+    }
+    if (evacuacionVal) {
+      datasets.push({
+        label: `Evacuación (${evacuacionVal}m)`,
+        data: Array(hist.length).fill(evacuacionVal),
+        borderColor: '#d9381e',
+        borderWidth: 1.5,
+        borderDash: [5, 5],
+        pointRadius: 0,
+        fill: false
+      });
+    }
+
     new Chart(canvas, {
       type: 'line',
-      data: {
-        labels: hist.map(h => h.horaStr),
-        datasets: [{
-          data: hist.map(h => parseFloat(h.altura)),
-          borderColor: borderColor,
-          backgroundColor: bgColor,
-          borderWidth: 2,
-          fill: true,
-          pointRadius: 3,
-          tension: 0.3
-        }]
-      },
+      data: { labels, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: { display: true, position: 'bottom', labels: { font: { size: 10 }, boxWidth: 12 } }
+        },
         scales: {
           x: { ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 45 } },
           y: { ticks: { font: { size: 11 } } }
@@ -264,16 +437,22 @@ function renderizarGraficos(d) {
   };
 
   if (d.laplata && d.laplata.historico) {
-    const st = getEstadoPuerto(d.laplata.altura, d.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta, d.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion);
-    render(d.laplata.historico, 'chart-laplata', st);
+    const al = d.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta;
+    const ev = d.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion;
+    const st = getEstadoPuerto(d.laplata.altura, al, ev);
+    render(d.laplata.historico, 'chart-laplata', st, al, ev);
   }
   if (d.iguazu && d.iguazu.historico) {
-    const st = getEstadoPuerto(d.iguazu.altura, d.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta, d.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion);
-    render(d.iguazu.historico, 'chart-iguazu', st);
+    const al = d.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta;
+    const ev = d.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion;
+    const st = getEstadoPuerto(d.iguazu.altura, al, ev);
+    render(d.iguazu.historico, 'chart-iguazu', st, al, ev);
   }
   if (d.concordia && d.concordia.historico) {
-    const st = getEstadoPuerto(d.concordia.altura, d.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta, d.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion);
-    render(d.concordia.historico, 'chart-concordia', st);
+    const al = d.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta;
+    const ev = d.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion;
+    const st = getEstadoPuerto(d.concordia.altura, al, ev);
+    render(d.concordia.historico, 'chart-concordia', st, al, ev);
   }
 }
 
@@ -295,7 +474,28 @@ async function cargarDatos(){
     const d=await res.json();
     fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
     
-    panel.innerHTML= tarjetaLP(d.laplata,d.viento,d.pronostico) + 
+    // Verificación de Alertas Críticas para Banner Superior
+    let avisos = [];
+    const checkAlerta = (nombre, pData, defaults) => {
+      if (!pData) return;
+      const al = pData.alerta || defaults.alerta;
+      const ev = pData.evacuacion || defaults.evacuacion;
+      const st = getEstadoPuerto(pData.altura, al, ev);
+      if (st === 'evacuacion') avisos.push(`🚨 <strong>${nombre}</strong> se encuentra en Nivel de EVACUACIÓN (${pData.altura} m)`);
+      else if (st === 'alerta') avisos.push(`⚠️ <strong>${nombre}</strong> se encuentra en Nivel de ALERTA (${pData.altura} m)`);
+    };
+
+    checkAlerta('La Plata', d.laplata, DEFAULTS_PUERTO.laplata);
+    checkAlerta('Iguazú', d.iguazu, DEFAULTS_PUERTO.iguazu);
+    checkAlerta('Concordia', d.concordia, DEFAULTS_PUERTO.concordia);
+
+    let bannerHTML = '';
+    if (avisos.length > 0) {
+      bannerHTML = `<div class="banner-critico"><div>${avisos.join('<br>')}</div></div>`;
+    }
+
+    panel.innerHTML = bannerHTML + 
+                     tarjetaLP(d.laplata,d.viento,d.pronostico) + 
                      tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu','iguazu') + 
                      tarjetaRio('Concordia','🌿',d.concordia,'concordia','concordia');
                      
@@ -309,7 +509,15 @@ async function cargarDatos(){
   }
   btn.disabled=false; btn.textContent='🔄   Actualizar';
 }
+
 cargarDatos();
+
+// Registro de Service Worker para PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration error:', err));
+  });
+}
 </script>
 </body>
 </html>
