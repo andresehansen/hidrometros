@@ -308,25 +308,83 @@ async function obtenerDatos() {
         try {
             const r  = await fetch(urlConcordia);
             if (!r.ok) throw new Error("HTTP error");
-            const t  = (await r.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
-            const idx = t.indexOf("Concordia");
-            const blq = t.substring(idx, idx + 150);
-            const mA  = blq.match(/(\d+[,.]\d{1,2})/);
-            const mH  = blq.match(/(\d{2}:\d{2})/);
-            const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
-            if (mA && mH && mF) {
-                const [d, m, y] = mF[1].split('/');
-                const fechaMed  = new Date(y, m - 1, d);
-                const antiguo   = esAntiguo(fechaMed);
-                if (!antiguo) {
-                    coDatos = {
-                        altura:   mA[1].replace(',', '.'),
-                        horaStr:  mH[1],
-                        fechaStr: mF[1],
-                        fuente:   "SRH",
-                        antiguo:  false,
-                        textoFB:  `${mA[1].replace(',','.')}m (a las ${mH[1]} hs)`
-                    };
+            const html = await r.text();
+
+            // Buscamos la fila <tr> que contiene a Concordia
+            const trRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+            let match;
+            let concordiaTr = null;
+            while ((match = trRegex.exec(html)) !== null) {
+                if (match[1].includes("Concordia")) {
+                    concordiaTr = match[1];
+                    break;
+                }
+            }
+
+            if (concordiaTr) {
+                const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+                const celdas = [];
+                let tdMatch;
+                while ((tdMatch = tdRegex.exec(concordiaTr)) !== null) {
+                    celdas.push(tdMatch[1].replace(/<[^>]*>?/gm, '').trim());
+                }
+
+                // celdas[0]: Puerto ("Concordia")
+                // celdas[1]: Fecha - Hora ("29/07/2026 - 00:00" o "29/07/2026 00:00")
+                // celdas[2]: Ultimo Registro ("10", "10,00", "10.00", "9,96", etc.)
+                // celdas[3]: Variación (e.g. "0,00", "0,04")
+                if (celdas.length >= 3) {
+                    const strFechaHora = celdas[1];
+                    const strAltura = celdas[2];
+
+                    const mF = strFechaHora.match(/(\d{2}\/\d{2}\/\d{4})/);
+                    const mH = strFechaHora.match(/(\d{2}:\d{2})/);
+                    const mA = strAltura.match(/(\d+([,.]\d+)?)/);
+
+                    if (mA && mH && mF) {
+                        const valAltura = parseFloat(mA[1].replace(',', '.')).toFixed(2);
+                        const [d, m, y] = mF[1].split('/');
+                        const fechaMed  = new Date(y, m - 1, d);
+                        const antiguo   = esAntiguo(fechaMed);
+                        if (!antiguo) {
+                            coDatos = {
+                                altura:   valAltura,
+                                horaStr:  mH[1],
+                                fechaStr: mF[1],
+                                fuente:   "SRH",
+                                antiguo:  false,
+                                textoFB:  `${valAltura}m (a las ${mH[1]} hs)`
+                            };
+                        }
+                    }
+                }
+            }
+
+            // Fallback si por alguna razón no se pudo parsear la estructura <tr>
+            if (!coDatos) {
+                const t  = html.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+                const idx = t.indexOf("Concordia");
+                if (idx !== -1) {
+                    const blq = t.substring(idx, idx + 150);
+                    const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
+                    const mH  = blq.match(/(\d{2}:\d{2})/);
+                    const mA  = blq.match(/(\d+([,.]\d+)?)/);
+                    if (mA && mH && mF) {
+                        const [d, m, y] = mF[1].split('/');
+                        const fechaMed  = new Date(y, m - 1, d);
+                        const antiguo   = esAntiguo(fechaMed);
+                        if (!antiguo) {
+                            const valAltura = parseFloat(mA[1].replace(',', '.')).toFixed(2);
+                            coDatos = {
+                                altura:   valAltura,
+                                horaStr:  mH[1],
+                                fechaStr: mF[1],
+                                fuente:   "SRH",
+                                antiguo:  false,
+                                textoFB:  `${valAltura}m (a las ${mH[1]} hs)`
+                            };
+                        }
+                    }
                 }
             }
         } catch (e) { console.log("⚠️ Error Concordia primario:", e.message); }
