@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "31/07/2026 a las 06:19 hs",
-  "generadoEn": "2026-07-31T06:19:30.289Z",
+  "fechaReporte": "31/07/2026 a las 07:00 hs",
+  "generadoEn": "2026-07-31T07:00:07.972Z",
   "laplata": {
-    "altura": "1.24",
-    "horaStr": "06:10",
+    "altura": "1.22",
+    "horaStr": "06:50",
     "fechaStr": "31/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.24m (a las 06:10 hs)",
+    "textoFB": "1.22m (a las 06:50 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.09",
-        "fechaStr": "30/07/2026",
-        "horaStr": "15:30"
-      },
       {
         "altura": "1.12",
         "fechaStr": "30/07/2026",
@@ -110,16 +105,21 @@
         "altura": "1.24",
         "fechaStr": "31/07/2026",
         "horaStr": "06:10"
+      },
+      {
+        "altura": "1.22",
+        "fechaStr": "31/07/2026",
+        "horaStr": "06:50"
       }
     ],
-    "tendencia": "subiendo",
-    "variacionStr": "+0.02 m",
-    "iconoTendencia": "↗️"
+    "tendencia": "bajando",
+    "variacionStr": "-0.02 m",
+    "iconoTendencia": "↘️"
   },
   "viento": {
-    "velocidad": 15.9,
+    "velocidad": 15.8,
     "direccion": "Noreste (NE)",
-    "temperatura": 13.4
+    "temperatura": 13.6
   },
   "pronostico": {
     "pleamar": {
@@ -134,20 +134,15 @@
     }
   },
   "iguazu": {
-    "altura": "14.13",
-    "horaStr": "06:00",
+    "altura": "14.12",
+    "horaStr": "06:40",
     "fechaStr": "31/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.13m (a las 06:00 hs)",
+    "textoFB": "14.12m (a las 06:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.11",
-        "fechaStr": "30/07/2026",
-        "horaStr": "09:00"
-      },
       {
         "altura": "13.95",
         "fechaStr": "30/07/2026",
@@ -242,10 +237,15 @@
         "altura": "14.13",
         "fechaStr": "31/07/2026",
         "horaStr": "06:00"
+      },
+      {
+        "altura": "14.12",
+        "fechaStr": "31/07/2026",
+        "horaStr": "06:40"
       }
     ],
     "tendencia": "bajando",
-    "variacionStr": "-0.04 m",
+    "variacionStr": "-0.01 m",
     "iconoTendencia": "↘️"
   },
   "concordia": {
