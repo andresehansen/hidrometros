@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "31/07/2026 a las 16:19 hs",
-  "generadoEn": "2026-07-31T16:19:23.135Z",
+  "fechaReporte": "31/07/2026 a las 16:55 hs",
+  "generadoEn": "2026-07-31T16:55:09.750Z",
   "laplata": {
     "altura": "0.34",
-    "horaStr": "16:10",
+    "horaStr": "16:30",
     "fechaStr": "31/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.34m (a las 16:10 hs)",
+    "textoFB": "0.34m (a las 16:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.91",
-        "fechaStr": "31/07/2026",
-        "horaStr": "02:10"
-      },
       {
         "altura": "0.97",
         "fechaStr": "31/07/2026",
@@ -110,6 +105,11 @@
         "altura": "0.34",
         "fechaStr": "31/07/2026",
         "horaStr": "16:10"
+      },
+      {
+        "altura": "0.34",
+        "fechaStr": "31/07/2026",
+        "horaStr": "16:30"
       }
     ],
     "tendencia": "estacionario",
@@ -117,7 +117,7 @@
     "iconoTendencia": "➡️"
   },
   "viento": {
-    "velocidad": 21.4,
+    "velocidad": 22.4,
     "direccion": "Norte (N)",
     "temperatura": 18.3
   },
@@ -134,20 +134,15 @@
     }
   },
   "iguazu": {
-    "altura": "12.94",
-    "horaStr": "16:00",
+    "altura": "12.98",
+    "horaStr": "16:40",
     "fechaStr": "31/07/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.94m (a las 16:00 hs)",
+    "textoFB": "12.98m (a las 16:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.74",
-        "fechaStr": "30/07/2026",
-        "horaStr": "21:20"
-      },
       {
         "altura": "14.79",
         "fechaStr": "30/07/2026",
@@ -242,11 +237,16 @@
         "altura": "12.94",
         "fechaStr": "31/07/2026",
         "horaStr": "16:00"
+      },
+      {
+        "altura": "12.98",
+        "fechaStr": "31/07/2026",
+        "horaStr": "16:40"
       }
     ],
-    "tendencia": "bajando",
-    "variacionStr": "-0.13 m",
-    "iconoTendencia": "↘️"
+    "tendencia": "subiendo",
+    "variacionStr": "+0.04 m",
+    "iconoTendencia": "↗️"
   },
   "concordia": {
     "altura": "10.26",
