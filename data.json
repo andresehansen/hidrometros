@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "01/08/2026 a las 00:53 hs",
-  "generadoEn": "2026-08-01T00:53:16.380Z",
+  "fechaReporte": "01/08/2026 a las 01:19 hs",
+  "generadoEn": "2026-08-01T01:19:23.788Z",
   "laplata": {
-    "altura": "0.02",
-    "horaStr": "00:30",
+    "altura": "-0.09",
+    "horaStr": "01:10",
     "fechaStr": "01/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.02m (a las 00:30 hs)",
+    "textoFB": "-0.09m (a las 01:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.90",
-        "fechaStr": "31/07/2026",
-        "horaStr": "10:10"
-      },
       {
         "altura": "0.80",
         "fechaStr": "31/07/2026",
@@ -110,16 +105,21 @@
         "altura": "0.02",
         "fechaStr": "01/08/2026",
         "horaStr": "00:30"
+      },
+      {
+        "altura": "-0.09",
+        "fechaStr": "01/08/2026",
+        "horaStr": "01:10"
       }
     ],
     "tendencia": "bajando",
-    "variacionStr": "-0.19 m",
+    "variacionStr": "-0.11 m",
     "iconoTendencia": "↘️"
   },
   "viento": {
-    "velocidad": 10.6,
-    "direccion": "Noroeste (NW)",
-    "temperatura": 17.9
+    "velocidad": 10.4,
+    "direccion": "Norte (N)",
+    "temperatura": 17.7
   },
   "pronostico": {
     "pleamar": {
@@ -134,20 +134,15 @@
     }
   },
   "iguazu": {
-    "altura": "14.04",
-    "horaStr": "00:40",
+    "altura": "14.02",
+    "horaStr": "01:00",
     "fechaStr": "01/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.04m (a las 00:40 hs)",
+    "textoFB": "14.02m (a las 01:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.13",
-        "fechaStr": "31/07/2026",
-        "horaStr": "06:00"
-      },
       {
         "altura": "14.12",
         "fechaStr": "31/07/2026",
@@ -242,6 +237,11 @@
         "altura": "14.04",
         "fechaStr": "01/08/2026",
         "horaStr": "00:40"
+      },
+      {
+        "altura": "14.02",
+        "fechaStr": "01/08/2026",
+        "horaStr": "01:00"
       }
     ],
     "tendencia": "bajando",
