@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "03/08/2026 a las 06:19 hs",
-  "generadoEn": "2026-08-03T06:19:26.247Z",
+  "fechaReporte": "03/08/2026 a las 06:44 hs",
+  "generadoEn": "2026-08-03T06:44:19.210Z",
   "laplata": {
-    "altura": "0.83",
-    "horaStr": "06:10",
+    "altura": "0.87",
+    "horaStr": "06:30",
     "fechaStr": "03/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.83m (a las 06:10 hs)",
+    "textoFB": "0.87m (a las 06:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.94",
-        "fechaStr": "02/08/2026",
-        "horaStr": "18:10"
-      },
       {
         "altura": "0.94",
         "fechaStr": "02/08/2026",
@@ -110,16 +105,21 @@
         "altura": "0.83",
         "fechaStr": "03/08/2026",
         "horaStr": "06:10"
+      },
+      {
+        "altura": "0.87",
+        "fechaStr": "03/08/2026",
+        "horaStr": "06:30"
       }
     ],
     "tendencia": "subiendo",
-    "variacionStr": "+0.18 m",
+    "variacionStr": "+0.04 m",
     "iconoTendencia": "↗️"
   },
   "viento": {
-    "velocidad": 8.7,
+    "velocidad": 7.7,
     "direccion": "Noreste (NE)",
-    "temperatura": 12.6
+    "temperatura": 12.4
   },
   "pronostico": {
     "pleamar": {
@@ -250,19 +250,14 @@
   },
   "concordia": {
     "altura": "11.20",
-    "horaStr": "00:00",
+    "horaStr": "06:00",
     "fechaStr": "03/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "11.20m (a las 00:00 hs)",
+    "textoFB": "11.20m (a las 06:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "8.7",
-        "fechaStr": "24/07/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "9.12",
         "fechaStr": "25/07/2026",
@@ -357,10 +352,15 @@
         "altura": "11.20",
         "fechaStr": "03/08/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "11.20",
+        "fechaStr": "03/08/2026",
+        "horaStr": "06:00"
       }
     ],
-    "tendencia": "subiendo",
-    "variacionStr": "+0.30 m",
-    "iconoTendencia": "↗️"
+    "tendencia": "estacionario",
+    "variacionStr": "0.00 m",
+    "iconoTendencia": "➡️"
   }
 }
