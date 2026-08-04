@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "04/08/2026 a las 00:19 hs",
-  "generadoEn": "2026-08-04T00:19:24.869Z",
+  "fechaReporte": "04/08/2026 a las 00:41 hs",
+  "generadoEn": "2026-08-04T00:41:04.065Z",
   "laplata": {
-    "altura": "0.78",
-    "horaStr": "00:10",
+    "altura": "0.76",
+    "horaStr": "00:30",
     "fechaStr": "04/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.78m (a las 00:10 hs)",
+    "textoFB": "0.76m (a las 00:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.82",
-        "fechaStr": "03/08/2026",
-        "horaStr": "10:50"
-      },
       {
         "altura": "0.81",
         "fechaStr": "03/08/2026",
@@ -110,14 +105,19 @@
         "altura": "0.78",
         "fechaStr": "04/08/2026",
         "horaStr": "00:10"
+      },
+      {
+        "altura": "0.76",
+        "fechaStr": "04/08/2026",
+        "horaStr": "00:30"
       }
     ],
     "tendencia": "bajando",
-    "variacionStr": "-0.07 m",
+    "variacionStr": "-0.02 m",
     "iconoTendencia": "↘️"
   },
   "viento": {
-    "velocidad": 12.4,
+    "velocidad": 12.1,
     "direccion": "Sur (S)",
     "temperatura": 11.7
   },
@@ -249,20 +249,15 @@
     "iconoTendencia": "↘️"
   },
   "concordia": {
-    "altura": "11.26",
-    "horaStr": "18:00",
-    "fechaStr": "03/08/2026",
+    "altura": "11.30",
+    "horaStr": "00:00",
+    "fechaStr": "04/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "11.26m (a las 18:00 hs)",
+    "textoFB": "11.30m (a las 00:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "9.62",
-        "fechaStr": "26/07/2026",
-        "horaStr": "00:00"
-      },
       {
         "altura": "9.76",
         "fechaStr": "26/07/2026",
@@ -357,10 +352,15 @@
         "altura": "11.26",
         "fechaStr": "03/08/2026",
         "horaStr": "18:00"
+      },
+      {
+        "altura": "11.30",
+        "fechaStr": "04/08/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": "subiendo",
-    "variacionStr": "+0.02 m",
+    "variacionStr": "+0.04 m",
     "iconoTendencia": "↗️"
   }
 }
