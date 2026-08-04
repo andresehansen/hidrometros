@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "04/08/2026 a las 18:38 hs",
-  "generadoEn": "2026-08-04T18:38:32.223Z",
+  "fechaReporte": "04/08/2026 a las 18:59 hs",
+  "generadoEn": "2026-08-04T18:59:57.714Z",
   "laplata": {
-    "altura": "1.11",
-    "horaStr": "18:30",
+    "altura": "1.13",
+    "horaStr": "18:50",
     "fechaStr": "04/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.11m (a las 18:30 hs)",
+    "textoFB": "1.13m (a las 18:50 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.27",
-        "fechaStr": "04/08/2026",
-        "horaStr": "06:50"
-      },
       {
         "altura": "1.32",
         "fechaStr": "04/08/2026",
@@ -110,44 +105,33 @@
         "altura": "1.11",
         "fechaStr": "04/08/2026",
         "horaStr": "18:30"
+      },
+      {
+        "altura": "1.13",
+        "fechaStr": "04/08/2026",
+        "horaStr": "18:50"
       }
     ],
     "tendencia": "subiendo",
-    "variacionStr": "+0.06 m",
+    "variacionStr": "+0.02 m",
     "iconoTendencia": "↗️"
   },
   "viento": {
-    "velocidad": 12.6,
+    "velocidad": 12.5,
     "direccion": "Este (E)",
-    "temperatura": 12.1
+    "temperatura": 11.8
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "22:00",
-      "altura": "1.20",
-      "fecha": "04/08"
-    },
-    "bajamar": {
-      "hora": "04:00",
-      "altura": "0.50",
-      "fecha": "05/08"
-    }
-  },
+  "pronostico": null,
   "iguazu": {
-    "altura": "11.45",
-    "horaStr": "18:20",
+    "altura": "11.56",
+    "horaStr": "18:40",
     "fechaStr": "04/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "11.45m (a las 18:20 hs)",
+    "textoFB": "11.56m (a las 18:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "11.62",
-        "fechaStr": "03/08/2026",
-        "horaStr": "23:40"
-      },
       {
         "altura": "11.38",
         "fechaStr": "04/08/2026",
@@ -242,27 +226,27 @@
         "altura": "11.45",
         "fechaStr": "04/08/2026",
         "horaStr": "18:20"
+      },
+      {
+        "altura": "11.56",
+        "fechaStr": "04/08/2026",
+        "horaStr": "18:40"
       }
     ],
     "tendencia": "subiendo",
-    "variacionStr": "+0.12 m",
+    "variacionStr": "+0.11 m",
     "iconoTendencia": "↗️"
   },
   "concordia": {
-    "altura": "11.26",
-    "horaStr": "12:00",
+    "altura": "11.24",
+    "horaStr": "18:00",
     "fechaStr": "04/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "11.26m (a las 12:00 hs)",
+    "textoFB": "11.24m (a las 18:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "9.9",
-        "fechaStr": "27/07/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "9.96",
         "fechaStr": "28/07/2026",
@@ -357,10 +341,15 @@
         "altura": "11.26",
         "fechaStr": "04/08/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "11.24",
+        "fechaStr": "04/08/2026",
+        "horaStr": "18:00"
       }
     ],
     "tendencia": "bajando",
-    "variacionStr": "-0.04 m",
+    "variacionStr": "-0.02 m",
     "iconoTendencia": "↘️"
   }
 }
