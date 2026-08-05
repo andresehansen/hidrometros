@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
 <title>Reporte Fluvial</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
@@ -23,11 +24,45 @@
     --rojo-border:#f8b4b4;
     --texto:#1a1a2e;
     --blanco:#ffffff;
+    --fondo-body: linear-gradient(160deg,#d6eaf8 0%,#eaf4fb 40%,#f0f8ff 100%);
+    --fondo-tarjeta:#ffffff;
+    --fondo-sub:#f8fafc;
+    --fondo-pronostico:#e8f4fd;
+    --borde-sub:#e2e8f0;
+    --color-sub:#507080;
+    --color-etiqueta:#7090a0;
+    --color-fecha:#607080;
     --radio:20px;
     --sombra:0 6px 32px rgba(10,61,98,0.13)
   }
+  [data-tema="oscuro"] {
+    --azul-rio:#90caf9;
+    --azul-medio:#64b5f6;
+    --azul-claro:#0d1f2d;
+    --verde-ok:#66bb6a;
+    --verde-bg:#1b3a1e;
+    --naranja-alerta:#ffb74d;
+    --naranja-bg:#3a2800;
+    --amarillo-alerta:#ffd54f;
+    --amarillo-bg:#2d2200;
+    --amarillo-border:#5c4a00;
+    --rojo-evacuacion:#ef5350;
+    --rojo-bg:#3b1212;
+    --rojo-border:#7c2020;
+    --texto:#e8f0fe;
+    --blanco:#1a2535;
+    --fondo-body: linear-gradient(160deg,#0a1622 0%,#0d1f2d 40%,#0f2235 100%);
+    --fondo-tarjeta:#1a2535;
+    --fondo-sub:#111e2d;
+    --fondo-pronostico:#0d1f2d;
+    --borde-sub:#2a3f55;
+    --color-sub:#7aa8c8;
+    --color-etiqueta:#5a8aaa;
+    --color-fecha:#5a8aaa;
+    --sombra:0 6px 32px rgba(0,0,0,0.5)
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(160deg,#d6eaf8 0%,#eaf4fb 40%,#f0f8ff 100%);min-height:100vh;color:var(--texto);-webkit-tap-highlight-color:transparent}
+  body{font-family:'Source Sans 3',sans-serif;background:var(--fondo-body);min-height:100vh;color:var(--texto);-webkit-tap-highlight-color:transparent;transition:background 0.3s,color 0.3s}
   body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");background-size:100px 20px;pointer-events:none;z-index:0}
   .contenedor{position:relative;z-index:1;max-width:750px;margin:0 auto;padding:20px 16px 60px}
   .encabezado{text-align:center;background:var(--azul-rio);border-radius:var(--radio);padding:28px 24px 24px;margin-bottom:20px;box-shadow:var(--sombra);position:relative;overflow:hidden}
@@ -39,24 +74,24 @@
   .btn-actualizar:active{background:#145a8a;transform:scale(.98)}
   .btn-actualizar:disabled{background:#7aaccc;cursor:default;transform:none}
   
-  .tarjeta{background:var(--blanco);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s}
-  .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%); }
-  .tarjeta.estado-evacuacion { border-left-color: var(--rojo-evacuacion); background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%); }
+  .tarjeta{background:var(--fondo-tarjeta);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s}
+  .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); }
+  .tarjeta.estado-evacuacion { border-left-color: var(--rojo-evacuacion); }
 
   @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .tarjeta-titulo{font-family:'Merriweather',serif;font-size:1.35rem;font-weight:700;color:var(--azul-rio);margin-bottom:4px}
-  .tarjeta-fecha{font-size:.9rem;color:#607080;margin-bottom:16px}
+  .tarjeta-fecha{font-size:.9rem;color:var(--color-fecha);margin-bottom:16px}
   .dato-fila{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid #e8eef4}
   .dato-fila:first-of-type{border-top:none;padding-top:0}
   .dato-icono{font-size:1.6rem;width:40px;text-align:center;flex-shrink:0;margin-top:2px}
   .dato-contenido{flex:1}
-  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:#7090a0;font-weight:700;margin-bottom:3px}
+  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:var(--color-etiqueta);font-weight:700;margin-bottom:3px}
   .dato-valor{font-size:1.5rem;font-weight:700;color:var(--texto);line-height:1.2}
   .dato-valor.grande{font-size:2rem;color:var(--azul-rio)}
   .dato-valor.val-alerta{color:var(--amarillo-alerta)}
   .dato-valor.val-evacuacion{color:var(--rojo-evacuacion)}
 
-  .dato-sub{font-size:.9rem;color:#607080;margin-top:3px}
+  .dato-sub{font-size:.9rem;color:var(--color-fecha);margin-top:3px}
   .badge-container{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
   .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.9rem;font-weight:700}
   .badge-ok{background:var(--verde-bg);color:var(--verde-ok)}
@@ -65,29 +100,34 @@
   .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
   .badge-nd{background:#e9ecef;color:#6c757d}
 
-  .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:#f4f8fb;border-radius:12px;font-size:0.88rem;color:#506878}
+  .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:var(--fondo-sub);border-radius:12px;font-size:0.88rem;color:var(--color-sub)}
   .ref-item strong{font-weight:700}
   .ref-item.ref-alerta strong{color:var(--amarillo-alerta)}
   .ref-item.ref-evacuacion strong{color:var(--rojo-evacuacion)}
 
-  .sub-seccion-puerto{margin-top:14px;padding:14px;background:#f8fafc;border-radius:14px;border:1px solid #e2e8f0}
+  .sub-seccion-puerto{margin-top:14px;padding:14px;background:var(--fondo-sub);border-radius:14px;border:1px solid var(--borde-sub)}
   .sub-seccion-titulo{font-size:1.05rem;font-weight:700;color:var(--azul-rio);margin-bottom:8px}
-  .sub-divider{border:0;border-top:1px dashed #cbd5e1;margin:16px 0}
+  .sub-divider{border:0;border-top:1px dashed var(--borde-sub);margin:16px 0}
 
   .pronostico-fila{display:flex;gap:12px;margin-top:4px}
-  .pronostico-item{flex:1;background:var(--azul-claro);border-radius:12px;padding:14px;text-align:center}
+  .pronostico-item{flex:1;background:var(--fondo-pronostico);border-radius:12px;padding:14px;text-align:center}
   .pronostico-item .tipo{font-size:.85rem;font-weight:700;text-transform:uppercase;color:var(--azul-medio);margin-bottom:6px}
   .pronostico-item .valor{font-size:1.4rem;font-weight:700;color:var(--azul-rio)}
-  .pronostico-item .detalle{font-size:.85rem;color:#5080a0;margin-top:3px}
+  .pronostico-item .detalle{font-size:.85rem;color:var(--color-sub);margin-top:3px}
   .cargando{text-align:center;padding:40px 20px;color:var(--azul-medio)}
   .spinner{width:60px;height:60px;border:6px solid #d0e8f8;border-top-color:var(--azul-medio);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
   @keyframes spin{to{transform:rotate(360deg)}}
   .cargando p{font-size:1.1rem;font-weight:600}
   .aviso-info{background:#fffbe6;border:2px solid #ffe066;border-radius:var(--radio);padding:16px 20px;font-size:.95rem;color:#7a5c00;margin-bottom:16px;line-height:1.5}
-  .pie{text-align:center;color:#90aabf;font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
+  .pie{text-align:center;color:var(--color-sub);font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
+
+  /* Botón modo oscuro */
+  .btn-tema{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;border:none;background:var(--fondo-tarjeta);box-shadow:0 4px 16px rgba(0,0,0,0.25);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:background 0.3s,transform 0.2s}
+  .btn-tema:hover{transform:scale(1.1)}
+  .btn-tema:active{transform:scale(0.95)}
   
   /* Estilos para el historial */
-  details { margin-top: 15px; border-top: 1px solid #e8eef4; padding-top: 12px; }
+  details { margin-top: 15px; border-top: 1px solid var(--borde-sub); padding-top: 12px; }
   summary { font-size: 0.95rem; font-weight: 700; color: var(--azul-medio); cursor: pointer; list-style: none; user-select: none; }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: '📊 '; }
@@ -109,6 +149,7 @@
     Datos: AGPSE, SHN, INA y Open-Meteo &nbsp;·&nbsp; Se actualiza automáticamente cada 3 horas
   </footer>
 </div>
+<button class="btn-tema" id="btnTema" title="Cambiar tema" onclick="toggleTema()">🌙</button>
 <script>
 // ──────────────────────────────────────────────────────────────
 const DATA_URL = "https://raw.githubusercontent.com/andresehansen/hidrometros/main/data.json";
@@ -376,12 +417,13 @@ async function cargarDatos(){
     const d=await res.json();
     fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
     
+    // Orden: La Plata (10 min) → Iguazú (20 min) → Salto Grande (1 h) → Concordia (1 h) → San Javier (diaria) → Santo Tomé (diaria)
     panel.innerHTML= tarjetaLP(d.laplata,d.viento,d.pronostico) + 
                      tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu','iguazu') + 
-                     tarjetaRio('San Javier','⛵',d.sanjavier,'sanjavier','sanjavier') + 
-                     tarjetaRio('Santo Tomé','📍',d.santotome,'santotome','santotome') + 
+                     tarjetaSaltoGrande(d.saltogrande) +
                      tarjetaRio('Concordia','🌿',d.concordia,'concordia','concordia') + 
-                     tarjetaSaltoGrande(d.saltogrande);
+                     tarjetaRio('San Javier','⛵',d.sanjavier,'sanjavier','sanjavier') + 
+                     tarjetaRio('Santo Tomé','📍',d.santotome,'santotome','santotome');
                      
     // Renderizamos los gráficos de Chart.js luego de inyectar el HTML
     renderizarGraficos(d);
@@ -393,6 +435,32 @@ async function cargarDatos(){
   }
   btn.disabled=false; btn.textContent='🔄   Actualizar';
 }
+
+function toggleTema() {
+  const html = document.documentElement;
+  const btn = document.getElementById('btnTema');
+  if (html.getAttribute('data-tema') === 'oscuro') {
+    html.removeAttribute('data-tema');
+    btn.textContent = '🌙';
+    localStorage.setItem('tema', 'claro');
+  } else {
+    html.setAttribute('data-tema', 'oscuro');
+    btn.textContent = '☀️';
+    localStorage.setItem('tema', 'oscuro');
+  }
+}
+
+// Detectar preferencia guardada o del sistema
+(function() {
+  const guardado = localStorage.getItem('tema');
+  const prefierOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (guardado === 'oscuro' || (!guardado && prefierOscuro)) {
+    document.documentElement.setAttribute('data-tema', 'oscuro');
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = '☀️';
+  }
+})();
+
 cargarDatos();
 </script>
 </body>
