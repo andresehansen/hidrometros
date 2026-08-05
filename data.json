@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "05/08/2026 a las 12:19 hs",
-  "generadoEn": "2026-08-05T12:19:32.452Z",
+  "fechaReporte": "05/08/2026 a las 13:19 hs",
+  "generadoEn": "2026-08-05T13:19:26.544Z",
   "laplata": {
     "altura": "0.49",
     "horaStr": "04:30",
@@ -114,7 +114,7 @@
     ]
   },
   "viento": {
-    "velocidad": 11,
+    "velocidad": 10,
     "direccion": "Sur (S)",
     "temperatura": 15.4
   },
@@ -131,20 +131,15 @@
     }
   },
   "iguazu": {
-    "altura": "11.06",
-    "horaStr": "12:00",
+    "altura": "10.94",
+    "horaStr": "13:20",
     "fechaStr": "05/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "11.06m (a las 12:00 hs)",
+    "textoFB": "10.94m (a las 13:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "12.50",
-        "fechaStr": "04/08/2026",
-        "horaStr": "22:20"
-      },
       {
         "altura": "12.49",
         "fechaStr": "04/08/2026",
@@ -239,6 +234,11 @@
         "altura": "11.06",
         "fechaStr": "05/08/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "10.94",
+        "fechaStr": "05/08/2026",
+        "horaStr": "13:20"
       }
     ]
   },
@@ -318,19 +318,14 @@
   },
   "concordia": {
     "altura": "11.2",
-    "horaStr": "06:00",
+    "horaStr": "12:00",
     "fechaStr": "05/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "11.2m (a las 06:00 hs)",
+    "textoFB": "11.2m (a las 12:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "5.36",
-        "fechaStr": "16/07/2026",
-        "horaStr": "00:00"
-      },
       {
         "altura": "4.86",
         "fechaStr": "16/07/2026",
@@ -425,17 +420,22 @@
         "altura": "11.2",
         "fechaStr": "05/08/2026",
         "horaStr": "06:00"
+      },
+      {
+        "altura": "11.2",
+        "fechaStr": "05/08/2026",
+        "horaStr": "12:00"
       }
     ]
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.75",
-      "horaStr": "00:00",
+      "altura": "34.78",
+      "horaStr": "12:00",
       "fechaStr": "05/08/2026",
       "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "34.75m (a las 00:00 hs)",
+      "textoFB": "34.78m (a las 12:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -453,16 +453,21 @@
           "altura": "34.75",
           "fechaStr": "05/08/2026",
           "horaStr": "00:00"
+        },
+        {
+          "altura": "34.78",
+          "fechaStr": "05/08/2026",
+          "horaStr": "12:00"
         }
       ]
     },
     "abajo": {
-      "altura": "14.23",
-      "horaStr": "00:00",
+      "altura": "14.2",
+      "horaStr": "12:00",
       "fechaStr": "05/08/2026",
       "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "14.23m (a las 00:00 hs)",
+      "textoFB": "14.2m (a las 12:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -480,6 +485,11 @@
           "altura": "14.23",
           "fechaStr": "05/08/2026",
           "horaStr": "00:00"
+        },
+        {
+          "altura": "14.2",
+          "fechaStr": "05/08/2026",
+          "horaStr": "12:00"
         }
       ]
     }
