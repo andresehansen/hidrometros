@@ -140,8 +140,14 @@ async function publicarDataJson(datos) {
     const owner = process.env.GITHUB_REPOSITORY?.split('/')[0];
     const repo  = process.env.GITHUB_REPOSITORY?.split('/')[1];
 
+    const fs = require('fs');
+    try {
+        fs.writeFileSync('data.json', JSON.stringify(datos, null, 2));
+        console.log("✅ data.json guardado localmente en disco");
+    } catch(e) { console.log("⚠️ Error escribiendo data.json local:", e.message); }
+
     if (!token || !owner || !repo) {
-        console.log("⚠️  Sin GITHUB_TOKEN o GITHUB_REPOSITORY — no se genera data.json");
+        console.log("⚠️  Sin GITHUB_TOKEN o GITHUB_REPOSITORY — omitiendo commit a GitHub Repo");
         return;
     }
 
@@ -343,11 +349,69 @@ async function obtenerDatos() {
             coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia");
         }
 
+// --- Fuente primaria Prefectura Naval Argentina (PNA) ---
+async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
+    try {
+        console.log(`  → Fuente primaria PNA para ${nombrePuerto}...`);
+        const txtDat = await new Promise((resolve, reject) => {
+            const req = https.request("https://contenidosweb.prefecturanaval.gob.ar/alturas/", {
+                rejectUnauthorized: false,
+                headers: { 'User-Agent': 'Mozilla/5.0' }
+            }, (res) => {
+                let buf = '';
+                res.on('data', chunk => buf += chunk);
+                res.on('end', () => resolve(buf));
+            });
+            req.on('error', reject);
+            req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
+            req.end();
+        });
+
+        const clean = txtDat.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+        const match = clean.match(regexSearch);
+        if (match) {
+            const alt = parseFloat(match[1].replace(',', '.')).toFixed(2);
+            const rawHora = match[3];
+            const horaStr = `${rawHora.substring(0, 2)}:${rawHora.substring(2, 4)}`;
+
+            const parts = match[2].split('/');
+            const mesesMap = { JAN: '01', FEB: '02', MAR: '03', APR: '04', MAY: '05', JUN: '06', JUL: '07', AUG: '08', SEP: '09', OCT: '10', NOV: '11', DEC: '12' };
+            const day = parts[0].padStart(2, '0');
+            const month = mesesMap[parts[1].toUpperCase()] || '08';
+            const year = '20' + parts[2];
+            const fechaStr = `${day}/${month}/${year}`;
+
+            const fechaMed = new Date(+year, +month - 1, +day, +rawHora.substring(0, 2), +rawHora.substring(2, 4));
+            const antiguo = esAntiguo(fechaMed);
+
+            console.log(`  ✅ PNA ${nombrePuerto}: ${alt}m @ ${fechaStr} ${horaStr}`);
+
+            return {
+                altura:   alt,
+                horaStr:  horaStr,
+                fechaStr: fechaStr,
+                fuente:   "PNA",
+                antiguo,
+                textoFB:  `${alt}m (a las ${horaStr} hs)`
+            };
+        }
+    } catch(e) {
+        console.log(`⚠️ Error PNA ${nombrePuerto}:`, e.message);
+    }
+    return null;
+}
+
         // ---- 4. SAN JAVIER ----
-        let sjDatos = await fetchGeoServerINA("-27.95,-55.20,-27.80,-55.05", "San Javier", [65]);
+        let sjDatos = await fetchPrefecturaPNA('San Javier', /SAN JAVIER\s+URUGUAY\s+(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
+        if (!sjDatos) {
+            sjDatos = await fetchGeoServerINA("-27.95,-55.20,-27.80,-55.05", "San Javier", [65]);
+        }
 
         // ---- 5. SANTO TOMÉ ----
-        let stDatos = await fetchGeoServerINA("-28.60,-56.10,-28.50,-55.95", "Santo Tomé", [68]);
+        let stDatos = await fetchPrefecturaPNA('Santo Tomé', /SANTO TOME\s+URUGUAY\s+(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
+        if (!stDatos) {
+            stDatos = await fetchGeoServerINA("-28.60,-56.10,-28.50,-55.95", "Santo Tomé", [68]);
+        }
 
         // ---- 6. SALTO GRANDE (ARRIBA Y ABAJO) ----
         let sgArribaDatos = null;
