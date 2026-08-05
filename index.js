@@ -214,6 +214,37 @@ async function obtenerDatos() {
             console.log("  ⚠️ No se pudo obtener el data.json anterior. Se empezará desde cero.");
         }
 
+// Helper para parsear archivos .dat de AGPSE buscando la última lectura válida en v[3]
+function parseAGPSE(txtDat) {
+    const lines = txtDat.trim().split('\n');
+    for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        const v = line.split(',');
+        const cleanV3 = v[3] ? v[3].replace(/['"]/g, '') : '';
+        const val3 = parseFloat(cleanV3);
+        if (!isNaN(val3)) {
+            const cleanDate = v[0].replace(/['"]/g, '');
+            const [datePart, timePart] = cleanDate.split(' ');
+            const [y, m, d] = datePart.split('-');
+            const fechaMed = new Date(cleanDate.replace(' ', 'T') + '-03:00');
+            const antiguo  = esAntiguo(fechaMed);
+            const hhmm     = timePart.substring(0, 5);
+            const fechaStr = `${d}/${m}/${y}`;
+            const altStr   = val3.toFixed(2);
+            return {
+                altura:   altStr,
+                horaStr:  hhmm,
+                fechaStr: fechaStr,
+                fuente:   "AGPSE",
+                antiguo,
+                textoFB:  `${altStr}m (a las ${hhmm} hs)`
+            };
+        }
+    }
+    return null;
+}
+
         // ---- 1. LA PLATA ----
         let lpDatos = null;
         try {
@@ -228,22 +259,8 @@ async function obtenerDatos() {
                 req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
                 req.end();
             });
-            const v = txtDat.trim().split('\n').pop().split(',');
-            const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
-            const fechaMed = new Date(v[0].replace(/['"]/g, '').replace(' ', 'T') + '-03:00');
-            const antiguo  = esAntiguo(fechaMed);
-            const altRaw   = [v[3], v[4], v[2]].map(x => x ? parseFloat(x.replace(/['"]/g, '')) : NaN).find(x => !isNaN(x));
-            if (altRaw === undefined || isNaN(altRaw)) throw new Error("No numeric height in line");
-            const altStr   = altRaw.toFixed(2);
-            lpDatos = {
-                altura:   altStr,
-                horaStr:  v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5),
-                fechaStr: `${d}/${m}/${y}`,
-                fuente:   "AGPSE",
-                antiguo,
-                textoFB:  `${altStr}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
-            };
-            if (antiguo) lpDatos = null; 
+            lpDatos = parseAGPSE(txtDat);
+            if (lpDatos && lpDatos.antiguo) lpDatos = null; 
         } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
         
         if (!lpDatos) {
@@ -298,19 +315,8 @@ async function obtenerDatos() {
             const r = await fetch(urlIguazu);
             if (!r.ok) throw new Error("HTTP error");
             const t = await r.text();
-            const v = t.trim().split('\n').pop().split(',');
-            const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
-            const fechaMed = new Date(v[0].replace(/['"]/g, ''));
-            const antiguo  = esAntiguo(fechaMed);
-            igDatos = {
-                altura:   parseFloat(v[3]).toFixed(2),
-                horaStr:  v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5),
-                fechaStr: `${d}/${m}/${y}`,
-                fuente:   "AGPSE",
-                antiguo,
-                textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
-            };
-            if (antiguo) igDatos = null; 
+            igDatos = parseAGPSE(t);
+            if (igDatos && igDatos.antiguo) igDatos = null; 
         } catch (e) { console.log("⚠️ Error Iguazú primario:", e.message); }
 
         if (!igDatos) {
