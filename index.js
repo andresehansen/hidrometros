@@ -330,7 +330,8 @@ async function obtenerDatos() {
             const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
             if (mA && mH && mF) {
                 const [d, m, y] = mF[1].split('/');
-                const fechaMed  = new Date(y, m - 1, d);
+                const [hh, mm]  = mH[1].split(':');
+                const fechaMed  = new Date(+y, +m - 1, +d, +hh, +mm);
                 const antiguo   = esAntiguo(fechaMed);
                 if (!antiguo) {
                     coDatos = {
@@ -427,7 +428,8 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
 
                 if (mA) {
                     const [d, m, y] = mA[1].split('/');
-                    const fechaMed = new Date(y, m - 1, d);
+                    const [hh, mm]  = mA[2].split(':');
+                    const fechaMed  = new Date(+y, +m - 1, +d, +hh, +mm);
                     sgArribaDatos = {
                         altura:   mA[3].replace(',', '.'),
                         horaStr:  mA[2],
@@ -439,7 +441,8 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
                 }
                 if (mB) {
                     const [d, m, y] = mB[1].split('/');
-                    const fechaMed = new Date(y, m - 1, d);
+                    const [hh, mm]  = mB[2].split(':');
+                    const fechaMed  = new Date(+y, +m - 1, +d, +hh, +mm);
                     sgAbajoDatos = {
                         altura:   mB[3].replace(',', '.'),
                         horaStr:  mB[2],
