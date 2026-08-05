@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "04/08/2026 a las 20:23 hs",
-  "generadoEn": "2026-08-04T23:23:05.412Z",
+  "fechaReporte": "05/08/2026 a las 00:19 hs",
+  "generadoEn": "2026-08-05T00:19:23.884Z",
   "laplata": {
-    "altura": "1.00",
-    "horaStr": "23:10",
-    "fechaStr": "04/08/2026",
+    "altura": "0.92",
+    "horaStr": "00:10",
+    "fechaStr": "05/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.00m (a las 23:10 hs)",
+    "textoFB": "0.92m (a las 00:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.82",
-        "fechaStr": "24/07/2026",
-        "horaStr": "03:30"
-      },
       {
         "altura": "0.77",
         "fechaStr": "24/07/2026",
@@ -110,12 +105,17 @@
         "altura": "1.00",
         "fechaStr": "04/08/2026",
         "horaStr": "23:10"
+      },
+      {
+        "altura": "0.92",
+        "fechaStr": "05/08/2026",
+        "horaStr": "00:10"
       }
     ]
   },
   "viento": {
-    "velocidad": 10.2,
-    "direccion": "Sureste (SE)",
+    "velocidad": 9,
+    "direccion": "Este (E)",
     "temperatura": 12
   },
   "pronostico": {
@@ -131,20 +131,15 @@
     }
   },
   "iguazu": {
-    "altura": "12.49",
-    "horaStr": "22:40",
-    "fechaStr": "04/08/2026",
+    "altura": "12.27",
+    "horaStr": "00:00",
+    "fechaStr": "05/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.49m (a las 22:40 hs)",
+    "textoFB": "12.27m (a las 00:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "15.85",
-        "fechaStr": "23/07/2026",
-        "horaStr": "15:20"
-      },
       {
         "altura": "15.94",
         "fechaStr": "23/07/2026",
@@ -239,16 +234,21 @@
         "altura": "12.49",
         "fechaStr": "04/08/2026",
         "horaStr": "22:40"
+      },
+      {
+        "altura": "12.27",
+        "fechaStr": "05/08/2026",
+        "horaStr": "00:00"
       }
     ]
   },
   "sanjavier": {
-    "altura": "2.82",
-    "horaStr": "12:00",
+    "altura": "3.14",
+    "horaStr": "00:00",
     "fechaStr": "04/08/2026",
-    "fuente": "PNA",
-    "antiguo": false,
-    "textoFB": "2.82m (a las 12:00 hs)",
+    "fuente": "INA",
+    "antiguo": true,
+    "textoFB": "3.14m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -275,12 +275,12 @@
     ]
   },
   "santotome": {
-    "altura": "8.40",
-    "horaStr": "12:00",
+    "altura": "9.01",
+    "horaStr": "00:00",
     "fechaStr": "04/08/2026",
-    "fuente": "PNA",
-    "antiguo": false,
-    "textoFB": "8.40m (a las 12:00 hs)",
+    "fuente": "INA",
+    "antiguo": true,
+    "textoFB": "9.01m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
