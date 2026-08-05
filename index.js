@@ -34,7 +34,10 @@ function formatoFechaAPI(fecha) {
 }
 
 function esAntiguo(fechaMedicion) {
-    return Math.abs(obtenerHoraArgentina() - fechaMedicion) / 36e5 > 24;
+    if (!fechaMedicion) return false;
+    const t = fechaMedicion instanceof Date ? fechaMedicion.getTime() : new Date(fechaMedicion).getTime();
+    if (isNaN(t)) return false;
+    return Math.abs(Date.now() - t) / 36e5 > 24;
 }
 
 // --- HELPERS INA ---
@@ -45,7 +48,7 @@ function parsearObsINA(prop) {
     const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
     const fecha   = `${argTime.getUTCDate().toString().padStart(2,'0')}/${(argTime.getUTCMonth()+1).toString().padStart(2,'0')}/${argTime.getUTCFullYear()}`;
     const hora    = `${argTime.getUTCHours().toString().padStart(2,'0')}:${argTime.getUTCMinutes().toString().padStart(2,'0')}`;
-    const antiguo = esAntiguo(argTime);
+    const antiguo = esAntiguo(fechaZ);
     const tag     = antiguo ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
     return {
         altura:   parseFloat(prop.valor).toFixed(2),
@@ -62,28 +65,30 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
     const hoy    = obtenerHoraArgentina();
     // Ventana amplia: 7 días (la serie 26 de La Plata puede tener delay de días)
     const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 7);
-    const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 1);
+    const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 2);
 
     for (const sid of seriesIds) {
         try {
             console.log(`  → INA a5 series_id=${sid} para ${nombrePuerto}...`);
-            const url = `https://alerta.ina.gob.ar/a5/obs/puntual/series/${sid}/observaciones?timestart=${formatoFechaAPI(inicio)}&timeend=${formatoFechaAPI(fin)}&order=desc&limit=1`;
+            const url = `https://alerta.ina.gob.ar/a5/obs/puntual/series/${sid}/observaciones?timestart=${formatoFechaAPI(inicio)}&timeend=${formatoFechaAPI(fin)}`;
             const res = await fetch(url, {
                 headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
                 signal: AbortSignal.timeout(15000)
             });
             if (!res.ok) { console.log(`  ⚠️ a5 series ${sid}: HTTP ${res.status}`); continue; }
             const data = await res.json();
-            const obs = Array.isArray(data) ? data[0] : (data.observaciones || [])[0];
+            const arr  = Array.isArray(data) ? data : (data.observaciones || []);
+            const obs  = arr.length > 0 ? arr[arr.length - 1] : null;
             if (obs && obs.valor !== null && obs.valor !== undefined) {
                 console.log(`  ✅ a5 series_id=${sid}: ${obs.valor}m @ ${obs.timestart}`);
-                const fechaLocal = new Date(obs.timestart);
-                const antiguo = esAntiguo(fechaLocal);
-                const dd   = fechaLocal.getDate().toString().padStart(2,'0');
-                const mm   = (fechaLocal.getMonth()+1).toString().padStart(2,'0');
-                const yyyy = fechaLocal.getFullYear();
-                const hh   = fechaLocal.getHours().toString().padStart(2,'0');
-                const min  = fechaLocal.getMinutes().toString().padStart(2,'0');
+                const fechaZ  = new Date(obs.timestart);
+                const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
+                const antiguo = esAntiguo(fechaZ);
+                const dd   = argTime.getUTCDate().toString().padStart(2,'0');
+                const mm   = (argTime.getUTCMonth()+1).toString().padStart(2,'0');
+                const yyyy = argTime.getUTCFullYear();
+                const hh   = argTime.getUTCHours().toString().padStart(2,'0');
+                const min  = argTime.getUTCMinutes().toString().padStart(2,'0');
                 const tag  = antiguo ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
                 return {
                     altura:   parseFloat(obs.valor).toFixed(2),
@@ -221,13 +226,16 @@ async function obtenerDatos() {
             const [y, m, d] = v[0].replace(/['"]/g, '').split(' ')[0].split('-');
             const fechaMed = new Date(v[0].replace(/['"]/g, '').replace(' ', 'T') + '-03:00');
             const antiguo  = esAntiguo(fechaMed);
+            const altRaw   = [v[3], v[4], v[2]].map(x => x ? parseFloat(x.replace(/['"]/g, '')) : NaN).find(x => !isNaN(x));
+            if (altRaw === undefined || isNaN(altRaw)) throw new Error("No numeric height in line");
+            const altStr   = altRaw.toFixed(2);
             lpDatos = {
-                altura:   parseFloat(v[3]).toFixed(2),
+                altura:   altStr,
                 horaStr:  v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5),
                 fechaStr: `${d}/${m}/${y}`,
                 fuente:   "AGPSE",
                 antiguo,
-                textoFB:  `${parseFloat(v[3]).toFixed(2)}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
+                textoFB:  `${altStr}m (a las ${v[0].replace(/['"]/g, '').split(' ')[1].substring(0, 5)} hs)`
             };
             if (antiguo) lpDatos = null; 
         } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
@@ -308,83 +316,25 @@ async function obtenerDatos() {
         try {
             const r  = await fetch(urlConcordia);
             if (!r.ok) throw new Error("HTTP error");
-            const html = await r.text();
-
-            // Buscamos la fila <tr> que contiene a Concordia
-            const trRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-            let match;
-            let concordiaTr = null;
-            while ((match = trRegex.exec(html)) !== null) {
-                if (match[1].includes("Concordia")) {
-                    concordiaTr = match[1];
-                    break;
-                }
-            }
-
-            if (concordiaTr) {
-                const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-                const celdas = [];
-                let tdMatch;
-                while ((tdMatch = tdRegex.exec(concordiaTr)) !== null) {
-                    celdas.push(tdMatch[1].replace(/<[^>]*>?/gm, '').trim());
-                }
-
-                // celdas[0]: Puerto ("Concordia")
-                // celdas[1]: Fecha - Hora ("29/07/2026 - 00:00" o "29/07/2026 00:00")
-                // celdas[2]: Ultimo Registro ("10", "10,00", "10.00", "9,96", etc.)
-                // celdas[3]: Variación (e.g. "0,00", "0,04")
-                if (celdas.length >= 3) {
-                    const strFechaHora = celdas[1];
-                    const strAltura = celdas[2];
-
-                    const mF = strFechaHora.match(/(\d{2}\/\d{2}\/\d{4})/);
-                    const mH = strFechaHora.match(/(\d{2}:\d{2})/);
-                    const mA = strAltura.match(/(\d+([,.]\d+)?)/);
-
-                    if (mA && mH && mF) {
-                        const valAltura = parseFloat(mA[1].replace(',', '.')).toFixed(2);
-                        const [d, m, y] = mF[1].split('/');
-                        const fechaMed  = new Date(y, m - 1, d);
-                        const antiguo   = esAntiguo(fechaMed);
-                        if (!antiguo) {
-                            coDatos = {
-                                altura:   valAltura,
-                                horaStr:  mH[1],
-                                fechaStr: mF[1],
-                                fuente:   "SRH",
-                                antiguo:  false,
-                                textoFB:  `${valAltura}m (a las ${mH[1]} hs)`
-                            };
-                        }
-                    }
-                }
-            }
-
-            // Fallback si por alguna razón no se pudo parsear la estructura <tr>
-            if (!coDatos) {
-                const t  = html.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
-                const idx = t.indexOf("Concordia");
-                if (idx !== -1) {
-                    const blq = t.substring(idx, idx + 150);
-                    const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
-                    const mH  = blq.match(/(\d{2}:\d{2})/);
-                    const mA  = blq.match(/(\d+([,.]\d+)?)/);
-                    if (mA && mH && mF) {
-                        const [d, m, y] = mF[1].split('/');
-                        const fechaMed  = new Date(y, m - 1, d);
-                        const antiguo   = esAntiguo(fechaMed);
-                        if (!antiguo) {
-                            const valAltura = parseFloat(mA[1].replace(',', '.')).toFixed(2);
-                            coDatos = {
-                                altura:   valAltura,
-                                horaStr:  mH[1],
-                                fechaStr: mF[1],
-                                fuente:   "SRH",
-                                antiguo:  false,
-                                textoFB:  `${valAltura}m (a las ${mH[1]} hs)`
-                            };
-                        }
-                    }
+            const t  = (await r.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+            const idx = t.indexOf("Concordia");
+            const blq = t.substring(idx, idx + 150);
+            const mA  = blq.match(/(\d+[,.]\d{1,2})/);
+            const mH  = blq.match(/(\d{2}:\d{2})/);
+            const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
+            if (mA && mH && mF) {
+                const [d, m, y] = mF[1].split('/');
+                const fechaMed  = new Date(y, m - 1, d);
+                const antiguo   = esAntiguo(fechaMed);
+                if (!antiguo) {
+                    coDatos = {
+                        altura:   mA[1].replace(',', '.'),
+                        horaStr:  mH[1],
+                        fechaStr: mF[1],
+                        fuente:   "SRH",
+                        antiguo:  false,
+                        textoFB:  `${mA[1].replace(',','.')}m (a las ${mH[1]} hs)`
+                    };
                 }
             }
         } catch (e) { console.log("⚠️ Error Concordia primario:", e.message); }
@@ -393,9 +343,68 @@ async function obtenerDatos() {
             coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia");
         }
 
-        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE 20 REGISTROS Y TENDENCIA ---
-        function getHistorico(puertoKey, nuevoDato) {
-            let hist = (datosAnteriores[puertoKey] && datosAnteriores[puertoKey].historico) ? datosAnteriores[puertoKey].historico : [];
+        // ---- 4. SAN JAVIER ----
+        let sjDatos = await fetchGeoServerINA("-27.95,-55.20,-27.80,-55.05", "San Javier", [65]);
+
+        // ---- 5. SANTO TOMÉ ----
+        let stDatos = await fetchGeoServerINA("-28.60,-56.10,-28.50,-55.95", "Santo Tomé", [68]);
+
+        // ---- 6. SALTO GRANDE (ARRIBA Y ABAJO) ----
+        let sgArribaDatos = null;
+        let sgAbajoDatos  = null;
+
+        try {
+            console.log("  → Fuente primaria CARU para Salto Grande Arriba y Abajo...");
+            const rCARU = await fetch("http://190.0.152.194:8080/alturas/web/user/alturas", { signal: AbortSignal.timeout(10000) });
+            if (rCARU.ok) {
+                const tCARU = (await rCARU.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+                const mA = tCARU.match(/Salto Grande Aguas Arriba\s*(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}:\d{2})\s*(\d+[\.,]\d{1,2})/i);
+                const mB = tCARU.match(/Salto Grande Aguas Abajo\s*(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}:\d{2})\s*(\d+[\.,]\d{1,2})/i);
+
+                if (mA) {
+                    const [d, m, y] = mA[1].split('/');
+                    const fechaMed = new Date(y, m - 1, d);
+                    sgArribaDatos = {
+                        altura:   mA[3].replace(',', '.'),
+                        horaStr:  mA[2],
+                        fechaStr: mA[1],
+                        fuente:   "CARU",
+                        antiguo:  esAntiguo(fechaMed),
+                        textoFB:  `${mA[3].replace(',','.')}m (a las ${mA[2]} hs)`
+                    };
+                }
+                if (mB) {
+                    const [d, m, y] = mB[1].split('/');
+                    const fechaMed = new Date(y, m - 1, d);
+                    sgAbajoDatos = {
+                        altura:   mB[3].replace(',', '.'),
+                        horaStr:  mB[2],
+                        fechaStr: mB[1],
+                        fuente:   "CARU",
+                        antiguo:  esAntiguo(fechaMed),
+                        textoFB:  `${mB[3].replace(',','.')}m (a las ${mB[2]} hs)`
+                    };
+                }
+            }
+        } catch (e) {
+            console.log("⚠️ Error Salto Grande CARU primario:", e.message);
+        }
+
+        if (!sgArribaDatos) {
+            sgArribaDatos = await fetchGeoServerINA("-31.32,-57.98,-31.22,-57.88", "Salto Grande Arriba", [77]);
+        }
+        if (!sgAbajoDatos) {
+            sgAbajoDatos  = await fetchGeoServerINA("-31.35,-57.98,-31.25,-57.88", "Salto Grande Abajo", [78]);
+        }
+
+        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE 20 REGISTROS ---
+        function getHistorico(puertoKey, nuevoDato, subKey = null) {
+            let hist = [];
+            if (subKey && datosAnteriores[puertoKey] && datosAnteriores[puertoKey][subKey]) {
+                hist = datosAnteriores[puertoKey][subKey].historico || [];
+            } else if (!subKey && datosAnteriores[puertoKey]) {
+                hist = datosAnteriores[puertoKey].historico || [];
+            }
             if (nuevoDato && !nuevoDato.antiguo) {
                 const ultimo = hist.length > 0 ? hist[hist.length - 1] : null;
                 // Evitamos sumar la medición si ya está guardada (misma fecha y hora)
@@ -411,34 +420,11 @@ async function obtenerDatos() {
             return hist.slice(-20);
         }
 
-        function calcularTendencia(historico) {
-            if (!historico || historico.length < 2) {
-                return { tendencia: 'estacionario', variacionStr: '0.00 m', icono: '➡️' };
-            }
-            const actual = parseFloat(historico[historico.length - 1].altura);
-            const anterior = parseFloat(historico[historico.length - 2].altura);
-            if (isNaN(actual) || isNaN(anterior)) {
-                return { tendencia: 'estacionario', variacionStr: '0.00 m', icono: '➡️' };
-            }
-            const diff = actual - anterior;
-            if (diff > 0.01) {
-                return { tendencia: 'subiendo', variacionStr: `+${diff.toFixed(2)} m`, icono: '↗️' };
-            } else if (diff < -0.01) {
-                return { tendencia: 'bajando', variacionStr: `${diff.toFixed(2)} m`, icono: '↘️' };
-            } else {
-                return { tendencia: 'estacionario', variacionStr: '0.00 m', icono: '➡️' };
-            }
-        }
-
         // ---- ASIGNACIÓN DE NIVELES DE ALERTA / EVACUACIÓN Y HISTORIAL ----
         if (lpDatos) { 
             lpDatos.alerta = 2.5; 
             lpDatos.evacuacion = 2.8; 
             lpDatos.historico = getHistorico('laplata', lpDatos);
-            const tend = calcularTendencia(lpDatos.historico);
-            lpDatos.tendencia = tend.tendencia;
-            lpDatos.variacionStr = tend.variacionStr;
-            lpDatos.iconoTendencia = tend.icono;
         } else if (datosAnteriores.laplata) {
             lpDatos = datosAnteriores.laplata;
         }
@@ -447,10 +433,6 @@ async function obtenerDatos() {
             igDatos.alerta = 25.0; 
             igDatos.evacuacion = 28.0; 
             igDatos.historico = getHistorico('iguazu', igDatos);
-            const tend = calcularTendencia(igDatos.historico);
-            igDatos.tendencia = tend.tendencia;
-            igDatos.variacionStr = tend.variacionStr;
-            igDatos.iconoTendencia = tend.icono;
         } else if (datosAnteriores.iguazu) {
             igDatos = datosAnteriores.iguazu;
         }
@@ -459,13 +441,46 @@ async function obtenerDatos() {
             coDatos.alerta = 11.0; 
             coDatos.evacuacion = 12.5; 
             coDatos.historico = getHistorico('concordia', coDatos);
-            const tend = calcularTendencia(coDatos.historico);
-            coDatos.tendencia = tend.tendencia;
-            coDatos.variacionStr = tend.variacionStr;
-            coDatos.iconoTendencia = tend.icono;
         } else if (datosAnteriores.concordia) {
             coDatos = datosAnteriores.concordia;
         }
+
+        if (sjDatos) {
+            sjDatos.alerta = 8.0;
+            sjDatos.evacuacion = 10.0;
+            sjDatos.historico = getHistorico('sanjavier', sjDatos);
+        } else if (datosAnteriores.sanjavier) {
+            sjDatos = datosAnteriores.sanjavier;
+        }
+
+        if (stDatos) {
+            stDatos.alerta = 11.5;
+            stDatos.evacuacion = 12.5;
+            stDatos.historico = getHistorico('santotome', stDatos);
+        } else if (datosAnteriores.santotome) {
+            stDatos = datosAnteriores.santotome;
+        }
+
+        if (sgArribaDatos) {
+            sgArribaDatos.alerta = 35.5;
+            sgArribaDatos.evacuacion = 36.0;
+            sgArribaDatos.historico = getHistorico('saltogrande', sgArribaDatos, 'arriba');
+        } else if (datosAnteriores.saltogrande?.arriba) {
+            sgArribaDatos = datosAnteriores.saltogrande.arriba;
+        }
+
+        if (sgAbajoDatos) {
+            sgAbajoDatos.alerta = 17.3;
+            sgAbajoDatos.evacuacion = 17.8;
+            sgAbajoDatos.historico = getHistorico('saltogrande', sgAbajoDatos, 'abajo');
+        } else if (datosAnteriores.saltogrande?.abajo) {
+            sgAbajoDatos = datosAnteriores.saltogrande.abajo;
+        }
+
+        const sgDatosCombined = (sgArribaDatos || sgAbajoDatos) ? {
+            arriba: sgArribaDatos,
+            abajo:  sgAbajoDatos
+        } : (datosAnteriores.saltogrande || null);
 
         // ---- GENERAR data.json PARA EL SITIO WEB ----
         const dataJson = {
@@ -475,7 +490,10 @@ async function obtenerDatos() {
             viento,
             pronostico,
             iguazu:     igDatos,
-            concordia:  coDatos
+            sanjavier:  sjDatos,
+            santotome:  stDatos,
+            concordia:  coDatos,
+            saltogrande: sgDatosCombined
         };
 
         await publicarDataJson(dataJson);
@@ -495,12 +513,16 @@ async function obtenerDatos() {
         const lpTxt = lpDatos   ? `${lpDatos.textoFB}${tagEstadoFB(lpDatos)}` : "N/D";
         const igTxt = igDatos   ? `${igDatos.textoFB}${tagEstadoFB(igDatos)}` : "N/D";
         const coTxt = coDatos   ? `${coDatos.textoFB}${tagEstadoFB(coDatos)}` : "N/D";
+        const sjTxt = sjDatos   ? `${sjDatos.textoFB}${tagEstadoFB(sjDatos)}` : "N/D";
+        const stTxt = stDatos   ? `${stDatos.textoFB}${tagEstadoFB(stDatos)}` : "N/D";
+        const sgArribaTxt = sgArribaDatos ? `${sgArribaDatos.textoFB}${tagEstadoFB(sgArribaDatos)}` : "N/D";
+        const sgAbajoTxt  = sgAbajoDatos  ? `${sgAbajoDatos.textoFB}${tagEstadoFB(sgAbajoDatos)}`  : "N/D";
         const viTxt = viento    ? `${viento.velocidad} km/h ${viento.direccion}` : "N/D";
         const prTxt = pronostico
             ? `📈 Pleamar: ${pronostico.pleamar ? pronostico.pleamar.altura+'m el '+pronostico.pleamar.fecha+' '+pronostico.pleamar.hora : 'S/D'}\n📉 Bajamar: ${pronostico.bajamar ? pronostico.bajamar.altura+'m el '+pronostico.bajamar.fecha+' '+pronostico.bajamar.hora : 'S/D'}`
             : "N/D";
 
-        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊\n📅 ${fechaReporte}\n\n📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(lpTxt)}\n🌬️ Viento: ${viTxt}\n\n⚓ ${aNegrita("SHN:")}\n${prTxt}\n\n📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(igTxt)}\n\n📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(coTxt)}`;
+        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊\n📅 ${fechaReporte}\n\n📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(lpTxt)}\n🌬️ Viento: ${viTxt}\n\n⚓ ${aNegrita("SHN:")}\n${prTxt}\n\n📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(igTxt)}\n\n📍 ${aNegrita("SAN JAVIER")} (${sjDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(sjTxt)}\n\n📍 ${aNegrita("SANTO TOMÉ")} (${stDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(stTxt)}\n\n📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(coTxt)}\n\n⚡ ${aNegrita("EMBALSE SALTO GRANDE")}\n🔼 Cota Embalse (Arriba): ${aNegrita(sgArribaTxt)}\n🔽 Restitución (Abajo): ${aNegrita(sgAbajoTxt)}`;
 
         console.log("\n📝 PUBLICACIÓN FACEBOOK:\n", msg);
 
