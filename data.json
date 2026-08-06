@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "06/08/2026 a las 18:19 hs",
-  "generadoEn": "2026-08-06T18:19:27.129Z",
+  "fechaReporte": "06/08/2026 a las 19:19 hs",
+  "generadoEn": "2026-08-06T19:19:25.477Z",
   "laplata": {
-    "altura": "1.21",
-    "horaStr": "18:00",
+    "altura": "1.15",
+    "horaStr": "19:10",
     "fechaStr": "06/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.21m (a las 18:00 hs)",
+    "textoFB": "1.15m (a las 19:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -120,19 +120,24 @@
         "altura": "1.21",
         "fechaStr": "06/08/2026",
         "horaStr": "18:00"
+      },
+      {
+        "altura": "1.15",
+        "fechaStr": "06/08/2026",
+        "horaStr": "19:10"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.11m)",
-      "diferencia": "+0.11"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.06m)",
+      "diferencia": "-0.06"
     }
   },
   "viento": {
-    "velocidad": 32.1,
-    "direccion": "Sur (S)",
-    "temperatura": 11.8
+    "velocidad": 30.9,
+    "direccion": "Suroeste (SW)",
+    "temperatura": 9.8
   },
   "pronostico": {
     "pleamar": {
@@ -366,12 +371,12 @@
     }
   },
   "concordia": {
-    "altura": "11.12",
-    "horaStr": "12:00",
+    "altura": "11.16",
+    "horaStr": "18:00",
     "fechaStr": "06/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "11.12m (a las 12:00 hs)",
+    "textoFB": "11.16m (a las 18:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
@@ -474,13 +479,18 @@
         "altura": "11.12",
         "fechaStr": "06/08/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "11.16",
+        "fechaStr": "06/08/2026",
+        "horaStr": "18:00"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.04m)",
+      "diferencia": "+0.04"
     }
   },
   "saltogrande": {
