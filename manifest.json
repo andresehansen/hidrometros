@@ -1,17 +1,16 @@
 {
-  "name": "Reporte Fluvial - Niveles de Ríos",
-  "short_name": "Hidrómetros",
-  "description": "Estado y alturas en tiempo real de los ríos La Plata, Iguazú y Concordia",
+  "name": "Reporte Fluvial",
+  "short_name": "ReporteFluvial",
+  "description": "Niveles de ríos y puertos de Argentina en tiempo real",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0a3d62",
   "theme_color": "#0a3d62",
   "icons": [
     {
-      "src": "favicon.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
     }
   ]
 }

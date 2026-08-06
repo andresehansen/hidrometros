@@ -1,42 +1,42 @@
-const CACHE_NAME = 'hidrometros-v1';
+const CACHE_NAME = 'reporte-fluvial-v1';
 const ASSETS = [
   './',
   './index.html',
   './data.json',
-  './favicon.svg',
-  './manifest.json',
-  'https://cdn.jsdelivr.net/npm/chart.js'
+  'https://cdn.jsdelivr.net/npm/chart.js',
+  'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap'
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
+self.addEventListener('install', (e) => {
+  e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
       )
     )
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          const cacheCopy = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheCopy));
-        }
-        return networkResponse;
-      })
-      .catch(() => caches.match(event.request))
+self.addEventListener('fetch', (e) => {
+  // Para data.json usamos Network First para tener siempre el dato más fresco
+  if (e.request.url.includes('data.json')) {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+  // Para otros assets usamos Cache First con respaldo de red
+  e.respondWith(
+    caches.match(e.request).then((res) => res || fetch(e.request))
   );
 });

@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+<meta name="theme-color" content="#0a3d62">
 <title>Reporte Fluvial</title>
+<link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -100,6 +102,13 @@
   .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
   .badge-nd{background:#e9ecef;color:#6c757d}
 
+  .badge-tendencia-subiendo{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+  .badge-tendencia-bajando{background:#e0f2fe;color:#075985;border:1px solid #7dd3fc}
+  .badge-tendencia-estacionado{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb}
+  [data-tema="oscuro"] .badge-tendencia-subiendo{background:#450a0a;color:#fca5a5;border-color:#7f1d1d}
+  [data-tema="oscuro"] .badge-tendencia-bajando{background:#0c4a6e;color:#7dd3fc;border-color:#0369a1}
+  [data-tema="oscuro"] .badge-tendencia-estacionado{background:#1f2937;color:#9ca3af;border-color:#374151}
+
   .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:var(--fondo-sub);border-radius:12px;font-size:0.88rem;color:var(--color-sub)}
   .ref-item strong{font-weight:700}
   .ref-item.ref-alerta strong{color:var(--amarillo-alerta)}
@@ -121,6 +130,38 @@
   .aviso-info{background:#fffbe6;border:2px solid #ffe066;border-radius:var(--radio);padding:16px 20px;font-size:.95rem;color:#7a5c00;margin-bottom:16px;line-height:1.5}
   .pie{text-align:center;color:var(--color-sub);font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
 
+  /* Banner de Alerta Destacado */
+  .banner-alerta-general {
+    border-radius: var(--radio);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    box-shadow: var(--sombra);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeIn .4s ease both;
+  }
+  .banner-alerta-general.alerta {
+    background: var(--amarillo-bg);
+    color: #854d0e;
+    border: 2px solid var(--amarillo-alerta);
+  }
+  .banner-alerta-general.evacuacion {
+    background: var(--rojo-bg);
+    color: #991b1b;
+    border: 2px solid var(--rojo-evacuacion);
+  }
+  .banner-icono {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+  .banner-texto strong {
+    font-weight: 800;
+  }
+
   /* Botón modo oscuro */
   .btn-tema{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;border:none;background:var(--fondo-tarjeta);box-shadow:0 4px 16px rgba(0,0,0,0.25);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:background 0.3s,transform 0.2s}
   .btn-tema:hover{transform:scale(1.1)}
@@ -140,6 +181,11 @@
     <h1>🌊 Reporte Fluvial</h1>
     <p class="subtitulo">Niveles de ríos — Argentina</p>
     <span class="fecha-actualizacion" id="fechaActualizacion">⏳ Cargando...</span>
+    <div style="margin-top: 12px;">
+      <button onclick="compartirReporte()" style="background: rgba(255,255,255,0.2); color: var(--blanco); border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 6px 16px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+        📲 Compartir reporte
+      </button>
+    </div>
   </header>
   <button class="btn-actualizar" id="btnActualizar" onclick="cargarDatos()">🔄 &nbsp; Actualizar</button>
   <div id="contenidoPrincipal">
@@ -196,6 +242,31 @@ function fechaLegible(str) {
 function badge(antiguo,fuente){return antiguo?`<span class="badge badge-alerta">⚠️ Dato con más de 24 hs</span>`:`<span class="badge badge-ok">✅ Actualizado · ${fuente}</span>`}
 const badgeND=()=>`<span class="badge badge-nd">No disponible ahora</span>`;
 
+function renderBadgeTendencia(t) {
+  if (!t) return '';
+  let cls = 'badge-tendencia-estacionado';
+  if (t.estado === 'subiendo') cls = 'badge-tendencia-subiendo';
+  if (t.estado === 'bajando') cls = 'badge-tendencia-bajando';
+  return `<span class="badge ${cls}">${t.icono} ${t.texto}</span>`;
+}
+
+function calcularTiempoRelativo(fechaStr, horaStr) {
+  if (!fechaStr || !horaStr) return '';
+  try {
+    const [d, m, y] = fechaStr.split('/');
+    const [hh, mm] = horaStr.split(':');
+    const medDate = new Date(+y, +m - 1, +d, +hh, +mm);
+    const ahora = new Date();
+    const diffMs = ahora - medDate;
+    if (diffMs < 0) return '';
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 60) return ` (hace ${diffMin} min)`;
+    const diffHs = Math.floor(diffMin / 60);
+    if (diffHs < 24) return ` (hace ${diffHs} hs)`;
+    return '';
+  } catch (e) { return ''; }
+}
+
 function tarjetaLP(d,viento,pron){
   const alerta = (d && d.alerta !== undefined) ? d.alerta : DEFAULTS_PUERTO.laplata.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : DEFAULTS_PUERTO.laplata.evacuacion;
@@ -227,7 +298,7 @@ function tarjetaLP(d,viento,pron){
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
+      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
       <div class="dato-etiqueta">Viento</div>
@@ -264,7 +335,7 @@ function tarjetaRio(nombre,emoji,d,idChart,keyPuerto){
     <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs</div><div class="badge-container">${renderBadgeNivel(estado)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
+      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
     </div></div>
     ${histHTML}
   </div>`;
@@ -310,8 +381,8 @@ function tarjetaSaltoGrande(d) {
         <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
           <div class="dato-etiqueta">Altura del agua</div>
           ${subD ? `<div class="${valClass}">${subD.altura} metros</div>
-          <div class="dato-sub">Medición a las ${subD.horaStr} hs (${fechaLegible(subD.fechaStr)})</div>
-          <div class="badge-container">${renderBadgeNivel(estadoSub)}${badge(subD.antiguo, subD.fuente)}</div>
+          <div class="dato-sub">Medición a las ${subD.horaStr} hs (${fechaLegible(subD.fechaStr)})${calcularTiempoRelativo(subD.fechaStr, subD.horaStr)}</div>
+          <div class="badge-container">${renderBadgeNivel(estadoSub)}${renderBadgeTendencia(subD.tendencia)}${badge(subD.antiguo, subD.fuente)}</div>
           ${renderReferenciaPill(alertaSub, evacSub)}` : badgeND()}
         </div></div>
         ${histHTML}
@@ -328,7 +399,7 @@ function tarjetaSaltoGrande(d) {
 }
 
 function renderizarGraficos(d) {
-  const render = (hist, idElement, estado) => {
+  const render = (hist, idElement, estado, alerta, evacuacion) => {
     const canvas = document.getElementById(idElement);
     if (!canvas) return;
 
@@ -343,19 +414,46 @@ function renderizarGraficos(d) {
       bgColor = 'rgba(217,119,6,0.15)';
     }
 
+    const datasets = [{
+      label: 'Altura (m)',
+      data: hist.map(h => parseFloat(h.altura)),
+      borderColor: borderColor,
+      backgroundColor: bgColor,
+      borderWidth: 2,
+      fill: true,
+      pointRadius: 3,
+      tension: 0.3
+    }];
+
+    if (alerta) {
+      datasets.push({
+        label: 'Alerta (' + alerta + 'm)',
+        data: Array(hist.length).fill(alerta),
+        borderColor: 'rgba(217, 119, 6, 0.7)',
+        borderWidth: 1.5,
+        borderDash: [5, 5],
+        pointRadius: 0,
+        fill: false
+      });
+    }
+
+    if (evacuacion) {
+      datasets.push({
+        label: 'Evacuación (' + evacuacion + 'm)',
+        data: Array(hist.length).fill(evacuacion),
+        borderColor: 'rgba(217, 56, 30, 0.7)',
+        borderWidth: 1.5,
+        borderDash: [3, 3],
+        pointRadius: 0,
+        fill: false
+      });
+    }
+
     new Chart(canvas, {
       type: 'line',
       data: {
         labels: hist.map(h => h.horaStr),
-        datasets: [{
-          data: hist.map(h => parseFloat(h.altura)),
-          borderColor: borderColor,
-          backgroundColor: bgColor,
-          borderWidth: 2,
-          fill: true,
-          pointRadius: 3,
-          tension: 0.3
-        }]
+        datasets: datasets
       },
       options: {
         responsive: true,
@@ -370,33 +468,102 @@ function renderizarGraficos(d) {
   };
 
   if (d.laplata && d.laplata.historico) {
-    const st = getEstadoPuerto(d.laplata.altura, d.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta, d.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion);
-    render(d.laplata.historico, 'chart-laplata', st);
+    const al = d.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta;
+    const ev = d.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion;
+    const st = getEstadoPuerto(d.laplata.altura, al, ev);
+    render(d.laplata.historico, 'chart-laplata', st, al, ev);
   }
   if (d.iguazu && d.iguazu.historico) {
-    const st = getEstadoPuerto(d.iguazu.altura, d.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta, d.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion);
-    render(d.iguazu.historico, 'chart-iguazu', st);
+    const al = d.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta;
+    const ev = d.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion;
+    const st = getEstadoPuerto(d.iguazu.altura, al, ev);
+    render(d.iguazu.historico, 'chart-iguazu', st, al, ev);
   }
   if (d.sanjavier && d.sanjavier.historico) {
-    const st = getEstadoPuerto(d.sanjavier.altura, d.sanjavier.alerta || DEFAULTS_PUERTO.sanjavier.alerta, d.sanjavier.evacuacion || DEFAULTS_PUERTO.sanjavier.evacuacion);
-    render(d.sanjavier.historico, 'chart-sanjavier', st);
+    const al = d.sanjavier.alerta || DEFAULTS_PUERTO.sanjavier.alerta;
+    const ev = d.sanjavier.evacuacion || DEFAULTS_PUERTO.sanjavier.evacuacion;
+    const st = getEstadoPuerto(d.sanjavier.altura, al, ev);
+    render(d.sanjavier.historico, 'chart-sanjavier', st, al, ev);
   }
   if (d.santotome && d.santotome.historico) {
-    const st = getEstadoPuerto(d.santotome.altura, d.santotome.alerta || DEFAULTS_PUERTO.santotome.alerta, d.santotome.evacuacion || DEFAULTS_PUERTO.santotome.evacuacion);
-    render(d.santotome.historico, 'chart-santotome', st);
+    const al = d.santotome.alerta || DEFAULTS_PUERTO.santotome.alerta;
+    const ev = d.santotome.evacuacion || DEFAULTS_PUERTO.santotome.evacuacion;
+    const st = getEstadoPuerto(d.santotome.altura, al, ev);
+    render(d.santotome.historico, 'chart-santotome', st, al, ev);
   }
   if (d.concordia && d.concordia.historico) {
-    const st = getEstadoPuerto(d.concordia.altura, d.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta, d.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion);
-    render(d.concordia.historico, 'chart-concordia', st);
+    const al = d.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta;
+    const ev = d.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion;
+    const st = getEstadoPuerto(d.concordia.altura, al, ev);
+    render(d.concordia.historico, 'chart-concordia', st, al, ev);
   }
   if (d.saltogrande && d.saltogrande.arriba && d.saltogrande.arriba.historico) {
-    const st = getEstadoPuerto(d.saltogrande.arriba.altura, d.saltogrande.arriba.alerta || DEFAULTS_PUERTO.saltogrande_arriba.alerta, d.saltogrande.arriba.evacuacion || DEFAULTS_PUERTO.saltogrande_arriba.evacuacion);
-    render(d.saltogrande.arriba.historico, 'chart-saltogrande-arriba', st);
+    const al = d.saltogrande.arriba.alerta || DEFAULTS_PUERTO.saltogrande_arriba.alerta;
+    const ev = d.saltogrande.arriba.evacuacion || DEFAULTS_PUERTO.saltogrande_arriba.evacuacion;
+    const st = getEstadoPuerto(d.saltogrande.arriba.altura, al, ev);
+    render(d.saltogrande.arriba.historico, 'chart-saltogrande-arriba', st, al, ev);
   }
   if (d.saltogrande && d.saltogrande.abajo && d.saltogrande.abajo.historico) {
-    const st = getEstadoPuerto(d.saltogrande.abajo.altura, d.saltogrande.abajo.alerta || DEFAULTS_PUERTO.saltogrande_abajo.alerta, d.saltogrande.abajo.evacuacion || DEFAULTS_PUERTO.saltogrande_abajo.evacuacion);
-    render(d.saltogrande.abajo.historico, 'chart-saltogrande-abajo', st);
+    const al = d.saltogrande.abajo.alerta || DEFAULTS_PUERTO.saltogrande_abajo.alerta;
+    const ev = d.saltogrande.abajo.evacuacion || DEFAULTS_PUERTO.saltogrande_abajo.evacuacion;
+    const st = getEstadoPuerto(d.saltogrande.abajo.altura, al, ev);
+    render(d.saltogrande.abajo.historico, 'chart-saltogrande-abajo', st, al, ev);
   }
+}
+
+function renderBannerAlertas(d) {
+  if (!d) return '';
+  
+  const puertosEnAlerta = [];
+  const puertosEnEvacuacion = [];
+
+  const chequear = (nombre, datosPuerto, keyDefault) => {
+    if (!datosPuerto || !datosPuerto.altura) return;
+    const def = DEFAULTS_PUERTO[keyDefault] || { alerta: 0, evacuacion: 0 };
+    const al = datosPuerto.alerta !== undefined ? datosPuerto.alerta : def.alerta;
+    const ev = datosPuerto.evacuacion !== undefined ? datosPuerto.evacuacion : def.evacuacion;
+    const st = getEstadoPuerto(datosPuerto.altura, al, ev);
+    if (st === 'evacuacion') {
+      puertosEnEvacuacion.push(`${nombre} (${datosPuerto.altura}m)`);
+    } else if (st === 'alerta') {
+      puertosEnAlerta.push(`${nombre} (${datosPuerto.altura}m)`);
+    }
+  };
+
+  chequear('La Plata', d.laplata, 'laplata');
+  chequear('Iguazú', d.iguazu, 'iguazu');
+  chequear('San Javier', d.sanjavier, 'sanjavier');
+  chequear('Santo Tomé', d.santotome, 'santotome');
+  chequear('Concordia', d.concordia, 'concordia');
+  if (d.saltogrande) {
+    chequear('Salto Grande Arriba', d.saltogrande.arriba, 'saltogrande_arriba');
+    chequear('Salto Grande Abajo', d.saltogrande.abajo, 'saltogrande_abajo');
+  }
+
+  if (puertosEnEvacuacion.length > 0) {
+    return `
+      <div class="banner-alerta-general evacuacion">
+        <div class="banner-icono">🚨</div>
+        <div class="banner-texto">
+          <strong>¡ALERTA MÁXIMA DE EVACUACIÓN!</strong><br>
+          Los siguientes puertos superaron el nivel de evacuación: <strong>${puertosEnEvacuacion.join(', ')}</strong>.
+          ${puertosEnAlerta.length > 0 ? `<br>En nivel de alerta: ${puertosEnAlerta.join(', ')}.` : ''}
+        </div>
+      </div>`;
+  }
+
+  if (puertosEnAlerta.length > 0) {
+    return `
+      <div class="banner-alerta-general alerta">
+        <div class="banner-icono">⚠️</div>
+        <div class="banner-texto">
+          <strong>¡ATENCIÓN! PUERTOS EN NIVEL DE ALERTA</strong><br>
+          Se registran niveles de alerta en: <strong>${puertosEnAlerta.join(', ')}</strong>.
+        </div>
+      </div>`;
+  }
+
+  return '';
 }
 
 async function cargarDatos(){
@@ -418,7 +585,8 @@ async function cargarDatos(){
     fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
     
     // Orden: La Plata (10 min) → Iguazú (20 min) → Salto Grande (1 h) → Concordia (1 h) → San Javier (diaria) → Santo Tomé (diaria)
-    panel.innerHTML= tarjetaLP(d.laplata,d.viento,d.pronostico) + 
+    panel.innerHTML= renderBannerAlertas(d) +
+                     tarjetaLP(d.laplata,d.viento,d.pronostico) + 
                      tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu','iguazu') + 
                      tarjetaSaltoGrande(d.saltogrande) +
                      tarjetaRio('Concordia','🌿',d.concordia,'concordia','concordia') + 
@@ -436,30 +604,24 @@ async function cargarDatos(){
   btn.disabled=false; btn.textContent='🔄   Actualizar';
 }
 
-function toggleTema() {
-  const html = document.documentElement;
-  const btn = document.getElementById('btnTema');
-  if (html.getAttribute('data-tema') === 'oscuro') {
-    html.removeAttribute('data-tema');
-    btn.textContent = '🌙';
-    localStorage.setItem('tema', 'claro');
+async function compartirReporte() {
+  const text = "🌊 Reporte Fluvial - Niveles de Ríos\nConsultá el estado actualizado de los puertos aquí: " + window.location.href;
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "Reporte Fluvial", text: text, url: window.location.href });
+    } catch (e) {}
   } else {
-    html.setAttribute('data-tema', 'oscuro');
-    btn.textContent = '☀️';
-    localStorage.setItem('tema', 'oscuro');
+    navigator.clipboard.writeText(text);
+    alert("¡Enlace copiado al portapapeles! 📋");
   }
 }
 
-// Detectar preferencia guardada o del sistema
-(function() {
-  const guardado = localStorage.getItem('tema');
-  const prefierOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (guardado === 'oscuro' || (!guardado && prefierOscuro)) {
-    document.documentElement.setAttribute('data-tema', 'oscuro');
-    const btn = document.getElementById('btnTema');
-    if (btn) btn.textContent = '☀️';
-  }
-})();
+// Registrar Service Worker para PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW reg error:', err));
+  });
+}
 
 cargarDatos();
 </script>

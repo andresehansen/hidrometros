@@ -470,7 +470,30 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             sgAbajoDatos  = await fetchGeoServerINA("-31.35,-57.98,-31.25,-57.88", "Salto Grande Abajo", [78]);
         }
 
-        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE 20 REGISTROS ---
+        // --- FUNCIÓN PARA CALCULAR TENDENCIA DE UN PUERTO ---
+        function calcularTendencia(historico, alturaActual) {
+            if (!historico || historico.length < 2 || alturaActual === undefined || alturaActual === null) {
+                return { icono: '➡️', estado: 'estacionado', texto: 'Estacionado', diferencia: '0.00' };
+            }
+            const actual = parseFloat(alturaActual);
+            let anterior = parseFloat(historico[historico.length - 2].altura);
+            if (isNaN(actual) || isNaN(anterior)) {
+                return { icono: '➡️', estado: 'estacionado', texto: 'Estacionado', diferencia: '0.00' };
+            }
+            const diff = actual - anterior;
+            if (Math.abs(diff) < 0.01) {
+                return { icono: '➡️', estado: 'estacionado', texto: 'Estacionado', diferencia: '0.00' };
+            }
+            const sign = diff > 0 ? '+' : '';
+            const diffStr = `${sign}${diff.toFixed(2)}`;
+            if (diff > 0) {
+                return { icono: '⬆️', estado: 'subiendo', texto: `Subiendo (${diffStr}m)`, diferencia: diffStr };
+            } else {
+                return { icono: '⬇️', estado: 'bajando', texto: `Bajando (${diffStr}m)`, diferencia: diffStr };
+            }
+        }
+
+        // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE HASTA 48 REGISTROS ---
         function getHistorico(puertoKey, nuevoDato, subKey = null) {
             let hist = [];
             if (subKey && datosAnteriores[puertoKey] && datosAnteriores[puertoKey][subKey]) {
@@ -489,15 +512,16 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
                     });
                 }
             }
-            // Retorna solo los últimos 20 elementos
-            return hist.slice(-20);
+            // Retorna hasta los últimos 48 elementos para un historial de 48h
+            return hist.slice(-48);
         }
 
-        // ---- ASIGNACIÓN DE NIVELES DE ALERTA / EVACUACIÓN Y HISTORIAL ----
+        // ---- ASIGNACIÓN DE NIVELES DE ALERTA / EVACUACIÓN, HISTORIAL Y TENDENCIA ----
         if (lpDatos) { 
             lpDatos.alerta = 2.5; 
             lpDatos.evacuacion = 2.8; 
             lpDatos.historico = getHistorico('laplata', lpDatos);
+            lpDatos.tendencia = calcularTendencia(lpDatos.historico, lpDatos.altura);
         } else if (datosAnteriores.laplata) {
             lpDatos = datosAnteriores.laplata;
         }
@@ -506,6 +530,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             igDatos.alerta = 25.0; 
             igDatos.evacuacion = 28.0; 
             igDatos.historico = getHistorico('iguazu', igDatos);
+            igDatos.tendencia = calcularTendencia(igDatos.historico, igDatos.altura);
         } else if (datosAnteriores.iguazu) {
             igDatos = datosAnteriores.iguazu;
         }
@@ -514,6 +539,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             coDatos.alerta = 11.0; 
             coDatos.evacuacion = 12.5; 
             coDatos.historico = getHistorico('concordia', coDatos);
+            coDatos.tendencia = calcularTendencia(coDatos.historico, coDatos.altura);
         } else if (datosAnteriores.concordia) {
             coDatos = datosAnteriores.concordia;
         }
@@ -522,6 +548,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             sjDatos.alerta = 8.0;
             sjDatos.evacuacion = 10.0;
             sjDatos.historico = getHistorico('sanjavier', sjDatos);
+            sjDatos.tendencia = calcularTendencia(sjDatos.historico, sjDatos.altura);
         } else if (datosAnteriores.sanjavier) {
             sjDatos = datosAnteriores.sanjavier;
         }
@@ -530,6 +557,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             stDatos.alerta = 11.5;
             stDatos.evacuacion = 12.5;
             stDatos.historico = getHistorico('santotome', stDatos);
+            stDatos.tendencia = calcularTendencia(stDatos.historico, stDatos.altura);
         } else if (datosAnteriores.santotome) {
             stDatos = datosAnteriores.santotome;
         }
@@ -538,6 +566,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             sgArribaDatos.alerta = 35.5;
             sgArribaDatos.evacuacion = 36.0;
             sgArribaDatos.historico = getHistorico('saltogrande', sgArribaDatos, 'arriba');
+            sgArribaDatos.tendencia = calcularTendencia(sgArribaDatos.historico, sgArribaDatos.altura);
         } else if (datosAnteriores.saltogrande?.arriba) {
             sgArribaDatos = datosAnteriores.saltogrande.arriba;
         }
@@ -546,6 +575,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             sgAbajoDatos.alerta = 17.3;
             sgAbajoDatos.evacuacion = 17.8;
             sgAbajoDatos.historico = getHistorico('saltogrande', sgAbajoDatos, 'abajo');
+            sgAbajoDatos.tendencia = calcularTendencia(sgAbajoDatos.historico, sgAbajoDatos.altura);
         } else if (datosAnteriores.saltogrande?.abajo) {
             sgAbajoDatos = datosAnteriores.saltogrande.abajo;
         }
