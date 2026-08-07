@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "07/08/2026 a las 04:44 hs",
-  "generadoEn": "2026-08-07T04:44:00.372Z",
+  "fechaReporte": "07/08/2026 a las 05:19 hs",
+  "generadoEn": "2026-08-07T05:19:23.745Z",
   "laplata": {
-    "altura": "1.70",
-    "horaStr": "04:30",
+    "altura": "1.72",
+    "horaStr": "05:10",
     "fechaStr": "07/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.70m (a las 04:30 hs)",
+    "textoFB": "1.72m (a las 05:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -200,19 +200,24 @@
         "altura": "1.70",
         "fechaStr": "07/08/2026",
         "horaStr": "04:30"
+      },
+      {
+        "altura": "1.72",
+        "fechaStr": "07/08/2026",
+        "horaStr": "05:10"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.01m)",
-      "diferencia": "-0.01"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "viento": {
-    "velocidad": 15.5,
+    "velocidad": 13.9,
     "direccion": "Suroeste (SW)",
-    "temperatura": 5.9
+    "temperatura": 5.6
   },
   "pronostico": {
     "pleamar": {
@@ -227,12 +232,12 @@
     }
   },
   "iguazu": {
-    "altura": "14.43",
-    "horaStr": "04:20",
+    "altura": "14.46",
+    "horaStr": "05:00",
     "fechaStr": "07/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.43m (a las 04:20 hs)",
+    "textoFB": "14.46m (a las 05:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -370,13 +375,18 @@
         "altura": "14.43",
         "fechaStr": "07/08/2026",
         "horaStr": "04:20"
+      },
+      {
+        "altura": "14.46",
+        "fechaStr": "07/08/2026",
+        "horaStr": "05:00"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.03m)",
+      "diferencia": "+0.03"
     }
   },
   "sanjavier": {
