@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "06/08/2026 a las 23:19 hs",
-  "generadoEn": "2026-08-06T23:19:30.970Z",
+  "fechaReporte": "07/08/2026 a las 00:19 hs",
+  "generadoEn": "2026-08-07T00:19:30.435Z",
   "laplata": {
-    "altura": "1.87",
-    "horaStr": "23:10",
-    "fechaStr": "06/08/2026",
+    "altura": "1.80",
+    "horaStr": "00:10",
+    "fechaStr": "07/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.87m (a las 23:10 hs)",
+    "textoFB": "1.80m (a las 00:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -155,21 +155,37 @@
         "altura": "1.87",
         "fechaStr": "06/08/2026",
         "horaStr": "23:10"
+      },
+      {
+        "altura": "1.80",
+        "fechaStr": "07/08/2026",
+        "horaStr": "00:10"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.02m)",
-      "diferencia": "+0.02"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.07m)",
+      "diferencia": "-0.07"
     }
   },
   "viento": {
-    "velocidad": 22,
+    "velocidad": 19.8,
     "direccion": "Suroeste (SW)",
-    "temperatura": 7.7
+    "temperatura": 7.4
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "12:00",
+      "altura": "2.10",
+      "fecha": "07/08"
+    },
+    "bajamar": {
+      "hora": "06:00",
+      "altura": "1.30",
+      "fecha": "07/08"
+    }
+  },
   "iguazu": {
     "altura": "12.15",
     "horaStr": "17:40",
@@ -298,8 +314,8 @@
     "horaStr": "00:00",
     "fechaStr": "06/08/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "3.05m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "3.05m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -346,8 +362,8 @@
     "horaStr": "00:00",
     "fechaStr": "06/08/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "6.47m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "6.47m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
