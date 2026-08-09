@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "09/08/2026 a las 01:38 hs",
-  "generadoEn": "2026-08-09T01:38:55.028Z",
+  "fechaReporte": "09/08/2026 a las 02:19 hs",
+  "generadoEn": "2026-08-09T02:19:21.128Z",
   "laplata": {
     "altura": "1.68",
     "horaStr": "01:00",
@@ -260,9 +260,9 @@
     }
   },
   "viento": {
-    "velocidad": 13.1,
+    "velocidad": 13.6,
     "direccion": "Oeste (W)",
-    "temperatura": 5.6
+    "temperatura": 5.5
   },
   "pronostico": {
     "pleamar": {
@@ -277,20 +277,15 @@
     }
   },
   "iguazu": {
-    "altura": "13.37",
-    "horaStr": "00:20",
+    "altura": "13.29",
+    "horaStr": "02:00",
     "fechaStr": "09/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "13.37m (a las 00:20 hs)",
+    "textoFB": "13.29m (a las 02:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.00",
-        "fechaStr": "07/08/2026",
-        "horaStr": "11:00"
-      },
       {
         "altura": "13.90",
         "fechaStr": "07/08/2026",
@@ -525,13 +520,18 @@
         "altura": "13.37",
         "fechaStr": "09/08/2026",
         "horaStr": "00:20"
+      },
+      {
+        "altura": "13.29",
+        "fechaStr": "09/08/2026",
+        "horaStr": "02:00"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.02m)",
-      "diferencia": "+0.02"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.08m)",
+      "diferencia": "-0.08"
     }
   },
   "sanjavier": {
