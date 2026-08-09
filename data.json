@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "09/08/2026 a las 05:19 hs",
-  "generadoEn": "2026-08-09T05:19:22.228Z",
+  "fechaReporte": "09/08/2026 a las 06:04 hs",
+  "generadoEn": "2026-08-09T06:04:21.754Z",
   "laplata": {
-    "altura": "1.20",
-    "horaStr": "05:10",
+    "altura": "1.15",
+    "horaStr": "05:40",
     "fechaStr": "09/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.20m (a las 05:10 hs)",
+    "textoFB": "1.15m (a las 05:40 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.18",
-        "fechaStr": "07/08/2026",
-        "horaStr": "17:50"
-      },
       {
         "altura": "1.16",
         "fechaStr": "07/08/2026",
@@ -250,36 +245,47 @@
         "altura": "1.20",
         "fechaStr": "09/08/2026",
         "horaStr": "05:10"
+      },
+      {
+        "altura": "1.15",
+        "fechaStr": "09/08/2026",
+        "horaStr": "05:40"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.08m)",
-      "diferencia": "-0.08"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "viento": {
-    "velocidad": 14.6,
+    "velocidad": 14.4,
     "direccion": "Oeste (W)",
-    "temperatura": 4.9
+    "temperatura": 4.8
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "13:30",
+      "altura": "1.35",
+      "fecha": "09/08"
+    },
+    "bajamar": {
+      "hora": "09:00",
+      "altura": "0.80",
+      "fecha": "09/08"
+    }
+  },
   "iguazu": {
-    "altura": "13.02",
-    "horaStr": "05:00",
+    "altura": "12.97",
+    "horaStr": "05:40",
     "fechaStr": "09/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "13.02m (a las 05:00 hs)",
+    "textoFB": "12.97m (a las 05:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "13.58",
-        "fechaStr": "07/08/2026",
-        "horaStr": "16:40"
-      },
       {
         "altura": "13.72",
         "fechaStr": "07/08/2026",
@@ -514,6 +520,11 @@
         "altura": "13.02",
         "fechaStr": "09/08/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "12.97",
+        "fechaStr": "09/08/2026",
+        "horaStr": "05:40"
       }
     ],
     "tendencia": {
