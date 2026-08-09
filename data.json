@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "09/08/2026 a las 10:17 hs",
-  "generadoEn": "2026-08-09T10:17:08.801Z",
+  "fechaReporte": "09/08/2026 a las 10:19 hs",
+  "generadoEn": "2026-08-09T10:19:22.052Z",
   "laplata": {
     "altura": "1.11",
     "horaStr": "08:10",
@@ -277,15 +277,20 @@
     }
   },
   "iguazu": {
-    "altura": "12.34",
-    "horaStr": "10:00",
-    "fechaStr": "09/08/2026",
-    "fuente": "AGPSE",
-    "antiguo": false,
-    "textoFB": "12.34m (a las 10:00 hs)",
+    "altura": "14.40",
+    "horaStr": "00:00",
+    "fechaStr": "08/08/2026",
+    "fuente": "INA",
+    "antiguo": true,
+    "textoFB": "14.40m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
+      {
+        "altura": "14.51",
+        "fechaStr": "07/08/2026",
+        "horaStr": "20:40"
+      },
       {
         "altura": "14.55",
         "fechaStr": "07/08/2026",
@@ -520,18 +525,13 @@
         "altura": "12.67",
         "fechaStr": "09/08/2026",
         "horaStr": "09:00"
-      },
-      {
-        "altura": "12.34",
-        "fechaStr": "09/08/2026",
-        "horaStr": "10:00"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.33m)",
-      "diferencia": "-0.33"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+1.63m)",
+      "diferencia": "+1.63"
     }
   },
   "sanjavier": {
