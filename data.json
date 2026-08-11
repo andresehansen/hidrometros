@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "11/08/2026 a las 15:19 hs",
-  "generadoEn": "2026-08-11T15:19:25.760Z",
+  "fechaReporte": "11/08/2026 a las 15:40 hs",
+  "generadoEn": "2026-08-11T15:40:56.831Z",
   "laplata": {
     "altura": "1.19",
-    "horaStr": "15:10",
+    "horaStr": "15:20",
     "fechaStr": "11/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.19m (a las 15:10 hs)",
+    "textoFB": "1.19m (a las 15:20 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.87",
-        "fechaStr": "10/08/2026",
-        "horaStr": "14:10"
-      },
       {
         "altura": "1.85",
         "fechaStr": "10/08/2026",
@@ -250,19 +245,24 @@
         "altura": "1.19",
         "fechaStr": "11/08/2026",
         "horaStr": "15:10"
+      },
+      {
+        "altura": "1.19",
+        "fechaStr": "11/08/2026",
+        "horaStr": "15:20"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.02m)",
-      "diferencia": "+0.02"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 14.8,
+    "velocidad": 15,
     "direccion": "Este (E)",
-    "temperatura": 10.6
+    "temperatura": 10.5
   },
   "pronostico": {
     "pleamar": {
@@ -277,20 +277,15 @@
     }
   },
   "iguazu": {
-    "altura": "12.56",
-    "horaStr": "15:00",
+    "altura": "12.57",
+    "horaStr": "15:20",
     "fechaStr": "11/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.56m (a las 15:00 hs)",
+    "textoFB": "12.57m (a las 15:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "12.97",
-        "fechaStr": "09/08/2026",
-        "horaStr": "05:40"
-      },
       {
         "altura": "12.95",
         "fechaStr": "09/08/2026",
@@ -525,13 +520,18 @@
         "altura": "12.56",
         "fechaStr": "11/08/2026",
         "horaStr": "15:00"
+      },
+      {
+        "altura": "12.57",
+        "fechaStr": "11/08/2026",
+        "horaStr": "15:20"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.16m)",
-      "diferencia": "-0.16"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
