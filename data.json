@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "10/08/2026 a las 23:29 hs",
-  "generadoEn": "2026-08-10T23:29:32.531Z",
+  "fechaReporte": "11/08/2026 a las 00:19 hs",
+  "generadoEn": "2026-08-11T00:19:23.557Z",
   "laplata": {
-    "altura": "2.04",
-    "horaStr": "23:00",
-    "fechaStr": "10/08/2026",
+    "altura": "2.10",
+    "horaStr": "00:10",
+    "fechaStr": "11/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "2.04m (a las 23:00 hs)",
+    "textoFB": "2.10m (a las 00:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.17",
-        "fechaStr": "08/08/2026",
-        "horaStr": "21:10"
-      },
       {
         "altura": "1.28",
         "fechaStr": "08/08/2026",
@@ -250,30 +245,35 @@
         "altura": "2.04",
         "fechaStr": "10/08/2026",
         "horaStr": "23:00"
+      },
+      {
+        "altura": "2.10",
+        "fechaStr": "11/08/2026",
+        "horaStr": "00:10"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.30m)",
-      "diferencia": "+0.30"
+      "texto": "Subiendo (+0.06m)",
+      "diferencia": "+0.06"
     }
   },
   "viento": {
-    "velocidad": 6.5,
+    "velocidad": 4.9,
     "direccion": "Este (E)",
-    "temperatura": 6.4
+    "temperatura": 5.9
   },
   "pronostico": {
     "pleamar": {
       "hora": "03:00",
-      "altura": "1.95",
+      "altura": "2.10",
       "fecha": "11/08"
     },
     "bajamar": {
-      "hora": "20:00",
-      "altura": "1.20",
-      "fecha": "10/08"
+      "hora": "11:00",
+      "altura": "0.90",
+      "fecha": "11/08"
     }
   },
   "iguazu": {
@@ -539,8 +539,8 @@
     "horaStr": "00:00",
     "fechaStr": "10/08/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "4.23m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "4.23m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -602,8 +602,8 @@
     "horaStr": "00:00",
     "fechaStr": "10/08/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "6.74m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "6.74m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
