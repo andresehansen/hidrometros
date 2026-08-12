@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "12/08/2026 a las 02:06 hs",
-  "generadoEn": "2026-08-12T02:06:17.297Z",
+  "fechaReporte": "12/08/2026 a las 02:19 hs",
+  "generadoEn": "2026-08-12T02:19:23.707Z",
   "laplata": {
-    "altura": "1.90",
-    "horaStr": "01:50",
+    "altura": "1.94",
+    "horaStr": "02:10",
     "fechaStr": "12/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.90m (a las 01:50 hs)",
+    "textoFB": "1.94m (a las 02:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "2.13",
-        "fechaStr": "11/08/2026",
-        "horaStr": "00:40"
-      },
       {
         "altura": "2.15",
         "fechaStr": "11/08/2026",
@@ -250,17 +245,22 @@
         "altura": "1.90",
         "fechaStr": "12/08/2026",
         "horaStr": "01:50"
+      },
+      {
+        "altura": "1.94",
+        "fechaStr": "12/08/2026",
+        "horaStr": "02:10"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.08m)",
-      "diferencia": "+0.08"
+      "texto": "Subiendo (+0.04m)",
+      "diferencia": "+0.04"
     }
   },
   "viento": {
-    "velocidad": 14.2,
+    "velocidad": 14.1,
     "direccion": "Este (E)",
     "temperatura": 8.5
   },
@@ -983,12 +983,12 @@
       }
     },
     "abajo": {
-      "altura": "11.96",
+      "altura": "11.82",
       "horaStr": "00:00",
-      "fechaStr": "11/08/2026",
-      "fuente": "INA",
-      "antiguo": true,
-      "textoFB": "11.96m (a las 00:00 hs) ⚠️ (Dato viejo)",
+      "fechaStr": "12/08/2026",
+      "fuente": "CARU",
+      "antiguo": false,
+      "textoFB": "11.82m (a las 00:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1089,10 +1089,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬆️",
-        "estado": "subiendo",
-        "texto": "Subiendo (+0.07m)",
-        "diferencia": "+0.07"
+        "icono": "⬇️",
+        "estado": "bajando",
+        "texto": "Bajando (-0.07m)",
+        "diferencia": "-0.07"
       }
     }
   }
