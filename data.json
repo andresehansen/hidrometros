@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "12/08/2026 a las 13:12 hs",
-  "generadoEn": "2026-08-12T13:12:16.173Z",
+  "fechaReporte": "12/08/2026 a las 13:19 hs",
+  "generadoEn": "2026-08-12T13:19:27.569Z",
   "laplata": {
     "altura": "0.94",
-    "horaStr": "12:50",
+    "horaStr": "13:10",
     "fechaStr": "12/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.94m (a las 12:50 hs)",
+    "textoFB": "0.94m (a las 13:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.95",
-        "fechaStr": "11/08/2026",
-        "horaStr": "10:30"
-      },
       {
         "altura": "0.90",
         "fechaStr": "11/08/2026",
@@ -250,17 +245,22 @@
         "altura": "0.94",
         "fechaStr": "12/08/2026",
         "horaStr": "12:50"
+      },
+      {
+        "altura": "0.94",
+        "fechaStr": "12/08/2026",
+        "horaStr": "13:10"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 12.5,
+    "velocidad": 12,
     "direccion": "Este (E)",
     "temperatura": 11.3
   },
