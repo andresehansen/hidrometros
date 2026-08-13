@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "13/08/2026 a las 12:44 hs",
-  "generadoEn": "2026-08-13T12:44:54.002Z",
+  "fechaReporte": "13/08/2026 a las 13:13 hs",
+  "generadoEn": "2026-08-13T13:13:06.717Z",
   "laplata": {
     "altura": "1.22",
     "horaStr": "12:30",
@@ -260,9 +260,9 @@
     }
   },
   "viento": {
-    "velocidad": 14.2,
+    "velocidad": 13.8,
     "direccion": "Este (E)",
-    "temperatura": 10.9
+    "temperatura": 10.8
   },
   "pronostico": {
     "pleamar": {
@@ -277,20 +277,15 @@
     }
   },
   "iguazu": {
-    "altura": "12.11",
-    "horaStr": "12:20",
+    "altura": "12.01",
+    "horaStr": "13:00",
     "fechaStr": "13/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.11m (a las 12:20 hs)",
+    "textoFB": "12.01m (a las 13:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.55",
-        "fechaStr": "11/08/2026",
-        "horaStr": "23:40"
-      },
       {
         "altura": "14.51",
         "fechaStr": "12/08/2026",
@@ -525,13 +520,18 @@
         "altura": "12.11",
         "fechaStr": "13/08/2026",
         "horaStr": "12:20"
+      },
+      {
+        "altura": "12.01",
+        "fechaStr": "13/08/2026",
+        "horaStr": "13:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "texto": "Bajando (-0.10m)",
+      "diferencia": "-0.10"
     }
   },
   "sanjavier": {
@@ -716,12 +716,12 @@
     }
   },
   "concordia": {
-    "altura": "8.6",
-    "horaStr": "00:00",
+    "altura": "8.54",
+    "horaStr": "12:00",
     "fechaStr": "13/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "8.6m (a las 00:00 hs)",
+    "textoFB": "8.54m (a las 12:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
@@ -899,23 +899,28 @@
         "altura": "8.6",
         "fechaStr": "13/08/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "8.54",
+        "fechaStr": "13/08/2026",
+        "horaStr": "12:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.20m)",
-      "diferencia": "-0.20"
+      "texto": "Bajando (-0.06m)",
+      "diferencia": "-0.06"
     }
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.92",
-      "horaStr": "12:00",
+      "altura": "34.95",
+      "horaStr": "00:00",
       "fechaStr": "13/08/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "34.92m (a las 12:00 hs)",
+      "textoFB": "34.95m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1028,22 +1033,27 @@
           "altura": "34.92",
           "fechaStr": "13/08/2026",
           "horaStr": "12:00"
+        },
+        {
+          "altura": "34.95",
+          "fechaStr": "13/08/2026",
+          "horaStr": "00:00"
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.03m)",
-        "diferencia": "-0.03"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.03m)",
+        "diferencia": "+0.03"
       }
     },
     "abajo": {
-      "altura": "11.56",
-      "horaStr": "12:00",
+      "altura": "11.58",
+      "horaStr": "00:00",
       "fechaStr": "13/08/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "11.56m (a las 12:00 hs)",
+      "textoFB": "11.58m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1156,13 +1166,18 @@
           "altura": "11.56",
           "fechaStr": "13/08/2026",
           "horaStr": "12:00"
+        },
+        {
+          "altura": "11.58",
+          "fechaStr": "13/08/2026",
+          "horaStr": "00:00"
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.02m)",
-        "diferencia": "-0.02"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.02m)",
+        "diferencia": "+0.02"
       }
     }
   }
