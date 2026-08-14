@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "14/08/2026 a las 10:46 hs",
-  "generadoEn": "2026-08-14T10:46:15.983Z",
+  "fechaReporte": "14/08/2026 a las 11:19 hs",
+  "generadoEn": "2026-08-14T11:19:22.878Z",
   "laplata": {
-    "altura": "1.18",
-    "horaStr": "10:30",
+    "altura": "1.10",
+    "horaStr": "11:10",
     "fechaStr": "14/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.18m (a las 10:30 hs)",
+    "textoFB": "1.10m (a las 11:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "2.06",
-        "fechaStr": "13/08/2026",
-        "horaStr": "04:10"
-      },
       {
         "altura": "2.12",
         "fechaStr": "13/08/2026",
@@ -250,19 +245,24 @@
         "altura": "1.18",
         "fechaStr": "14/08/2026",
         "horaStr": "10:30"
+      },
+      {
+        "altura": "1.10",
+        "fechaStr": "14/08/2026",
+        "horaStr": "11:10"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "texto": "Bajando (-0.08m)",
+      "diferencia": "-0.08"
     }
   },
   "viento": {
-    "velocidad": 15.6,
+    "velocidad": 15.3,
     "direccion": "Este (E)",
-    "temperatura": 11.5
+    "temperatura": 11.6
   },
   "pronostico": {
     "pleamar": {
@@ -277,20 +277,15 @@
     }
   },
   "iguazu": {
-    "altura": "12.12",
-    "horaStr": "09:20",
+    "altura": "11.81",
+    "horaStr": "11:00",
     "fechaStr": "14/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.12m (a las 09:20 hs)",
+    "textoFB": "11.81m (a las 11:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "13.15",
-        "fechaStr": "12/08/2026",
-        "horaStr": "18:40"
-      },
       {
         "altura": "13.68",
         "fechaStr": "12/08/2026",
@@ -525,13 +520,18 @@
         "altura": "12.12",
         "fechaStr": "14/08/2026",
         "horaStr": "09:20"
+      },
+      {
+        "altura": "11.81",
+        "fechaStr": "14/08/2026",
+        "horaStr": "11:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.08m)",
-      "diferencia": "-0.08"
+      "texto": "Bajando (-0.31m)",
+      "diferencia": "-0.31"
     }
   },
   "sanjavier": {
@@ -920,12 +920,12 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.88",
+      "altura": "34.95",
       "horaStr": "00:00",
-      "fechaStr": "14/08/2026",
-      "fuente": "CARU",
-      "antiguo": false,
-      "textoFB": "34.88m (a las 00:00 hs)",
+      "fechaStr": "13/08/2026",
+      "fuente": "INA",
+      "antiguo": true,
+      "textoFB": "34.95m (a las 00:00 hs) ⚠️ (Dato viejo)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1056,19 +1056,19 @@
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.04m)",
-        "diferencia": "-0.04"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.03m)",
+        "diferencia": "+0.03"
       }
     },
     "abajo": {
-      "altura": "11.5",
+      "altura": "11.58",
       "horaStr": "00:00",
-      "fechaStr": "14/08/2026",
-      "fuente": "CARU",
-      "antiguo": false,
-      "textoFB": "11.5m (a las 00:00 hs)",
+      "fechaStr": "13/08/2026",
+      "fuente": "INA",
+      "antiguo": true,
+      "textoFB": "11.58m (a las 00:00 hs) ⚠️ (Dato viejo)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1199,10 +1199,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.06m)",
-        "diferencia": "-0.06"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.02m)",
+        "diferencia": "+0.02"
       }
     }
   }
