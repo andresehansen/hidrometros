@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "16/08/2026 a las 10:19 hs",
-  "generadoEn": "2026-08-16T10:19:25.112Z",
+  "fechaReporte": "16/08/2026 a las 10:46 hs",
+  "generadoEn": "2026-08-16T10:46:09.990Z",
   "laplata": {
-    "altura": "0.92",
-    "horaStr": "09:45",
+    "altura": "1.08",
+    "horaStr": "10:30",
     "fechaStr": "16/08/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.92m (a las 09:45 hs) (Fuente: INA)",
+    "textoFB": "1.08m (a las 10:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.25",
-        "fechaStr": "15/08/2026",
-        "horaStr": "10:10"
-      },
       {
         "altura": "1.02",
         "fechaStr": "15/08/2026",
@@ -250,21 +245,37 @@
         "altura": "0.92",
         "fechaStr": "16/08/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "1.08",
+        "fechaStr": "16/08/2026",
+        "horaStr": "10:30"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.16m)",
+      "diferencia": "+0.16"
     }
   },
   "viento": {
-    "velocidad": 4.7,
+    "velocidad": 5.2,
     "direccion": "Noroeste (NW)",
-    "temperatura": 15.2
+    "temperatura": 16.1
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "09:00",
+      "altura": "0.90",
+      "fecha": "16/08"
+    },
+    "bajamar": {
+      "hora": "16:00",
+      "altura": "0.20",
+      "fecha": "16/08"
+    }
+  },
   "iguazu": {
     "altura": "11.31",
     "horaStr": "08:20",
