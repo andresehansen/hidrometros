@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "15/08/2026 a las 20:36 hs",
-  "generadoEn": "2026-08-15T20:36:33.001Z",
+  "fechaReporte": "15/08/2026 a las 21:19 hs",
+  "generadoEn": "2026-08-15T21:19:23.949Z",
   "laplata": {
     "altura": "1.03",
     "horaStr": "20:30",
@@ -260,26 +260,32 @@
     }
   },
   "viento": {
-    "velocidad": 10.4,
+    "velocidad": 8.7,
     "direccion": "Noreste (NE)",
-    "temperatura": 14
+    "temperatura": 13.9
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "19:30",
+      "altura": "0.90",
+      "fecha": "15/08"
+    },
+    "bajamar": {
+      "hora": "03:00",
+      "altura": "0.40",
+      "fecha": "16/08"
+    }
+  },
   "iguazu": {
-    "altura": "11.37",
-    "horaStr": "20:00",
+    "altura": "11.58",
+    "horaStr": "21:00",
     "fechaStr": "15/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "11.37m (a las 20:00 hs)",
+    "textoFB": "11.58m (a las 21:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "12.26",
-        "fechaStr": "14/08/2026",
-        "horaStr": "08:40"
-      },
       {
         "altura": "12.20",
         "fechaStr": "14/08/2026",
@@ -514,13 +520,18 @@
         "altura": "11.37",
         "fechaStr": "15/08/2026",
         "horaStr": "20:00"
+      },
+      {
+        "altura": "11.58",
+        "fechaStr": "15/08/2026",
+        "horaStr": "21:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.19m)",
-      "diferencia": "+0.19"
+      "texto": "Subiendo (+0.21m)",
+      "diferencia": "+0.21"
     }
   },
   "sanjavier": {
