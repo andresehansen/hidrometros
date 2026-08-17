@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "17/08/2026 a las 13:19 hs",
-  "generadoEn": "2026-08-17T13:19:25.337Z",
+  "fechaReporte": "17/08/2026 a las 13:48 hs",
+  "generadoEn": "2026-08-17T13:48:15.962Z",
   "laplata": {
-    "altura": "1.80",
-    "horaStr": "13:10",
+    "altura": "1.88",
+    "horaStr": "13:20",
     "fechaStr": "17/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.80m (a las 13:10 hs)",
+    "textoFB": "1.88m (a las 13:20 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -25,19 +25,24 @@
         "altura": "1.80",
         "fechaStr": "17/08/2026",
         "horaStr": "13:10"
+      },
+      {
+        "altura": "1.88",
+        "fechaStr": "17/08/2026",
+        "horaStr": "13:20"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.08m)",
+      "diferencia": "+0.08"
     }
   },
   "viento": {
-    "velocidad": 21.3,
+    "velocidad": 20.6,
     "direccion": "Sureste (SE)",
-    "temperatura": 13.5
+    "temperatura": 14.1
   },
   "pronostico": {
     "pleamar": {
@@ -52,12 +57,12 @@
     }
   },
   "iguazu": {
-    "altura": "12.34",
-    "horaStr": "12:40",
+    "altura": "12.35",
+    "horaStr": "13:40",
     "fechaStr": "17/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.34m (a las 12:40 hs)",
+    "textoFB": "12.35m (a las 13:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -70,13 +75,18 @@
         "altura": "12.34",
         "fechaStr": "17/08/2026",
         "horaStr": "12:40"
+      },
+      {
+        "altura": "12.35",
+        "fechaStr": "17/08/2026",
+        "horaStr": "13:40"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.04m)",
-      "diferencia": "+0.04"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
