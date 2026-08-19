@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "18/08/2026 a las 21:19 hs",
-  "generadoEn": "2026-08-18T21:19:21.182Z",
+  "fechaReporte": "18/08/2026 a las 21:25 hs",
+  "generadoEn": "2026-08-18T21:25:56.939Z",
   "laplata": {
     "altura": "1.39",
     "horaStr": "21:10",
@@ -277,12 +277,12 @@
     }
   },
   "iguazu": {
-    "altura": "14.09",
-    "horaStr": "21:00",
+    "altura": "14.15",
+    "horaStr": "21:20",
     "fechaStr": "18/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.09m (a las 21:00 hs)",
+    "textoFB": "14.15m (a las 21:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -485,13 +485,18 @@
         "altura": "14.09",
         "fechaStr": "18/08/2026",
         "horaStr": "21:00"
+      },
+      {
+        "altura": "14.15",
+        "fechaStr": "18/08/2026",
+        "horaStr": "21:20"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.74m)",
-      "diferencia": "+0.74"
+      "texto": "Subiendo (+0.06m)",
+      "diferencia": "+0.06"
     }
   },
   "sanjavier": {
@@ -518,12 +523,12 @@
     }
   },
   "santotome": {
-    "altura": "8.11",
-    "horaStr": "00:00",
+    "altura": "7.61",
+    "horaStr": "20:00",
     "fechaStr": "18/08/2026",
     "fuente": "INA",
     "antiguo": false,
-    "textoFB": "8.11m (a las 00:00 hs) (Fuente: INA)",
+    "textoFB": "7.61m (a las 20:00 hs) (Fuente: INA)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
@@ -531,13 +536,18 @@
         "altura": "8.11",
         "fechaStr": "18/08/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "7.61",
+        "fechaStr": "18/08/2026",
+        "horaStr": "20:00"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.50m)",
+      "diferencia": "-0.50"
     }
   },
   "concordia": {
@@ -580,12 +590,12 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.8",
-      "horaStr": "12:00",
+      "altura": "9.38",
+      "horaStr": "00:00",
       "fechaStr": "18/08/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "34.8m (a las 12:00 hs)",
+      "textoFB": "9.38m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -608,13 +618,18 @@
           "altura": "34.8",
           "fechaStr": "18/08/2026",
           "horaStr": "12:00"
+        },
+        {
+          "altura": "9.38",
+          "fechaStr": "18/08/2026",
+          "horaStr": "00:00"
         }
       ],
       "tendencia": {
-        "icono": "⬆️",
-        "estado": "subiendo",
-        "texto": "Subiendo (+1.06m)",
-        "diferencia": "+1.06"
+        "icono": "⬇️",
+        "estado": "bajando",
+        "texto": "Bajando (-25.42m)",
+        "diferencia": "-25.42"
       }
     },
     "abajo": {
