@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "22/08/2026 a las 19:19 hs",
-  "generadoEn": "2026-08-22T19:19:24.451Z",
+  "fechaReporte": "22/08/2026 a las 19:41 hs",
+  "generadoEn": "2026-08-22T19:41:05.924Z",
   "laplata": {
-    "altura": "1.14",
-    "horaStr": "19:10",
+    "altura": "1.17",
+    "horaStr": "19:30",
     "fechaStr": "22/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.14m (a las 19:10 hs)",
+    "textoFB": "1.17m (a las 19:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.83",
-        "fechaStr": "21/08/2026",
-        "horaStr": "22:10"
-      },
       {
         "altura": "1.81",
         "fechaStr": "21/08/2026",
@@ -250,6 +245,11 @@
         "altura": "1.14",
         "fechaStr": "22/08/2026",
         "horaStr": "19:10"
+      },
+      {
+        "altura": "1.17",
+        "fechaStr": "22/08/2026",
+        "horaStr": "19:30"
       }
     ],
     "tendencia": {
@@ -262,7 +262,7 @@
   "viento": {
     "velocidad": 11,
     "direccion": "Oeste (W)",
-    "temperatura": 8.6
+    "temperatura": 8.4
   },
   "pronostico": {
     "pleamar": {
@@ -277,20 +277,15 @@
     }
   },
   "iguazu": {
-    "altura": "10.23",
-    "horaStr": "19:00",
+    "altura": "10.25",
+    "horaStr": "19:20",
     "fechaStr": "22/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "10.23m (a las 19:00 hs)",
+    "textoFB": "10.25m (a las 19:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "12.49",
-        "fechaStr": "21/08/2026",
-        "horaStr": "10:00"
-      },
       {
         "altura": "12.38",
         "fechaStr": "21/08/2026",
@@ -525,13 +520,18 @@
         "altura": "10.23",
         "fechaStr": "22/08/2026",
         "horaStr": "19:00"
+      },
+      {
+        "altura": "10.25",
+        "fechaStr": "22/08/2026",
+        "horaStr": "19:20"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "sanjavier": {
