@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "23/08/2026 a las 07:19 hs",
-  "generadoEn": "2026-08-23T07:19:23.074Z",
+  "fechaReporte": "23/08/2026 a las 07:43 hs",
+  "generadoEn": "2026-08-23T07:43:18.496Z",
   "laplata": {
-    "altura": "1.61",
-    "horaStr": "07:10",
+    "altura": "1.60",
+    "horaStr": "07:30",
     "fechaStr": "23/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.61m (a las 07:10 hs)",
+    "textoFB": "1.60m (a las 07:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.17",
-        "fechaStr": "22/08/2026",
-        "horaStr": "09:10"
-      },
       {
         "altura": "1.37",
         "fechaStr": "22/08/2026",
@@ -250,13 +245,18 @@
         "altura": "1.61",
         "fechaStr": "23/08/2026",
         "horaStr": "07:10"
+      },
+      {
+        "altura": "1.60",
+        "fechaStr": "23/08/2026",
+        "horaStr": "07:30"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.01m)",
-      "diferencia": "+0.01"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.01m)",
+      "diferencia": "-0.01"
     }
   },
   "viento": {
@@ -277,20 +277,15 @@
     }
   },
   "iguazu": {
-    "altura": "10.08",
-    "horaStr": "07:00",
+    "altura": "9.97",
+    "horaStr": "07:40",
     "fechaStr": "23/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "10.08m (a las 07:00 hs)",
+    "textoFB": "9.97m (a las 07:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "12.12",
-        "fechaStr": "21/08/2026",
-        "horaStr": "22:00"
-      },
       {
         "altura": "12.09",
         "fechaStr": "21/08/2026",
@@ -525,13 +520,18 @@
         "altura": "10.08",
         "fechaStr": "23/08/2026",
         "horaStr": "07:00"
+      },
+      {
+        "altura": "9.97",
+        "fechaStr": "23/08/2026",
+        "horaStr": "07:40"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.07m)",
-      "diferencia": "-0.07"
+      "texto": "Bajando (-0.11m)",
+      "diferencia": "-0.11"
     }
   },
   "sanjavier": {
