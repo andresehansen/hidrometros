@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "23/08/2026 a las 21:19 hs",
-  "generadoEn": "2026-08-23T21:19:21.957Z",
+  "fechaReporte": "23/08/2026 a las 21:27 hs",
+  "generadoEn": "2026-08-23T21:27:39.513Z",
   "laplata": {
     "altura": "1.71",
     "horaStr": "21:10",
@@ -264,22 +264,28 @@
     "direccion": "Sur (S)",
     "temperatura": 5.8
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "02:00",
+      "altura": "1.95",
+      "fecha": "24/08"
+    },
+    "bajamar": {
+      "hora": "19:30",
+      "altura": "1.70",
+      "fecha": "23/08"
+    }
+  },
   "iguazu": {
-    "altura": "9.04",
-    "horaStr": "21:00",
+    "altura": "9.10",
+    "horaStr": "21:20",
     "fechaStr": "23/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "9.04m (a las 21:00 hs)",
+    "textoFB": "9.10m (a las 21:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "10.76",
-        "fechaStr": "22/08/2026",
-        "horaStr": "11:20"
-      },
       {
         "altura": "10.64",
         "fechaStr": "22/08/2026",
@@ -514,13 +520,18 @@
         "altura": "9.04",
         "fechaStr": "23/08/2026",
         "horaStr": "21:00"
+      },
+      {
+        "altura": "9.10",
+        "fechaStr": "23/08/2026",
+        "horaStr": "21:20"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.24m)",
-      "diferencia": "+0.24"
+      "texto": "Subiendo (+0.06m)",
+      "diferencia": "+0.06"
     }
   },
   "sanjavier": {
