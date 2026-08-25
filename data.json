@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "25/08/2026 a las 05:00 hs",
-  "generadoEn": "2026-08-25T05:00:20.668Z",
+  "fechaReporte": "25/08/2026 a las 05:19 hs",
+  "generadoEn": "2026-08-25T05:19:25.045Z",
   "laplata": {
-    "altura": "1.18",
-    "horaStr": "04:10",
+    "altura": "1.28",
+    "horaStr": "05:10",
     "fechaStr": "25/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.18m (a las 04:10 hs)",
+    "textoFB": "1.28m (a las 05:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.44",
-        "fechaStr": "24/08/2026",
-        "horaStr": "04:10"
-      },
       {
         "altura": "1.33",
         "fechaStr": "24/08/2026",
@@ -250,17 +245,22 @@
         "altura": "1.18",
         "fechaStr": "25/08/2026",
         "horaStr": "04:10"
+      },
+      {
+        "altura": "1.28",
+        "fechaStr": "25/08/2026",
+        "horaStr": "05:10"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.10m)",
+      "diferencia": "+0.10"
     }
   },
   "viento": {
-    "velocidad": 10.6,
+    "velocidad": 10.7,
     "direccion": "Noreste (NE)",
     "temperatura": 7.6
   },
@@ -277,12 +277,12 @@
     }
   },
   "iguazu": {
-    "altura": "9.46",
-    "horaStr": "04:40",
-    "fechaStr": "25/08/2026",
-    "fuente": "AGPSE",
-    "antiguo": false,
-    "textoFB": "9.46m (a las 04:40 hs)",
+    "altura": "9.30",
+    "horaStr": "00:00",
+    "fechaStr": "24/08/2026",
+    "fuente": "INA",
+    "antiguo": true,
+    "textoFB": "9.30m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -528,10 +528,10 @@
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.17m)",
+      "diferencia": "-0.17"
     }
   },
   "sanjavier": {
