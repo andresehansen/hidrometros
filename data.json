@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "25/08/2026 a las 18:45 hs",
-  "generadoEn": "2026-08-25T18:45:39.396Z",
+  "fechaReporte": "25/08/2026 a las 19:19 hs",
+  "generadoEn": "2026-08-25T19:19:26.566Z",
   "laplata": {
     "altura": "0.64",
-    "horaStr": "18:30",
+    "horaStr": "19:10",
     "fechaStr": "25/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.64m (a las 18:30 hs)",
+    "textoFB": "0.64m (a las 19:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -15,6 +15,11 @@
         "altura": "0.64",
         "fechaStr": "25/08/2026",
         "horaStr": "18:30"
+      },
+      {
+        "altura": "0.64",
+        "fechaStr": "25/08/2026",
+        "horaStr": "19:10"
       }
     ],
     "tendencia": {
@@ -25,7 +30,7 @@
     }
   },
   "viento": {
-    "velocidad": 12.1,
+    "velocidad": 12.6,
     "direccion": "Este (E)",
     "temperatura": 9.9
   },
@@ -42,12 +47,12 @@
     }
   },
   "iguazu": {
-    "altura": "9.69",
-    "horaStr": "18:20",
+    "altura": "10.05",
+    "horaStr": "19:00",
     "fechaStr": "25/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "9.69m (a las 18:20 hs)",
+    "textoFB": "10.05m (a las 19:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -55,13 +60,18 @@
         "altura": "9.69",
         "fechaStr": "25/08/2026",
         "horaStr": "18:20"
+      },
+      {
+        "altura": "10.05",
+        "fechaStr": "25/08/2026",
+        "horaStr": "19:00"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.36m)",
+      "diferencia": "+0.36"
     }
   },
   "sanjavier": {
