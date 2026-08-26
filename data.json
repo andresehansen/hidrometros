@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "26/08/2026 a las 13:19 hs",
-  "generadoEn": "2026-08-26T13:19:25.092Z",
+  "fechaReporte": "26/08/2026 a las 14:19 hs",
+  "generadoEn": "2026-08-26T14:19:50.470Z",
   "laplata": {
-    "altura": "0.13",
-    "horaStr": "13:10",
+    "altura": "0.10",
+    "horaStr": "14:10",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.13m (a las 13:10 hs)",
+    "textoFB": "0.10m (a las 14:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -180,28 +180,40 @@
         "altura": "0.13",
         "fechaStr": "26/08/2026",
         "horaStr": "13:10"
+      },
+      {
+        "altura": "0.10",
+        "fechaStr": "26/08/2026",
+        "horaStr": "14:10"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.01m)",
-      "diferencia": "-0.01"
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "viento": {
-    "velocidad": 11.7,
+    "velocidad": 9.2,
     "direccion": "Noreste (NE)",
-    "temperatura": 14.7
+    "temperatura": 15.7
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": null,
+    "bajamar": {
+      "hora": "19:00",
+      "altura": "0.15",
+      "fecha": "26/08"
+    }
+  },
   "iguazu": {
-    "altura": "9.58",
-    "horaStr": "13:00",
+    "altura": "9.47",
+    "horaStr": "14:00",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "9.58m (a las 13:00 hs)",
+    "textoFB": "9.47m (a las 14:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -334,13 +346,18 @@
         "altura": "9.58",
         "fechaStr": "26/08/2026",
         "horaStr": "13:00"
+      },
+      {
+        "altura": "9.47",
+        "fechaStr": "26/08/2026",
+        "horaStr": "14:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.13m)",
-      "diferencia": "-0.13"
+      "texto": "Bajando (-0.11m)",
+      "diferencia": "-0.11"
     }
   },
   "sanjavier": {
