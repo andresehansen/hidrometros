@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "26/08/2026 a las 05:19 hs",
-  "generadoEn": "2026-08-26T05:19:28.169Z",
+  "fechaReporte": "26/08/2026 a las 06:04 hs",
+  "generadoEn": "2026-08-26T06:04:35.762Z",
   "laplata": {
-    "altura": "1.11",
-    "horaStr": "05:10",
+    "altura": "0.62",
+    "horaStr": "05:50",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.11m (a las 05:10 hs)",
+    "textoFB": "0.62m (a las 05:50 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -110,17 +110,22 @@
         "altura": "1.11",
         "fechaStr": "26/08/2026",
         "horaStr": "05:10"
+      },
+      {
+        "altura": "0.62",
+        "fechaStr": "26/08/2026",
+        "horaStr": "05:50"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.42m)",
-      "diferencia": "+0.42"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.49m)",
+      "diferencia": "-0.49"
     }
   },
   "viento": {
-    "velocidad": 13.2,
+    "velocidad": 14.4,
     "direccion": "Noreste (NE)",
     "temperatura": 9
   },
@@ -137,12 +142,12 @@
     }
   },
   "iguazu": {
-    "altura": "9.60",
-    "horaStr": "05:00",
+    "altura": "9.81",
+    "horaStr": "06:00",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "9.60m (a las 05:00 hs)",
+    "textoFB": "9.81m (a las 06:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -225,13 +230,18 @@
         "altura": "9.60",
         "fechaStr": "26/08/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "9.81",
+        "fechaStr": "26/08/2026",
+        "horaStr": "06:00"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.32m)",
-      "diferencia": "-0.32"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.21m)",
+      "diferencia": "+0.21"
     }
   },
   "sanjavier": {
