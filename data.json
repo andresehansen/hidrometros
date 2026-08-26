@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "26/08/2026 a las 08:47 hs",
-  "generadoEn": "2026-08-26T08:47:16.295Z",
+  "fechaReporte": "26/08/2026 a las 09:19 hs",
+  "generadoEn": "2026-08-26T09:19:27.344Z",
   "laplata": {
-    "altura": "0.46",
-    "horaStr": "08:30",
+    "altura": "0.42",
+    "horaStr": "09:10",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.46m (a las 08:30 hs)",
+    "textoFB": "0.42m (a las 09:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -145,19 +145,24 @@
         "altura": "0.46",
         "fechaStr": "26/08/2026",
         "horaStr": "08:30"
+      },
+      {
+        "altura": "0.42",
+        "fechaStr": "26/08/2026",
+        "horaStr": "09:10"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.04m)",
+      "diferencia": "-0.04"
     }
   },
   "viento": {
-    "velocidad": 14.7,
+    "velocidad": 14,
     "direccion": "Noreste (NE)",
-    "temperatura": 9.6
+    "temperatura": 10.2
   },
   "pronostico": {
     "pleamar": null,
@@ -168,12 +173,12 @@
     }
   },
   "iguazu": {
-    "altura": "10.43",
-    "horaStr": "08:40",
+    "altura": "10.45",
+    "horaStr": "09:00",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "10.43m (a las 08:40 hs)",
+    "textoFB": "10.45m (a las 09:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -281,13 +286,18 @@
         "altura": "10.43",
         "fechaStr": "26/08/2026",
         "horaStr": "08:40"
+      },
+      {
+        "altura": "10.45",
+        "fechaStr": "26/08/2026",
+        "horaStr": "09:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.05m)",
-      "diferencia": "+0.05"
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "sanjavier": {
