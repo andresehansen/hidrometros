@@ -1,13 +1,13 @@
 {
-  "fechaReporte": "26/08/2026 a las 14:50 hs",
-  "generadoEn": "2026-08-26T14:50:31.952Z",
+  "fechaReporte": "26/08/2026 a las 15:19 hs",
+  "generadoEn": "2026-08-26T15:19:26.177Z",
   "laplata": {
-    "altura": "0.11",
-    "horaStr": "14:30",
+    "altura": "0.13",
+    "horaStr": "15:10",
     "fechaStr": "26/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.11m (a las 14:30 hs)",
+    "textoFB": "0.13m (a las 15:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -190,25 +190,34 @@
         "altura": "0.11",
         "fechaStr": "26/08/2026",
         "horaStr": "14:30"
+      },
+      {
+        "altura": "0.13",
+        "fechaStr": "26/08/2026",
+        "horaStr": "15:10"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "viento": {
-    "velocidad": 8.9,
+    "velocidad": 8.5,
     "direccion": "Noreste (NE)",
-    "temperatura": 16.1
+    "temperatura": 16.4
   },
   "pronostico": {
-    "pleamar": null,
+    "pleamar": {
+      "hora": "05:00",
+      "altura": "0.80",
+      "fecha": "27/08"
+    },
     "bajamar": {
-      "hora": "19:00",
-      "altura": "0.15",
+      "hora": "17:00",
+      "altura": "0.05",
       "fecha": "26/08"
     }
   },
