@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "27/08/2026 a las 05:19 hs",
-  "generadoEn": "2026-08-27T05:19:25.834Z",
+  "fechaReporte": "27/08/2026 a las 06:19 hs",
+  "generadoEn": "2026-08-27T06:19:26.319Z",
   "laplata": {
-    "altura": "1.49",
-    "horaStr": "05:10",
+    "altura": "1.34",
+    "horaStr": "06:10",
     "fechaStr": "27/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.49m (a las 05:10 hs)",
+    "textoFB": "1.34m (a las 06:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.38",
-        "fechaStr": "25/08/2026",
-        "horaStr": "20:30"
-      },
       {
         "altura": "0.37",
         "fechaStr": "25/08/2026",
@@ -250,17 +245,22 @@
         "altura": "1.49",
         "fechaStr": "27/08/2026",
         "horaStr": "05:10"
+      },
+      {
+        "altura": "1.34",
+        "fechaStr": "27/08/2026",
+        "horaStr": "06:10"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.66m)",
-      "diferencia": "+0.66"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.15m)",
+      "diferencia": "-0.15"
     }
   },
   "viento": {
-    "velocidad": 14.5,
+    "velocidad": 14.2,
     "direccion": "Sur (S)",
     "temperatura": 11.3
   },
@@ -277,12 +277,12 @@
     }
   },
   "iguazu": {
-    "altura": "12.04",
-    "horaStr": "05:00",
+    "altura": "12.36",
+    "horaStr": "06:00",
     "fechaStr": "27/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.04m (a las 05:00 hs)",
+    "textoFB": "12.36m (a las 06:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -480,13 +480,18 @@
         "altura": "12.04",
         "fechaStr": "27/08/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "12.36",
+        "fechaStr": "27/08/2026",
+        "horaStr": "06:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.10m)",
-      "diferencia": "+0.10"
+      "texto": "Subiendo (+0.32m)",
+      "diferencia": "+0.32"
     }
   },
   "sanjavier": {
