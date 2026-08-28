@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "28/08/2026 a las 12:19 hs",
-  "generadoEn": "2026-08-28T12:19:26.344Z",
+  "fechaReporte": "28/08/2026 a las 13:19 hs",
+  "generadoEn": "2026-08-28T13:19:32.800Z",
   "laplata": {
-    "altura": "0.98",
-    "horaStr": "12:00",
+    "altura": "1.01",
+    "horaStr": "13:10",
     "fechaStr": "28/08/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.98m (a las 12:00 hs)",
+    "textoFB": "1.01m (a las 13:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.90",
-        "fechaStr": "26/08/2026",
-        "horaStr": "18:10"
-      },
       {
         "altura": "0.39",
         "fechaStr": "26/08/2026",
@@ -250,19 +245,24 @@
         "altura": "0.98",
         "fechaStr": "28/08/2026",
         "horaStr": "12:00"
+      },
+      {
+        "altura": "1.01",
+        "fechaStr": "28/08/2026",
+        "horaStr": "13:10"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.03m)",
+      "diferencia": "+0.03"
     }
   },
   "viento": {
-    "velocidad": 5.9,
+    "velocidad": 4.5,
     "direccion": "Sureste (SE)",
-    "temperatura": 17.1
+    "temperatura": 17.9
   },
   "pronostico": {
     "pleamar": {
@@ -631,12 +631,12 @@
     }
   },
   "concordia": {
-    "altura": "6.96",
-    "horaStr": "00:00",
+    "altura": "6.86",
+    "horaStr": "12:00",
     "fechaStr": "28/08/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "6.96m (a las 00:00 hs)",
+    "textoFB": "6.86m (a las 12:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
@@ -669,23 +669,28 @@
         "altura": "6.96",
         "fechaStr": "28/08/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "6.86",
+        "fechaStr": "28/08/2026",
+        "horaStr": "12:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "texto": "Bajando (-0.10m)",
+      "diferencia": "-0.10"
     }
   },
   "saltogrande": {
     "arriba": {
-      "altura": "35.21",
-      "horaStr": "00:00",
+      "altura": "35.14",
+      "horaStr": "12:00",
       "fechaStr": "28/08/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "35.21m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "35.14m (a las 12:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -718,22 +723,27 @@
           "altura": "35.21",
           "fechaStr": "28/08/2026",
           "horaStr": "00:00"
+        },
+        {
+          "altura": "35.14",
+          "fechaStr": "28/08/2026",
+          "horaStr": "12:00"
         }
       ],
       "tendencia": {
         "icono": "⬇️",
         "estado": "bajando",
-        "texto": "Bajando (-0.10m)",
-        "diferencia": "-0.10"
+        "texto": "Bajando (-0.07m)",
+        "diferencia": "-0.07"
       }
     },
     "abajo": {
-      "altura": "10.00",
-      "horaStr": "00:00",
+      "altura": "9.79",
+      "horaStr": "12:00",
       "fechaStr": "28/08/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "10.00m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "9.79m (a las 12:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -766,13 +776,18 @@
           "altura": "10.00",
           "fechaStr": "28/08/2026",
           "horaStr": "00:00"
+        },
+        {
+          "altura": "9.79",
+          "fechaStr": "28/08/2026",
+          "horaStr": "12:00"
         }
       ],
       "tendencia": {
-        "icono": "➡️",
-        "estado": "estacionado",
-        "texto": "Estacionado",
-        "diferencia": "0.00"
+        "icono": "⬇️",
+        "estado": "bajando",
+        "texto": "Bajando (-0.21m)",
+        "diferencia": "-0.21"
       }
     }
   }
