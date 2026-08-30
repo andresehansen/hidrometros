@@ -335,18 +335,19 @@ function parseAGPSE(txtDat) {
             const mH  = blq.match(/(\d{2}:\d{2})/);
             const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
             if (mA && mH && mF) {
+                const altVal = parseFloat(mA[1].replace(',', '.'));
                 const [d, m, y] = mF[1].split('/');
                 const [hh, mm]  = mH[1].split(':');
                 const fechaMed  = new Date(+y, +m - 1, +d, +hh, +mm);
                 const antiguo   = esAntiguo(fechaMed);
-                if (!antiguo) {
+                if (!antiguo && !isNaN(altVal) && altVal > 0.5) {
                     coDatos = {
-                        altura:   mA[1].replace(',', '.'),
+                        altura:   altVal.toFixed(2),
                         horaStr:  mH[1],
                         fechaStr: mF[1],
                         fuente:   "SRH",
                         antiguo:  false,
-                        textoFB:  `${mA[1].replace(',','.')}m (a las ${mH[1]} hs)`
+                        textoFB:  `${altVal.toFixed(2)}m (a las ${mH[1]} hs)`
                     };
                 }
             }
@@ -354,6 +355,7 @@ function parseAGPSE(txtDat) {
 
         if (!coDatos) {
             coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia");
+            if (coDatos && parseFloat(coDatos.altura) <= 0.5) coDatos = null;
         }
 
 // --- Fuente primaria Prefectura Naval Argentina (PNA) ---
@@ -494,14 +496,17 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
         }
 
         // --- FUNCIÓN PARA PROCESAR EL HISTORIAL DE HASTA 48 REGISTROS ---
-        function getHistorico(puertoKey, nuevoDato, subKey = null) {
+        function getHistorico(puertoKey, nuevoDato, subKey = null, minAlturaValida = -5.0) {
             let hist = [];
             if (subKey && datosAnteriores[puertoKey] && datosAnteriores[puertoKey][subKey]) {
                 hist = datosAnteriores[puertoKey][subKey].historico || [];
             } else if (!subKey && datosAnteriores[puertoKey]) {
                 hist = datosAnteriores[puertoKey].historico || [];
             }
-            if (nuevoDato && !nuevoDato.antiguo) {
+            // Filtrar lecturas corruptas o inválidas del historial
+            hist = hist.filter(h => h && !isNaN(parseFloat(h.altura)) && parseFloat(h.altura) > minAlturaValida);
+
+            if (nuevoDato && !nuevoDato.antiguo && parseFloat(nuevoDato.altura) > minAlturaValida) {
                 const ultimo = hist.length > 0 ? hist[hist.length - 1] : null;
                 // Evitamos sumar la medición si ya está guardada (misma fecha y hora)
                 if (!ultimo || ultimo.fechaStr !== nuevoDato.fechaStr || ultimo.horaStr !== nuevoDato.horaStr) {
@@ -538,10 +543,11 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
         if (coDatos) { 
             coDatos.alerta = 11.0; 
             coDatos.evacuacion = 12.5; 
-            coDatos.historico = getHistorico('concordia', coDatos);
+            coDatos.historico = getHistorico('concordia', coDatos, null, 0.5);
             coDatos.tendencia = calcularTendencia(coDatos.historico, coDatos.altura);
-        } else if (datosAnteriores.concordia) {
+        } else if (datosAnteriores.concordia && parseFloat(datosAnteriores.concordia.altura) > 0.5) {
             coDatos = datosAnteriores.concordia;
+            coDatos.historico = getHistorico('concordia', null, null, 0.5);
         }
 
         if (sjDatos) {
