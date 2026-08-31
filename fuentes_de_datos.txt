@@ -1,0 +1,61 @@
+====================================================================
+               FUENTES DE DATOS - REPORTE FLUVIAL
+====================================================================
+
+1. LA PLATA
+   - Fuente Primaria (AGPSE - Web):
+     https://hidrografia.agpse.gob.ar/LaPlata/index.html
+   - Fuente Primaria (AGPSE - Datos crudos DAT):
+     https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat
+   - Fuente Secundaria / Backup (INA API a5 - Serie 26):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/26/observaciones
+   - Pronóstico de Mareas (SHN):
+     https://www.hidro.gov.ar/oceanografia/pronostico.asp
+   - Clima y Viento (Open-Meteo):
+     https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires
+
+--------------------------------------------------------------------
+
+2. IGUAZÚ
+   - Fuente Primaria (AGPSE - Web):
+     https://hidrografia2.agpse.gob.ar/PuertoIguazu/index.html
+   - Fuente Primaria (AGPSE - Datos crudos DAT):
+     https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat
+   - Fuente Secundaria / Backup (INA API a5 - Serie 31):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/31/observaciones
+
+--------------------------------------------------------------------
+
+3. EMBALSE SALTO GRANDE (Arriba / Cota y Abajo / Restitución)
+   - Fuente Primaria (CARU - Comisión Administradora del Río Uruguay):
+     http://190.0.152.194:8080/alturas/web/user/alturas
+   - Fuente Secundaria / Backup Cota Embalse Arriba (INA API a5 - Serie 77):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/77/observaciones
+   - Fuente Secundaria / Backup Restitución Abajo (INA API a5 - Serie 78):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/78/observaciones
+
+--------------------------------------------------------------------
+
+4. CONCORDIA
+   - Fuente Primaria (CARU - Tabla general de alturas):
+     http://190.0.152.194:8080/alturas/web/user/alturas
+   - Fuente Secundaria / Backup (INA API a5 - Serie 79):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/79/observaciones
+
+--------------------------------------------------------------------
+
+5. SAN JAVIER
+   - Fuente Primaria (PNA - Prefectura Naval Argentina):
+     https://contenidosweb.prefecturanaval.gob.ar/alturas/
+   - Fuente Secundaria / Backup (INA API a5 - Serie 65):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/65/observaciones
+
+--------------------------------------------------------------------
+
+6. SANTO TOMÉ
+   - Fuente Primaria (PNA - Prefectura Naval Argentina):
+     https://contenidosweb.prefecturanaval.gob.ar/alturas/
+   - Fuente Secundaria / Backup (INA API a5 - Serie 68):
+     https://alerta.ina.gob.ar/a5/obs/puntual/series/68/observaciones
+
+====================================================================

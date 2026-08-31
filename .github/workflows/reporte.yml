@@ -2,8 +2,8 @@ name: Reporte Fluvial
 
 on:
   schedule:
-    # Cada 3 horas (hora Argentina = UTC-3)
-    - cron: '0 */3 * * *'
+    # Cada 1 hora
+    - cron: '0 * * * *'
   workflow_dispatch:  # También permite ejecución manual desde GitHub
 
 jobs:
