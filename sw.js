@@ -1,7 +1,10 @@
-const CACHE_NAME = 'reporte-fluvial-v1';
+const CACHE_NAME = 'reporte-fluvial-v2';
 const ASSETS = [
   './',
   './index.html',
+  './privacidad.html',
+  './terminos.html',
+  './acerca.html',
   './data.json',
   'https://cdn.jsdelivr.net/npm/chart.js',
   'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap'

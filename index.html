@@ -4,9 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
 <meta name="theme-color" content="#0a3d62">
-<title>Reporte Fluvial</title>
+<title>Reporte Fluvial — Niveles de Ríos de Argentina en Tiempo Real</title>
+<meta name="description" content="Consultá en tiempo real los niveles hidrométricos de los principales ríos de Argentina: La Plata, Iguazú, Salto Grande, Concordia, San Javier y Santo Tomé. Datos oficiales de AGPSE, INA, CARU y Prefectura Naval.">
+<meta name="keywords" content="hidrometros, niveles de rios, reporte fluvial, Argentina, La Plata, Iguazu, Concordia, San Javier, Santo Tome, Salto Grande, INA, AGPSE, alerta hidrologica, crecida, bajante">
+<meta name="author" content="Andrés Hansen">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Reporte Fluvial — Niveles de Ríos de Argentina">
+<meta property="og:description" content="Niveles hidrométricos en tiempo real de los principales puertos fluviales de Argentina. Datos oficiales actualizados automáticamente.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://andresehansen.github.io/hidrometros/">
+<meta property="og:locale" content="es_AR">
+<link rel="canonical" href="https://andresehansen.github.io/hidrometros/">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4845331718157055" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
@@ -191,8 +203,62 @@
   <div id="contenidoPrincipal">
     <div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>
   </div>
+
+  <!-- Sección informativa semántica para indexación de Google -->
+  <section style="background:var(--fondo-tarjeta);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);">
+    <h2 style="font-family:'Merriweather',serif;font-size:1.15rem;font-weight:700;color:var(--azul-rio);margin-bottom:14px;">📖 ¿Cómo interpretar los niveles hidrométricos?</h2>
+    <p style="font-size:.95rem;line-height:1.7;color:var(--texto);margin-bottom:12px;">
+      El <strong>nivel hidrométrico</strong> (o altura del río) es la medición de la lámina de agua sobre una escala graduada fija, expresada en metros. Cada puerto tiene sus propios umbrales de alerta y evacuación definidos por organismos oficiales.
+    </p>
+    <div style="display:grid;gap:10px;margin-bottom:14px;">
+      <div style="background:var(--verde-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--verde-ok);">
+        <strong>🟢 Nivel Normal</strong> — El río se encuentra dentro de los parámetros habituales. No se esperan inconvenientes para la navegación ni para las poblaciones ribereñas.
+      </div>
+      <div style="background:var(--amarillo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--naranja-alerta);">
+        <strong>⚠️ Nivel de Alerta</strong> — El río alcanzó el umbral que activa el monitoreo intensivo. Se recomienda precaución en zonas bajas y costas. Las autoridades activan protocolos preventivos.
+      </div>
+      <div style="background:var(--rojo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--rojo-evacuacion);">
+        <strong>🚨 Nivel de Evacuación</strong> — El río superó el nivel crítico. Pueden activarse evacuaciones preventivas en zonas ribereñas. Seguir las instrucciones de Defensa Civil y Prefectura Naval Argentina.
+      </div>
+    </div>
+
+    <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">🗺️ Puertos monitoreados</h2>
+    <ul style="font-size:.92rem;line-height:1.85;color:var(--texto);padding-left:20px;">
+      <li><strong>La Plata (Bs. As.)</strong> — Datos de AGPSE cada 10 minutos. Incluye viento y pronóstico de mareas del Servicio de Hidrografía Naval (SHN).</li>
+      <li><strong>Puerto Iguazú (Misiones)</strong> — Datos de AGPSE cada 20 minutos. Río Iguazú en el límite con Brasil.</li>
+      <li><strong>Salto Grande (Entre Ríos)</strong> — Datos de CARU (Comisión Administradora del Río Uruguay). Cota del embalse y nivel de restitución aguas abajo.</li>
+      <li><strong>Concordia (Entre Ríos)</strong> — Datos de CARU cada hora. Río Uruguay a la altura de la ciudad de Concordia.</li>
+      <li><strong>San Javier (Santa Fe)</strong> — Datos de la Prefectura Naval Argentina (PNA). Río Paraná, actualización diaria.</li>
+      <li><strong>Santo Tomé (Corrientes)</strong> — Datos de la Prefectura Naval Argentina (PNA). Río Uruguay, actualización diaria.</li>
+    </ul>
+
+    <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">❓ Preguntas frecuentes</h2>
+    <div style="font-size:.92rem;line-height:1.7;color:var(--texto);">
+      <p style="margin-bottom:8px;"><strong>¿Con qué frecuencia se actualizan los datos?</strong><br>
+      El sistema se actualiza automáticamente cada hora mediante una tarea programada en GitHub Actions. Los datos de La Plata e Iguazú se refrescan cada 10-20 minutos en la fuente original.</p>
+      <p style="margin-bottom:8px;"><strong>¿Los datos son oficiales?</strong><br>
+      Sí. Todas las fuentes son organismos gubernamentales argentinos: AGPSE, INA, CARU, PNA y SHN. Los datos de viento provienen de Open-Meteo, plataforma meteorológica de código abierto.</p>
+      <p style="margin-bottom:0;"><strong>¿Qué hago ante una emergencia hidrológica?</strong><br>
+      Este sitio tiene propósito informativo. Ante una emergencia, comunicate con la <strong>Prefectura Naval Argentina</strong> (línea 106) o con el sistema de <strong>Defensa Civil</strong> de tu municipio.</p>
+    </div>
+  </section>
+
   <footer class="pie">
-    Datos: AGPSE, SHN, INA y Open-Meteo &nbsp;·&nbsp; Se actualiza automáticamente cada 3 horas
+    <div style="margin-bottom:10px;">
+      Datos: AGPSE, SHN, INA, CARU y Open-Meteo &nbsp;·&nbsp; Actualización automática cada hora
+    </div>
+    <div style="margin-bottom:8px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:.82rem;">
+      <a href="./privacidad.html" style="color:var(--azul-medio);text-decoration:none;">Política de Privacidad</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="./terminos.html" style="color:var(--azul-medio);text-decoration:none;">Términos de Uso</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="./acerca.html" style="color:var(--azul-medio);text-decoration:none;">Acerca del Proyecto</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="https://github.com/andresehansen/hidrometros" target="_blank" rel="noopener" style="color:var(--azul-medio);text-decoration:none;">Código en GitHub</a>
+    </div>
+    <div style="font-size:.78rem;margin-top:4px;">
+      Este sitio utiliza Google AdSense. <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" style="color:var(--azul-medio);">Configurar preferencias de anuncios</a>
+    </div>
   </footer>
 </div>
 <button class="btn-tema" id="btnTema" title="Cambiar tema" onclick="toggleTema()">🌙</button>
