@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "31/08/2026 a las 23:19 hs",
-  "generadoEn": "2026-08-31T23:19:25.838Z",
+  "fechaReporte": "01/09/2026 a las 00:19 hs",
+  "generadoEn": "2026-09-01T00:19:24.025Z",
   "laplata": {
-    "altura": "0.77",
-    "horaStr": "23:10",
-    "fechaStr": "31/08/2026",
+    "altura": "0.85",
+    "horaStr": "00:10",
+    "fechaStr": "01/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.77m (a las 23:10 hs)",
+    "textoFB": "0.85m (a las 00:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.75",
-        "fechaStr": "29/08/2026",
-        "horaStr": "21:10"
-      },
       {
         "altura": "0.71",
         "fechaStr": "29/08/2026",
@@ -250,19 +245,24 @@
         "altura": "0.77",
         "fechaStr": "31/08/2026",
         "horaStr": "23:10"
+      },
+      {
+        "altura": "0.85",
+        "fechaStr": "01/09/2026",
+        "horaStr": "00:10"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.08m)",
+      "diferencia": "+0.08"
     }
   },
   "viento": {
-    "velocidad": 10.1,
+    "velocidad": 11.7,
     "direccion": "Sur (S)",
-    "temperatura": 11.4
+    "temperatura": 11.5
   },
   "pronostico": {
     "pleamar": {
@@ -539,8 +539,8 @@
     "horaStr": "00:00",
     "fechaStr": "31/08/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "2.66m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "2.66m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -602,8 +602,8 @@
     "horaStr": "00:00",
     "fechaStr": "31/08/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "5.15m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "5.15m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
