@@ -1,6 +1,6 @@
 {
-  "fechaReporte": "02/09/2026 a las 10:16 hs",
-  "generadoEn": "2026-09-02T10:16:48.347Z",
+  "fechaReporte": "02/09/2026 a las 10:19 hs",
+  "generadoEn": "2026-09-02T10:19:29.001Z",
   "laplata": {
     "altura": "1.44",
     "horaStr": "10:10",
@@ -755,12 +755,12 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.65",
+      "altura": "34.68",
       "horaStr": "00:00",
-      "fechaStr": "02/09/2026",
-      "fuente": "CARU",
-      "antiguo": false,
-      "textoFB": "34.65m (a las 00:00 hs)",
+      "fechaStr": "01/09/2026",
+      "fuente": "INA",
+      "antiguo": true,
+      "textoFB": "34.68m (a las 00:00 hs) ⚠️ (Dato viejo)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -846,19 +846,19 @@
         }
       ],
       "tendencia": {
-        "icono": "➡️",
-        "estado": "estacionado",
-        "texto": "Estacionado",
-        "diferencia": "0.00"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.04m)",
+        "diferencia": "+0.04"
       }
     },
     "abajo": {
-      "altura": "9.22",
+      "altura": "9.54",
       "horaStr": "00:00",
-      "fechaStr": "02/09/2026",
-      "fuente": "CARU",
-      "antiguo": false,
-      "textoFB": "9.22m (a las 00:00 hs)",
+      "fechaStr": "01/09/2026",
+      "fuente": "INA",
+      "antiguo": true,
+      "textoFB": "9.54m (a las 00:00 hs) ⚠️ (Dato viejo)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -944,10 +944,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.21m)",
-        "diferencia": "-0.21"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.11m)",
+        "diferencia": "+0.11"
       }
     }
   }
