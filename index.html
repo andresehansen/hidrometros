@@ -9,6 +9,7 @@
 <meta name="keywords" content="hidrometros, niveles de rios, reporte fluvial, Argentina, La Plata, Iguazu, Concordia, San Javier, Santo Tome, Salto Grande, INA, AGPSE, alerta hidrologica, crecida, bajante">
 <meta name="author" content="Andrés Hansen">
 <meta name="robots" content="index, follow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://raw.githubusercontent.com https://pagead2.googlesyndication.com https://*.google.com https://api.open-meteo.com; frame-src https://googleads.g.doubleclick.net https://*.google.com;">
 <meta property="og:title" content="Reporte Fluvial — Niveles de Ríos de Argentina">
 <meta property="og:description" content="Niveles hidrométricos en tiempo real de los principales puertos fluviales de Argentina. Datos oficiales actualizados automáticamente.">
 <meta property="og:type" content="website">
@@ -17,25 +18,91 @@
 <link rel="canonical" href="https://andresehansen.github.io/hidrometros/">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4845331718157055" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Structured Data JSON-LD (WebSite, Dataset, FAQPage) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://andresehansen.github.io/hidrometros/#website",
+      "url": "https://andresehansen.github.io/hidrometros/",
+      "name": "Reporte Fluvial — Niveles de Ríos de Argentina",
+      "description": "Niveles hidrométricos en tiempo real de los principales puertos fluviales de Argentina.",
+      "inLanguage": "es-AR"
+    },
+    {
+      "@type": "Dataset",
+      "name": "Niveles Hidrométricos de Ríos de Argentina en Tiempo Real",
+      "description": "Monitoreo en tiempo real de alturas de ríos, estados de alerta/evacuación y pronósticos de mareas de La Plata, Iguazú, Salto Grande, Concordia, San Javier y Santo Tomé.",
+      "url": "https://andresehansen.github.io/hidrometros/",
+      "creator": {
+        "@type": "Person",
+        "name": "Andrés Hansen"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true,
+      "sourceOrganization": [
+        { "@type": "GovernmentOrganization", "name": "Administración General de Puertos (AGPSE)" },
+        { "@type": "GovernmentOrganization", "name": "Instituto Nacional del Agua (INA)" },
+        { "@type": "GovernmentOrganization", "name": "Comisión Administradora del Río Uruguay (CARU)" },
+        { "@type": "GovernmentOrganization", "name": "Prefectura Naval Argentina (PNA)" },
+        { "@type": "GovernmentOrganization", "name": "Servicio de Hidrografía Naval (SHN)" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Con qué frecuencia se actualizan los datos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El sistema se actualiza automáticamente cada hora mediante una tarea programada en GitHub Actions. Los datos de La Plata e Iguazú se refrescan cada 10-20 minutos en la fuente original."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Los datos son oficiales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Todas las fuentes son organismos gubernamentales argentinos: AGPSE, INA, CARU, PNA y SHN. Los datos de viento provienen de Open-Meteo, plataforma meteorológica de código abierto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué hago ante una emergencia hidrológica?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Este sitio tiene propósito informativo. Ante una emergencia, comunicate con la Prefectura Naval Argentina (línea 106) o con el sistema de Defensa Civil de tu municipio."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
   :root{
     --azul-rio:#0a3d62;
     --azul-medio:#1a6fa8;
     --azul-claro:#e8f4fd;
-    --verde-ok:#1e7e34;
-    --verde-bg:#d4edda;
-    --naranja-alerta:#c96c00;
-    --naranja-bg:#fff3cd;
-    --amarillo-alerta:#d97706;
-    --amarillo-bg:#fef3c7;
-    --amarillo-border:#fde68a;
-    --rojo-evacuacion:#d9381e;
-    --rojo-bg:#fde8e8;
-    --rojo-border:#f8b4b4;
+    --verde-ok:#166534;
+    --verde-bg:#dcfce7;
+    --naranja-alerta:#9a3412;
+    --naranja-bg:#ffedd5;
+    --amarillo-alerta:#854d0e;
+    --amarillo-bg:#fef9c3;
+    --amarillo-border:#fde047;
+    --rojo-evacuacion:#991b1b;
+    --rojo-bg:#fee2e2;
+    --rojo-border:#fca5a5;
     --texto:#1a1a2e;
     --blanco:#ffffff;
     --fondo-body: linear-gradient(160deg,#d6eaf8 0%,#eaf4fb 40%,#f0f8ff 100%);
@@ -43,9 +110,9 @@
     --fondo-sub:#f8fafc;
     --fondo-pronostico:#e8f4fd;
     --borde-sub:#e2e8f0;
-    --color-sub:#507080;
-    --color-etiqueta:#7090a0;
-    --color-fecha:#607080;
+    --color-sub:#475569;
+    --color-etiqueta:#475569;
+    --color-fecha:#475569;
     --radio:20px;
     --sombra:0 6px 32px rgba(10,61,98,0.13)
   }
@@ -53,40 +120,48 @@
     --azul-rio:#90caf9;
     --azul-medio:#64b5f6;
     --azul-claro:#0d1f2d;
-    --verde-ok:#66bb6a;
-    --verde-bg:#1b3a1e;
-    --naranja-alerta:#ffb74d;
-    --naranja-bg:#3a2800;
-    --amarillo-alerta:#ffd54f;
-    --amarillo-bg:#2d2200;
-    --amarillo-border:#5c4a00;
-    --rojo-evacuacion:#ef5350;
-    --rojo-bg:#3b1212;
-    --rojo-border:#7c2020;
-    --texto:#e8f0fe;
-    --blanco:#1a2535;
+    --verde-ok:#86efac;
+    --verde-bg:#14532d;
+    --naranja-alerta:#fdba74;
+    --naranja-bg:#431407;
+    --amarillo-alerta:#fde047;
+    --amarillo-bg:#422006;
+    --amarillo-border:#713f12;
+    --rojo-evacuacion:#fca5a5;
+    --rojo-bg:#450a0a;
+    --rojo-border:#7f1d1d;
+    --texto:#f1f5f9;
+    --blanco:#1e293b;
     --fondo-body: linear-gradient(160deg,#0a1622 0%,#0d1f2d 40%,#0f2235 100%);
-    --fondo-tarjeta:#1a2535;
-    --fondo-sub:#111e2d;
+    --fondo-tarjeta:#1e293b;
+    --fondo-sub:#0f172a;
     --fondo-pronostico:#0d1f2d;
-    --borde-sub:#2a3f55;
-    --color-sub:#7aa8c8;
-    --color-etiqueta:#5a8aaa;
-    --color-fecha:#5a8aaa;
+    --borde-sub:#334155;
+    --color-sub:#94a3b8;
+    --color-etiqueta:#94a3b8;
+    --color-fecha:#94a3b8;
     --sombra:0 6px 32px rgba(0,0,0,0.5)
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Source Sans 3',sans-serif;background:var(--fondo-body);min-height:100vh;color:var(--texto);-webkit-tap-highlight-color:transparent;transition:background 0.3s,color 0.3s}
   body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");background-size:100px 20px;pointer-events:none;z-index:0}
   .contenedor{position:relative;z-index:1;max-width:750px;margin:0 auto;padding:20px 16px 60px}
-  .encabezado{text-align:center;background:var(--azul-rio);border-radius:var(--radio);padding:28px 24px 24px;margin-bottom:20px;box-shadow:var(--sombra);position:relative;overflow:hidden}
+  .encabezado{text-align:center;background:var(--azul-rio);border-radius:var(--radio);padding:26px 20px 22px;margin-bottom:20px;box-shadow:var(--sombra);position:relative;overflow:hidden}
   .encabezado::after{content:'🌊';position:absolute;font-size:120px;opacity:.07;right:-20px;top:-20px;pointer-events:none}
-  .encabezado h1{font-family:'Merriweather',serif;font-size:2rem;font-weight:900;color:var(--blanco);line-height:1.2}
-  .encabezado .subtitulo{font-size:1rem;color:rgba(255,255,255,.8);margin-top:6px}
-  .fecha-actualizacion{display:inline-block;margin-top:14px;background:rgba(255,255,255,.15);color:var(--blanco);padding:8px 18px;border-radius:50px;font-size:.95rem;font-weight:600}
-  .btn-actualizar{display:block;width:100%;background:var(--azul-medio);color:var(--blanco);border:none;border-radius:var(--radio);padding:20px;font-size:1.25rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:20px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none}
+  .encabezado h1{font-family:'Merriweather',serif;font-size:2rem;font-weight:900;color:#ffffff;line-height:1.2}
+  .encabezado .subtitulo{font-size:1rem;color:rgba(255,255,255,.9);margin-top:6px}
+  .fecha-actualizacion{display:inline-block;margin-top:14px;background:rgba(255,255,255,.18);color:#ffffff;padding:8px 18px;border-radius:50px;font-size:.92rem;font-weight:600}
+  
+  /* Barra de herramientas en encabezado */
+  .toolbar-encabezado{margin-top:14px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+  .btn-toolbar{background:rgba(255,255,255,0.2);color:#ffffff;border:1px solid rgba(255,255,255,0.4);border-radius:50px;padding:6px 14px;font-size:0.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .2s,transform .1s;font-family:'Source Sans 3',sans-serif}
+  .btn-toolbar:hover{background:rgba(255,255,255,0.3)}
+  .btn-toolbar:active{transform:scale(0.97)}
+
+  .btn-actualizar{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--azul-medio);color:#ffffff;border:none;border-radius:var(--radio);padding:18px;font-size:1.2rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:20px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none}
   .btn-actualizar:active{background:#145a8a;transform:scale(.98)}
   .btn-actualizar:disabled{background:#7aaccc;cursor:default;transform:none}
+  .btn-actualizar.cargando-spin .icon-spin{animation:spin 0.8s linear infinite}
   
   .tarjeta{background:var(--fondo-tarjeta);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s}
   .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); }
@@ -95,11 +170,11 @@
   @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .tarjeta-titulo{font-family:'Merriweather',serif;font-size:1.35rem;font-weight:700;color:var(--azul-rio);margin-bottom:4px}
   .tarjeta-fecha{font-size:.9rem;color:var(--color-fecha);margin-bottom:16px}
-  .dato-fila{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid #e8eef4}
+  .dato-fila{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--borde-sub)}
   .dato-fila:first-of-type{border-top:none;padding-top:0}
   .dato-icono{font-size:1.6rem;width:40px;text-align:center;flex-shrink:0;margin-top:2px}
   .dato-contenido{flex:1}
-  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:var(--color-etiqueta);font-weight:700;margin-bottom:3px}
+  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:var(--color-etiqueta);font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:6px}
   .dato-valor{font-size:1.5rem;font-weight:700;color:var(--texto);line-height:1.2}
   .dato-valor.grande{font-size:2rem;color:var(--azul-rio)}
   .dato-valor.val-alerta{color:var(--amarillo-alerta)}
@@ -107,27 +182,46 @@
 
   .dato-sub{font-size:.9rem;color:var(--color-fecha);margin-top:3px}
   .badge-container{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.9rem;font-weight:700}
+  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.88rem;font-weight:700}
   .badge-ok{background:var(--verde-bg);color:var(--verde-ok)}
   .badge-alerta{background:var(--naranja-bg);color:var(--naranja-alerta)}
   .badge-alerta-nivel{background:var(--amarillo-bg);color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);font-weight:700}
   .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
-  .badge-nd{background:#e9ecef;color:#6c757d}
+  .badge-nd{background:#e2e8f0;color:#64748b}
 
   .badge-tendencia-subiendo{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
   .badge-tendencia-bajando{background:#e0f2fe;color:#075985;border:1px solid #7dd3fc}
-  .badge-tendencia-estacionado{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb}
+  .badge-tendencia-estacionado{background:#f1f5f9;color:#334155;border:1px solid #cbd5e1}
   [data-tema="oscuro"] .badge-tendencia-subiendo{background:#450a0a;color:#fca5a5;border-color:#7f1d1d}
   [data-tema="oscuro"] .badge-tendencia-bajando{background:#0c4a6e;color:#7dd3fc;border-color:#0369a1}
-  [data-tema="oscuro"] .badge-tendencia-estacionado{background:#1f2937;color:#9ca3af;border-color:#374151}
+  [data-tema="oscuro"] .badge-tendencia-estacionado{background:#1e293b;color:#94a3b8;border-color:#334155}
 
   .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:var(--fondo-sub);border-radius:12px;font-size:0.88rem;color:var(--color-sub)}
   .ref-item strong{font-weight:700}
   .ref-item.ref-alerta strong{color:var(--amarillo-alerta)}
   .ref-item.ref-evacuacion strong{color:var(--rojo-evacuacion)}
 
+  /* Indicador Visual / Gauge de Proximidad a Umbrales */
+  .gauge-container{margin-top:12px;padding:10px 12px;background:var(--fondo-sub);border-radius:12px;border:1px solid var(--borde-sub)}
+  .gauge-encabezado{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--color-sub);margin-bottom:6px;font-weight:600}
+  .gauge-barra{position:relative;height:14px;border-radius:8px;background:#e2e8f0;overflow:hidden;display:flex}
+  [data-tema="oscuro"] .gauge-barra{background:#334155}
+  .gauge-segmento{height:100%;transition:width 0.4s ease}
+  .gauge-seg-normal{background:linear-gradient(90deg, #22c55e, #84cc16)}
+  .gauge-seg-alerta{background:linear-gradient(90deg, #eab308, #f97316)}
+  .gauge-seg-evacuacion{background:linear-gradient(90deg, #ef4444, #b91c1c)}
+  .gauge-indicador{position:absolute;top:-4px;width:4px;height:22px;background:#000000;border:1px solid #ffffff;border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,0.5);transform:translateX(-50%);transition:left 0.4s ease;z-index:2}
+  [data-tema="oscuro"] .gauge-indicador{background:#ffffff;border:1px solid #000000}
+  .gauge-marcas{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--color-sub);margin-top:6px}
+
+  /* Tooltips y Ayuda Técnica */
+  .btn-info-tooltip{background:none;border:none;cursor:pointer;color:var(--azul-medio);font-size:0.95rem;padding:0 3px;display:inline-flex;align-items:center;vertical-align:middle;transition:transform 0.1s}
+  .btn-info-tooltip:hover{transform:scale(1.2)}
+  .tooltip-popover{display:none;background:var(--fondo-tarjeta);color:var(--texto);border:1px solid var(--azul-medio);border-radius:10px;padding:8px 12px;font-size:0.82rem;font-weight:normal;text-transform:none;letter-spacing:normal;box-shadow:var(--sombra);margin-top:6px;line-height:1.4;animation:fadeIn 0.2s ease}
+  .tooltip-popover.abierto{display:block}
+
   .sub-seccion-puerto{margin-top:14px;padding:14px;background:var(--fondo-sub);border-radius:14px;border:1px solid var(--borde-sub)}
-  .sub-seccion-titulo{font-size:1.05rem;font-weight:700;color:var(--azul-rio);margin-bottom:8px}
+  .sub-seccion-titulo{font-size:1.05rem;font-weight:700;color:var(--azul-rio);margin-bottom:8px;display:flex;align-items:center;gap:6px}
   .sub-divider{border:0;border-top:1px dashed var(--borde-sub);margin:16px 0}
 
   .pronostico-fila{display:flex;gap:12px;margin-top:4px}
@@ -140,6 +234,7 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .cargando p{font-size:1.1rem;font-weight:600}
   .aviso-info{background:#fffbe6;border:2px solid #ffe066;border-radius:var(--radio);padding:16px 20px;font-size:.95rem;color:#7a5c00;margin-bottom:16px;line-height:1.5}
+  [data-tema="oscuro"] .aviso-info{background:#2e2305;border-color:#713f12;color:#fde047}
   .pie{text-align:center;color:var(--color-sub);font-size:.85rem;margin-top:30px;padding:0 10px;line-height:1.6}
 
   /* Banner de Alerta Destacado */
@@ -158,13 +253,13 @@
   }
   .banner-alerta-general.alerta {
     background: var(--amarillo-bg);
-    color: #854d0e;
-    border: 2px solid var(--amarillo-alerta);
+    color: var(--amarillo-alerta);
+    border: 2px solid var(--amarillo-border);
   }
   .banner-alerta-general.evacuacion {
     background: var(--rojo-bg);
-    color: #991b1b;
-    border: 2px solid var(--rojo-evacuacion);
+    color: var(--rojo-evacuacion);
+    border: 2px solid var(--rojo-border);
   }
   .banner-icono {
     font-size: 1.8rem;
@@ -174,32 +269,95 @@
     font-weight: 800;
   }
 
+  /* In-app Toasts de Alerta */
+  #toastContainer{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;width:90%;max-width:480px;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+  .toast-item{pointer-events:auto;border-radius:14px;padding:12px 16px;font-size:0.92rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:space-between;gap:10px;animation:fadeIn 0.3s ease both}
+  .toast-item.alerta{background:var(--amarillo-bg);color:var(--amarillo-alerta);border:2px solid var(--amarillo-border)}
+  .toast-item.evacuacion{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:2px solid var(--rojo-border)}
+
   /* Botón modo oscuro */
-  .btn-tema{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;border:none;background:var(--fondo-tarjeta);box-shadow:0 4px 16px rgba(0,0,0,0.25);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:background 0.3s,transform 0.2s}
+  .btn-tema{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;border:none;background:var(--fondo-tarjeta);color:var(--texto);box-shadow:0 4px 16px rgba(0,0,0,0.25);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:background 0.3s,transform 0.2s}
   .btn-tema:hover{transform:scale(1.1)}
   .btn-tema:active{transform:scale(0.95)}
   
-  /* Estilos para el historial */
+  /* Estilos para el historial y botones */
   details { margin-top: 15px; border-top: 1px solid var(--borde-sub); padding-top: 12px; }
-  summary { font-size: 0.95rem; font-weight: 700; color: var(--azul-medio); cursor: pointer; list-style: none; user-select: none; }
+  summary { font-size: 0.95rem; font-weight: 700; color: var(--azul-medio); cursor: pointer; list-style: none; user-select: none; display:flex; align-items:center; justify-content:space-between; }
   summary::-webkit-details-marker { display: none; }
-  summary::before { content: '📊 '; }
-  .historial-chart { width: 100%; height: 140px; margin-top: 15px; }
+  summary::before { content: '📊 '; margin-right: 4px; }
+  .historial-chart { width: 100%; height: 160px; margin-top: 15px; }
+  .historial-acciones { display: flex; justify-content: flex-end; margin-top: 10px; }
+  .btn-csv { background: var(--fondo-sub); color: var(--azul-medio); border: 1px solid var(--borde-sub); border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: background .2s; }
+  .btn-csv:hover { background: var(--azul-claro); }
+
+  /* Comparador de Cuenca */
+  .seccion-comparador { background: var(--fondo-tarjeta); border-radius: var(--radio); padding: 22px; margin-bottom: 16px; box-shadow: var(--sombra); border-left: 6px solid var(--azul-medio); }
+  .comparador-filtros { display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 12px 0; }
+  .filtro-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; background: var(--fondo-sub); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--borde-sub); cursor: pointer; user-select: none; }
+  .filtro-chip input { cursor: pointer; }
+
+  /* Utilidad para accesibilidad (Lectores de pantalla) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Vista Simplificada y Modo Impresión (?modo=simple / print) */
+  @media print {
+    body { background: #ffffff !important; color: #000000 !important; }
+    body::before, .btn-tema, .btn-actualizar, .toolbar-encabezado, details, ins.adsbygoogle, .pie, #toastContainer { display: none !important; }
+    .contenedor { max-width: 100% !important; padding: 0 !important; }
+    .encabezado { background: none !important; color: #000000 !important; border: 1px solid #000000; box-shadow: none !important; }
+    .encabezado h1 { color: #000000 !important; }
+    .encabezado .subtitulo, .fecha-actualizacion { color: #333333 !important; }
+    .tarjeta { box-shadow: none !important; border: 1px solid #999999 !important; break-inside: avoid; page-break-inside: avoid; }
+  }
+
+  body.modo-simple .btn-tema,
+  body.modo-simple ins.adsbygoogle {
+    display: none !important;
+  }
 </style>
 </head>
 <body>
+<!-- Región aria-live para anunciar cambios de alerta a lectores de pantalla -->
+<div id="alertaAriaLive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- Contenedor de Toasts visuales -->
+<div id="toastContainer" aria-hidden="true"></div>
+
 <div class="contenedor">
   <header class="encabezado">
     <h1>🌊 Reporte Fluvial</h1>
-    <p class="subtitulo">Niveles de ríos — Argentina</p>
+    <p class="subtitulo">Niveles de ríos de Argentina en tiempo real</p>
     <span class="fecha-actualizacion" id="fechaActualizacion">⏳ Cargando...</span>
-    <div style="margin-top: 12px;">
-      <button onclick="compartirReporte()" style="background: rgba(255,255,255,0.2); color: var(--blanco); border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 6px 16px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-        📲 Compartir reporte
+    <div class="toolbar-encabezado">
+      <button class="btn-toolbar" onclick="compartirReporte()" aria-label="Compartir reporte">
+        📲 Compartir
+      </button>
+      <button class="btn-toolbar" onclick="alternarModoSimple()" id="btnModoSimple" aria-label="Alternar vista simple para imprimir o enviar">
+        🖨️ Vista simple
+      </button>
+      <button class="btn-toolbar" onclick="solicitarPermisoNotificaciones()" id="btnNotif" aria-label="Activar notificaciones de alerta">
+        🔔 Notificaciones
+      </button>
+      <button class="btn-toolbar" onclick="toggleSonido()" id="btnSonido" aria-label="Alternar sonido de alertas">
+        🔊 Sonido
       </button>
     </div>
   </header>
-  <button class="btn-actualizar" id="btnActualizar" onclick="cargarDatos()">🔄 &nbsp; Actualizar</button>
+
+  <button class="btn-actualizar" id="btnActualizar" onclick="cargarDatos(false)">
+    <span class="icon-spin">🔄</span> <span>Actualizar</span>
+  </button>
+
   <div id="contenidoPrincipal">
     <div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>
   </div>
@@ -214,10 +372,10 @@
       <div style="background:var(--verde-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--verde-ok);">
         <strong>🟢 Nivel Normal</strong> — El río se encuentra dentro de los parámetros habituales. No se esperan inconvenientes para la navegación ni para las poblaciones ribereñas.
       </div>
-      <div style="background:var(--amarillo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--naranja-alerta);">
+      <div style="background:var(--amarillo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);">
         <strong>⚠️ Nivel de Alerta</strong> — El río alcanzó el umbral que activa el monitoreo intensivo. Se recomienda precaución en zonas bajas y costas. Las autoridades activan protocolos preventivos.
       </div>
-      <div style="background:var(--rojo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--rojo-evacuacion);">
+      <div style="background:var(--rojo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);">
         <strong>🚨 Nivel de Evacuación</strong> — El río superó el nivel crítico. Pueden activarse evacuaciones preventivas en zonas ribereñas. Seguir las instrucciones de Defensa Civil y Prefectura Naval Argentina.
       </div>
     </div>
@@ -245,7 +403,7 @@
 
   <footer class="pie">
     <div style="margin-bottom:10px;">
-      Datos: AGPSE, SHN, INA, CARU y Open-Meteo &nbsp;·&nbsp; Actualización automática cada hora
+      Datos oficiales: AGPSE, SHN, INA, CARU y Prefectura Naval Argentina &nbsp;·&nbsp; Actualización automática cada hora
     </div>
     <div style="margin-bottom:8px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:.82rem;">
       <a href="./privacidad.html" style="color:var(--azul-medio);text-decoration:none;">Política de Privacidad</a>
@@ -261,10 +419,14 @@
     </div>
   </footer>
 </div>
-<button class="btn-tema" id="btnTema" title="Cambiar tema" onclick="toggleTema()">🌙</button>
+
+<button class="btn-tema" id="btnTema" title="Cambiar tema" aria-label="Cambiar tema" onclick="toggleTema()">🌙</button>
+
 <script>
 // ──────────────────────────────────────────────────────────────
-const DATA_URL = "https://raw.githubusercontent.com/andresehansen/hidrometros/main/data.json";
+// CONFIGURACIÓN GLOBAL Y UMBRALES
+// ──────────────────────────────────────────────────────────────
+const DATA_URL = "https://cdn.jsdelivr.net/gh/andresehansen/hidrometros@main/data.json";
 
 const DEFAULTS_PUERTO = {
   laplata:            { alerta: 2.5,  evacuacion: 2.8 },
@@ -275,8 +437,210 @@ const DEFAULTS_PUERTO = {
   saltogrande_arriba: { alerta: 35.5, evacuacion: 36.0 },
   saltogrande_abajo:  { alerta: 17.3, evacuacion: 17.8 }
 };
-// ──────────────────────────────────────────────────────────────
 
+let datosActuales = null;
+let esCargaInicial = true;
+let estadosPuertosPrevios = {};
+let ultimaActualizacionExitosa = 0;
+let sonidoHabilitado = localStorage.getItem('sonido_alerta') !== 'false';
+let chartJsCargado = false;
+let chartJsPromise = null;
+
+// ──────────────────────────────────────────────────────────────
+// P0-1. GESTIÓN DE TEMA OSCURO / CLARO
+// ──────────────────────────────────────────────────────────────
+function aplicarTema(tema) {
+  const html = document.documentElement;
+  const btn = document.getElementById('btnTema');
+  if (tema === 'oscuro') {
+    html.setAttribute('data-tema', 'oscuro');
+    if (btn) {
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label', 'Cambiar a modo claro');
+      btn.setAttribute('title', 'Cambiar a modo claro');
+    }
+  } else {
+    html.removeAttribute('data-tema');
+    if (btn) {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label', 'Cambiar a modo oscuro');
+      btn.setAttribute('title', 'Cambiar a modo oscuro');
+    }
+  }
+}
+
+function toggleTema() {
+  const esOscuro = document.documentElement.getAttribute('data-tema') === 'oscuro';
+  const nuevoTema = esOscuro ? 'claro' : 'oscuro';
+  aplicarTema(nuevoTema);
+  localStorage.setItem('tema', nuevoTema);
+}
+
+function inicializarTema() {
+  const guardado = localStorage.getItem('tema');
+  if (guardado) {
+    aplicarTema(guardado);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    aplicarTema('oscuro');
+  }
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('tema')) {
+        aplicarTema(e.matches ? 'oscuro' : 'claro');
+      }
+    });
+  }
+}
+inicializarTema();
+
+// ──────────────────────────────────────────────────────────────
+// P1-1 & P1-2. NOTIFICACIONES DEL SISTEMA Y ALERTAS SONORAS
+// ──────────────────────────────────────────────────────────────
+function actualizarBotonesToolbar() {
+  const btnNotif = document.getElementById('btnNotif');
+  const btnSonido = document.getElementById('btnSonido');
+  if (btnNotif) {
+    if (!('Notification' in window)) {
+      btnNotif.style.display = 'none';
+    } else if (Notification.permission === 'granted') {
+      btnNotif.innerHTML = '🔔 Alertas activas';
+      btnNotif.style.background = 'rgba(34, 197, 94, 0.25)';
+    } else if (Notification.permission === 'denied') {
+      btnNotif.innerHTML = '🔕 Alertas bloqueadas';
+      btnNotif.style.opacity = '0.6';
+    } else {
+      btnNotif.innerHTML = '🔔 Activar alertas';
+    }
+  }
+  if (btnSonido) {
+    btnSonido.innerHTML = sonidoHabilitado ? '🔊 Sonido' : '🔇 Silenciado';
+    btnSonido.style.opacity = sonidoHabilitado ? '1' : '0.7';
+  }
+}
+
+async function solicitarPermisoNotificaciones() {
+  if (!('Notification' in window)) {
+    alert('Tu navegador no soporta notificaciones web.');
+    return;
+  }
+  try {
+    const permiso = await Notification.requestPermission();
+    actualizarBotonesToolbar();
+    if (permiso === 'granted') {
+      lanzarNotificacion('🔔 Alertas hidrológicas activadas', 'Recibirás avisos si algún puerto alcanza nivel de Alerta o Evacuación.');
+    }
+  } catch (e) {
+    console.error('Error solicitando permisos:', e);
+  }
+}
+
+function toggleSonido() {
+  sonidoHabilitado = !sonidoHabilitado;
+  localStorage.setItem('sonido_alerta', sonidoHabilitado ? 'true' : 'false');
+  actualizarBotonesToolbar();
+  if (sonidoHabilitado) {
+    reproducirAlertaSonora();
+  }
+}
+
+// Generador de tono sonoro con Web Audio API (cero dependencias externas)
+function reproducirAlertaSonora() {
+  if (!sonidoHabilitado) return;
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // Nota D5
+    osc.frequency.exponentialRampToValueAtTime(880.00, ctx.currentTime + 0.15); // Nota A5
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.35);
+  } catch (e) {
+    console.log('AudioContext no permitido aún sin interacción del usuario.');
+  }
+}
+
+function lanzarNotificacion(titulo, cuerpo) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.ready.then(reg => {
+      reg.showNotification(titulo, {
+        body: cuerpo,
+        icon: 'favicon.svg',
+        badge: 'favicon.svg',
+        vibrate: [200, 100, 200]
+      });
+    }).catch(() => {
+      new Notification(titulo, { body: cuerpo, icon: 'favicon.svg' });
+    });
+  } else {
+    new Notification(titulo, { body: cuerpo, icon: 'favicon.svg' });
+  }
+}
+
+function mostrarToast(mensaje, tipo = 'alerta') {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = `toast-item ${tipo}`;
+  toast.innerHTML = `<span>${tipo === 'evacuacion' ? '🚨' : '⚠️'} ${mensaje}</span><button onclick="this.parentElement.remove()" style="background:none;border:none;color:inherit;cursor:pointer;font-weight:bold;">✕</button>`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.remove(); }, 8000);
+}
+
+// ──────────────────────────────────────────────────────────────
+// P1-5. FETCH CON REINTENTOS Y BACKOFF EXPONENCIAL
+// ──────────────────────────────────────────────────────────────
+async function fetchConReintentos(url, maxReintentos = 2, delayMs = 1500) {
+  for (let intento = 0; intento <= maxReintentos; intento++) {
+    try {
+      const sep = url.includes('?') ? '&' : '?';
+      const res = await fetch(url + sep + 't=' + Date.now());
+      if (res.ok) return res;
+    } catch (err) {
+      if (intento === maxReintentos) throw err;
+      await new Promise(r => setTimeout(r, delayMs * Math.pow(1.5, intento)));
+    }
+  }
+  throw new Error(`Fallo de conexión tras ${maxReintentos + 1} intentos.`);
+}
+
+// ──────────────────────────────────────────────────────────────
+// P2-4. CARGA DIFERIDA (LAZY LOAD) DE CHART.JS
+// ──────────────────────────────────────────────────────────────
+function asegurarChartJs() {
+  if (chartJsCargado || window.Chart) {
+    chartJsCargado = true;
+    return Promise.resolve();
+  }
+  if (!chartJsPromise) {
+    chartJsPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+      script.async = true;
+      script.onload = () => {
+        chartJsCargado = true;
+        resolve();
+      };
+      script.onerror = (err) => {
+        chartJsPromise = null;
+        reject(err);
+      };
+      document.head.appendChild(script);
+    });
+  }
+  return chartJsPromise;
+}
+
+// ──────────────────────────────────────────────────────────────
+// FUNCIONES DE RENDERIZADO Y HELPERS DE UI
+// ──────────────────────────────────────────────────────────────
 function getEstadoPuerto(alturaStr, alerta, evacuacion) {
   if (alturaStr === null || alturaStr === undefined || isNaN(alturaStr)) return 'normal';
   const alt = parseFloat(alturaStr);
@@ -301,12 +665,43 @@ function renderReferenciaPill(alerta, evacuacion) {
 
 function fechaLegible(str) {
   if (!str) return '—';
-  const [d,m,y] = str.split('/');
+  const parts = str.split('/');
+  if (parts.length < 3) return str;
+  const [d,m,y] = parts;
   return new Date(+y,+m-1,+d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
 
-function badge(antiguo,fuente){return antiguo?`<span class="badge badge-alerta">⚠️ Dato con más de 24 hs</span>`:`<span class="badge badge-ok">✅ Actualizado · ${fuente}</span>`}
-const badgeND=()=>`<span class="badge badge-nd">No disponible ahora</span>`;
+// P2-8: Granularidad temporal del dato
+function calcularTiempoRelativo(fechaStr, horaStr) {
+  if (!fechaStr || !horaStr) return '';
+  try {
+    const parts = fechaStr.split('/');
+    if (parts.length < 3) return '';
+    const [d, m, y] = parts;
+    const [hh, mm] = horaStr.split(':');
+    const medDate = new Date(+y, +m - 1, +d, +hh, +mm);
+    const ahora = new Date();
+    const diffMs = ahora - medDate;
+    if (diffMs < 0 || isNaN(diffMs)) return '';
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 60) return ` (hace ${diffMin} min)`;
+    const diffHs = Math.floor(diffMin / 60);
+    if (diffHs < 24) return ` (hace ${diffHs} hs)`;
+    const diffDias = Math.floor(diffHs / 24);
+    if (diffDias === 1) return ` (hace 1 día · ${diffHs} hs)`;
+    return ` (hace ${diffDias} días)`;
+  } catch (e) { return ''; }
+}
+
+function badge(antiguo, fuente, fechaStr, horaStr) {
+  const tiempo = (fechaStr && horaStr) ? calcularTiempoRelativo(fechaStr, horaStr) : '';
+  if (antiguo) {
+    return `<span class="badge badge-alerta">⚠️ Dato anterior${tiempo} · ${fuente}</span>`;
+  }
+  return `<span class="badge badge-ok">✅ Actualizado · ${fuente}</span>`;
+}
+
+const badgeND = () => `<span class="badge badge-nd">No disponible ahora</span>`;
 
 function renderBadgeTendencia(t) {
   if (!t) return '';
@@ -316,44 +711,125 @@ function renderBadgeTendencia(t) {
   return `<span class="badge ${cls}">${t.icono} ${t.texto}</span>`;
 }
 
-function calcularTiempoRelativo(fechaStr, horaStr) {
-  if (!fechaStr || !horaStr) return '';
-  try {
-    const [d, m, y] = fechaStr.split('/');
-    const [hh, mm] = horaStr.split(':');
-    const medDate = new Date(+y, +m - 1, +d, +hh, +mm);
-    const ahora = new Date();
-    const diffMs = ahora - medDate;
-    if (diffMs < 0) return '';
-    const diffMin = Math.floor(diffMs / 60000);
-    if (diffMin < 60) return ` (hace ${diffMin} min)`;
-    const diffHs = Math.floor(diffMin / 60);
-    if (diffHs < 24) return ` (hace ${diffHs} hs)`;
-    return '';
-  } catch (e) { return ''; }
+// P1-7: Tooltips de ayuda técnica interactivos
+function renderTooltip(id, textoExplicativo) {
+  return `
+    <button type="button" class="btn-info-tooltip" onclick="toggleTooltip('${id}')" aria-label="Más información" title="Más información">ⓘ</button>
+    <div id="tooltip-${id}" class="tooltip-popover" role="tooltip">${textoExplicativo}</div>
+  `;
 }
 
-function tarjetaLP(d,viento,pron){
+function toggleTooltip(id) {
+  const el = document.getElementById(`tooltip-${id}`);
+  if (el) el.classList.toggle('abierto');
+}
+
+// P1-6: Indicador visual / Gauge de proximidad a umbrales
+function renderBarraNivel(alturaStr, alerta, evacuacion) {
+  if (alturaStr === null || alturaStr === undefined || isNaN(alturaStr)) return '';
+  const alt = parseFloat(alturaStr);
+  const maxEscala = Math.max(evacuacion * 1.25, alt * 1.1, 1);
+  const pctAlerta = Math.min(Math.max((alerta / maxEscala) * 100, 5), 90);
+  const pctEvac = Math.min(Math.max(((evacuacion - alerta) / maxEscala) * 100, 5), 95 - pctAlerta);
+  const pctNormal = pctAlerta;
+  const pctActual = Math.min(Math.max((alt / maxEscala) * 100, 0), 100);
+
+  return `
+    <div class="gauge-container" role="meter" aria-valuenow="${alt}" aria-valuemin="0" aria-valuemax="${maxEscala.toFixed(1)}" aria-label="Nivel relativo respecto a umbrales de alerta y evacuación">
+      <div class="gauge-encabezado">
+        <span>Nivel actual: <strong>${alt} m</strong></span>
+        <span>Escala max: ${maxEscala.toFixed(1)} m</span>
+      </div>
+      <div class="gauge-barra">
+        <div class="gauge-segmento gauge-seg-normal" style="width:${pctNormal}%" title="Zona Normal (hasta ${alerta}m)"></div>
+        <div class="gauge-segmento gauge-seg-alerta" style="width:${pctEvac}%" title="Zona de Alerta (${alerta}m a ${evacuacion}m)"></div>
+        <div class="gauge-segmento gauge-seg-evacuacion" style="width:${100 - pctNormal - pctEvac}%" title="Zona de Evacuación (desde ${evacuacion}m)"></div>
+        <div class="gauge-indicador" style="left:${pctActual}%" title="Lectura actual: ${alt}m"></div>
+      </div>
+      <div class="gauge-marcas">
+        <span>0 m</span>
+        <span style="color:var(--amarillo-alerta)">⚠️ ${alerta} m</span>
+        <span style="color:var(--rojo-evacuacion)">🚨 ${evacuacion} m</span>
+      </div>
+    </div>
+  `;
+}
+
+// P1-9 & P1-11: Exportación a CSV y Tabla alternativa accesible
+function exportarCSV(keyPuerto, nombre) {
+  if (!datosActuales) return;
+  let hist = null;
+  let fuente = 'Oficial';
+  if (keyPuerto === 'laplata') { hist = datosActuales.laplata?.historico; fuente = datosActuales.laplata?.fuente || 'AGPSE'; }
+  else if (keyPuerto === 'iguazu') { hist = datosActuales.iguazu?.historico; fuente = datosActuales.iguazu?.fuente || 'AGPSE'; }
+  else if (keyPuerto === 'sanjavier') { hist = datosActuales.sanjavier?.historico; fuente = datosActuales.sanjavier?.fuente || 'PNA'; }
+  else if (keyPuerto === 'santotome') { hist = datosActuales.santotome?.historico; fuente = datosActuales.santotome?.fuente || 'PNA'; }
+  else if (keyPuerto === 'concordia') { hist = datosActuales.concordia?.historico; fuente = datosActuales.concordia?.fuente || 'CARU'; }
+  else if (keyPuerto === 'saltogrande-arriba') { hist = datosActuales.saltogrande?.arriba?.historico; fuente = 'CARU'; }
+  else if (keyPuerto === 'saltogrande-abajo') { hist = datosActuales.saltogrande?.abajo?.historico; fuente = 'CARU'; }
+
+  if (!hist || hist.length === 0) {
+    alert('No hay historial disponible para exportar.');
+    return;
+  }
+
+  let csvContent = "Fecha,Hora,Altura_Metros,Puerto,Fuente\n";
+  hist.forEach(row => {
+    csvContent += `"${row.fechaStr || ''}","${row.horaStr || ''}",${row.altura},"${nombre}","${fuente}"\n`;
+  });
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", `reporte_${keyPuerto}_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function renderTablaAccesible(hist, nombrePuerto) {
+  if (!hist || hist.length === 0) return '';
+  const rows = hist.map(h => `<tr><td>${h.fechaStr || 'Hoy'}</td><td>${h.horaStr}</td><td>${h.altura} m</td></tr>`).join('');
+  return `
+    <div class="sr-only">
+      <table>
+        <caption>Historial de mediciones para ${nombrePuerto}</caption>
+        <thead><tr><th scope="col">Fecha</th><th scope="col">Hora</th><th scope="col">Altura</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ──────────────────────────────────────────────────────────────
+// TARJETAS DE PUERTOS
+// ──────────────────────────────────────────────────────────────
+function tarjetaLP(d, viento, pron) {
   const alerta = (d && d.alerta !== undefined) ? d.alerta : DEFAULTS_PUERTO.laplata.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : DEFAULTS_PUERTO.laplata.evacuacion;
   const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
 
-  const vTxt=viento?`${viento.velocidad} km/h · ${viento.direccion}`:'No disponible';
-  const tTxt=viento?`Temperatura: ${viento.temperatura}°C`:'';
-  let pronHTML=`<p style="color:#90aabf;font-size:.95rem">No disponible</p>`;
-  if(pron&&(pron.pleamar||pron.bajamar)){
-    pronHTML=`<div class="pronostico-fila">`;
-    if(pron.pleamar) pronHTML+=`<div class="pronostico-item"><div class="tipo">📈 Pleamar</div><div class="valor">${pron.pleamar.altura} m</div><div class="detalle">${pron.pleamar.fecha} · ${pron.pleamar.hora} hs</div></div>`;
-    if(pron.bajamar) pronHTML+=`<div class="pronostico-item"><div class="tipo">📉 Bajamar</div><div class="valor">${pron.bajamar.altura} m</div><div class="detalle">${pron.bajamar.fecha} · ${pron.bajamar.hora} hs</div></div>`;
-    pronHTML+=`</div>`;
+  const vTxt = viento ? `${viento.velocidad} km/h · ${viento.direccion}` : 'No disponible';
+  const tTxt = viento ? `Temperatura: ${viento.temperatura}°C` : '';
+  let pronHTML = `<p style="color:var(--color-sub);font-size:.95rem">No disponible</p>`;
+  if (pron && (pron.pleamar || pron.bajamar)) {
+    pronHTML = `<div class="pronostico-fila">`;
+    if (pron.pleamar) pronHTML += `<div class="pronostico-item"><div class="tipo">📈 Pleamar ${renderTooltip('lp-pleamar', 'Nivel máximo que alcanzará la marea astronómica.')}</div><div class="valor">${pron.pleamar.altura} m</div><div class="detalle">${pron.pleamar.fecha} · ${pron.pleamar.hora} hs</div></div>`;
+    if (pron.bajamar) pronHTML += `<div class="pronostico-item"><div class="tipo">📉 Bajamar ${renderTooltip('lp-bajamar', 'Nivel mínimo previsto durante la marea bajante.')}</div><div class="valor">${pron.bajamar.altura} m</div><div class="detalle">${pron.bajamar.fecha} · ${pron.bajamar.hora} hs</div></div>`;
+    pronHTML += `</div>`;
   }
   
   let histHTML = '';
   if (d && d.historico && d.historico.length > 1) {
     histHTML = `
-    <details>
+    <details id="details-laplata" ontoggle="alAbrirDetails(this, 'laplata')">
       <summary>Ver historial (últimas ${d.historico.length} mediciones)</summary>
-      <div class="historial-chart"><canvas id="chart-laplata"></canvas></div>
+      <div class="historial-chart"><canvas id="chart-laplata" role="img" aria-label="Gráfico de evolución de altura en La Plata"></canvas></div>
+      ${renderTablaAccesible(d.historico, 'La Plata')}
+      <div class="historial-acciones">
+        <button class="btn-csv" onclick="exportarCSV('laplata', 'La Plata')">📥 Descargar CSV</button>
+      </div>
     </details>`;
   }
 
@@ -361,15 +837,15 @@ function tarjetaLP(d,viento,pron){
 
   return `<div class="tarjeta estado-${estado}">
     <div class="tarjeta-titulo">⚓ La Plata</div>
-    <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
+    <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
-      <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
+      <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo de AGPSE en el Puerto La Plata.')}</div>
+      ${d ? `<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo, d.fuente, d.fechaStr, d.horaStr)}</div>${renderReferenciaPill(alerta, evacuacion)}${renderBarraNivel(d.altura, alerta, evacuacion)}` : badgeND()}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
-      <div class="dato-etiqueta">Viento</div>
+      <div class="dato-etiqueta">Viento en la costa</div>
       <div class="dato-valor">${vTxt}</div>
-      ${tTxt?`<div class="dato-sub">${tTxt}</div>`:''}
+      ${tTxt ? `<div class="dato-sub">${tTxt}</div>` : ''}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌊</div><div class="dato-contenido">
       <div class="dato-etiqueta">Pronóstico de mareas (SHN)</div>
@@ -379,7 +855,7 @@ function tarjetaLP(d,viento,pron){
   </div>`;
 }
 
-function tarjetaRio(nombre,emoji,d,idChart,keyPuerto){
+function tarjetaRio(nombre, emoji, d, idChart, keyPuerto) {
   const defaults = DEFAULTS_PUERTO[keyPuerto] || { alerta: 0, evacuacion: 0 };
   const alerta = (d && d.alerta !== undefined) ? d.alerta : defaults.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : defaults.evacuacion;
@@ -388,9 +864,13 @@ function tarjetaRio(nombre,emoji,d,idChart,keyPuerto){
   let histHTML = '';
   if (d && d.historico && d.historico.length > 1) {
     histHTML = `
-    <details>
+    <details id="details-${idChart}" ontoggle="alAbrirDetails(this, '${keyPuerto}')">
       <summary>Ver historial (últimas ${d.historico.length} mediciones)</summary>
-      <div class="historial-chart"><canvas id="chart-${idChart}"></canvas></div>
+      <div class="historial-chart"><canvas id="chart-${idChart}" role="img" aria-label="Gráfico de evolución de altura en ${nombre}"></canvas></div>
+      ${renderTablaAccesible(d.historico, nombre)}
+      <div class="historial-acciones">
+        <button class="btn-csv" onclick="exportarCSV('${keyPuerto}', '${nombre}')">📥 Descargar CSV</button>
+      </div>
     </details>`;
   }
 
@@ -398,10 +878,10 @@ function tarjetaRio(nombre,emoji,d,idChart,keyPuerto){
 
   return `<div class="tarjeta estado-${estado}">
     <div class="tarjeta-titulo">${emoji} ${nombre}</div>
-    <div class="tarjeta-fecha">📅 ${d?fechaLegible(d.fechaStr):'—'}</div>
+    <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d?`<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo,d.fuente)}</div>${renderReferenciaPill(alerta, evacuacion)}`:badgeND()}
+      ${d ? `<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo, d.fuente, d.fechaStr, d.horaStr)}</div>${renderReferenciaPill(alerta, evacuacion)}${renderBarraNivel(d.altura, alerta, evacuacion)}` : badgeND()}
     </div></div>
     ${histHTML}
   </div>`;
@@ -429,13 +909,17 @@ function tarjetaSaltoGrande(d) {
     estadoGeneral = 'alerta';
   }
 
-  const renderSubSection = (titulo, emoji, subD, estadoSub, alertaSub, evacSub, chartId) => {
+  const renderSubSection = (titulo, emoji, subD, estadoSub, alertaSub, evacSub, chartId, tooltipId, tooltipTexto) => {
     let histHTML = '';
     if (subD && subD.historico && subD.historico.length > 1) {
       histHTML = `
-      <details>
+      <details id="details-${chartId}" ontoggle="alAbrirDetails(this, '${chartId}')">
         <summary>Ver historial (${subD.historico.length} mediciones)</summary>
-        <div class="historial-chart"><canvas id="chart-${chartId}"></canvas></div>
+        <div class="historial-chart"><canvas id="chart-${chartId}" role="img" aria-label="Gráfico de evolución de altura en ${titulo}"></canvas></div>
+        ${renderTablaAccesible(subD.historico, titulo)}
+        <div class="historial-acciones">
+          <button class="btn-csv" onclick="exportarCSV('${chartId}', '${titulo}')">📥 Descargar CSV</button>
+        </div>
       </details>`;
     }
 
@@ -443,13 +927,14 @@ function tarjetaSaltoGrande(d) {
 
     return `
       <div class="sub-seccion-puerto">
-        <div class="sub-seccion-titulo">${emoji} ${titulo}</div>
+        <div class="sub-seccion-titulo">${emoji} ${titulo} ${renderTooltip(tooltipId, tooltipTexto)}</div>
         <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
           <div class="dato-etiqueta">Altura del agua</div>
           ${subD ? `<div class="${valClass}">${subD.altura} metros</div>
           <div class="dato-sub">Medición a las ${subD.horaStr} hs (${fechaLegible(subD.fechaStr)})${calcularTiempoRelativo(subD.fechaStr, subD.horaStr)}</div>
-          <div class="badge-container">${renderBadgeNivel(estadoSub)}${renderBadgeTendencia(subD.tendencia)}${badge(subD.antiguo, subD.fuente)}</div>
-          ${renderReferenciaPill(alertaSub, evacSub)}` : badgeND()}
+          <div class="badge-container">${renderBadgeNivel(estadoSub)}${renderBadgeTendencia(subD.tendencia)}${badge(subD.antiguo, subD.fuente, subD.fechaStr, subD.horaStr)}</div>
+          ${renderReferenciaPill(alertaSub, evacSub)}
+          ${renderBarraNivel(subD.altura, alertaSub, evacSub)}` : badgeND()}
         </div></div>
         ${histHTML}
       </div>`;
@@ -457,129 +942,245 @@ function tarjetaSaltoGrande(d) {
 
   return `<div class="tarjeta estado-${estadoGeneral}">
     <div class="tarjeta-titulo">⚡ Embalse Salto Grande</div>
-    <div class="tarjeta-fecha">📊 Complejo Hidroeléctrico · Río Uruguay</div>
-    ${renderSubSection('Salto Grande Arriba / Cota del Embalse', '🔼', arriba, estadoArriba, alertaArriba, evacArriba, 'saltogrande-arriba')}
+    <div class="tarjeta-fecha">📊 Complejo Hidroeléctrico Binacional · Río Uruguay</div>
+    ${renderSubSection('Salto Grande Arriba (Cota del Embalse)', '🔼', arriba, estadoArriba, alertaArriba, evacArriba, 'saltogrande-arriba', 'sg-cota', 'Altura del agua en el lago de la represa aguas arriba de las compuertas.')}
     <hr class="sub-divider" />
-    ${renderSubSection('Salto Grande Abajo / Restitución', '🔽', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo')}
+    ${renderSubSection('Salto Grande Abajo (Restitución)', '🔽', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo', 'sg-restitucion', 'Nivel del agua río abajo inmediatamente después de turbinar y verter el caudal.')}
   </div>`;
 }
 
-function renderizarGraficos(d) {
-  const render = (hist, idElement, estado, alerta, evacuacion) => {
-    const canvas = document.getElementById(idElement);
-    if (!canvas) return;
+// ──────────────────────────────────────────────────────────────
+// P1-8. COMPARADOR DE PUERTOS DE LA CUENCA DEL RÍO URUGUAY
+// ──────────────────────────────────────────────────────────────
+function renderSeccionComparador(d) {
+  return `
+    <section class="seccion-comparador">
+      <div class="tarjeta-titulo">📈 Comparador de Cuenca (Río Uruguay)</div>
+      <p style="font-size:0.9rem;color:var(--color-sub);margin-top:4px;">
+        Superponé los registros históricos para visualizar cómo se traslada la onda de crecida río abajo entre puertos.
+      </p>
+      <div class="comparador-filtros">
+        <label class="filtro-chip"><input type="checkbox" id="chk-sg-abajo" checked onchange="actualizarGraficoComparador()"> Salto Grande Abajo</label>
+        <label class="filtro-chip"><input type="checkbox" id="chk-concordia" checked onchange="actualizarGraficoComparador()"> Concordia</label>
+        <label class="filtro-chip"><input type="checkbox" id="chk-santotome" checked onchange="actualizarGraficoComparador()"> Santo Tomé</label>
+        <label class="filtro-chip"><input type="checkbox" id="chk-sanjavier" onchange="actualizarGraficoComparador()"> San Javier</label>
+      </div>
+      <div class="historial-chart" style="height:220px;">
+        <canvas id="chart-comparador" role="img" aria-label="Gráfico comparativo de alturas en la cuenca del Río Uruguay"></canvas>
+      </div>
+    </section>
+  `;
+}
 
-    let borderColor = '#1a6fa8';
-    let bgColor = 'rgba(26,111,168,0.15)';
+let chartComparadorInstancia = null;
 
-    if (estado === 'evacuacion') {
-      borderColor = '#d9381e';
-      bgColor = 'rgba(217,56,30,0.15)';
-    } else if (estado === 'alerta') {
-      borderColor = '#d97706';
-      bgColor = 'rgba(217,119,6,0.15)';
-    }
+async function actualizarGraficoComparador() {
+  if (!datosActuales) return;
+  await asegurarChartJs();
+  const canvas = document.getElementById('chart-comparador');
+  if (!canvas) return;
 
-    const datasets = [{
-      label: 'Altura (m)',
-      data: hist.map(h => parseFloat(h.altura)),
-      borderColor: borderColor,
-      backgroundColor: bgColor,
+  const chkSG = document.getElementById('chk-sg-abajo')?.checked;
+  const chkCo = document.getElementById('chk-concordia')?.checked;
+  const chkST = document.getElementById('chk-santotome')?.checked;
+  const chkSJ = document.getElementById('chk-sanjavier')?.checked;
+
+  const series = [];
+  if (chkSG && datosActuales.saltogrande?.abajo?.historico) {
+    series.push({
+      label: 'Salto Grande Abajo',
+      data: datosActuales.saltogrande.abajo.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
+      borderColor: '#3b82f6',
+      backgroundColor: 'rgba(59,130,246,0.1)',
       borderWidth: 2,
-      fill: true,
-      pointRadius: 3,
       tension: 0.3
-    }];
-
-    if (alerta) {
-      datasets.push({
-        label: 'Alerta (' + alerta + 'm)',
-        data: Array(hist.length).fill(alerta),
-        borderColor: 'rgba(217, 119, 6, 0.7)',
-        borderWidth: 1.5,
-        borderDash: [5, 5],
-        pointRadius: 0,
-        fill: false
-      });
-    }
-
-    if (evacuacion) {
-      datasets.push({
-        label: 'Evacuación (' + evacuacion + 'm)',
-        data: Array(hist.length).fill(evacuacion),
-        borderColor: 'rgba(217, 56, 30, 0.7)',
-        borderWidth: 1.5,
-        borderDash: [3, 3],
-        pointRadius: 0,
-        fill: false
-      });
-    }
-
-    new Chart(canvas, {
-      type: 'line',
-      data: {
-        labels: hist.map(h => h.horaStr),
-        datasets: datasets
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 45 } },
-          y: { ticks: { font: { size: 11 } } }
-        }
-      }
     });
-  };
+  }
+  if (chkCo && datosActuales.concordia?.historico) {
+    series.push({
+      label: 'Concordia',
+      data: datosActuales.concordia.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      borderWidth: 2,
+      tension: 0.3
+    });
+  }
+  if (chkST && datosActuales.santotome?.historico) {
+    series.push({
+      label: 'Santo Tomé',
+      data: datosActuales.santotome.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
+      borderColor: '#f59e0b',
+      backgroundColor: 'rgba(245,158,11,0.1)',
+      borderWidth: 2,
+      tension: 0.3
+    });
+  }
+  if (chkSJ && datosActuales.sanjavier?.historico) {
+    series.push({
+      label: 'San Javier',
+      data: datosActuales.sanjavier.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
+      borderColor: '#8b5cf6',
+      backgroundColor: 'rgba(139,92,246,0.1)',
+      borderWidth: 2,
+      tension: 0.3
+    });
+  }
 
-  if (d.laplata && d.laplata.historico) {
-    const al = d.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta;
-    const ev = d.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion;
-    const st = getEstadoPuerto(d.laplata.altura, al, ev);
-    render(d.laplata.historico, 'chart-laplata', st, al, ev);
+  // Recolectar todas las etiquetas de horas únicas y ordenarlas
+  const labelsSet = new Set();
+  series.forEach(s => s.data.forEach(p => labelsSet.add(p.x)));
+  const labels = Array.from(labelsSet);
+
+  if (chartComparadorInstancia) {
+    chartComparadorInstancia.destroy();
   }
-  if (d.iguazu && d.iguazu.historico) {
-    const al = d.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta;
-    const ev = d.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion;
-    const st = getEstadoPuerto(d.iguazu.altura, al, ev);
-    render(d.iguazu.historico, 'chart-iguazu', st, al, ev);
+
+  chartComparadorInstancia = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: series
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+      },
+      scales: {
+        x: { ticks: { font: { size: 10 } } },
+        y: { title: { display: true, text: 'Metros' }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+}
+
+// ──────────────────────────────────────────────────────────────
+// GESTIÓN DE GRÁFICOS CHART.JS ON DEMAND
+// ──────────────────────────────────────────────────────────────
+const chartsInstancias = {};
+
+async function alAbrirDetails(detailsEl, keyPuerto) {
+  if (detailsEl.open) {
+    await asegurarChartJs();
+    renderizarGraficoIndividual(keyPuerto);
   }
-  if (d.sanjavier && d.sanjavier.historico) {
-    const al = d.sanjavier.alerta || DEFAULTS_PUERTO.sanjavier.alerta;
-    const ev = d.sanjavier.evacuacion || DEFAULTS_PUERTO.sanjavier.evacuacion;
-    const st = getEstadoPuerto(d.sanjavier.altura, al, ev);
-    render(d.sanjavier.historico, 'chart-sanjavier', st, al, ev);
+}
+
+function renderizarGraficoIndividual(keyPuerto) {
+  if (!window.Chart || !datosActuales) return;
+
+  let hist = null;
+  let idCanvas = '';
+  let alerta = 0;
+  let evacuacion = 0;
+
+  if (keyPuerto === 'laplata' && datosActuales.laplata?.historico) {
+    hist = datosActuales.laplata.historico;
+    idCanvas = 'chart-laplata';
+    alerta = datosActuales.laplata.alerta || DEFAULTS_PUERTO.laplata.alerta;
+    evacuacion = datosActuales.laplata.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion;
+  } else if (keyPuerto === 'iguazu' && datosActuales.iguazu?.historico) {
+    hist = datosActuales.iguazu.historico;
+    idCanvas = 'chart-iguazu';
+    alerta = datosActuales.iguazu.alerta || DEFAULTS_PUERTO.iguazu.alerta;
+    evacuacion = datosActuales.iguazu.evacuacion || DEFAULTS_PUERTO.iguazu.evacuacion;
+  } else if (keyPuerto === 'concordia' && datosActuales.concordia?.historico) {
+    hist = datosActuales.concordia.historico;
+    idCanvas = 'chart-concordia';
+    alerta = datosActuales.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta;
+    evacuacion = datosActuales.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion;
+  } else if (keyPuerto === 'sanjavier' && datosActuales.sanjavier?.historico) {
+    hist = datosActuales.sanjavier.historico;
+    idCanvas = 'chart-sanjavier';
+    alerta = datosActuales.sanjavier.alerta || DEFAULTS_PUERTO.sanjavier.alerta;
+    evacuacion = datosActuales.sanjavier.evacuacion || DEFAULTS_PUERTO.sanjavier.evacuacion;
+  } else if (keyPuerto === 'santotome' && datosActuales.santotome?.historico) {
+    hist = datosActuales.santotome.historico;
+    idCanvas = 'chart-santotome';
+    alerta = datosActuales.santotome.alerta || DEFAULTS_PUERTO.santotome.alerta;
+    evacuacion = datosActuales.santotome.evacuacion || DEFAULTS_PUERTO.santotome.evacuacion;
+  } else if (keyPuerto === 'saltogrande-arriba' && datosActuales.saltogrande?.arriba?.historico) {
+    hist = datosActuales.saltogrande.arriba.historico;
+    idCanvas = 'chart-saltogrande-arriba';
+    alerta = datosActuales.saltogrande.arriba.alerta || DEFAULTS_PUERTO.saltogrande_arriba.alerta;
+    evacuacion = datosActuales.saltogrande.arriba.evacuacion || DEFAULTS_PUERTO.saltogrande_arriba.evacuacion;
+  } else if (keyPuerto === 'saltogrande-abajo' && datosActuales.saltogrande?.abajo?.historico) {
+    hist = datosActuales.saltogrande.abajo.historico;
+    idCanvas = 'chart-saltogrande-abajo';
+    alerta = datosActuales.saltogrande.abajo.alerta || DEFAULTS_PUERTO.saltogrande_abajo.alerta;
+    evacuacion = datosActuales.saltogrande.abajo.evacuacion || DEFAULTS_PUERTO.saltogrande_abajo.evacuacion;
   }
-  if (d.santotome && d.santotome.historico) {
-    const al = d.santotome.alerta || DEFAULTS_PUERTO.santotome.alerta;
-    const ev = d.santotome.evacuacion || DEFAULTS_PUERTO.santotome.evacuacion;
-    const st = getEstadoPuerto(d.santotome.altura, al, ev);
-    render(d.santotome.historico, 'chart-santotome', st, al, ev);
+
+  const canvas = document.getElementById(idCanvas);
+  if (!canvas || !hist) return;
+
+  if (chartsInstancias[idCanvas]) {
+    chartsInstancias[idCanvas].destroy();
   }
-  if (d.concordia && d.concordia.historico) {
-    const al = d.concordia.alerta || DEFAULTS_PUERTO.concordia.alerta;
-    const ev = d.concordia.evacuacion || DEFAULTS_PUERTO.concordia.evacuacion;
-    const st = getEstadoPuerto(d.concordia.altura, al, ev);
-    render(d.concordia.historico, 'chart-concordia', st, al, ev);
+
+  const estado = getEstadoPuerto(hist[hist.length - 1]?.altura, alerta, evacuacion);
+  let borderColor = '#1a6fa8';
+  let bgColor = 'rgba(26,111,168,0.15)';
+  if (estado === 'evacuacion') { borderColor = '#d9381e'; bgColor = 'rgba(217,56,30,0.15)'; }
+  else if (estado === 'alerta') { borderColor = '#d97706'; bgColor = 'rgba(217,119,6,0.15)'; }
+
+  const datasets = [{
+    label: 'Altura (m)',
+    data: hist.map(h => parseFloat(h.altura)),
+    borderColor: borderColor,
+    backgroundColor: bgColor,
+    borderWidth: 2,
+    fill: true,
+    pointRadius: 3,
+    tension: 0.3
+  }];
+
+  if (alerta) {
+    datasets.push({
+      label: `Alerta (${alerta}m)`,
+      data: Array(hist.length).fill(alerta),
+      borderColor: 'rgba(217, 119, 6, 0.7)',
+      borderWidth: 1.5,
+      borderDash: [5, 5],
+      pointRadius: 0,
+      fill: false
+    });
   }
-  if (d.saltogrande && d.saltogrande.arriba && d.saltogrande.arriba.historico) {
-    const al = d.saltogrande.arriba.alerta || DEFAULTS_PUERTO.saltogrande_arriba.alerta;
-    const ev = d.saltogrande.arriba.evacuacion || DEFAULTS_PUERTO.saltogrande_arriba.evacuacion;
-    const st = getEstadoPuerto(d.saltogrande.arriba.altura, al, ev);
-    render(d.saltogrande.arriba.historico, 'chart-saltogrande-arriba', st, al, ev);
+  if (evacuacion) {
+    datasets.push({
+      label: `Evacuación (${evacuacion}m)`,
+      data: Array(hist.length).fill(evacuacion),
+      borderColor: 'rgba(217, 56, 30, 0.7)',
+      borderWidth: 1.5,
+      borderDash: [3, 3],
+      pointRadius: 0,
+      fill: false
+    });
   }
-  if (d.saltogrande && d.saltogrande.abajo && d.saltogrande.abajo.historico) {
-    const al = d.saltogrande.abajo.alerta || DEFAULTS_PUERTO.saltogrande_abajo.alerta;
-    const ev = d.saltogrande.abajo.evacuacion || DEFAULTS_PUERTO.saltogrande_abajo.evacuacion;
-    const st = getEstadoPuerto(d.saltogrande.abajo.altura, al, ev);
-    render(d.saltogrande.abajo.historico, 'chart-saltogrande-abajo', st, al, ev);
-  }
+
+  chartsInstancias[idCanvas] = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: hist.map(h => h.horaStr),
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 45 } },
+        y: { ticks: { font: { size: 11 } } }
+      }
+    }
+  });
 }
 
 function renderBannerAlertas(d) {
   if (!d) return '';
-  
   const puertosEnAlerta = [];
   const puertosEnEvacuacion = [];
 
@@ -632,64 +1233,222 @@ function renderBannerAlertas(d) {
   return '';
 }
 
-async function cargarDatos(){
-  const btn=document.getElementById('btnActualizar');
-  const panel=document.getElementById('contenidoPrincipal');
-  const fEl=document.getElementById('fechaActualizacion');
-  btn.disabled=true; btn.textContent='⏳  Cargando...';
-  panel.innerHTML=`<div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>`;
-  try{
+// ──────────────────────────────────────────────────────────────
+// DETECCIÓN DE CAMBIOS DE ESTADO PARA NOTIFICACIONES
+// ──────────────────────────────────────────────────────────────
+function detectarCambiosDeEstado(nuevoD) {
+  if (!nuevoD) return;
+  const nuevosEstados = {};
+  const evaluar = (key, nombre, pData, keyDefault) => {
+    if (!pData || !pData.altura) return;
+    const def = DEFAULTS_PUERTO[keyDefault] || { alerta: 0, evacuacion: 0 };
+    const al = pData.alerta !== undefined ? pData.alerta : def.alerta;
+    const ev = pData.evacuacion !== undefined ? pData.evacuacion : def.evacuacion;
+    const st = getEstadoPuerto(pData.altura, al, ev);
+    nuevosEstados[key] = { estado: st, altura: pData.altura, nombre: nombre };
+    
+    // Comparar con lectura previa
+    const previo = estadosPuertosPrevios[key]?.estado || 'normal';
+    if (!esCargaInicial && previo !== st) {
+      if (st === 'evacuacion') {
+        const msg = `¡EVACUACIÓN en ${nombre}! Nivel crítico: ${pData.altura} m (superó ${ev} m).`;
+        lanzarNotificacion('🚨 Alerta de Evacuación', msg);
+        mostrarToast(msg, 'evacuacion');
+        reproducirAlertaSonora();
+        anunciarAriaLive(msg);
+      } else if (st === 'alerta' && previo === 'normal') {
+        const msg = `¡Nivel de ALERTA en ${nombre}! Altura: ${pData.altura} m (superó ${al} m).`;
+        lanzarNotificacion('⚠️ Alerta Hidrológica', msg);
+        mostrarToast(msg, 'alerta');
+        reproducirAlertaSonora();
+        anunciarAriaLive(msg);
+      }
+    }
+  };
+
+  evaluar('laplata', 'La Plata', nuevoD.laplata, 'laplata');
+  evaluar('iguazu', 'Puerto Iguazú', nuevoD.iguazu, 'iguazu');
+  evaluar('sanjavier', 'San Javier', nuevoD.sanjavier, 'sanjavier');
+  evaluar('santotome', 'Santo Tomé', nuevoD.santotome, 'santotome');
+  evaluar('concordia', 'Concordia', nuevoD.concordia, 'concordia');
+  if (nuevoD.saltogrande) {
+    evaluar('sg_arriba', 'Salto Grande Arriba', nuevoD.saltogrande.arriba, 'saltogrande_arriba');
+    evaluar('sg_abajo', 'Salto Grande Abajo', nuevoD.saltogrande.abajo, 'saltogrande_abajo');
+  }
+
+  estadosPuertosPrevios = nuevosEstados;
+}
+
+function anunciarAriaLive(mensaje) {
+  const ariaEl = document.getElementById('alertaAriaLive');
+  if (ariaEl) {
+    ariaEl.textContent = mensaje;
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// P1-4. CARGAR DATOS CON PRESERVACIÓN DE ESTADO
+// ──────────────────────────────────────────────────────────────
+async function cargarDatos(esAuto = false) {
+  const btn = document.getElementById('btnActualizar');
+  const panel = document.getElementById('contenidoPrincipal');
+  const fEl = document.getElementById('fechaActualizacion');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.add('cargando-spin');
+    btn.querySelector('span:last-child').textContent = esAuto ? 'Auto-actualizando...' : 'Actualizando...';
+  }
+
+  // Guardar estado de la interfaz antes de recargar
+  const scrollY = window.scrollY;
+  const detailsAbiertos = new Set();
+  document.querySelectorAll('details[id]').forEach(d => {
+    if (d.open) detailsAbiertos.add(d.id);
+  });
+
+  if (esCargaInicial) {
+    panel.innerHTML = `<div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>`;
+  }
+
+  try {
     let res;
     try {
-      res = await fetch('./data.json?t=' + Date.now());
-      if (!res.ok) throw new Error('Local fail');
-    } catch(e) {
-      res = await fetch(DATA_URL + '?t=' + Date.now());
+      res = await fetchConReintentos('./data.json', 1, 1000);
+    } catch (e) {
+      console.warn('Fallo local, intentando CDN jsDelivr fallback...', e);
+      res = await fetchConReintentos(DATA_URL, 2, 1500);
     }
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const d=await res.json();
-    fEl.textContent=`📅 Reporte del ${d.fechaReporte}`;
-    
-    // Orden: La Plata (10 min) → Iguazú (20 min) → Salto Grande (1 h) → Concordia (1 h) → San Javier (diaria) → Santo Tomé (diaria)
-    panel.innerHTML= renderBannerAlertas(d) +
-                     tarjetaLP(d.laplata,d.viento,d.pronostico) + 
-                     tarjetaRio('Iguazú','🏞️',d.iguazu,'iguazu','iguazu') + 
+
+    const d = await res.json();
+
+    // P2-9: Validación de schemaVersion
+    if (d.schemaVersion && parseInt(d.schemaVersion.split('.')[0], 10) > 1) {
+      console.warn('El esquema de datos recibido es más reciente que el soportado:', d.schemaVersion);
+    }
+
+    datosActuales = d;
+    detectarCambiosDeEstado(d);
+
+    fEl.textContent = `📅 Reporte del ${d.fechaReporte}`;
+    ultimaActualizacionExitosa = Date.now();
+
+    // Renderizado completo del panel
+    panel.innerHTML = renderBannerAlertas(d) +
+                     tarjetaLP(d.laplata, d.viento, d.pronostico) + 
+                     tarjetaRio('Iguazú', '🏞️', d.iguazu, 'iguazu', 'iguazu') + 
                      tarjetaSaltoGrande(d.saltogrande) +
-                     tarjetaRio('Concordia','🌿',d.concordia,'concordia','concordia') + 
-                     tarjetaRio('San Javier','⛵',d.sanjavier,'sanjavier','sanjavier') + 
-                     tarjetaRio('Santo Tomé','📍',d.santotome,'santotome','santotome');
-                     
-    // Renderizamos los gráficos de Chart.js luego de inyectar el HTML
-    renderizarGraficos(d);
-                     
-  }catch(err){
-    console.error(err);
-    fEl.textContent='⚠️ Sin datos';
-    panel.innerHTML=`<div class="aviso-info">😕 No se pudo cargar el reporte en este momento.<br><br>Puede que el reporte aún no se haya generado, o que no haya conexión a Internet. Volvé a intentarlo en unos minutos.</div>`;
+                     tarjetaRio('Concordia', '🌿', d.concordia, 'concordia', 'concordia') + 
+                     tarjetaRio('San Javier', '⛵', d.sanjavier, 'sanjavier', 'sanjavier') + 
+                     tarjetaRio('Santo Tomé', '📍', d.santotome, 'santotome', 'santotome') +
+                     renderSeccionComparador(d);
+
+    // Restaurar los <details> que estaban abiertos
+    detailsAbiertos.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.open = true;
+        const key = id.replace('details-', '');
+        renderizarGraficoIndividual(key);
+      }
+    });
+
+    // Restaurar el gráfico del comparador si Chart.js ya estaba cargado
+    if (chartJsCargado) {
+      actualizarGraficoComparador();
+    }
+
+    // Restaurar scroll si no era carga inicial
+    if (!esCargaInicial) {
+      window.scrollTo(0, scrollY);
+    }
+
+    esCargaInicial = false;
+
+  } catch (err) {
+    console.error('Error cargando datos:', err);
+    if (esCargaInicial) {
+      fEl.textContent = '⚠️ Sin conexión';
+      panel.innerHTML = `<div class="aviso-info">😕 No se pudo cargar el reporte en este momento.<br><br>Puede que no haya conexión a Internet o el servidor de datos esté en mantenimiento. Volvé a intentarlo en unos minutos.</div>`;
+    } else {
+      mostrarToast('No se pudo actualizar los datos en segundo plano.', 'alerta');
+    }
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.classList.remove('cargando-spin');
+      btn.querySelector('span:last-child').textContent = 'Actualizar';
+    }
   }
-  btn.disabled=false; btn.textContent='🔄   Actualizar';
+}
+
+// ──────────────────────────────────────────────────────────────
+// P1-3. AUTO-ACTUALIZACIÓN PERIÓDICA CON PAUSA EN VISIBILIDAD
+// ──────────────────────────────────────────────────────────────
+const INTERVALO_REFRESH_MS = 5 * 60 * 1000; // 5 minutos
+
+setInterval(() => {
+  if (document.visibilityState === 'visible') {
+    cargarDatos(true);
+  }
+}, INTERVALO_REFRESH_MS);
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    const tiempoTranscurrido = Date.now() - ultimaActualizacionExitosa;
+    if (tiempoTranscurrido > INTERVALO_REFRESH_MS) {
+      cargarDatos(true);
+    }
+  }
+});
+
+// ──────────────────────────────────────────────────────────────
+// P1-10. VISTA SIMPLIFICADA / IMPRESIÓN Y COMPARTIR
+// ──────────────────────────────────────────────────────────────
+function alternarModoSimple() {
+  document.body.classList.toggle('modo-simple');
+  const esSimple = document.body.classList.contains('modo-simple');
+  const btn = document.getElementById('btnModoSimple');
+  if (btn) {
+    btn.innerHTML = esSimple ? '📑 Vista completa' : '🖨️ Vista simple';
+  }
+  if (esSimple) {
+    window.print();
+  }
+}
+
+// Verificar si viene con parámetro ?modo=simple
+if (new URLSearchParams(window.location.search).get('modo') === 'simple') {
+  document.body.classList.add('modo-simple');
 }
 
 async function compartirReporte() {
-  const text = "🌊 Reporte Fluvial - Niveles de Ríos\nConsultá el estado actualizado de los puertos aquí: " + window.location.href;
+  const text = "🌊 Reporte Fluvial - Niveles de Ríos de Argentina en Tiempo Real\nConsultá alturas de puertos y alertas oficiales aquí: " + window.location.href;
   if (navigator.share) {
     try {
       await navigator.share({ title: "Reporte Fluvial", text: text, url: window.location.href });
     } catch (e) {}
   } else {
-    navigator.clipboard.writeText(text);
-    alert("¡Enlace copiado al portapapeles! 📋");
+    try {
+      await navigator.clipboard.writeText(text);
+      mostrarToast('¡Enlace copiado al portapapeles! 📋', 'alerta');
+    } catch (e) {
+      alert("¡Enlace copiado al portapapeles! 📋");
+    }
   }
 }
 
-// Registrar Service Worker para PWA
+// ──────────────────────────────────────────────────────────────
+// INICIALIZACIÓN
+// ──────────────────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW reg error:', err));
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
   });
 }
 
-cargarDatos();
+actualizarBotonesToolbar();
+cargarDatos(false);
 </script>
 </body>
 </html>

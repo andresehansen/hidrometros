@@ -1,12 +1,12 @@
-const CACHE_NAME = 'reporte-fluvial-v2';
+const CACHE_NAME = 'reporte-fluvial-v3';
 const ASSETS = [
   './',
   './index.html',
   './privacidad.html',
   './terminos.html',
   './acerca.html',
-  './data.json',
-  'https://cdn.jsdelivr.net/npm/chart.js',
+  './manifest.json',
+  './favicon.svg',
   'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap'
 ];
 
@@ -41,5 +41,22 @@ self.addEventListener('fetch', (e) => {
   // Para otros assets usamos Cache First con respaldo de red
   e.respondWith(
     caches.match(e.request).then((res) => res || fetch(e.request))
+  );
+});
+
+// Evento de clic en notificaciones
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  e.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('./index.html');
+      }
+    })
   );
 });

@@ -93,18 +93,44 @@
 
 <button class="btn-tema" id="btnTema" title="Cambiar tema" onclick="toggleTema()">🌙</button>
 <script>
-  function toggleTema() {
+  function aplicarTema(tema) {
     const html = document.documentElement;
-    const esOscuro = html.getAttribute('data-tema') === 'oscuro';
-    html.setAttribute('data-tema', esOscuro ? '' : 'oscuro');
-    document.getElementById('btnTema').textContent = esOscuro ? '🌙' : '☀️';
-    localStorage.setItem('tema', esOscuro ? '' : 'oscuro');
+    const btn = document.getElementById('btnTema');
+    if (tema === 'oscuro') {
+      html.setAttribute('data-tema', 'oscuro');
+      if (btn) {
+        btn.textContent = '☀️';
+        btn.setAttribute('aria-label', 'Cambiar a modo claro');
+        btn.setAttribute('title', 'Cambiar a modo claro');
+      }
+    } else {
+      html.removeAttribute('data-tema');
+      if (btn) {
+        btn.textContent = '🌙';
+        btn.setAttribute('aria-label', 'Cambiar a modo oscuro');
+        btn.setAttribute('title', 'Cambiar a modo oscuro');
+      }
+    }
+  }
+  function toggleTema() {
+    const esOscuro = document.documentElement.getAttribute('data-tema') === 'oscuro';
+    const nuevo = esOscuro ? 'claro' : 'oscuro';
+    aplicarTema(nuevo);
+    localStorage.setItem('tema', nuevo);
   }
   (function () {
-    const t = localStorage.getItem('tema');
-    if (t === 'oscuro') {
-      document.documentElement.setAttribute('data-tema', 'oscuro');
-      document.getElementById('btnTema').textContent = '☀️';
+    const guardado = localStorage.getItem('tema');
+    if (guardado) {
+      aplicarTema(guardado);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      aplicarTema('oscuro');
+    }
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('tema')) {
+          aplicarTema(e.matches ? 'oscuro' : 'claro');
+        }
+      });
     }
   })();
 </script>

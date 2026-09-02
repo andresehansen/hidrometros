@@ -1,5 +1,14 @@
-// index.js - Reporte Fluvial
-// Publica en Facebook Y genera data.json para el sitio web
+/**
+ * index.js - Worker / Backend Bot para GitHub Actions (Reporte Fluvial)
+ * ---------------------------------------------------------------------
+ * Este archivo NO es parte del frontend del navegador.
+ * Es ejecutado automáticamente cada hora por GitHub Actions (.github/workflows/reporte.yml).
+ * Responsabilidades:
+ *  1. Consultar APIs oficiales (AGPSE, INA, CARU, PNA, SHN, Open-Meteo).
+ *  2. Consolidar el historial de lecturas y calcular tendencias.
+ *  3. Generar y commitear data.json (schemaVersion 1.0.0).
+ *  4. Opcionalmente publicar el reporte en Facebook si existen credenciales.
+ */
 const https = require('https');  // necesario para TLS inválido en AGPSE
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -593,6 +602,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
 
         // ---- GENERAR data.json PARA EL SITIO WEB ----
         const dataJson = {
+            schemaVersion: "1.0.0",
             fechaReporte,
             generadoEn: ahora.toISOString(),
             laplata:    lpDatos,
