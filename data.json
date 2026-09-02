@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "01/09/2026 a las 23:19 hs",
-  "generadoEn": "2026-09-01T23:19:27.053Z",
+  "fechaReporte": "02/09/2026 a las 00:08 hs",
+  "generadoEn": "2026-09-02T00:08:08.692Z",
   "laplata": {
-    "altura": "1.01",
-    "horaStr": "23:10",
+    "altura": "1.16",
+    "horaStr": "23:50",
     "fechaStr": "01/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.01m (a las 23:10 hs)",
+    "textoFB": "1.16m (a las 23:50 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.00",
-        "fechaStr": "31/08/2026",
-        "horaStr": "04:10"
-      },
       {
         "altura": "1.25",
         "fechaStr": "31/08/2026",
@@ -250,17 +245,22 @@
         "altura": "1.01",
         "fechaStr": "01/09/2026",
         "horaStr": "23:10"
+      },
+      {
+        "altura": "1.16",
+        "fechaStr": "01/09/2026",
+        "horaStr": "23:50"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.12m)",
-      "diferencia": "-0.12"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.15m)",
+      "diferencia": "+0.15"
     }
   },
   "viento": {
-    "velocidad": 8.3,
+    "velocidad": 8.4,
     "direccion": "Noreste (NE)",
     "temperatura": 10.5
   },
@@ -539,8 +539,8 @@
     "horaStr": "00:00",
     "fechaStr": "01/09/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "2.88m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "2.88m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -607,8 +607,8 @@
     "horaStr": "00:00",
     "fechaStr": "01/09/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "4.67m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "4.67m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
