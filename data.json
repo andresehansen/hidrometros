@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "02/09/2026 a las 00:08 hs",
-  "generadoEn": "2026-09-02T00:08:08.692Z",
+  "fechaReporte": "02/09/2026 a las 00:19 hs",
+  "generadoEn": "2026-09-02T00:19:28.143Z",
   "laplata": {
-    "altura": "1.16",
-    "horaStr": "23:50",
-    "fechaStr": "01/09/2026",
+    "altura": "0.93",
+    "horaStr": "00:10",
+    "fechaStr": "02/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.16m (a las 23:50 hs)",
+    "textoFB": "0.93m (a las 00:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.25",
-        "fechaStr": "31/08/2026",
-        "horaStr": "05:10"
-      },
       {
         "altura": "1.31",
         "fechaStr": "31/08/2026",
@@ -250,17 +245,22 @@
         "altura": "1.16",
         "fechaStr": "01/09/2026",
         "horaStr": "23:50"
+      },
+      {
+        "altura": "0.93",
+        "fechaStr": "02/09/2026",
+        "horaStr": "00:10"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.15m)",
-      "diferencia": "+0.15"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.23m)",
+      "diferencia": "-0.23"
     }
   },
   "viento": {
-    "velocidad": 8.4,
+    "velocidad": 8.7,
     "direccion": "Noreste (NE)",
     "temperatura": 10.5
   },
