@@ -1,21 +1,16 @@
 {
-  "fechaReporte": "02/09/2026 a las 06:19 hs",
-  "generadoEn": "2026-09-02T06:19:27.826Z",
+  "fechaReporte": "02/09/2026 a las 07:19 hs",
+  "generadoEn": "2026-09-02T07:19:26.743Z",
   "laplata": {
-    "altura": "1.13",
-    "horaStr": "06:10",
+    "altura": "1.46",
+    "horaStr": "07:00",
     "fechaStr": "02/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.13m (a las 06:10 hs)",
+    "textoFB": "1.46m (a las 07:00 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.17",
-        "fechaStr": "31/08/2026",
-        "horaStr": "11:30"
-      },
       {
         "altura": "1.13",
         "fechaStr": "31/08/2026",
@@ -250,39 +245,44 @@
         "altura": "1.13",
         "fechaStr": "02/09/2026",
         "horaStr": "06:10"
+      },
+      {
+        "altura": "1.46",
+        "fechaStr": "02/09/2026",
+        "horaStr": "07:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.24m)",
-      "diferencia": "+0.24"
+      "texto": "Subiendo (+0.33m)",
+      "diferencia": "+0.33"
     }
   },
   "viento": {
-    "velocidad": 5.5,
+    "velocidad": 7.5,
     "direccion": "Noreste (NE)",
-    "temperatura": 10.6
+    "temperatura": 10.7
   },
   "pronostico": {
     "pleamar": {
       "hora": "09:00",
-      "altura": "1.35",
+      "altura": "1.45",
       "fecha": "02/09"
     },
     "bajamar": {
-      "hora": "03:30",
-      "altura": "0.40",
+      "hora": "17:00",
+      "altura": "0.60",
       "fecha": "02/09"
     }
   },
   "iguazu": {
-    "altura": "15.92",
-    "horaStr": "06:00",
-    "fechaStr": "02/09/2026",
-    "fuente": "AGPSE",
-    "antiguo": false,
-    "textoFB": "15.92m (a las 06:00 hs)",
+    "altura": "10.40",
+    "horaStr": "00:00",
+    "fechaStr": "01/09/2026",
+    "fuente": "INA",
+    "antiguo": true,
+    "textoFB": "10.40m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -528,10 +528,10 @@
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.14m)",
-      "diferencia": "+0.14"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-5.38m)",
+      "diferencia": "-5.38"
     }
   },
   "sanjavier": {
