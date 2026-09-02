@@ -95,6 +95,7 @@
     --azul-claro:#e8f4fd;
     --verde-ok:#166534;
     --verde-bg:#dcfce7;
+    --verde-border:#86efac;
     --naranja-alerta:#9a3412;
     --naranja-bg:#ffedd5;
     --amarillo-alerta:#854d0e;
@@ -122,6 +123,7 @@
     --azul-claro:#0d1f2d;
     --verde-ok:#86efac;
     --verde-bg:#14532d;
+    --verde-border:#22c55e;
     --naranja-alerta:#fdba74;
     --naranja-bg:#431407;
     --amarillo-alerta:#fde047;
@@ -174,16 +176,20 @@
   .dato-fila:first-of-type{border-top:none;padding-top:0}
   .dato-icono{font-size:1.6rem;width:40px;text-align:center;flex-shrink:0;margin-top:2px}
   .dato-contenido{flex:1}
-  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:var(--color-etiqueta);font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:6px}
-  .dato-valor{font-size:1.5rem;font-weight:700;color:var(--texto);line-height:1.2}
-  .dato-valor.grande{font-size:2rem;color:var(--azul-rio)}
-  .dato-valor.val-alerta{color:var(--amarillo-alerta)}
-  .dato-valor.val-evacuacion{color:var(--rojo-evacuacion)}
+  .dato-etiqueta{font-size:.88rem;text-transform:uppercase;letter-spacing:.8px;color:var(--color-etiqueta);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  
+  /* Nuevo Visor de Altura Claro y Moderno */
+  .visor-altura-box { background: var(--fondo-sub); border: 1px solid var(--borde-sub); border-radius: 14px; padding: 14px 16px; margin-top: 4px; }
+  .visor-valor-fila { display: flex; align-items: baseline; gap: 8px; }
+  .dato-valor.grande { font-size: 2.3rem; font-weight: 800; color: var(--azul-rio); line-height: 1; letter-spacing: -0.5px; }
+  .dato-valor.val-alerta { color: var(--amarillo-alerta); }
+  .dato-valor.val-evacuacion { color: var(--rojo-evacuacion); }
+  .unidad-metros { font-size: 1.15rem; font-weight: 700; color: var(--color-sub); }
+  .dato-sub{font-size:.88rem;color:var(--color-fecha);margin-top:4px}
 
-  .dato-sub{font-size:.9rem;color:var(--color-fecha);margin-top:3px}
-  .badge-container{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-  .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:.88rem;font-weight:700}
-  .badge-ok{background:var(--verde-bg);color:var(--verde-ok)}
+  .badge-container{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .badge{display:inline-block;padding:5px 12px;border-radius:50px;font-size:.85rem;font-weight:700}
+  .badge-ok{background:var(--verde-bg);color:var(--verde-ok);border:1px solid var(--verde-border)}
   .badge-alerta{background:var(--naranja-bg);color:var(--naranja-alerta)}
   .badge-alerta-nivel{background:var(--amarillo-bg);color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);font-weight:700}
   .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
@@ -196,23 +202,42 @@
   [data-tema="oscuro"] .badge-tendencia-bajando{background:#0c4a6e;color:#7dd3fc;border-color:#0369a1}
   [data-tema="oscuro"] .badge-tendencia-estacionado{background:#1e293b;color:#94a3b8;border-color:#334155}
 
-  .referencia-niveles{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px;padding:10px 14px;background:var(--fondo-sub);border-radius:12px;font-size:0.88rem;color:var(--color-sub)}
-  .ref-item strong{font-weight:700}
-  .ref-item.ref-alerta strong{color:var(--amarillo-alerta)}
-  .ref-item.ref-evacuacion strong{color:var(--rojo-evacuacion)}
+  /* Cartel de Margen de Seguridad / Estado claro */
+  .estado-margen-box {
+    margin-top: 10px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  .estado-margen-box.normal {
+    background: var(--verde-bg);
+    color: var(--verde-ok);
+    border: 1px solid var(--verde-border);
+  }
+  .estado-margen-box.alerta {
+    background: var(--amarillo-bg);
+    color: var(--amarillo-alerta);
+    border: 1px solid var(--amarillo-border);
+  }
+  .estado-margen-box.evacuacion {
+    background: var(--rojo-bg);
+    color: var(--rojo-evacuacion);
+    border: 1px solid var(--rojo-border);
+  }
 
-  /* Indicador Visual / Gauge de Proximidad a Umbrales */
-  .gauge-container{margin-top:12px;padding:10px 12px;background:var(--fondo-sub);border-radius:12px;border:1px solid var(--borde-sub)}
-  .gauge-encabezado{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--color-sub);margin-bottom:6px;font-weight:600}
-  .gauge-barra{position:relative;height:14px;border-radius:8px;background:#e2e8f0;overflow:hidden;display:flex}
-  [data-tema="oscuro"] .gauge-barra{background:#334155}
-  .gauge-segmento{height:100%;transition:width 0.4s ease}
-  .gauge-seg-normal{background:linear-gradient(90deg, #22c55e, #84cc16)}
-  .gauge-seg-alerta{background:linear-gradient(90deg, #eab308, #f97316)}
-  .gauge-seg-evacuacion{background:linear-gradient(90deg, #ef4444, #b91c1c)}
-  .gauge-indicador{position:absolute;top:-4px;width:4px;height:22px;background:#000000;border:1px solid #ffffff;border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,0.5);transform:translateX(-50%);transition:left 0.4s ease;z-index:2}
-  [data-tema="oscuro"] .gauge-indicador{background:#ffffff;border:1px solid #000000}
-  .gauge-marcas{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--color-sub);margin-top:6px}
+  /* Semáforo de Riesgo en 3 pasos */
+  .semaforo-riesgo { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--borde-sub); }
+  .semaforo-etiquetas { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 700; color: var(--color-sub); margin-bottom: 5px; }
+  .semaforo-etiquetas .paso.activo { font-weight: 800; }
+  .semaforo-etiquetas .paso.activo.normal { color: var(--verde-ok); }
+  .semaforo-etiquetas .paso.activo.alerta { color: var(--amarillo-alerta); }
+  .semaforo-etiquetas .paso.activo.evacuacion { color: var(--rojo-evacuacion); }
+  
+  .semaforo-pista { height: 7px; border-radius: 6px; background: #e2e8f0; overflow: hidden; position: relative; }
+  [data-tema="oscuro"] .semaforo-pista { background: #334155; }
+  .semaforo-progreso { height: 100%; border-radius: 6px; transition: width 0.4s ease; }
 
   /* Tooltips y Ayuda Técnica */
   .btn-info-tooltip{background:none;border:none;cursor:pointer;color:var(--azul-medio);font-size:0.95rem;padding:0 3px;display:inline-flex;align-items:center;vertical-align:middle;transition:transform 0.1s}
@@ -290,12 +315,6 @@
   .btn-csv { background: var(--fondo-sub); color: var(--azul-medio); border: 1px solid var(--borde-sub); border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: background .2s; }
   .btn-csv:hover { background: var(--azul-claro); }
 
-  /* Comparador de Cuenca */
-  .seccion-comparador { background: var(--fondo-tarjeta); border-radius: var(--radio); padding: 22px; margin-bottom: 16px; box-shadow: var(--sombra); border-left: 6px solid var(--azul-medio); }
-  .comparador-filtros { display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 12px 0; }
-  .filtro-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; background: var(--fondo-sub); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--borde-sub); cursor: pointer; user-select: none; }
-  .filtro-chip input { cursor: pointer; }
-
   /* Utilidad para accesibilidad (Lectores de pantalla) */
   .sr-only {
     position: absolute;
@@ -369,7 +388,7 @@
       El <strong>nivel hidrométrico</strong> (o altura del río) es la medición de la lámina de agua sobre una escala graduada fija, expresada en metros. Cada puerto tiene sus propios umbrales de alerta y evacuación definidos por organismos oficiales.
     </p>
     <div style="display:grid;gap:10px;margin-bottom:14px;">
-      <div style="background:var(--verde-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--verde-ok);">
+      <div style="background:var(--verde-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--verde-ok);border:1px solid var(--verde-border);">
         <strong>🟢 Nivel Normal</strong> — El río se encuentra dentro de los parámetros habituales. No se esperan inconvenientes para la navegación ni para las poblaciones ribereñas.
       </div>
       <div style="background:var(--amarillo-bg);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);">
@@ -655,14 +674,6 @@ function renderBadgeNivel(estado) {
   return `<span class="badge badge-ok">🟢 Normal</span>`;
 }
 
-function renderReferenciaPill(alerta, evacuacion) {
-  return `
-    <div class="referencia-niveles">
-      <span class="ref-item ref-alerta">⚠️ Alerta: <strong>${alerta} m</strong></span>
-      <span class="ref-item ref-evacuacion">🚨 Evacuación: <strong>${evacuacion} m</strong></span>
-    </div>`;
-}
-
 function fechaLegible(str) {
   if (!str) return '—';
   const parts = str.split('/');
@@ -724,32 +735,74 @@ function toggleTooltip(id) {
   if (el) el.classList.toggle('abierto');
 }
 
-// P1-6: Indicador visual / Gauge de proximidad a umbrales
-function renderBarraNivel(alturaStr, alerta, evacuacion) {
-  if (alturaStr === null || alturaStr === undefined || isNaN(alturaStr)) return '';
-  const alt = parseFloat(alturaStr);
-  const maxEscala = Math.max(evacuacion * 1.25, alt * 1.1, 1);
-  const pctAlerta = Math.min(Math.max((alerta / maxEscala) * 100, 5), 90);
-  const pctEvac = Math.min(Math.max(((evacuacion - alerta) / maxEscala) * 100, 5), 95 - pctAlerta);
-  const pctNormal = pctAlerta;
-  const pctActual = Math.min(Math.max((alt / maxEscala) * 100, 0), 100);
+// ──────────────────────────────────────────────────────────────
+// VISOR DE ALTURA Y SEMÁFORO DE RIESGO INTUITIVO
+// ──────────────────────────────────────────────────────────────
+function renderVisorAltura(d, alerta, evacuacion) {
+  if (!d || d.altura === undefined || d.altura === null || isNaN(d.altura)) {
+    return badgeND();
+  }
+
+  const alt = parseFloat(d.altura);
+  const estado = getEstadoPuerto(d.altura, alerta, evacuacion);
+  const valClass = "dato-valor grande " + (estado === 'evacuacion' ? 'val-evacuacion' : (estado === 'alerta' ? 'val-alerta' : ''));
+
+  // Explicación de margen o exceso en lenguaje simple
+  let textoMargen = '';
+  if (estado === 'normal') {
+    const margenAlerta = (alerta - alt).toFixed(2);
+    textoMargen = `🟢 <strong>Nivel Seguro:</strong> El río está a <strong>${margenAlerta} m</strong> por debajo del límite de alerta (${alerta} m).`;
+  } else if (estado === 'alerta') {
+    const sobreAlerta = (alt - alerta).toFixed(2);
+    const margenEvac = (evacuacion - alt).toFixed(2);
+    textoMargen = `⚠️ <strong>Nivel de Alerta:</strong> Superó la alerta por <strong>${sobreAlerta} m</strong>. Falta <strong>${margenEvac} m</strong> para evacuación (${evacuacion} m).`;
+  } else {
+    const sobreEvac = (alt - evacuacion).toFixed(2);
+    textoMargen = `🚨 <strong>Nivel de Evacuación:</strong> Superó la cota crítica de evacuación por <strong>${sobreEvac} m</strong>.`;
+  }
+
+  // Progreso visual simplificado en semáforo de 3 estados
+  let pct = 25;
+  let colorBarra = 'var(--verde-ok)';
+  if (estado === 'normal') {
+    pct = Math.min(Math.max((alt / alerta) * 45, 15), 50);
+    colorBarra = 'var(--verde-ok)';
+  } else if (estado === 'alerta') {
+    const diff = (alt - alerta) / Math.max(evacuacion - alerta, 0.1);
+    pct = 50 + Math.min(Math.max(diff * 35, 5), 35);
+    colorBarra = 'var(--amarillo-alerta)';
+  } else {
+    pct = 100;
+    colorBarra = 'var(--rojo-evacuacion)';
+  }
 
   return `
-    <div class="gauge-container" role="meter" aria-valuenow="${alt}" aria-valuemin="0" aria-valuemax="${maxEscala.toFixed(1)}" aria-label="Nivel relativo respecto a umbrales de alerta y evacuación">
-      <div class="gauge-encabezado">
-        <span>Nivel actual: <strong>${alt} m</strong></span>
-        <span>Escala max: ${maxEscala.toFixed(1)} m</span>
+    <div class="visor-altura-box">
+      <div class="visor-valor-fila">
+        <div class="${valClass}">${d.altura}</div>
+        <div class="unidad-metros">metros</div>
       </div>
-      <div class="gauge-barra">
-        <div class="gauge-segmento gauge-seg-normal" style="width:${pctNormal}%" title="Zona Normal (hasta ${alerta}m)"></div>
-        <div class="gauge-segmento gauge-seg-alerta" style="width:${pctEvac}%" title="Zona de Alerta (${alerta}m a ${evacuacion}m)"></div>
-        <div class="gauge-segmento gauge-seg-evacuacion" style="width:${100 - pctNormal - pctEvac}%" title="Zona de Evacuación (desde ${evacuacion}m)"></div>
-        <div class="gauge-indicador" style="left:${pctActual}%" title="Lectura actual: ${alt}m"></div>
+      <div class="dato-sub">Medición a las <strong>${d.horaStr} hs</strong> (${fechaLegible(d.fechaStr)})${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div>
+      
+      <div class="badge-container">
+        ${renderBadgeNivel(estado)}
+        ${renderBadgeTendencia(d.tendencia)}
+        ${badge(d.antiguo, d.fuente, d.fechaStr, d.horaStr)}
       </div>
-      <div class="gauge-marcas">
-        <span>0 m</span>
-        <span style="color:var(--amarillo-alerta)">⚠️ ${alerta} m</span>
-        <span style="color:var(--rojo-evacuacion)">🚨 ${evacuacion} m</span>
+
+      <div class="estado-margen-box ${estado}">
+        ${textoMargen}
+      </div>
+
+      <div class="semaforo-riesgo">
+        <div class="semaforo-etiquetas">
+          <span class="paso ${estado === 'normal' ? 'activo normal' : ''}">Normal</span>
+          <span class="paso ${estado === 'alerta' ? 'activo alerta' : ''}">⚠️ Alerta (${alerta}m)</span>
+          <span class="paso ${estado === 'evacuacion' ? 'activo evacuacion' : ''}">🚨 Evacuación (${evacuacion}m)</span>
+        </div>
+        <div class="semaforo-pista">
+          <div class="semaforo-progreso" style="width:${pct}%; background-color:${colorBarra};"></div>
+        </div>
       </div>
     </div>
   `;
@@ -833,14 +886,12 @@ function tarjetaLP(d, viento, pron) {
     </details>`;
   }
 
-  const valClass = "dato-valor grande " + (estado === 'evacuacion' ? 'val-evacuacion' : (estado === 'alerta' ? 'val-alerta' : ''));
-
   return `<div class="tarjeta estado-${estado}">
     <div class="tarjeta-titulo">⚓ La Plata</div>
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
-      <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo de AGPSE en el Puerto La Plata.')}</div>
-      ${d ? `<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo, d.fuente, d.fechaStr, d.horaStr)}</div>${renderReferenciaPill(alerta, evacuacion)}${renderBarraNivel(d.altura, alerta, evacuacion)}` : badgeND()}
+      <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo oficial de AGPSE en el Puerto La Plata.')}</div>
+      ${renderVisorAltura(d, alerta, evacuacion)}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
       <div class="dato-etiqueta">Viento en la costa</div>
@@ -874,14 +925,12 @@ function tarjetaRio(nombre, emoji, d, idChart, keyPuerto) {
     </details>`;
   }
 
-  const valClass = "dato-valor grande " + (estado === 'evacuacion' ? 'val-evacuacion' : (estado === 'alerta' ? 'val-alerta' : ''));
-
   return `<div class="tarjeta estado-${estado}">
     <div class="tarjeta-titulo">${emoji} ${nombre}</div>
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
-      ${d ? `<div class="${valClass}">${d.altura} metros</div><div class="dato-sub">Medición a las ${d.horaStr} hs${calcularTiempoRelativo(d.fechaStr, d.horaStr)}</div><div class="badge-container">${renderBadgeNivel(estado)}${renderBadgeTendencia(d.tendencia)}${badge(d.antiguo, d.fuente, d.fechaStr, d.horaStr)}</div>${renderReferenciaPill(alerta, evacuacion)}${renderBarraNivel(d.altura, alerta, evacuacion)}` : badgeND()}
+      ${renderVisorAltura(d, alerta, evacuacion)}
     </div></div>
     ${histHTML}
   </div>`;
@@ -923,18 +972,12 @@ function tarjetaSaltoGrande(d) {
       </details>`;
     }
 
-    const valClass = "dato-valor grande " + (estadoSub === 'evacuacion' ? 'val-evacuacion' : (estadoSub === 'alerta' ? 'val-alerta' : ''));
-
     return `
       <div class="sub-seccion-puerto">
         <div class="sub-seccion-titulo">${emoji} ${titulo} ${renderTooltip(tooltipId, tooltipTexto)}</div>
         <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
           <div class="dato-etiqueta">Altura del agua</div>
-          ${subD ? `<div class="${valClass}">${subD.altura} metros</div>
-          <div class="dato-sub">Medición a las ${subD.horaStr} hs (${fechaLegible(subD.fechaStr)})${calcularTiempoRelativo(subD.fechaStr, subD.horaStr)}</div>
-          <div class="badge-container">${renderBadgeNivel(estadoSub)}${renderBadgeTendencia(subD.tendencia)}${badge(subD.antiguo, subD.fuente, subD.fechaStr, subD.horaStr)}</div>
-          ${renderReferenciaPill(alertaSub, evacSub)}
-          ${renderBarraNivel(subD.altura, alertaSub, evacSub)}` : badgeND()}
+          ${renderVisorAltura(subD, alertaSub, evacSub)}
         </div></div>
         ${histHTML}
       </div>`;
@@ -947,114 +990,6 @@ function tarjetaSaltoGrande(d) {
     <hr class="sub-divider" />
     ${renderSubSection('Salto Grande Abajo (Restitución)', '🔽', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo', 'sg-restitucion', 'Nivel del agua río abajo inmediatamente después de turbinar y verter el caudal.')}
   </div>`;
-}
-
-// ──────────────────────────────────────────────────────────────
-// P1-8. COMPARADOR DE PUERTOS DE LA CUENCA DEL RÍO URUGUAY
-// ──────────────────────────────────────────────────────────────
-function renderSeccionComparador(d) {
-  return `
-    <section class="seccion-comparador">
-      <div class="tarjeta-titulo">📈 Comparador de Cuenca (Río Uruguay)</div>
-      <p style="font-size:0.9rem;color:var(--color-sub);margin-top:4px;">
-        Superponé los registros históricos para visualizar cómo se traslada la onda de crecida río abajo entre puertos.
-      </p>
-      <div class="comparador-filtros">
-        <label class="filtro-chip"><input type="checkbox" id="chk-sg-abajo" checked onchange="actualizarGraficoComparador()"> Salto Grande Abajo</label>
-        <label class="filtro-chip"><input type="checkbox" id="chk-concordia" checked onchange="actualizarGraficoComparador()"> Concordia</label>
-        <label class="filtro-chip"><input type="checkbox" id="chk-santotome" checked onchange="actualizarGraficoComparador()"> Santo Tomé</label>
-        <label class="filtro-chip"><input type="checkbox" id="chk-sanjavier" onchange="actualizarGraficoComparador()"> San Javier</label>
-      </div>
-      <div class="historial-chart" style="height:220px;">
-        <canvas id="chart-comparador" role="img" aria-label="Gráfico comparativo de alturas en la cuenca del Río Uruguay"></canvas>
-      </div>
-    </section>
-  `;
-}
-
-let chartComparadorInstancia = null;
-
-async function actualizarGraficoComparador() {
-  if (!datosActuales) return;
-  await asegurarChartJs();
-  const canvas = document.getElementById('chart-comparador');
-  if (!canvas) return;
-
-  const chkSG = document.getElementById('chk-sg-abajo')?.checked;
-  const chkCo = document.getElementById('chk-concordia')?.checked;
-  const chkST = document.getElementById('chk-santotome')?.checked;
-  const chkSJ = document.getElementById('chk-sanjavier')?.checked;
-
-  const series = [];
-  if (chkSG && datosActuales.saltogrande?.abajo?.historico) {
-    series.push({
-      label: 'Salto Grande Abajo',
-      data: datosActuales.saltogrande.abajo.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
-      borderColor: '#3b82f6',
-      backgroundColor: 'rgba(59,130,246,0.1)',
-      borderWidth: 2,
-      tension: 0.3
-    });
-  }
-  if (chkCo && datosActuales.concordia?.historico) {
-    series.push({
-      label: 'Concordia',
-      data: datosActuales.concordia.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
-      borderColor: '#10b981',
-      backgroundColor: 'rgba(16,185,129,0.1)',
-      borderWidth: 2,
-      tension: 0.3
-    });
-  }
-  if (chkST && datosActuales.santotome?.historico) {
-    series.push({
-      label: 'Santo Tomé',
-      data: datosActuales.santotome.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
-      borderColor: '#f59e0b',
-      backgroundColor: 'rgba(245,158,11,0.1)',
-      borderWidth: 2,
-      tension: 0.3
-    });
-  }
-  if (chkSJ && datosActuales.sanjavier?.historico) {
-    series.push({
-      label: 'San Javier',
-      data: datosActuales.sanjavier.historico.map(h => ({ x: h.horaStr, y: parseFloat(h.altura) })),
-      borderColor: '#8b5cf6',
-      backgroundColor: 'rgba(139,92,246,0.1)',
-      borderWidth: 2,
-      tension: 0.3
-    });
-  }
-
-  // Recolectar todas las etiquetas de horas únicas y ordenarlas
-  const labelsSet = new Set();
-  series.forEach(s => s.data.forEach(p => labelsSet.add(p.x)));
-  const labels = Array.from(labelsSet);
-
-  if (chartComparadorInstancia) {
-    chartComparadorInstancia.destroy();
-  }
-
-  chartComparadorInstancia = new Chart(canvas, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: series
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
-      },
-      scales: {
-        x: { ticks: { font: { size: 10 } } },
-        y: { title: { display: true, text: 'Metros' }, ticks: { font: { size: 11 } } }
-      }
-    }
-  });
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -1340,8 +1275,7 @@ async function cargarDatos(esAuto = false) {
                      tarjetaSaltoGrande(d.saltogrande) +
                      tarjetaRio('Concordia', '🌿', d.concordia, 'concordia', 'concordia') + 
                      tarjetaRio('San Javier', '⛵', d.sanjavier, 'sanjavier', 'sanjavier') + 
-                     tarjetaRio('Santo Tomé', '📍', d.santotome, 'santotome', 'santotome') +
-                     renderSeccionComparador(d);
+                     tarjetaRio('Santo Tomé', '📍', d.santotome, 'santotome', 'santotome');
 
     // Restaurar los <details> que estaban abiertos
     detailsAbiertos.forEach(id => {
@@ -1352,11 +1286,6 @@ async function cargarDatos(esAuto = false) {
         renderizarGraficoIndividual(key);
       }
     });
-
-    // Restaurar el gráfico del comparador si Chart.js ya estaba cargado
-    if (chartJsCargado) {
-      actualizarGraficoComparador();
-    }
 
     // Restaurar scroll si no era carga inicial
     if (!esCargaInicial) {
