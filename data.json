@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "03/09/2026 a las 13:09 hs",
-  "generadoEn": "2026-09-03T13:09:29.333Z",
+  "fechaReporte": "03/09/2026 a las 13:19 hs",
+  "generadoEn": "2026-09-03T13:19:27.863Z",
   "laplata": {
     "altura": "0.98",
     "horaStr": "12:40",
@@ -261,9 +261,9 @@
     }
   },
   "viento": {
-    "velocidad": 17.5,
+    "velocidad": 17.7,
     "direccion": "Oeste (W)",
-    "temperatura": 17.7
+    "temperatura": 17.8
   },
   "pronostico": {
     "pleamar": {
@@ -791,12 +791,12 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.65",
-      "horaStr": "00:00",
+      "altura": "34.67",
+      "horaStr": "12:00",
       "fechaStr": "03/09/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "34.65m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "34.67m (a las 12:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -889,22 +889,27 @@
           "altura": "34.65",
           "fechaStr": "03/09/2026",
           "horaStr": "00:00"
+        },
+        {
+          "altura": "34.67",
+          "fechaStr": "03/09/2026",
+          "horaStr": "12:00"
         }
       ],
       "tendencia": {
-        "icono": "➡️",
-        "estado": "estacionado",
-        "texto": "Estacionado",
-        "diferencia": "0.00"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.02m)",
+        "diferencia": "+0.02"
       }
     },
     "abajo": {
-      "altura": "9.41",
-      "horaStr": "00:00",
+      "altura": "9.19",
+      "horaStr": "12:00",
       "fechaStr": "03/09/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "9.41m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "9.19m (a las 12:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -997,13 +1002,18 @@
           "altura": "9.41",
           "fechaStr": "03/09/2026",
           "horaStr": "00:00"
+        },
+        {
+          "altura": "9.19",
+          "fechaStr": "03/09/2026",
+          "horaStr": "12:00"
         }
       ],
       "tendencia": {
-        "icono": "⬆️",
-        "estado": "subiendo",
-        "texto": "Subiendo (+0.25m)",
-        "diferencia": "+0.25"
+        "icono": "⬇️",
+        "estado": "bajando",
+        "texto": "Bajando (-0.22m)",
+        "diferencia": "-0.22"
       }
     }
   }
