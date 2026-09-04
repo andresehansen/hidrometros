@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "04/09/2026 a las 11:19 hs",
-  "generadoEn": "2026-09-04T11:19:29.727Z",
+  "fechaReporte": "04/09/2026 a las 11:49 hs",
+  "generadoEn": "2026-09-04T11:49:05.907Z",
   "laplata": {
-    "altura": "1.77",
-    "horaStr": "11:10",
+    "altura": "1.74",
+    "horaStr": "11:30",
     "fechaStr": "04/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.77m (a las 11:10 hs)",
+    "textoFB": "1.74m (a las 11:30 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.09",
-        "fechaStr": "02/09/2026",
-        "horaStr": "19:10"
-      },
       {
         "altura": "1.13",
         "fechaStr": "02/09/2026",
@@ -251,19 +246,24 @@
         "altura": "1.77",
         "fechaStr": "04/09/2026",
         "horaStr": "11:10"
+      },
+      {
+        "altura": "1.74",
+        "fechaStr": "04/09/2026",
+        "horaStr": "11:30"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "viento": {
-    "velocidad": 8.3,
+    "velocidad": 9.2,
     "direccion": "Oeste (W)",
-    "temperatura": 13.1
+    "temperatura": 13.7
   },
   "pronostico": {
     "pleamar": {
@@ -809,9 +809,9 @@
       "altura": "34.63",
       "horaStr": "00:00",
       "fechaStr": "04/09/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "34.63m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "34.63m (a las 00:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -927,9 +927,9 @@
       "altura": "9.57",
       "horaStr": "00:00",
       "fechaStr": "04/09/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "9.57m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "9.57m (a las 00:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
