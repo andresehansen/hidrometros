@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "05/09/2026 a las 05:19 hs",
-  "generadoEn": "2026-09-05T05:19:23.165Z",
+  "fechaReporte": "05/09/2026 a las 06:19 hs",
+  "generadoEn": "2026-09-05T06:19:25.026Z",
   "laplata": {
-    "altura": "0.74",
-    "horaStr": "05:00",
+    "altura": "0.82",
+    "horaStr": "06:10",
     "fechaStr": "05/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.74m (a las 05:00 hs)",
+    "textoFB": "0.82m (a las 06:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.83",
-        "fechaStr": "03/09/2026",
-        "horaStr": "14:10"
-      },
       {
         "altura": "0.73",
         "fechaStr": "03/09/2026",
@@ -251,19 +246,24 @@
         "altura": "0.74",
         "fechaStr": "05/09/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "0.82",
+        "fechaStr": "05/09/2026",
+        "horaStr": "06:10"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.08m)",
+      "diferencia": "+0.08"
     }
   },
   "viento": {
-    "velocidad": 12.4,
+    "velocidad": 12.6,
     "direccion": "Suroeste (SW)",
-    "temperatura": 6.5
+    "temperatura": 5.9
   },
   "pronostico": {
     "pleamar": {
@@ -278,20 +278,15 @@
     }
   },
   "iguazu": {
-    "altura": "16.14",
-    "horaStr": "05:00",
+    "altura": "16.06",
+    "horaStr": "06:00",
     "fechaStr": "05/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "16.14m (a las 05:00 hs)",
+    "textoFB": "16.06m (a las 06:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "17.00",
-        "fechaStr": "03/09/2026",
-        "horaStr": "08:40"
-      },
       {
         "altura": "16.97",
         "fechaStr": "03/09/2026",
@@ -526,6 +521,11 @@
         "altura": "16.14",
         "fechaStr": "05/09/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "16.06",
+        "fechaStr": "05/09/2026",
+        "horaStr": "06:00"
       }
     ],
     "tendencia": {
