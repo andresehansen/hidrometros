@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "05/09/2026 a las 05:05 hs",
-  "generadoEn": "2026-09-05T05:05:29.642Z",
+  "fechaReporte": "05/09/2026 a las 05:19 hs",
+  "generadoEn": "2026-09-05T05:19:23.165Z",
   "laplata": {
     "altura": "0.74",
-    "horaStr": "04:50",
+    "horaStr": "05:00",
     "fechaStr": "05/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.74m (a las 04:50 hs)",
+    "textoFB": "0.74m (a las 05:00 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.98",
-        "fechaStr": "03/09/2026",
-        "horaStr": "12:40"
-      },
       {
         "altura": "0.83",
         "fechaStr": "03/09/2026",
@@ -251,19 +246,24 @@
         "altura": "0.74",
         "fechaStr": "05/09/2026",
         "horaStr": "04:50"
+      },
+      {
+        "altura": "0.74",
+        "fechaStr": "05/09/2026",
+        "horaStr": "05:00"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
     "velocidad": 12.4,
     "direccion": "Suroeste (SW)",
-    "temperatura": 6.6
+    "temperatura": 6.5
   },
   "pronostico": {
     "pleamar": {
