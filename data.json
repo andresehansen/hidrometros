@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "07/09/2026 a las 00:09 hs",
-  "generadoEn": "2026-09-07T00:09:09.329Z",
+  "fechaReporte": "07/09/2026 a las 00:19 hs",
+  "generadoEn": "2026-09-07T00:19:23.790Z",
   "laplata": {
     "altura": "1.50",
-    "horaStr": "23:50",
-    "fechaStr": "06/09/2026",
+    "horaStr": "00:10",
+    "fechaStr": "07/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "1.50m (a las 23:50 hs)",
+    "textoFB": "1.50m (a las 00:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.60",
-        "fechaStr": "05/09/2026",
-        "horaStr": "10:00"
-      },
       {
         "altura": "1.73",
         "fechaStr": "05/09/2026",
@@ -251,17 +246,22 @@
         "altura": "1.50",
         "fechaStr": "06/09/2026",
         "horaStr": "23:50"
+      },
+      {
+        "altura": "1.50",
+        "fechaStr": "07/09/2026",
+        "horaStr": "00:10"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.01m)",
-      "diferencia": "-0.01"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 7.8,
+    "velocidad": 7.7,
     "direccion": "Sureste (SE)",
     "temperatura": 5.6
   },
