@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "07/09/2026 a las 10:19 hs",
-  "generadoEn": "2026-09-07T10:19:26.822Z",
+  "fechaReporte": "07/09/2026 a las 11:19 hs",
+  "generadoEn": "2026-09-07T11:19:29.079Z",
   "laplata": {
-    "altura": "0.69",
-    "horaStr": "09:45",
+    "altura": "0.87",
+    "horaStr": "11:10",
     "fechaStr": "07/09/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "0.69m (a las 09:45 hs) (Fuente: INA)",
+    "textoFB": "0.87m (a las 11:10 hs)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.98",
-        "fechaStr": "05/09/2026",
-        "horaStr": "19:10"
-      },
       {
         "altura": "2.04",
         "fechaStr": "05/09/2026",
@@ -251,19 +246,24 @@
         "altura": "0.69",
         "fechaStr": "07/09/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "0.87",
+        "fechaStr": "07/09/2026",
+        "horaStr": "11:10"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.06m)",
-      "diferencia": "+0.06"
+      "texto": "Subiendo (+0.18m)",
+      "diferencia": "+0.18"
     }
   },
   "viento": {
-    "velocidad": 15.4,
+    "velocidad": 14.5,
     "direccion": "Norte (N)",
-    "temperatura": 8.6
+    "temperatura": 9.3
   },
   "pronostico": {
     "pleamar": {
@@ -278,20 +278,15 @@
     }
   },
   "iguazu": {
-    "altura": "12.02",
-    "horaStr": "10:00",
+    "altura": "11.89",
+    "horaStr": "11:00",
     "fechaStr": "07/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "12.02m (a las 10:00 hs)",
+    "textoFB": "11.89m (a las 11:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "14.85",
-        "fechaStr": "05/09/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "14.75",
         "fechaStr": "05/09/2026",
@@ -526,22 +521,27 @@
         "altura": "12.02",
         "fechaStr": "07/09/2026",
         "horaStr": "10:00"
+      },
+      {
+        "altura": "11.89",
+        "fechaStr": "07/09/2026",
+        "horaStr": "11:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.19m)",
-      "diferencia": "-0.19"
+      "texto": "Bajando (-0.13m)",
+      "diferencia": "-0.13"
     }
   },
   "sanjavier": {
-    "altura": "3.80",
+    "altura": "3.40",
     "horaStr": "00:00",
-    "fechaStr": "06/09/2026",
+    "fechaStr": "07/09/2026",
     "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "3.80m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "antiguo": false,
+    "textoFB": "3.40m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -619,22 +619,27 @@
         "altura": "3.80",
         "fechaStr": "06/09/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "3.40",
+        "fechaStr": "07/09/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-1.58m)",
-      "diferencia": "-1.58"
+      "texto": "Bajando (-0.40m)",
+      "diferencia": "-0.40"
     }
   },
   "santotome": {
-    "altura": "8.62",
+    "altura": "7.60",
     "horaStr": "00:00",
-    "fechaStr": "06/09/2026",
+    "fechaStr": "07/09/2026",
     "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "8.62m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "antiguo": false,
+    "textoFB": "7.60m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
@@ -722,13 +727,18 @@
         "altura": "8.62",
         "fechaStr": "06/09/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "7.60",
+        "fechaStr": "07/09/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.48m)",
-      "diferencia": "-0.48"
+      "texto": "Bajando (-1.02m)",
+      "diferencia": "-1.02"
     }
   },
   "concordia": {
