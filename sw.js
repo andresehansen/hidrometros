@@ -1,4 +1,4 @@
-const CACHE_NAME = 'reporte-fluvial-v3';
+const CACHE_NAME = 'reporte-fluvial-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -31,10 +31,22 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Para data.json usamos Network First para tener siempre el dato más fresco
+  // Para data.json usamos Network First guardando copia en caché para modo offline
   if (e.request.url.includes('data.json')) {
     e.respondWith(
-      fetch(e.request).catch(() => caches.match(e.request))
+      fetch(e.request)
+        .then((response) => {
+          if (response && response.ok) {
+            const clone = response.clone();
+            const cloneBase = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(e.request, clone);
+              cache.put('./data.json', cloneBase);
+            });
+          }
+          return response;
+        })
+        .catch(() => caches.match(e.request, { ignoreSearch: true }).then(cached => cached || caches.match('./data.json')))
     );
     return;
   }

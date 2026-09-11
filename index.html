@@ -19,6 +19,9 @@
 <link rel="canonical" href="https://andresehansen.github.io/hidrometros/">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap">
 
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4845331718157055" crossorigin="anonymous"></script>
@@ -89,7 +92,6 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
   :root{
     --azul-rio:#0a3d62;
     --azul-medio:#1a6fa8;
@@ -111,10 +113,10 @@
     --fondo-tarjeta:#ffffff;
     --fondo-sub:#f8fafc;
     --fondo-pronostico:#e8f4fd;
-    --borde-sub:#e2e8f0;
-    --color-sub:#475569;
-    --color-etiqueta:#475569;
-    --color-fecha:#475569;
+    --borde-sub:#cbd5e1;
+    --color-sub:#1e293b;
+    --color-etiqueta:#1e293b;
+    --color-fecha:#1e293b;
     --radio:20px;
     --sombra:0 6px 32px rgba(10,61,98,0.13)
   }
@@ -139,10 +141,10 @@
     --fondo-tarjeta:#1e293b;
     --fondo-sub:#0f172a;
     --fondo-pronostico:#0d1f2d;
-    --borde-sub:#334155;
-    --color-sub:#94a3b8;
-    --color-etiqueta:#94a3b8;
-    --color-fecha:#94a3b8;
+    --borde-sub:#475569;
+    --color-sub:#cbd5e1;
+    --color-etiqueta:#cbd5e1;
+    --color-fecha:#cbd5e1;
     --sombra:0 6px 32px rgba(0,0,0,0.5)
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -155,18 +157,30 @@
   .encabezado .subtitulo{font-size:1rem;color:rgba(255,255,255,.9);margin-top:6px}
   .fecha-actualizacion{display:inline-block;margin-top:14px;background:rgba(255,255,255,.18);color:#ffffff;padding:8px 18px;border-radius:50px;font-size:.92rem;font-weight:600}
   
-  /* Barra de herramientas en encabezado */
-  .toolbar-encabezado{margin-top:14px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-  .btn-toolbar{background:rgba(255,255,255,0.2);color:#ffffff;border:1px solid rgba(255,255,255,0.4);border-radius:50px;padding:6px 14px;font-size:0.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .2s,transform .1s;font-family:'Source Sans 3',sans-serif}
-  .btn-toolbar:hover{background:rgba(255,255,255,0.3)}
+  /* Barra de herramientas en encabezado - Accesible y Ergonómica (+48px) */
+  .toolbar-encabezado{margin-top:16px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .btn-toolbar{background:rgba(255,255,255,0.22);color:#ffffff;border:2px solid rgba(255,255,255,0.5);border-radius:50px;padding:12px 18px;min-height:48px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .1s,border-color .2s;font-family:'Source Sans 3',sans-serif;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  .btn-toolbar:hover{background:rgba(255,255,255,0.35);border-color:rgba(255,255,255,0.8)}
   .btn-toolbar:active{transform:scale(0.97)}
 
-  .btn-actualizar{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--azul-medio);color:#ffffff;border:none;border-radius:var(--radio);padding:18px;font-size:1.2rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:20px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none}
+  .btn-actualizar{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--azul-medio);color:#ffffff;border:none;border-radius:var(--radio);padding:18px;font-size:1.25rem;font-weight:700;font-family:'Source Sans 3',sans-serif;cursor:pointer;margin-bottom:16px;box-shadow:0 4px 16px rgba(26,111,168,.35);transition:background .2s,transform .1s;touch-action:manipulation;-webkit-user-select:none;user-select:none}
   .btn-actualizar:active{background:#145a8a;transform:scale(.98)}
   .btn-actualizar:disabled{background:#7aaccc;cursor:default;transform:none}
   .btn-actualizar.cargando-spin .icon-spin{animation:spin 0.8s linear infinite}
+
+  /* Barra de Navegación Rápida a Puertos (Accesible / Touch amigable) */
+  .nav-saltos-container{margin-bottom:20px}
+  .nav-saltos{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .btn-salto{background:var(--fondo-tarjeta);color:var(--azul-rio);border:2px solid var(--azul-medio);border-radius:14px;padding:12px 18px;min-height:48px;font-size:1.05rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(10,61,98,0.1);transition:background .2s,transform .1s,border-color .2s,color .2s;font-family:'Source Sans 3',sans-serif;touch-action:manipulation;user-select:none}
+  .btn-salto:hover{background:var(--azul-claro);border-color:var(--azul-rio)}
+  .btn-salto:active{transform:scale(0.96);background:var(--azul-medio);color:#ffffff}
+  .btn-salto.destacado{background:var(--azul-medio);color:#ffffff;border-color:var(--azul-rio)}
+  .btn-salto.destacado:hover{background:#145a8a}
+  [data-tema="oscuro"] .btn-salto{background:var(--fondo-sub);color:var(--texto);border-color:var(--azul-medio)}
+  [data-tema="oscuro"] .btn-salto:hover{background:#1e3a5f}
+  [data-tema="oscuro"] .btn-salto.destacado{background:#1a6fa8;color:#ffffff;border-color:#64b5f6}
   
-  .tarjeta{background:var(--fondo-tarjeta);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s}
+  .tarjeta{background:var(--fondo-tarjeta);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);animation:fadeIn .4s ease both;transition:border-color 0.3s, background 0.3s;scroll-margin-top:20px}
   .tarjeta.estado-alerta { border-left-color: var(--amarillo-alerta); }
   .tarjeta.estado-evacuacion { border-left-color: var(--rojo-evacuacion); }
 
@@ -194,7 +208,7 @@
   .badge-alerta{background:var(--naranja-bg);color:var(--naranja-alerta)}
   .badge-alerta-nivel{background:var(--amarillo-bg);color:var(--amarillo-alerta);border:1px solid var(--amarillo-border);font-weight:700}
   .badge-evacuacion-nivel{background:var(--rojo-bg);color:var(--rojo-evacuacion);border:1px solid var(--rojo-border);font-weight:800}
-  .badge-nd{background:#e2e8f0;color:#64748b}
+  .badge-nd{background:#cbd5e1;color:#0f172a;font-weight:700}
 
   .badge-tendencia-subiendo{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
   .badge-tendencia-bajando{background:#e0f2fe;color:#075985;border:1px solid #7dd3fc}
@@ -206,38 +220,38 @@
   /* Cartel de Margen de Seguridad / Estado claro */
   .estado-margen-box {
     margin-top: 10px;
-    padding: 9px 12px;
-    border-radius: 10px;
-    font-size: 0.88rem;
-    line-height: 1.4;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.45;
     font-weight: 600;
   }
   .estado-margen-box.normal {
     background: var(--verde-bg);
     color: var(--verde-ok);
-    border: 1px solid var(--verde-border);
+    border: 1.5px solid var(--verde-border);
   }
   .estado-margen-box.alerta {
     background: var(--amarillo-bg);
     color: var(--amarillo-alerta);
-    border: 1px solid var(--amarillo-border);
+    border: 1.5px solid var(--amarillo-border);
   }
   .estado-margen-box.evacuacion {
     background: var(--rojo-bg);
     color: var(--rojo-evacuacion);
-    border: 1px solid var(--rojo-border);
+    border: 1.5px solid var(--rojo-border);
   }
 
   /* Semáforo de Riesgo en 3 pasos */
   .semaforo-riesgo { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--borde-sub); }
-  .semaforo-etiquetas { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 700; color: var(--color-sub); margin-bottom: 5px; }
+  .semaforo-etiquetas { display: flex; justify-content: space-between; font-size: 0.92rem; font-weight: 700; color: var(--color-sub); margin-bottom: 5px; }
   .semaforo-etiquetas .paso.activo { font-weight: 800; }
   .semaforo-etiquetas .paso.activo.normal { color: var(--verde-ok); }
   .semaforo-etiquetas .paso.activo.alerta { color: var(--amarillo-alerta); }
   .semaforo-etiquetas .paso.activo.evacuacion { color: var(--rojo-evacuacion); }
   
-  .semaforo-pista { height: 7px; border-radius: 6px; background: #e2e8f0; overflow: hidden; position: relative; }
-  [data-tema="oscuro"] .semaforo-pista { background: #334155; }
+  .semaforo-pista { height: 9px; border-radius: 6px; background: #cbd5e1; overflow: hidden; position: relative; }
+  [data-tema="oscuro"] .semaforo-pista { background: #475569; }
   .semaforo-progreso { height: 100%; border-radius: 6px; transition: width 0.4s ease; }
 
   /* Tooltips y Ayuda Técnica */
@@ -268,7 +282,7 @@
     border-radius: var(--radio);
     padding: 16px 20px;
     margin-bottom: 20px;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     line-height: 1.5;
     box-shadow: var(--sombra);
@@ -276,6 +290,11 @@
     align-items: center;
     gap: 14px;
     animation: fadeIn .4s ease both;
+  }
+  .banner-alerta-general.normal {
+    background: var(--verde-bg);
+    color: var(--verde-ok);
+    border: 2px solid var(--verde-border);
   }
   .banner-alerta-general.alerta {
     background: var(--amarillo-bg);
@@ -294,6 +313,28 @@
   .banner-texto strong {
     font-weight: 800;
   }
+
+  /* Modo Letra Grande para Tablet y Lectura Cómoda */
+  body.modo-letra-grande { font-size: 1.18rem; }
+  body.modo-letra-grande .encabezado h1 { font-size: 2.35rem; }
+  body.modo-letra-grande .encabezado .subtitulo { font-size: 1.2rem; }
+  body.modo-letra-grande .fecha-actualizacion { font-size: 1.05rem; padding: 10px 22px; }
+  body.modo-letra-grande .btn-toolbar { font-size: 1.15rem; padding: 14px 22px; min-height: 54px; }
+  body.modo-letra-grande .btn-actualizar { font-size: 1.45rem; padding: 22px; }
+  body.modo-letra-grande .btn-salto { font-size: 1.2rem; padding: 14px 22px; min-height: 54px; }
+  body.modo-letra-grande .tarjeta-titulo { font-size: 1.7rem; }
+  body.modo-letra-grande .tarjeta-fecha { font-size: 1.1rem; }
+  body.modo-letra-grande .dato-etiqueta { font-size: 1.05rem; }
+  body.modo-letra-grande .dato-valor.grande { font-size: 2.8rem; }
+  body.modo-letra-grande .unidad-metros { font-size: 1.35rem; }
+  body.modo-letra-grande .dato-sub { font-size: 1.1rem; }
+  body.modo-letra-grande .badge { font-size: 1.05rem; padding: 7px 16px; }
+  body.modo-letra-grande .estado-margen-box { font-size: 1.15rem; padding: 14px 18px; line-height: 1.5; }
+  body.modo-letra-grande .semaforo-etiquetas { font-size: 1.05rem; }
+  body.modo-letra-grande .banner-alerta-general { font-size: 1.25rem; padding: 20px 24px; }
+  body.modo-letra-grande .pronostico-item .tipo { font-size: 1rem; }
+  body.modo-letra-grande .pronostico-item .valor { font-size: 1.7rem; }
+  body.modo-letra-grande .pronostico-item .detalle { font-size: 1.05rem; }
 
   /* In-app Toasts de Alerta */
   #toastContainer{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;width:90%;max-width:480px;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -316,6 +357,93 @@
   .btn-csv { background: var(--fondo-sub); color: var(--azul-medio); border: 1px solid var(--borde-sub); border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: background .2s; }
   .btn-csv:hover { background: var(--azul-claro); }
 
+  /* Botón flotante volver arriba */
+  .btn-subir {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--azul-medio);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50px;
+    padding: 12px 20px;
+    min-height: 48px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(16px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+    font-family: 'Source Sans 3', sans-serif;
+    touch-action: manipulation;
+    user-select: none;
+  }
+  .btn-subir.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .btn-subir:hover {
+    background: #145a8a;
+  }
+  .btn-subir:active {
+    transform: scale(0.96);
+  }
+  body.modo-letra-grande .btn-subir {
+    font-size: 1.15rem;
+    min-height: 54px;
+    padding: 14px 22px;
+  }
+
+  /* Skeleton Screens de Carga Suave */
+  @keyframes skeletonShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .skeleton-container {
+    animation: fadeIn 0.3s ease both;
+  }
+  .skeleton-banner {
+    height: 72px;
+    border-radius: var(--radio);
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--fondo-tarjeta) 25%, var(--borde-sub) 50%, var(--fondo-tarjeta) 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite ease-in-out;
+    border: 1px solid var(--borde-sub);
+  }
+  .skeleton-tarjeta {
+    background: var(--fondo-tarjeta);
+    border-radius: var(--radio);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--sombra);
+    border-left: 6px solid var(--borde-sub);
+  }
+  .skeleton-line {
+    height: 20px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--fondo-sub) 25%, var(--borde-sub) 50%, var(--fondo-sub) 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite ease-in-out;
+  }
+  .skeleton-titulo { width: 38%; height: 26px; }
+  .skeleton-fecha { width: 22%; height: 16px; margin-bottom: 18px; }
+  .skeleton-visor-box {
+    height: 120px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, var(--fondo-sub) 25%, var(--borde-sub) 50%, var(--fondo-sub) 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite ease-in-out;
+  }
+
   /* Utilidad para accesibilidad (Lectores de pantalla) */
   .sr-only {
     position: absolute;
@@ -332,7 +460,7 @@
   /* Vista Simplificada y Modo Impresión (?modo=simple / print) */
   @media print {
     body { background: #ffffff !important; color: #000000 !important; }
-    body::before, .btn-tema, .btn-actualizar, .toolbar-encabezado, details, ins.adsbygoogle, .pie, #toastContainer { display: none !important; }
+    body::before, .btn-tema, .btn-subir, .btn-actualizar, .toolbar-encabezado, .nav-saltos-container, details, ins.adsbygoogle, .pie, #toastContainer { display: none !important; }
     .contenedor { max-width: 100% !important; padding: 0 !important; }
     .encabezado { background: none !important; color: #000000 !important; border: 1px solid #000000; box-shadow: none !important; }
     .encabezado h1 { color: #000000 !important; }
@@ -341,6 +469,7 @@
   }
 
   body.modo-simple .btn-tema,
+  body.modo-simple .btn-subir,
   body.modo-simple ins.adsbygoogle {
     display: none !important;
   }
@@ -359,6 +488,9 @@
     <p class="subtitulo">Niveles de ríos de Argentina en tiempo real</p>
     <span class="fecha-actualizacion" id="fechaActualizacion">⏳ Cargando...</span>
     <div class="toolbar-encabezado">
+      <button class="btn-toolbar" onclick="toggleLetraGrande()" id="btnLetraGrande" aria-label="Aumentar tamaño de letra">
+        🔍 A+ Letra grande
+      </button>
       <button class="btn-toolbar" onclick="compartirReporte()" aria-label="Compartir reporte">
         📲 Compartir
       </button>
@@ -378,8 +510,31 @@
     <span class="icon-spin">🔄</span> <span>Actualizar</span>
   </button>
 
+  <nav class="nav-saltos-container" aria-label="Accesos directos a localidades">
+    <div class="nav-saltos">
+      <button type="button" class="btn-salto destacado" onclick="irAPuerto('tarjeta-laplata')">La Plata</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-iguazu')">Iguazú</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-saltogrande')">Salto Grande</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-concordia')">Concordia</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-sanjavier')">San Javier</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-santotome')">Santo Tomé</button>
+    </div>
+  </nav>
+
   <div id="contenidoPrincipal">
-    <div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>
+    <div class="skeleton-container" aria-busy="true" aria-label="Cargando reporte de ríos...">
+      <div class="skeleton-banner"></div>
+      <div class="skeleton-tarjeta">
+        <div class="skeleton-line skeleton-titulo"></div>
+        <div class="skeleton-line skeleton-fecha"></div>
+        <div class="skeleton-visor-box"></div>
+      </div>
+      <div class="skeleton-tarjeta">
+        <div class="skeleton-line skeleton-titulo"></div>
+        <div class="skeleton-line skeleton-fecha"></div>
+        <div class="skeleton-visor-box"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Sección informativa semántica para indexación de Google -->
@@ -441,6 +596,7 @@
 </div>
 
 <button class="btn-tema" id="btnTema" title="Cambiar tema" aria-label="Cambiar tema" onclick="toggleTema()">🌙</button>
+<button class="btn-subir" id="btnSubir" title="Volver al inicio" aria-label="Volver al inicio" onclick="volverArriba()">⬆️ Subir</button>
 
 <script>
 // ──────────────────────────────────────────────────────────────
@@ -514,6 +670,87 @@ function inicializarTema() {
 inicializarTema();
 
 // ──────────────────────────────────────────────────────────────
+// GESTIÓN DE MODO LETRA GRANDE Y NAVEGACIÓN POR SALTOS
+// ──────────────────────────────────────────────────────────────
+function aplicarLetraGrande(activa) {
+  const btn = document.getElementById('btnLetraGrande');
+  if (activa) {
+    document.body.classList.add('modo-letra-grande');
+    if (btn) {
+      btn.innerHTML = '🔍 A- Letra normal';
+      btn.setAttribute('aria-label', 'Volver a tamaño de letra normal');
+    }
+  } else {
+    document.body.classList.remove('modo-letra-grande');
+    if (btn) {
+      btn.innerHTML = '🔍 A+ Letra grande';
+      btn.setAttribute('aria-label', 'Aumentar tamaño de letra');
+    }
+  }
+}
+
+function toggleLetraGrande() {
+  const activa = !document.body.classList.contains('modo-letra-grande');
+  aplicarLetraGrande(activa);
+  localStorage.setItem('letra_grande', activa ? 'true' : 'false');
+}
+
+function inicializarLetraGrande() {
+  const guardado = localStorage.getItem('letra_grande');
+  if (guardado === 'true') {
+    aplicarLetraGrande(true);
+  }
+}
+inicializarLetraGrande();
+
+function irAPuerto(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.style.outline = '3px solid var(--azul-medio)';
+    setTimeout(() => { el.style.outline = 'none'; }, 1500);
+  }
+}
+
+function volverArriba() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('btnSubir');
+  if (btn) {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }
+}, { passive: true });
+
+function renderSkeletons() {
+  return `
+    <div class="skeleton-container" aria-busy="true" aria-label="Cargando reporte de ríos...">
+      <div class="skeleton-banner"></div>
+      <div class="skeleton-tarjeta">
+        <div class="skeleton-line skeleton-titulo"></div>
+        <div class="skeleton-line skeleton-fecha"></div>
+        <div class="skeleton-visor-box"></div>
+      </div>
+      <div class="skeleton-tarjeta">
+        <div class="skeleton-line skeleton-titulo"></div>
+        <div class="skeleton-line skeleton-fecha"></div>
+        <div class="skeleton-visor-box"></div>
+      </div>
+      <div class="skeleton-tarjeta">
+        <div class="skeleton-line skeleton-titulo"></div>
+        <div class="skeleton-line skeleton-fecha"></div>
+        <div class="skeleton-visor-box"></div>
+      </div>
+    </div>
+  `;
+}
+
+// ──────────────────────────────────────────────────────────────
 // P1-1 & P1-2. NOTIFICACIONES DEL SISTEMA Y ALERTAS SONORAS
 // ──────────────────────────────────────────────────────────────
 function actualizarBotonesToolbar() {
@@ -535,6 +772,11 @@ function actualizarBotonesToolbar() {
   if (btnSonido) {
     btnSonido.innerHTML = sonidoHabilitado ? '🔊 Sonido' : '🔇 Silenciado';
     btnSonido.style.opacity = sonidoHabilitado ? '1' : '0.7';
+  }
+  const btnLetra = document.getElementById('btnLetraGrande');
+  if (btnLetra) {
+    const esGrande = document.body.classList.contains('modo-letra-grande');
+    btnLetra.innerHTML = esGrande ? '🔍 A- Letra normal' : '🔍 A+ Letra grande';
   }
 }
 
@@ -887,8 +1129,8 @@ function tarjetaLP(d, viento, pron) {
     </details>`;
   }
 
-  return `<div class="tarjeta estado-${estado}">
-    <div class="tarjeta-titulo">⚓ La Plata</div>
+  return `<div class="tarjeta estado-${estado}" id="tarjeta-laplata">
+    <div class="tarjeta-titulo">La Plata</div>
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo oficial de AGPSE en el Puerto La Plata.')}</div>
@@ -907,7 +1149,7 @@ function tarjetaLP(d, viento, pron) {
   </div>`;
 }
 
-function tarjetaRio(nombre, emoji, d, idChart, keyPuerto) {
+function tarjetaRio(nombre, d, idChart, keyPuerto) {
   const defaults = DEFAULTS_PUERTO[keyPuerto] || { alerta: 0, evacuacion: 0 };
   const alerta = (d && d.alerta !== undefined) ? d.alerta : defaults.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : defaults.evacuacion;
@@ -926,8 +1168,8 @@ function tarjetaRio(nombre, emoji, d, idChart, keyPuerto) {
     </details>`;
   }
 
-  return `<div class="tarjeta estado-${estado}">
-    <div class="tarjeta-titulo">${emoji} ${nombre}</div>
+  return `<div class="tarjeta estado-${estado}" id="tarjeta-${keyPuerto}">
+    <div class="tarjeta-titulo">${nombre}</div>
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
@@ -959,7 +1201,7 @@ function tarjetaSaltoGrande(d) {
     estadoGeneral = 'alerta';
   }
 
-  const renderSubSection = (titulo, emoji, subD, estadoSub, alertaSub, evacSub, chartId, tooltipId, tooltipTexto) => {
+  const renderSubSection = (titulo, subD, estadoSub, alertaSub, evacSub, chartId, tooltipId, tooltipTexto) => {
     let histHTML = '';
     if (subD && subD.historico && subD.historico.length > 1) {
       histHTML = `
@@ -975,7 +1217,7 @@ function tarjetaSaltoGrande(d) {
 
     return `
       <div class="sub-seccion-puerto">
-        <div class="sub-seccion-titulo">${emoji} ${titulo} ${renderTooltip(tooltipId, tooltipTexto)}</div>
+        <div class="sub-seccion-titulo">${titulo} ${renderTooltip(tooltipId, tooltipTexto)}</div>
         <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
           <div class="dato-etiqueta">Altura del agua</div>
           ${renderVisorAltura(subD, alertaSub, evacSub)}
@@ -984,12 +1226,12 @@ function tarjetaSaltoGrande(d) {
       </div>`;
   };
 
-  return `<div class="tarjeta estado-${estadoGeneral}">
-    <div class="tarjeta-titulo">⚡ Embalse Salto Grande</div>
-    <div class="tarjeta-fecha">📊 Complejo Hidroeléctrico Binacional · Río Uruguay</div>
-    ${renderSubSection('Salto Grande Arriba (Cota del Embalse)', '🔼', arriba, estadoArriba, alertaArriba, evacArriba, 'saltogrande-arriba', 'sg-cota', 'Altura del agua en el lago de la represa aguas arriba de las compuertas.')}
+  return `<div class="tarjeta estado-${estadoGeneral}" id="tarjeta-saltogrande">
+    <div class="tarjeta-titulo">Embalse Salto Grande</div>
+    <div class="tarjeta-fecha">Complejo Hidroeléctrico Binacional · Río Uruguay</div>
+    ${renderSubSection('Salto Grande Arriba (Cota del Embalse)', arriba, estadoArriba, alertaArriba, evacArriba, 'saltogrande-arriba', 'sg-cota', 'Altura del agua en el lago de la represa aguas arriba de las compuertas.')}
     <hr class="sub-divider" />
-    ${renderSubSection('Salto Grande Abajo (Restitución)', '🔽', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo', 'sg-restitucion', 'Nivel del agua río abajo inmediatamente después de turbinar y verter el caudal.')}
+    ${renderSubSection('Salto Grande Abajo (Restitución)', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo', 'sg-restitucion', 'Nivel del agua río abajo inmediatamente después de turbinar y verter el caudal.')}
   </div>`;
 }
 
@@ -1145,7 +1387,7 @@ function renderBannerAlertas(d) {
 
   if (puertosEnEvacuacion.length > 0) {
     return `
-      <div class="banner-alerta-general evacuacion">
+      <div class="banner-alerta-general evacuacion" role="alert">
         <div class="banner-icono">🚨</div>
         <div class="banner-texto">
           <strong>¡ALERTA MÁXIMA DE EVACUACIÓN!</strong><br>
@@ -1157,7 +1399,7 @@ function renderBannerAlertas(d) {
 
   if (puertosEnAlerta.length > 0) {
     return `
-      <div class="banner-alerta-general alerta">
+      <div class="banner-alerta-general alerta" role="alert">
         <div class="banner-icono">⚠️</div>
         <div class="banner-texto">
           <strong>¡ATENCIÓN! PUERTOS EN NIVEL DE ALERTA</strong><br>
@@ -1166,7 +1408,14 @@ function renderBannerAlertas(d) {
       </div>`;
   }
 
-  return '';
+  return `
+    <div class="banner-alerta-general normal" role="status">
+      <div class="banner-icono">🟢</div>
+      <div class="banner-texto">
+        <strong>SIN ALERTAS</strong><br>
+        Todos los puertos monitoreados se encuentran en niveles normales y seguros.
+      </div>
+    </div>`;
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -1223,6 +1472,37 @@ function anunciarAriaLive(mensaje) {
 }
 
 // ──────────────────────────────────────────────────────────────
+// MUTACIÓN DIRIGIDA DEL DOM PARA AUTO-ACTUALIZACIÓN
+// ──────────────────────────────────────────────────────────────
+function actualizarTarjetaEnLugar(idTarjeta, nuevoHTML) {
+  const tarjetaActual = document.getElementById(idTarjeta);
+  if (!tarjetaActual) return false;
+
+  const detailsAbiertos = new Set();
+  tarjetaActual.querySelectorAll('details[id]').forEach(d => {
+    if (d.open) detailsAbiertos.add(d.id);
+  });
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = nuevoHTML;
+  const nuevaTarjeta = tempDiv.firstElementChild;
+  if (!nuevaTarjeta) return false;
+
+  detailsAbiertos.forEach(id => {
+    const d = nuevaTarjeta.querySelector(`#${id}`);
+    if (d) d.open = true;
+  });
+
+  tarjetaActual.replaceWith(nuevaTarjeta);
+
+  detailsAbiertos.forEach(id => {
+    const key = id.replace('details-', '');
+    renderizarGraficoIndividual(key);
+  });
+  return true;
+}
+
+// ──────────────────────────────────────────────────────────────
 // P1-4. CARGAR DATOS CON PRESERVACIÓN DE ESTADO
 // ──────────────────────────────────────────────────────────────
 async function cargarDatos(esAuto = false) {
@@ -1244,7 +1524,7 @@ async function cargarDatos(esAuto = false) {
   });
 
   if (esCargaInicial) {
-    panel.innerHTML = `<div class="cargando"><div class="spinner"></div><p>Leyendo el último reporte...</p></div>`;
+    panel.innerHTML = renderSkeletons();
   }
 
   try {
@@ -1266,27 +1546,50 @@ async function cargarDatos(esAuto = false) {
     datosActuales = d;
     detectarCambiosDeEstado(d);
 
-    fEl.textContent = `📅 Reporte del ${d.fechaReporte}`;
+    const offlineNotice = (!navigator.onLine) ? ' (Sin conexión · Reporte guardado)' : '';
+    fEl.textContent = `📅 Reporte del ${d.fechaReporte}${offlineNotice}`;
     ultimaActualizacionExitosa = Date.now();
 
-    // Renderizado completo del panel
-    panel.innerHTML = renderBannerAlertas(d) +
-                     tarjetaLP(d.laplata, d.viento, d.pronostico) + 
-                     tarjetaRio('Iguazú', '🏞️', d.iguazu, 'iguazu', 'iguazu') + 
-                     tarjetaSaltoGrande(d.saltogrande) +
-                     tarjetaRio('Concordia', '🌿', d.concordia, 'concordia', 'concordia') + 
-                     tarjetaRio('San Javier', '⛵', d.sanjavier, 'sanjavier', 'sanjavier') + 
-                     tarjetaRio('Santo Tomé', '📍', d.santotome, 'santotome', 'santotome');
-
-    // Restaurar los <details> que estaban abiertos
-    detailsAbiertos.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.open = true;
-        const key = id.replace('details-', '');
-        renderizarGraficoIndividual(key);
+    // Mutación dirigida del DOM en auto-actualización si ya existen las tarjetas
+    if (esAuto && !esCargaInicial && document.getElementById('tarjeta-laplata')) {
+      const bannerExistente = panel.querySelector('.banner-alerta-general');
+      const nuevoBannerHTML = renderBannerAlertas(d);
+      if (bannerExistente && nuevoBannerHTML) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = nuevoBannerHTML;
+        if (tempDiv.firstElementChild) bannerExistente.replaceWith(tempDiv.firstElementChild);
+      } else if (!bannerExistente && nuevoBannerHTML) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = nuevoBannerHTML;
+        if (tempDiv.firstElementChild) panel.insertBefore(tempDiv.firstElementChild, panel.firstChild);
       }
-    });
+
+      actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico));
+      actualizarTarjetaEnLugar('tarjeta-iguazu', tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu'));
+      actualizarTarjetaEnLugar('tarjeta-saltogrande', tarjetaSaltoGrande(d.saltogrande));
+      actualizarTarjetaEnLugar('tarjeta-concordia', tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia'));
+      actualizarTarjetaEnLugar('tarjeta-sanjavier', tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier'));
+      actualizarTarjetaEnLugar('tarjeta-santotome', tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome'));
+    } else {
+      // Renderizado completo del panel (localidades sin emojis en títulos)
+      panel.innerHTML = renderBannerAlertas(d) +
+                       tarjetaLP(d.laplata, d.viento, d.pronostico) + 
+                       tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
+                       tarjetaSaltoGrande(d.saltogrande) +
+                       tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
+                       tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier') + 
+                       tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome');
+
+      // Restaurar los <details> que estaban abiertos
+      detailsAbiertos.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.open = true;
+          const key = id.replace('details-', '');
+          renderizarGraficoIndividual(key);
+        }
+      });
+    }
 
     // Restaurar scroll si no era carga inicial
     if (!esCargaInicial) {
@@ -1372,9 +1675,19 @@ async function compartirReporte() {
 // INICIALIZACIÓN
 // ──────────────────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
-  });
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    // En desarrollo local desregistramos el SW y vaciamos cachés para evitar ver versiones viejas
+    navigator.serviceWorker.getRegistrations().then(regs => {
+      for (const reg of regs) reg.unregister();
+    });
+    if ('caches' in window) {
+      caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+    }
+  } else {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
+    });
+  }
 }
 
 actualizarBotonesToolbar();
