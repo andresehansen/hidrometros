@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "11/09/2026 a las 14:19 hs",
-  "generadoEn": "2026-09-11T14:19:27.140Z",
+  "fechaReporte": "11/09/2026 a las 14:33 hs",
+  "generadoEn": "2026-09-11T14:33:29.714Z",
   "laplata": {
     "altura": "1.05",
     "horaStr": "14:10",
@@ -261,9 +261,9 @@
     }
   },
   "viento": {
-    "velocidad": 8.3,
+    "velocidad": 8.1,
     "direccion": "Noreste (NE)",
-    "temperatura": 15.8
+    "temperatura": 15.7
   },
   "pronostico": {
     "pleamar": {
@@ -278,20 +278,15 @@
     }
   },
   "iguazu": {
-    "altura": "14.60",
-    "horaStr": "00:00",
+    "altura": "16.25",
+    "horaStr": "14:20",
     "fechaStr": "11/09/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "14.60m (a las 00:00 hs) (Fuente: INA)",
+    "textoFB": "16.25m (a las 14:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "12.68",
-        "fechaStr": "09/09/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "12.65",
         "fechaStr": "09/09/2026",
@@ -526,13 +521,18 @@
         "altura": "14.60",
         "fechaStr": "11/09/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "16.25",
+        "fechaStr": "11/09/2026",
+        "horaStr": "14:20"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-1.41m)",
-      "diferencia": "-1.41"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+1.65m)",
+      "diferencia": "+1.65"
     }
   },
   "sanjavier": {
