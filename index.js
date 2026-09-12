@@ -35,18 +35,124 @@ function gradosACardinal(grados) {
 }
 
 function obtenerHoraArgentina() {
-    return new Date(Date.now() - 3 * 3600 * 1000);
+    return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires" }));
 }
 
 function formatoFechaAPI(fecha) {
     return `${fecha.getFullYear()}-${(fecha.getMonth()+1).toString().padStart(2,'0')}-${fecha.getDate().toString().padStart(2,'0')}`;
 }
 
-function esAntiguo(fechaMedicion) {
+function esAntiguo(fechaMedicion, maxHoras = 24) {
     if (!fechaMedicion) return false;
     const t = fechaMedicion instanceof Date ? fechaMedicion.getTime() : new Date(fechaMedicion).getTime();
     if (isNaN(t)) return false;
-    return Math.abs(Date.now() - t) / 36e5 > 24;
+    return Math.abs(Date.now() - t) / 36e5 > maxHoras;
+}
+
+// --- HELPER SHN (SERVICIO DE HIDROGRAFÍA NAVAL - ALTURAS HORARIAS) ---
+async function fetchSHN_AlturasHorarias(cod = 'LPLA', nombrePuerto = 'La Plata') {
+    const ahora = obtenerHoraArgentina();
+    const pad = v => v.toString().padStart(2, '0');
+    const fechaReq = `${ahora.getFullYear()}${pad(ahora.getMonth() + 1)}${pad(ahora.getDate())}${pad(ahora.getHours())}${pad(ahora.getMinutes())}`;
+    
+    // 1. Intentar API REST v1
+    try {
+        console.log(`  → SHN API v1 para ${cod} (${fechaReq})...`);
+        const url = `https://www.hidro.gob.ar/api/v1/AlturasHorarias/${cod}/${fechaReq}`;
+        const res = await fetch(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0' },
+            signal: AbortSignal.timeout(10000)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            const lecturas = data.lecturas || [];
+            if (lecturas.length > 0) {
+                const ult = lecturas[lecturas.length - 1];
+                const fechaMed = new Date(`${ult.fecha}-03:00`);
+                const [dPart, tPart] = ult.fecha.split('T');
+                const [y, m, d] = dPart.split('-');
+                const hhmm = tPart.substring(0, 5);
+                const fechaStr = `${d}/${m}/${y}`;
+                const altStr = parseFloat(ult.altura).toFixed(2);
+                const antiguo = esAntiguo(fechaMed, 3);
+                
+                const historial = lecturas.map(l => {
+                    const [dp, tp] = l.fecha.split('T');
+                    const [ly, lm, ld] = dp.split('-');
+                    return {
+                        altura: parseFloat(l.altura).toFixed(2),
+                        fechaStr: `${ld}/${lm}/${ly}`,
+                        horaStr: tp.substring(0, 5)
+                    };
+                });
+                
+                console.log(`  ✅ SHN API ${nombrePuerto}: ${altStr}m @ ${fechaStr} ${hhmm}`);
+                return {
+                    altura: altStr,
+                    horaStr: hhmm,
+                    fechaStr: fechaStr,
+                    fuente: 'SHN',
+                    antiguo,
+                    textoFB: `${altStr}m (a las ${hhmm} hs) (Fuente: SHN)`,
+                    historialLecturas: historial
+                };
+            }
+        }
+    } catch(e) { console.log(`  ⚠️ Aviso API SHN ${cod}: ${e.message}`); }
+
+    // 2. Fallback a tabla HTML de alturashorarias.asp
+    try {
+        console.log(`  → SHN HTML fallback para ${nombrePuerto}...`);
+        const url = 'https://www.hidro.gob.ar/oceanografia/alturashorarias.asp';
+        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(15000) });
+        if (res.ok) {
+            const html = await res.text();
+            const headerMatch = html.match(/<thead>[\s\S]*?<\/thead>/i);
+            const headers = [];
+            if (headerMatch) {
+                const thRegex = /<th[^>]*>\s*(\d{2}\/\d{2}\/\d{4})<br>(\d{2}:\d{2})\s*<\/th>/gi;
+                let m;
+                while ((m = thRegex.exec(headerMatch[0])) !== null) {
+                    headers.push({ fechaStr: m[1], horaStr: m[2] });
+                }
+            }
+            const rowRegex = new RegExp(`data-estacion=['"]${cod}['"][\\s\\S]*?<\\/tr>`, 'i');
+            const rowMatch = html.match(rowRegex);
+            if (rowMatch && headers.length > 0) {
+                const tdRegex = /<td[^>]*>\s*(\d+[\.,]\d{1,2})\s*<\/td>/gi;
+                const lecturas = [];
+                let m;
+                let i = 0;
+                while ((m = tdRegex.exec(rowMatch[0])) !== null && i < headers.length) {
+                    lecturas.push({
+                        altura: parseFloat(m[1].replace(',', '.')).toFixed(2),
+                        fechaStr: headers[i].fechaStr,
+                        horaStr: headers[i].horaStr
+                    });
+                    i++;
+                }
+                if (lecturas.length > 0) {
+                    const ult = lecturas[0];
+                    const [d, m, y] = ult.fechaStr.split('/');
+                    const [hh, mm] = ult.horaStr.split(':');
+                    const fechaMed = new Date(+y, +m - 1, +d, +hh, +mm);
+                    const antiguo = esAntiguo(fechaMed, 3);
+                    console.log(`  ✅ SHN HTML ${nombrePuerto}: ${ult.altura}m @ ${ult.fechaStr} ${ult.horaStr}`);
+                    return {
+                        altura: ult.altura,
+                        horaStr: ult.horaStr,
+                        fechaStr: ult.fechaStr,
+                        fuente: 'SHN',
+                        antiguo,
+                        textoFB: `${ult.altura}m (a las ${ult.horaStr} hs) (Fuente: SHN)`,
+                        historialLecturas: lecturas.reverse()
+                    };
+                }
+            }
+        }
+    } catch(e) { console.log(`  ⚠️ Aviso HTML SHN ${cod}: ${e.message}`); }
+
+    return null;
 }
 
 // --- HELPERS INA ---
@@ -256,24 +362,41 @@ function parseAGPSE(txtDat) {
 
         // ---- 1. LA PLATA ----
         let lpDatos = null;
+
+        // Intentar primero SHN Alturas Horarias (fuente oficial mareográfica más actualizada y con historial)
         try {
-            console.log("  → Fuente primaria AGPSE para La Plata...");
-            const txtDat = await new Promise((resolve, reject) => {
-                const req = https.request(urlLaPlata, { rejectUnauthorized: false }, (res) => {
-                    let buf = '';
-                    res.on('data', chunk => buf += chunk);
-                    res.on('end', () => resolve(buf));
-                });
-                req.on('error', reject);
-                req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
-                req.end();
-            });
-            lpDatos = parseAGPSE(txtDat);
-            if (lpDatos && lpDatos.antiguo) lpDatos = null; 
-        } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
-        
+            lpDatos = await fetchSHN_AlturasHorarias('LPLA', 'La Plata');
+            if (lpDatos && lpDatos.antiguo) lpDatos = null;
+        } catch (e) {
+            console.log("⚠️ Error La Plata SHN:", e.message);
+        }
+
+        // Si SHN no estuviera disponible, intentar AGPSE
         if (!lpDatos) {
-            lpDatos = await fetchGeoServerINA("-35.1,-58.2,-34.5,-57.5", "La Plata");
+            try {
+                console.log("  → Fuente AGPSE para La Plata...");
+                const txtDat = await new Promise((resolve, reject) => {
+                    const req = https.request(urlLaPlata, { rejectUnauthorized: false }, (res) => {
+                        let buf = '';
+                        res.on('data', chunk => buf += chunk);
+                        res.on('end', () => resolve(buf));
+                    });
+                    req.on('error', reject);
+                    req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
+                    req.end();
+                });
+                lpDatos = parseAGPSE(txtDat);
+                // Si tiene más de 2 horas de antigüedad, se descarta para no mostrar datos congelados
+                if (lpDatos && esAntiguo(new Date(lpDatos.fechaStr.split('/').reverse().join('-') + 'T' + lpDatos.horaStr + ':00-03:00'), 2)) {
+                    console.log("  ⚠️ AGPSE La Plata tiene más de 2 horas de antigüedad; descartando.");
+                    lpDatos = null;
+                }
+            } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
+        }
+        
+        // Fallback terciario: INA API a5 (Serie 3314) / GeoServer
+        if (!lpDatos) {
+            lpDatos = await fetchGeoServerINA("-35.1,-58.2,-34.5,-57.5", "La Plata", [3314]);
         }
 
         // ---- VIENTO ----
@@ -329,7 +452,7 @@ function parseAGPSE(txtDat) {
         } catch (e) { console.log("⚠️ Error Iguazú primario:", e.message); }
 
         if (!igDatos) {
-            igDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú");
+            igDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú", [31]);
         }
 
         // ---- 3. CONCORDIA ----
@@ -363,7 +486,7 @@ function parseAGPSE(txtDat) {
         } catch (e) { console.log("⚠️ Error Concordia primario:", e.message); }
 
         if (!coDatos) {
-            coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia");
+            coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia", [79]);
             if (coDatos && parseFloat(coDatos.altura) <= 0.5) coDatos = null;
         }
 
@@ -515,17 +638,46 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             // Filtrar lecturas corruptas o inválidas del historial
             hist = hist.filter(h => h && !isNaN(parseFloat(h.altura)) && parseFloat(h.altura) > minAlturaValida);
 
+            // Incorporar lote histórico si nuevoDato lo provee (ej. SHN Alturas Horarias)
+            if (nuevoDato && Array.isArray(nuevoDato.historialLecturas)) {
+                for (const l of nuevoDato.historialLecturas) {
+                    if (l && !isNaN(parseFloat(l.altura)) && parseFloat(l.altura) > minAlturaValida) {
+                        const yaExiste = hist.some(h => h.fechaStr === l.fechaStr && h.horaStr === l.horaStr);
+                        if (!yaExiste) {
+                            hist.push({
+                                altura: l.altura,
+                                fechaStr: l.fechaStr,
+                                horaStr: l.horaStr
+                            });
+                        }
+                    }
+                }
+            }
+
             if (nuevoDato && !nuevoDato.antiguo && parseFloat(nuevoDato.altura) > minAlturaValida) {
                 const ultimo = hist.length > 0 ? hist[hist.length - 1] : null;
                 // Evitamos sumar la medición si ya está guardada (misma fecha y hora)
                 if (!ultimo || ultimo.fechaStr !== nuevoDato.fechaStr || ultimo.horaStr !== nuevoDato.horaStr) {
-                    hist.push({
-                        altura: nuevoDato.altura,
-                        fechaStr: nuevoDato.fechaStr,
-                        horaStr: nuevoDato.horaStr
-                    });
+                    const yaExiste = hist.some(h => h.fechaStr === nuevoDato.fechaStr && h.horaStr === nuevoDato.horaStr);
+                    if (!yaExiste) {
+                        hist.push({
+                            altura: nuevoDato.altura,
+                            fechaStr: nuevoDato.fechaStr,
+                            horaStr: nuevoDato.horaStr
+                        });
+                    }
                 }
             }
+
+            // Ordenar cronológicamente para garantizar consistencia tras backfills
+            hist.sort((a, b) => {
+                const [da, ma, ya] = a.fechaStr.split('/');
+                const [ha, mina] = a.horaStr.split(':');
+                const [db, mb, yb] = b.fechaStr.split('/');
+                const [hb, minb] = b.horaStr.split(':');
+                return new Date(+ya, +ma - 1, +da, +ha, +mina) - new Date(+yb, +mb - 1, +db, +hb, +minb);
+            });
+
             // Retorna hasta los últimos 48 elementos para un historial de 48h
             return hist.slice(-48);
         }
@@ -535,6 +687,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             lpDatos.alerta = 2.5; 
             lpDatos.evacuacion = 2.8; 
             lpDatos.historico = getHistorico('laplata', lpDatos);
+            delete lpDatos.historialLecturas;
             lpDatos.tendencia = calcularTendencia(lpDatos.historico, lpDatos.altura);
         } else if (datosAnteriores.laplata) {
             lpDatos = datosAnteriores.laplata;
