@@ -363,38 +363,44 @@ function parseAGPSE(txtDat) {
         // ---- 1. LA PLATA ----
         let lpDatos = null;
 
-        // Intentar primero SHN Alturas Horarias (fuente oficial mareográfica más actualizada y con historial)
+        // 1. Fuente Primaria: AGPSE (lecturas cada 10 minutos cuando funciona con normalidad)
         try {
-            lpDatos = await fetchSHN_AlturasHorarias('LPLA', 'La Plata');
-            if (lpDatos && lpDatos.antiguo) lpDatos = null;
-        } catch (e) {
-            console.log("⚠️ Error La Plata SHN:", e.message);
-        }
-
-        // Si SHN no estuviera disponible, intentar AGPSE
-        if (!lpDatos) {
-            try {
-                console.log("  → Fuente AGPSE para La Plata...");
-                const txtDat = await new Promise((resolve, reject) => {
-                    const req = https.request(urlLaPlata, { rejectUnauthorized: false }, (res) => {
-                        let buf = '';
-                        res.on('data', chunk => buf += chunk);
-                        res.on('end', () => resolve(buf));
-                    });
-                    req.on('error', reject);
-                    req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
-                    req.end();
+            console.log("  → Fuente primaria AGPSE para La Plata...");
+            const txtDat = await new Promise((resolve, reject) => {
+                const req = https.request(urlLaPlata, { rejectUnauthorized: false }, (res) => {
+                    let buf = '';
+                    res.on('data', chunk => buf += chunk);
+                    res.on('end', () => resolve(buf));
                 });
-                lpDatos = parseAGPSE(txtDat);
-                // Si tiene más de 2 horas de antigüedad, se descarta para no mostrar datos congelados
-                if (lpDatos && esAntiguo(new Date(lpDatos.fechaStr.split('/').reverse().join('-') + 'T' + lpDatos.horaStr + ':00-03:00'), 2)) {
-                    console.log("  ⚠️ AGPSE La Plata tiene más de 2 horas de antigüedad; descartando.");
+                req.on('error', reject);
+                req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
+                req.end();
+            });
+            lpDatos = parseAGPSE(txtDat);
+            // Si AGPSE no actualiza hace más de 75 minutos, se conmuta a SHN para no demorar datos frescos
+            if (lpDatos) {
+                const [d, m, y] = lpDatos.fechaStr.split('/');
+                const [hh, mm]  = lpDatos.horaStr.split(':');
+                const fechaMed  = new Date(+y, +m - 1, +d, +hh, +mm);
+                if (esAntiguo(fechaMed, 1.25)) {
+                    console.log(`  ⚠️ AGPSE La Plata sin actualizar (${lpDatos.fechaStr} ${lpDatos.horaStr} - >75 min). Conmutando a SHN...`);
                     lpDatos = null;
                 }
-            } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
+            }
+        } catch (e) { console.log("⚠️ Error La Plata AGPSE:", e.message); }
+
+        // 2. Fuente Secundaria / Fallback activo: SHN Alturas Horarias (horario oficial con historial)
+        if (!lpDatos) {
+            try {
+                console.log("  → Conmutando a SHN Alturas Horarias para La Plata...");
+                lpDatos = await fetchSHN_AlturasHorarias('LPLA', 'La Plata');
+                if (lpDatos && lpDatos.antiguo) lpDatos = null;
+            } catch (e) {
+                console.log("⚠️ Error La Plata SHN:", e.message);
+            }
         }
         
-        // Fallback terciario: INA API a5 (Serie 3314) / GeoServer
+        // 3. Fallback terciario: INA API a5 (Serie 3314) / GeoServer
         if (!lpDatos) {
             lpDatos = await fetchGeoServerINA("-35.1,-58.2,-34.5,-57.5", "La Plata", [3314]);
         }

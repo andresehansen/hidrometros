@@ -3,12 +3,12 @@
 ====================================================================
 
 1. LA PLATA
-   - Fuente Primaria (SHN - Servicio de Hidrografía Naval - Alturas Horarias):
-     Web: https://www.hidro.gov.ar/oceanografia/alturashorarias.asp
-     API REST v1: https://www.hidro.gob.ar/api/v1/AlturasHorarias/LPLA/{YYYYMMDDHHmm}
-   - Fuente Secundaria (AGPSE - Datos crudos DAT):
+   - Fuente Primaria (AGPSE - Datos crudos DAT - cada 10 min):
      https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat
      Web: https://hidrografia.agpse.gob.ar/LaPlata/index.html
+   - Fuente Secundaria / Fallback Activo (SHN - Alturas Horarias oficiales):
+     Web: https://www.hidro.gov.ar/oceanografia/alturashorarias.asp
+     API REST v1: https://www.hidro.gob.ar/api/v1/AlturasHorarias/LPLA/{YYYYMMDDHHmm}
    - Fuente de Respaldo / Backup (INA API a5 - Serie 3314 - Estación 1708 PVNyMM):
      https://alerta.ina.gob.ar/a5/obs/puntual/series/3314/observaciones
    - Pronóstico de Mareas (SHN):
