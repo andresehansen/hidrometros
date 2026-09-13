@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "13/09/2026 a las 02:19 hs",
-  "generadoEn": "2026-09-13T02:19:26.000Z",
+  "fechaReporte": "13/09/2026 a las 03:19 hs",
+  "generadoEn": "2026-09-13T03:19:27.000Z",
   "laplata": {
-    "altura": "1.19",
-    "horaStr": "01:45",
+    "altura": "1.22",
+    "horaStr": "02:45",
     "fechaStr": "13/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.19m (a las 01:45 hs) (Fuente: SHN)",
+    "textoFB": "1.22m (a las 02:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.35",
-        "fechaStr": "11/09/2026",
-        "horaStr": "03:10"
-      },
       {
         "altura": "1.43",
         "fechaStr": "11/09/2026",
@@ -251,21 +246,37 @@
         "altura": "1.19",
         "fechaStr": "13/09/2026",
         "horaStr": "01:45"
+      },
+      {
+        "altura": "1.22",
+        "fechaStr": "13/09/2026",
+        "horaStr": "02:45"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.03m)",
+      "diferencia": "+0.03"
     }
   },
   "viento": {
-    "velocidad": 14.4,
+    "velocidad": 13.7,
     "direccion": "Sur (S)",
-    "temperatura": 5.9
+    "temperatura": 5.1
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "07:30",
+      "altura": "1.95",
+      "fecha": "13/09"
+    },
+    "bajamar": {
+      "hora": "15:00",
+      "altura": "0.70",
+      "fecha": "13/09"
+    }
+  },
   "iguazu": {
     "altura": "18.68",
     "horaStr": "02:00",
