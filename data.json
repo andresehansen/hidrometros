@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "13/09/2026 a las 21:19 hs",
-  "generadoEn": "2026-09-13T21:19:25.000Z",
+  "fechaReporte": "13/09/2026 a las 21:45 hs",
+  "generadoEn": "2026-09-13T21:45:53.000Z",
   "laplata": {
-    "altura": "0.99",
-    "horaStr": "17:45",
+    "altura": "NaN",
+    "horaStr": "20:45",
     "fechaStr": "13/09/2026",
-    "fuente": "INA",
+    "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.99m (a las 17:45 hs) (Fuente: INA)",
+    "textoFB": "NaNm (a las 20:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -254,18 +254,29 @@
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.04m)",
-      "diferencia": "+0.04"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 8.6,
-    "direccion": "Este (E)",
+    "velocidad": 7.8,
+    "direccion": "Noreste (NE)",
     "temperatura": 7
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "20:00",
+      "altura": "1.15",
+      "fecha": "13/09"
+    },
+    "bajamar": {
+      "hora": "03:00",
+      "altura": "0.65",
+      "fecha": "14/09"
+    }
+  },
   "iguazu": {
     "altura": "19.11",
     "horaStr": "19:20",
