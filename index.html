@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
 <meta name="theme-color" content="#0a3d62">
-<title>Reporte Fluvial — Niveles de Ríos de Argentina en Tiempo Real</title>
-<meta name="description" content="Consultá en tiempo real los niveles hidrométricos de los principales ríos de Argentina: La Plata, Iguazú, Salto Grande, Concordia, San Javier y Santo Tomé. Datos oficiales de AGPSE, INA, CARU y Prefectura Naval.">
+<title>Altura del Río Hoy en Tiempo Real — La Plata y Ríos de Argentina</title>
+<meta name="description" content="Consultá la altura del río hoy en tiempo real: Río de La Plata, Iguazú, Concordia, San Javier y Santo Tomé. Estado de alerta, crecida, bajante, pronóstico de mareas y datos oficiales.">
 <meta name="keywords" content="hidrometros, niveles de rios, reporte fluvial, Argentina, La Plata, Iguazu, Concordia, San Javier, Santo Tome, Salto Grande, INA, AGPSE, alerta hidrologica, crecida, bajante">
 <meta name="author" content="Andrés Hansen">
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="A4ooaD-Na_htkJKMWfSxndanrJqlcaqQJwKdX7y5d6w">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://raw.githubusercontent.com https://pagead2.googlesyndication.com https://*.google.com https://api.open-meteo.com; frame-src https://googleads.g.doubleclick.net https://*.google.com;">
-<meta property="og:title" content="Reporte Fluvial — Niveles de Ríos de Argentina">
-<meta property="og:description" content="Niveles hidrométricos en tiempo real de los principales puertos fluviales de Argentina. Datos oficiales actualizados automáticamente.">
+<meta property="og:title" content="Altura del Río Hoy en Tiempo Real — La Plata y Ríos de Argentina">
+<meta property="og:description" content="Consultá la altura del río hoy en tiempo real: Río de La Plata, Iguazú, Concordia, San Javier y Santo Tomé. Datos oficiales actualizados.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://andresehansen.github.io/hidrometros/">
 <meta property="og:locale" content="es_AR">
@@ -36,7 +36,7 @@
       "@id": "https://andresehansen.github.io/hidrometros/#website",
       "url": "https://andresehansen.github.io/hidrometros/",
       "name": "Reporte Fluvial — Niveles de Ríos de Argentina",
-      "description": "Niveles hidrométricos en tiempo real de los principales puertos fluviales de Argentina.",
+      "description": "Niveles hidrométricos y altura del río hoy en tiempo real de los principales puertos fluviales de Argentina.",
       "inLanguage": "es-AR"
     },
     {
@@ -61,6 +61,14 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Dónde consultar la altura del Río de La Plata hoy en tiempo real?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En Reporte Fluvial podés consultar la altura del Río de La Plata hoy en tiempo real, actualizada cada 10 minutos con datos del mareógrafo oficial de AGPSE, pronóstico de mareas del SHN y viento costero."
+          }
+        },
         {
           "@type": "Question",
           "name": "¿Con qué frecuencia se actualizan los datos?",
@@ -485,7 +493,7 @@
 <div class="contenedor">
   <header class="encabezado">
     <h1>🌊 Reporte Fluvial</h1>
-    <p class="subtitulo">Niveles de ríos de Argentina en tiempo real</p>
+    <p class="subtitulo">Altura del río hoy y niveles en tiempo real</p>
     <span class="fecha-actualizacion" id="fechaActualizacion">⏳ Cargando...</span>
     <div class="toolbar-encabezado">
       <button class="btn-toolbar" onclick="toggleLetraGrande()" id="btnLetraGrande" aria-label="Aumentar tamaño de letra">
@@ -567,6 +575,8 @@
 
     <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">❓ Preguntas frecuentes</h2>
     <div style="font-size:.92rem;line-height:1.7;color:var(--texto);">
+      <p style="margin-bottom:8px;"><strong>¿Dónde consultar la altura del Río de La Plata hoy en tiempo real?</strong><br>
+      En Reporte Fluvial podés consultar la altura del Río de La Plata hoy en tiempo real, actualizada cada 10 minutos con datos del mareógrafo oficial de AGPSE, pronóstico de mareas del SHN y viento costero.</p>
       <p style="margin-bottom:8px;"><strong>¿Con qué frecuencia se actualizan los datos?</strong><br>
       El sistema se actualiza automáticamente cada hora mediante una tarea programada en GitHub Actions. Los datos de La Plata e Iguazú se refrescan cada 10-20 minutos en la fuente original.</p>
       <p style="margin-bottom:8px;"><strong>¿Los datos son oficiales?</strong><br>
