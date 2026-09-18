@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "18/09/2026 a las 00:19 hs",
-  "generadoEn": "2026-09-18T00:19:28.000Z",
+  "fechaReporte": "18/09/2026 a las 00:26 hs",
+  "generadoEn": "2026-09-18T00:26:15.000Z",
   "laplata": {
-    "altura": "0.79",
-    "horaStr": "23:45",
+    "altura": "0.07",
+    "horaStr": "17:45",
     "fechaStr": "17/09/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "0.79m (a las 23:45 hs) (Fuente: SHN)",
+    "textoFB": "0.07m (a las 17:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -254,10 +254,10 @@
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.02m)",
-      "diferencia": "+0.02"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.70m)",
+      "diferencia": "-0.70"
     }
   },
   "viento": {
@@ -265,33 +265,17 @@
     "direccion": "Norte (N)",
     "temperatura": 15.3
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "12:00",
-      "altura": "1.20",
-      "fecha": "18/09"
-    },
-    "bajamar": {
-      "hora": "06:00",
-      "altura": "0.40",
-      "fecha": "18/09"
-    }
-  },
+  "pronostico": null,
   "iguazu": {
-    "altura": "19.19",
-    "horaStr": "00:00",
+    "altura": "19.12",
+    "horaStr": "00:20",
     "fechaStr": "18/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "19.19m (a las 00:00 hs)",
+    "textoFB": "19.12m (a las 00:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.63",
-        "fechaStr": "16/09/2026",
-        "horaStr": "02:00"
-      },
       {
         "altura": "18.64",
         "fechaStr": "16/09/2026",
@@ -526,13 +510,18 @@
         "altura": "19.19",
         "fechaStr": "18/09/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "19.12",
+        "fechaStr": "18/09/2026",
+        "horaStr": "00:20"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "texto": "Bajando (-0.07m)",
+      "diferencia": "-0.07"
     }
   },
   "sanjavier": {
