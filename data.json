@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "19/09/2026 a las 11:19 hs",
-  "generadoEn": "2026-09-19T11:19:27.000Z",
+  "fechaReporte": "19/09/2026 a las 12:19 hs",
+  "generadoEn": "2026-09-19T12:19:29.000Z",
   "laplata": {
-    "altura": "0.61",
-    "horaStr": "10:45",
+    "altura": "0.63",
+    "horaStr": "11:45",
     "fechaStr": "19/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.61m (a las 10:45 hs) (Fuente: SHN)",
+    "textoFB": "0.63m (a las 11:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.40",
-        "fechaStr": "17/09/2026",
-        "horaStr": "11:45"
-      },
       {
         "altura": "0.32",
         "fechaStr": "17/09/2026",
@@ -251,19 +246,24 @@
         "altura": "0.61",
         "fechaStr": "19/09/2026",
         "horaStr": "10:45"
+      },
+      {
+        "altura": "0.63",
+        "fechaStr": "19/09/2026",
+        "horaStr": "11:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.06m)",
-      "diferencia": "+0.06"
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "viento": {
-    "velocidad": 9.8,
+    "velocidad": 9.4,
     "direccion": "Noreste (NE)",
-    "temperatura": 19.1
+    "temperatura": 19.9
   },
   "pronostico": {
     "pleamar": {
@@ -278,20 +278,15 @@
     }
   },
   "iguazu": {
-    "altura": "18.20",
-    "horaStr": "10:40",
+    "altura": "18.16",
+    "horaStr": "12:00",
     "fechaStr": "19/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "18.20m (a las 10:40 hs)",
+    "textoFB": "18.16m (a las 12:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "19.09",
-        "fechaStr": "17/09/2026",
-        "horaStr": "07:00"
-      },
       {
         "altura": "18.97",
         "fechaStr": "17/09/2026",
@@ -526,22 +521,27 @@
         "altura": "18.20",
         "fechaStr": "19/09/2026",
         "horaStr": "10:40"
+      },
+      {
+        "altura": "18.16",
+        "fechaStr": "19/09/2026",
+        "horaStr": "12:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "texto": "Bajando (-0.04m)",
+      "diferencia": "-0.04"
     }
   },
   "sanjavier": {
-    "altura": "3.80",
+    "altura": "2.75",
     "horaStr": "00:00",
-    "fechaStr": "18/09/2026",
+    "fechaStr": "19/09/2026",
     "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "3.80m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "antiguo": false,
+    "textoFB": "2.75m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -684,22 +684,27 @@
         "altura": "3.80",
         "fechaStr": "18/09/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "2.75",
+        "fechaStr": "19/09/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.33m)",
-      "diferencia": "-0.33"
+      "texto": "Bajando (-1.05m)",
+      "diferencia": "-1.05"
     }
   },
   "santotome": {
-    "altura": "7.95",
+    "altura": "6.80",
     "horaStr": "00:00",
-    "fechaStr": "18/09/2026",
+    "fechaStr": "19/09/2026",
     "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "7.95m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "antiguo": false,
+    "textoFB": "6.80m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
@@ -857,13 +862,18 @@
         "altura": "7.95",
         "fechaStr": "18/09/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "6.80",
+        "fechaStr": "19/09/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-1.40m)",
-      "diferencia": "-1.40"
+      "texto": "Bajando (-1.15m)",
+      "diferencia": "-1.15"
     }
   },
   "concordia": {
