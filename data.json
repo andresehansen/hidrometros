@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "19/09/2026 a las 16:19 hs",
-  "generadoEn": "2026-09-19T16:19:23.000Z",
+  "fechaReporte": "19/09/2026 a las 17:19 hs",
+  "generadoEn": "2026-09-19T17:19:25.000Z",
   "laplata": {
-    "altura": "0.56",
-    "horaStr": "15:45",
+    "altura": "0.43",
+    "horaStr": "16:45",
     "fechaStr": "19/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.56m (a las 15:45 hs) (Fuente: SHN)",
+    "textoFB": "0.43m (a las 16:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.10",
-        "fechaStr": "17/09/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "0.04",
         "fechaStr": "17/09/2026",
@@ -251,19 +246,24 @@
         "altura": "0.56",
         "fechaStr": "19/09/2026",
         "horaStr": "15:45"
+      },
+      {
+        "altura": "0.43",
+        "fechaStr": "19/09/2026",
+        "horaStr": "16:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.02m)",
-      "diferencia": "+0.02"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.13m)",
+      "diferencia": "-0.13"
     }
   },
   "viento": {
-    "velocidad": 10.3,
+    "velocidad": 8.8,
     "direccion": "Este (E)",
-    "temperatura": 20.1
+    "temperatura": 18.9
   },
   "pronostico": {
     "pleamar": {
