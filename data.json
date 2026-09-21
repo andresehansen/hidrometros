@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "21/09/2026 a las 13:19 hs",
-  "generadoEn": "2026-09-21T13:19:25.000Z",
+  "fechaReporte": "21/09/2026 a las 14:19 hs",
+  "generadoEn": "2026-09-21T14:19:27.000Z",
   "laplata": {
-    "altura": "0.66",
-    "horaStr": "12:45",
+    "altura": "0.67",
+    "horaStr": "13:45",
     "fechaStr": "21/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.66m (a las 12:45 hs) (Fuente: SHN)",
+    "textoFB": "0.67m (a las 13:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.58",
-        "fechaStr": "19/09/2026",
-        "horaStr": "13:45"
-      },
       {
         "altura": "0.54",
         "fechaStr": "19/09/2026",
@@ -251,13 +246,18 @@
         "altura": "0.66",
         "fechaStr": "21/09/2026",
         "horaStr": "12:45"
+      },
+      {
+        "altura": "0.67",
+        "fechaStr": "21/09/2026",
+        "horaStr": "13:45"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.01m)",
+      "diferencia": "+0.01"
     }
   },
   "viento": {
@@ -278,20 +278,15 @@
     }
   },
   "iguazu": {
-    "altura": "16.82",
-    "horaStr": "13:00",
+    "altura": "16.83",
+    "horaStr": "14:00",
     "fechaStr": "21/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "16.82m (a las 13:00 hs)",
+    "textoFB": "16.83m (a las 14:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.22",
-        "fechaStr": "19/09/2026",
-        "horaStr": "10:00"
-      },
       {
         "altura": "18.20",
         "fechaStr": "19/09/2026",
@@ -526,6 +521,11 @@
         "altura": "16.82",
         "fechaStr": "21/09/2026",
         "horaStr": "13:00"
+      },
+      {
+        "altura": "16.83",
+        "fechaStr": "21/09/2026",
+        "horaStr": "14:00"
       }
     ],
     "tendencia": {
