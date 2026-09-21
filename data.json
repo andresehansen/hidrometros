@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "21/09/2026 a las 17:20 hs",
-  "generadoEn": "2026-09-21T17:20:02.000Z",
+  "fechaReporte": "21/09/2026 a las 17:47 hs",
+  "generadoEn": "2026-09-21T17:47:58.000Z",
   "laplata": {
-    "altura": "0.40",
-    "horaStr": "16:45",
+    "altura": "0.41",
+    "horaStr": "15:45",
     "fechaStr": "21/09/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "0.40m (a las 16:45 hs) (Fuente: SHN)",
+    "textoFB": "0.41m (a las 15:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -261,37 +261,21 @@
     }
   },
   "viento": {
-    "velocidad": 28.1,
+    "velocidad": 26.1,
     "direccion": "Suroeste (SW)",
-    "temperatura": 13.6
+    "temperatura": 13.1
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "19:00",
-      "altura": "1.60",
-      "fecha": "21/09"
-    },
-    "bajamar": {
-      "hora": "02:00",
-      "altura": "1.00",
-      "fecha": "22/09"
-    }
-  },
+  "pronostico": null,
   "iguazu": {
-    "altura": "16.64",
-    "horaStr": "17:00",
+    "altura": "16.76",
+    "horaStr": "17:20",
     "fechaStr": "21/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "16.64m (a las 17:00 hs)",
+    "textoFB": "16.76m (a las 17:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.08",
-        "fechaStr": "19/09/2026",
-        "horaStr": "14:00"
-      },
       {
         "altura": "18.05",
         "fechaStr": "19/09/2026",
@@ -526,13 +510,18 @@
         "altura": "16.64",
         "fechaStr": "21/09/2026",
         "horaStr": "17:00"
+      },
+      {
+        "altura": "16.76",
+        "fechaStr": "21/09/2026",
+        "horaStr": "17:20"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.10m)",
-      "diferencia": "+0.10"
+      "texto": "Subiendo (+0.12m)",
+      "diferencia": "+0.12"
     }
   },
   "sanjavier": {
