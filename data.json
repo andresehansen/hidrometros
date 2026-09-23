@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "23/09/2026 a las 02:19 hs",
-  "generadoEn": "2026-09-23T02:19:24.000Z",
+  "fechaReporte": "23/09/2026 a las 02:31 hs",
+  "generadoEn": "2026-09-23T02:31:39.000Z",
   "laplata": {
-    "altura": "1.44",
-    "horaStr": "00:45",
+    "altura": "1.41",
+    "horaStr": "01:45",
     "fechaStr": "23/09/2026",
-    "fuente": "INA",
+    "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.44m (a las 00:45 hs) (Fuente: INA)",
+    "textoFB": "1.41m (a las 01:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.05",
-        "fechaStr": "21/09/2026",
-        "horaStr": "01:45"
-      },
       {
         "altura": "1.00",
         "fechaStr": "21/09/2026",
@@ -251,17 +246,22 @@
         "altura": "1.44",
         "fechaStr": "23/09/2026",
         "horaStr": "00:45"
+      },
+      {
+        "altura": "1.41",
+        "fechaStr": "23/09/2026",
+        "horaStr": "01:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.10m)",
-      "diferencia": "+0.10"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "viento": {
-    "velocidad": 8.5,
+    "velocidad": 8.7,
     "direccion": "Norte (N)",
     "temperatura": 8.3
   },
