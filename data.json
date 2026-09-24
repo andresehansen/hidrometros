@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "23/09/2026 a las 23:19 hs",
-  "generadoEn": "2026-09-23T23:19:23.000Z",
+  "fechaReporte": "24/09/2026 a las 00:19 hs",
+  "generadoEn": "2026-09-24T00:19:23.000Z",
   "laplata": {
     "altura": "-0.03",
     "horaStr": "22:45",
     "fechaStr": "23/09/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "-0.03m (a las 22:45 hs) (Fuente: SHN)",
+    "textoFB": "-0.03m (a las 22:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -261,22 +261,11 @@
     }
   },
   "viento": {
-    "velocidad": 18.2,
+    "velocidad": 19,
     "direccion": "Norte (N)",
-    "temperatura": 13.9
+    "temperatura": 13.6
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "05:00",
-      "altura": "0.65",
-      "fecha": "24/09"
-    },
-    "bajamar": {
-      "hora": "13:00",
-      "altura": "0.00",
-      "fecha": "24/09"
-    }
-  },
+  "pronostico": null,
   "iguazu": {
     "altura": "17.64",
     "horaStr": "23:00",
@@ -540,8 +529,8 @@
     "horaStr": "00:00",
     "fechaStr": "23/09/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "4.55m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "4.55m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -718,8 +707,8 @@
     "horaStr": "00:00",
     "fechaStr": "23/09/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "7.10m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "7.10m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
