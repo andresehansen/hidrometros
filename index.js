@@ -249,6 +249,162 @@ async function fetchGeoServerINA(bbox, nombrePuerto, seriesIds = []) {
     return fetchINA_geoserver(bbox, nombrePuerto);
 }
 
+// --- HELPER PRONÓSTICOS OFICIALES INA (CUENCA DEL PLATA) ---
+async function fetchPronosticosINA(datosAnteriores = null) {
+    try {
+        console.log("  → Consultando catálogo de pronósticos INA (seriesProno)...");
+        const resCat = await fetch("https://alerta.ina.gob.ar/pub/datos/seriesProno&format=json", {
+            headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
+            signal: AbortSignal.timeout(15000)
+        });
+        if (!resCat.ok) throw new Error(`HTTP ${resCat.status} en seriesProno`);
+        const catJson = await resCat.json();
+        const lista = catJson.data || [];
+        if (lista.length === 0) throw new Error("Listado seriesProno vacío");
+
+        const estacionesObjetivo = [
+            { key: 'iguazu',     nombre: 'Puerto Iguazú', cuenca: 'Río Iguazú / Alto Paraná', var: 'Altura hidrométrica media semanal' },
+            { key: 'corrientes', nombre: 'Corrientes',     cuenca: 'Río Paraná (Confluencia)', var: 'Altura hidrométrica media semanal' },
+            { key: 'parana',     nombre: 'Paraná',         cuenca: 'Río Paraná Medio',         var: 'Altura hidrométrica media semanal' },
+            { key: 'rosario',    nombre: 'Rosario',        cuenca: 'Río Paraná Inferior',      var: 'Altura hidrométrica media semanal' }
+        ];
+
+        const hoy = new Date();
+        const timeStart = hoy.toISOString().split('T')[0];
+        const futuro = new Date(hoy.getTime() + 25 * 86400000);
+        const timeEnd = futuro.toISOString().split('T')[0];
+
+        const resultado = {
+            fuente: "Instituto Nacional del Agua (INA - SIyAH)",
+            actualizadoEn: hoy.toISOString(),
+            estaciones: {}
+        };
+
+        for (const est of estacionesObjetivo) {
+            const s = lista.find(x => x.estacion_nombre === est.nombre && x.var_nombre === est.var);
+            if (!s) {
+                console.log(`  ⚠️ Serie no encontrada para ${est.nombre}`);
+                continue;
+            }
+
+            try {
+                const url = `https://alerta.ina.gob.ar/pub/datos/datosProno&seriesId=${s.seriesid}&corId=${s.corid}&timeStart=${timeStart}&timeEnd=${timeEnd}&format=json`;
+                const rData = await fetch(url, {
+                    headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
+                    signal: AbortSignal.timeout(12000)
+                }).then(r => r.json());
+
+                if (rData.data && rData.data.length > 0) {
+                    const porFecha = {};
+                    rData.data.forEach(p => {
+                        const f = p.timestart.split('T')[0];
+                        if (!porFecha[f]) porFecha[f] = [];
+                        porFecha[f].push(parseFloat(p.valor));
+                    });
+
+                    const proyecciones = Object.entries(porFecha).map(([f, vals]) => {
+                        vals.sort((a, b) => a - b);
+                        const [yyyy, mm, dd] = f.split('-');
+                        return {
+                            fechaIso: f,
+                            fechaStr: `${dd}/${mm}/${yyyy}`,
+                            min: parseFloat(vals[0].toFixed(2)),
+                            esperado: parseFloat((vals.length === 3 ? vals[1] : vals[0]).toFixed(2)),
+                            max: parseFloat(vals[vals.length - 1].toFixed(2))
+                        };
+                    });
+
+                    // Ordenar por fecha cronológicamente
+                    proyecciones.sort((a, b) => new Date(a.fechaIso) - new Date(b.fechaIso));
+
+                    // Calcular tendencia general entre la primera y última proyección
+                    let tendencia = "estable";
+                    if (proyecciones.length >= 2) {
+                        const dif = proyecciones[proyecciones.length - 1].esperado - proyecciones[0].esperado;
+                        if (dif > 0.15) tendencia = "crecida";
+                        else if (dif < -0.15) tendencia = "bajante";
+                    }
+
+                    resultado.estaciones[est.key] = {
+                        nombre: est.nombre,
+                        cuenca: est.cuenca,
+                        fechaEmision: s.forecastdate,
+                        tendencia,
+                        proyecciones
+                    };
+                    console.log(`  ✅ Pronóstico INA ${est.nombre}: ${proyecciones.length} semanas procesadas`);
+                }
+            } catch (e) {
+                console.log(`  ⚠️ Error datosProno ${est.nombre}: ${e.message}`);
+            }
+        }
+
+        if (Object.keys(resultado.estaciones).length > 0) {
+            return resultado;
+        }
+    } catch (e) {
+        console.log(`⚠️ Error general en pronósticos INA: ${e.message}`);
+    }
+
+    if (datosAnteriores?.pronosticosINA) {
+        console.log("  ℹ️ Manteniendo pronósticos INA anteriores.");
+        return datosAnteriores.pronosticosINA;
+    }
+    return null;
+}
+
+// --- HELPER PRONÓSTICO DE SUDESTADA (RÍO DE LA PLATA) ---
+function calcularPronosticoSudestada(lpDatos, pronostico, viento) {
+    const alturaActual = lpDatos ? parseFloat(lpDatos.altura) : 0;
+    const pleamar = pronostico?.pleamar;
+    const pleamarAlt = pleamar ? parseFloat(pleamar.altura) : 0;
+    const velViento = viento ? parseFloat(viento.velocidad) : 0;
+    const dirViento = viento?.direccion || "";
+
+    // Viento del Sureste favorable a sudestada (SE, SSE, S, ESE)
+    const esVientoSudeste = /SE|Sureste|Sur|SSE|ESE/i.test(dirViento) && velViento >= 20;
+    const esVientoFuerte = esVientoSudeste && velViento >= 35;
+
+    // Altura crítica proyectada (considera la próxima pleamar o el nivel actual)
+    const alturaProyectada = Math.max(alturaActual, pleamarAlt);
+
+    let estado = "sin_riesgo";
+    let nivelAlerta = "verde";
+    let titulo = "🟢 Sin previsión de sudestada para las próximas 24 hs";
+    let mensaje = pleamar
+        ? `Pleamar máxima prevista: ${pleamarAlt.toFixed(2)}m (${pleamar.fecha} a las ${pleamar.hora} hs). Viento: ${velViento} km/h ${dirViento}. Condiciones habituales de marea.`
+        : "Nivel de marea dentro de parámetros habituales.";
+
+    if (alturaProyectada >= 2.80) {
+        estado = "alerta_critica";
+        nivelAlerta = "rojo";
+        titulo = "🚨 ALERTA ROJA: PREVISIÓN DE SUDESTADA CRÍTICA";
+        mensaje = `Se prevé pleamar de ${alturaProyectada.toFixed(2)}m (supera umbral de evacuación de 2.80m)${pleamar ? ` hacia las ${pleamar.hora} hs del ${pleamar.fecha}` : ''}. Viento del ${dirViento} a ${velViento} km/h. Riesgo de anegamiento costero en Ensenada, Berisso, Quilmes y Tigre.`;
+    } else if (alturaProyectada >= 2.50) {
+        estado = "alerta_preventiva";
+        nivelAlerta = "naranja";
+        titulo = "⚠️ ALERTA NARANJA: PREVISIÓN DE SUDESTADA";
+        mensaje = `Se prevé pleamar de ${alturaProyectada.toFixed(2)}m (supera umbral de alerta de 2.50m)${pleamar ? ` hacia las ${pleamar.hora} hs del ${pleamar.fecha}` : ''}. Viento del ${dirViento} a ${velViento} km/h. Se recomienda precaución en zonas bajas ribereñas.`;
+    } else if (esVientoFuerte && alturaProyectada >= 2.10) {
+        estado = "precaucion";
+        nivelAlerta = "amarillo";
+        titulo = "🟡 AVISO PREVENTIVO: VIENTO FUERTE DEL SE CON RÍO EN ASCENSO";
+        mensaje = `Viento sostenido del ${dirViento} (${velViento} km/h) con pleamar esperada de ${alturaProyectada.toFixed(2)}m. Posible represamiento de aguas en la costa rioplatense.`;
+    }
+
+    return {
+        estado,
+        nivelAlerta,
+        titulo,
+        mensaje,
+        alturaActual: alturaActual > 0 ? alturaActual.toFixed(2) : null,
+        alturaProyectada: alturaProyectada > 0 ? alturaProyectada.toFixed(2) : null,
+        proximaPleamar: pleamar || null,
+        viento: viento ? { velocidad: velViento, direccion: dirViento, esSudeste: esVientoSudeste } : null,
+        actualizadoEn: new Date().toISOString()
+    };
+}
+
 // --- PUBLICAR data.json EN EL REPO ---
 async function publicarDataJson(datos) {
     const token = process.env.GITHUB_TOKEN;
@@ -759,6 +915,11 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             abajo:  sgAbajoDatos
         } : (datosAnteriores.saltogrande || null);
 
+        // ---- 7. PRONÓSTICOS HIDROLÓGICOS INA Y PREVISIÓN DE SUDESTADA ----
+        console.log("\n🔮 Obteniendo Pronósticos Hidrológicos Oficiales del INA...");
+        const pronosticosINA = await fetchPronosticosINA(datosAnteriores);
+        const pronosticoSudestada = calcularPronosticoSudestada(lpDatos, pronostico, viento);
+
         // ---- GENERAR data.json PARA EL SITIO WEB ----
         const dataJson = {
             schemaVersion: "1.0.0",
@@ -767,6 +928,8 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             laplata:    lpDatos,
             viento,
             pronostico,
+            pronosticoSudestada,
+            pronosticosINA,
             iguazu:     igDatos,
             sanjavier:  sjDatos,
             santotome:  stDatos,
@@ -799,8 +962,11 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
         const prTxt = pronostico
             ? `📈 Pleamar: ${pronostico.pleamar ? pronostico.pleamar.altura+'m el '+pronostico.pleamar.fecha+' '+pronostico.pleamar.hora : 'S/D'}\n📉 Bajamar: ${pronostico.bajamar ? pronostico.bajamar.altura+'m el '+pronostico.bajamar.fecha+' '+pronostico.bajamar.hora : 'S/D'}`
             : "N/D";
+        const sudTxt = (pronosticoSudestada && pronosticoSudestada.estado !== 'sin_riesgo')
+            ? `\n\n${aNegrita("AVISO:")} ${pronosticoSudestada.titulo}\n${pronosticoSudestada.mensaje}`
+            : "";
 
-        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊\n📅 ${fechaReporte}\n\n📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(lpTxt)}\n🌬️ Viento: ${viTxt}\n\n⚓ ${aNegrita("SHN:")}\n${prTxt}\n\n📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(igTxt)}\n\n📍 ${aNegrita("SAN JAVIER")} (${sjDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(sjTxt)}\n\n📍 ${aNegrita("SANTO TOMÉ")} (${stDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(stTxt)}\n\n📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(coTxt)}\n\n⚡ ${aNegrita("EMBALSE SALTO GRANDE")}\n🔼 Cota Embalse (Arriba): ${aNegrita(sgArribaTxt)}\n🔽 Restitución (Abajo): ${aNegrita(sgAbajoTxt)}`;
+        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊\n📅 ${fechaReporte}\n\n📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(lpTxt)}\n🌬️ Viento: ${viTxt}\n\n⚓ ${aNegrita("SHN:")}\n${prTxt}${sudTxt}\n\n📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(igTxt)}\n\n📍 ${aNegrita("SAN JAVIER")} (${sjDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(sjTxt)}\n\n📍 ${aNegrita("SANTO TOMÉ")} (${stDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(stTxt)}\n\n📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(coTxt)}\n\n⚡ ${aNegrita("EMBALSE SALTO GRANDE")}\n🔼 Cota Embalse (Arriba): ${aNegrita(sgArribaTxt)}\n🔽 Restitución (Abajo): ${aNegrita(sgAbajoTxt)}`;
 
         console.log("\n📝 PUBLICACIÓN FACEBOOK:\n", msg);
 

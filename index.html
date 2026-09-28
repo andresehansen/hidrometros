@@ -42,7 +42,7 @@
     {
       "@type": "Dataset",
       "name": "Niveles Hidrométricos de Ríos de Argentina en Tiempo Real",
-      "description": "Monitoreo en tiempo real de alturas de ríos, estados de alerta/evacuación y pronósticos de mareas de La Plata, Iguazú, Salto Grande, Concordia, San Javier y Santo Tomé.",
+      "description": "Monitoreo en tiempo real de alturas de ríos, estados de alerta/evacuación, previsión de sudestadas y pronósticos hidrológicos oficiales del INA para la Cuenca del Plata.",
       "url": "https://andresehansen.github.io/hidrometros/",
       "creator": {
         "@type": "Person",
@@ -61,6 +61,14 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo consultar el pronóstico hidrológico y de sudestada del Río de La Plata?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reporte Fluvial integra el modelo numérico del INA con proyecciones semanales a 14-21 días y el pronóstico mareológico del SHN para anticipar alertas preventivas de sudestada en la costa rioplatense."
+          }
+        },
         {
           "@type": "Question",
           "name": "¿Dónde consultar la altura del Río de La Plata hoy en tiempo real?",
@@ -314,12 +322,106 @@
     color: var(--rojo-evacuacion);
     border: 2px solid var(--rojo-border);
   }
+  .banner-alerta-general.precaucion {
+    background: var(--amarillo-bg);
+    color: var(--amarillo-alerta);
+    border: 2px solid var(--amarillo-border);
+  }
   .banner-icono {
     font-size: 1.8rem;
     flex-shrink: 0;
   }
   .banner-texto strong {
     font-weight: 800;
+  }
+
+  /* Estilos Módulo Pronósticos INA */
+  .tarjeta.tarjeta-pronostico {
+    border-left: 6px solid var(--azul-medio);
+    background: var(--fondo-tarjeta);
+  }
+  .tabs-prono-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 16px;
+  }
+  .btn-tab-prono {
+    background: var(--fondo-sub);
+    color: var(--color-sub);
+    border: 2px solid var(--borde-sub);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 48px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-tab-prono:hover {
+    border-color: var(--azul-medio);
+    color: var(--azul-medio);
+  }
+  .btn-tab-prono.activo {
+    background: var(--azul-rio);
+    color: #ffffff;
+    border-color: var(--azul-rio);
+    box-shadow: 0 4px 12px rgba(10,61,98,0.25);
+  }
+  .tabla-prono-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--borde-sub);
+    margin: 12px 0;
+    background: var(--fondo-sub);
+  }
+  .tabla-prono {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    text-align: left;
+  }
+  .tabla-prono th {
+    background: var(--azul-claro);
+    color: var(--color-sub);
+    font-weight: 700;
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--borde-sub);
+  }
+  .tabla-prono td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--borde-sub);
+    color: var(--texto);
+  }
+  .tabla-prono tr:last-child td {
+    border-bottom: none;
+  }
+  .badge-prono-tendencia {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .badge-prono-tendencia.crecida {
+    background: var(--naranja-bg);
+    color: var(--naranja-alerta);
+    border: 1px solid var(--naranja-alerta);
+  }
+  .badge-prono-tendencia.bajante {
+    background: var(--azul-claro);
+    color: var(--azul-medio);
+    border: 1px solid var(--azul-medio);
+  }
+  .badge-prono-tendencia.estable {
+    background: var(--verde-bg);
+    color: var(--verde-ok);
+    border: 1px solid var(--verde-border);
   }
 
   /* Modo Letra Grande para Tablet y Lectura Cómoda */
@@ -521,6 +623,7 @@
   <nav class="nav-saltos-container" aria-label="Accesos directos a localidades">
     <div class="nav-saltos">
       <button type="button" class="btn-salto destacado" onclick="irAPuerto('tarjeta-laplata')">La Plata</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-pronosticos-ina')">🔮 Pronóstico INA</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-iguazu')">Iguazú</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-saltogrande')">Salto Grande</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-concordia')">Concordia</button>
@@ -575,6 +678,8 @@
 
     <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">❓ Preguntas frecuentes</h2>
     <div style="font-size:.92rem;line-height:1.7;color:var(--texto);">
+      <p style="margin-bottom:8px;"><strong>¿Cómo consultar el pronóstico hidrológico y de sudestada del Río de La Plata?</strong><br>
+      Reporte Fluvial integra el modelo numérico del INA con proyecciones semanales a 14-21 días y el pronóstico mareológico del SHN para anticipar alertas preventivas de sudestada en la costa rioplatense.</p>
       <p style="margin-bottom:8px;"><strong>¿Dónde consultar la altura del Río de La Plata hoy en tiempo real?</strong><br>
       En Reporte Fluvial podés consultar la altura del Río de La Plata hoy en tiempo real, actualizada cada 10 minutos con datos del mareógrafo oficial de AGPSE, pronóstico de mareas del SHN y viento costero.</p>
       <p style="margin-bottom:8px;"><strong>¿Con qué frecuencia se actualizan los datos?</strong><br>
@@ -1111,7 +1216,7 @@ function renderTablaAccesible(hist, nombrePuerto) {
 // ──────────────────────────────────────────────────────────────
 // TARJETAS DE PUERTOS
 // ──────────────────────────────────────────────────────────────
-function tarjetaLP(d, viento, pron) {
+function tarjetaLP(d, viento, pron, sudestada) {
   const alerta = (d && d.alerta !== undefined) ? d.alerta : DEFAULTS_PUERTO.laplata.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : DEFAULTS_PUERTO.laplata.evacuacion;
   const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
@@ -1126,6 +1231,18 @@ function tarjetaLP(d, viento, pron) {
     pronHTML += `</div>`;
   }
   
+  let sudestadaHTML = '';
+  if (sudestada && sudestada.estado !== 'sin_riesgo') {
+    const bg = sudestada.nivelAlerta === 'rojo' ? 'var(--rojo-bg)' : (sudestada.nivelAlerta === 'naranja' ? 'var(--naranja-bg)' : 'var(--amarillo-bg)');
+    const col = sudestada.nivelAlerta === 'rojo' ? 'var(--rojo-evacuacion)' : (sudestada.nivelAlerta === 'naranja' ? 'var(--naranja-alerta)' : 'var(--amarillo-alerta)');
+    const border = sudestada.nivelAlerta === 'rojo' ? 'var(--rojo-border)' : (sudestada.nivelAlerta === 'naranja' ? 'var(--naranja-border)' : 'var(--amarillo-border)');
+    sudestadaHTML = `
+      <div style="background:${bg};color:${col};border:2px solid ${border};border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:0.95rem;line-height:1.5;">
+        <strong>${sudestada.titulo}</strong><br>
+        <span>${sudestada.mensaje}</span>
+      </div>`;
+  }
+
   let histHTML = '';
   if (d && d.historico && d.historico.length > 1) {
     histHTML = `
@@ -1142,6 +1259,7 @@ function tarjetaLP(d, viento, pron) {
   return `<div class="tarjeta estado-${estado}" id="tarjeta-laplata">
     <div class="tarjeta-titulo">La Plata</div>
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
+    ${sudestadaHTML}
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo oficial de AGPSE en el Puerto La Plata.')}</div>
       ${renderVisorAltura(d, alerta, evacuacion)}
@@ -1157,6 +1275,118 @@ function tarjetaLP(d, viento, pron) {
     </div></div>
     ${histHTML}
   </div>`;
+}
+
+// ──────────────────────────────────────────────────────────────
+// MÓDULO PRONÓSTICOS INA (CUENCA DEL PLATA)
+// ──────────────────────────────────────────────────────────────
+let estacionPronoActiva = 'iguazu';
+
+function seleccionarEstacionProno(key) {
+  estacionPronoActiva = key;
+  if (!datosActuales || !datosActuales.pronosticosINA) return;
+  const wrap = document.getElementById('prono-contenido-dinamico');
+  if (wrap) {
+    wrap.innerHTML = renderContenidoEstacionProno(datosActuales.pronosticosINA, key);
+  }
+  document.querySelectorAll('.btn-tab-prono').forEach(btn => {
+    btn.classList.toggle('activo', btn.getAttribute('data-estacion') === key);
+    btn.setAttribute('aria-selected', btn.getAttribute('data-estacion') === key ? 'true' : 'false');
+  });
+}
+
+function renderContenidoEstacionProno(pINA, key) {
+  const est = pINA?.estaciones?.[key];
+  if (!est || !est.proyecciones || est.proyecciones.length === 0) {
+    return `<div style="padding:14px;color:var(--color-sub);font-size:.95rem;">Información de pronóstico no disponible temporalmente para esta estación.</div>`;
+  }
+
+  const badgeTendencia = {
+    crecida: `<span class="badge-prono-tendencia crecida">📈 Crecida proyectada</span>`,
+    bajante: `<span class="badge-prono-tendencia bajante">📉 Bajante proyectada</span>`,
+    estable: `<span class="badge-prono-tendencia estable">🟢 Estable</span>`
+  }[est.tendencia] || '';
+
+  const fechaEmisionLegible = est.fechaEmision ? est.fechaEmision.split('T')[0].split('-').reverse().join('/') : 'Reciente';
+
+  let filas = est.proyecciones.map((p, idx) => `
+    <tr>
+      <td><strong>Semana ${idx + 1}</strong><br><span style="font-size:.82rem;color:var(--color-fecha);">${p.fechaStr}</span></td>
+      <td><span style="font-size:1.25rem;font-weight:800;color:var(--azul-rio);">${p.esperado.toFixed(2)}</span> <span style="font-size:.85rem;">m</span></td>
+      <td><span style="font-size:.9rem;color:var(--color-sub);">${p.min.toFixed(2)}m &nbsp;a&nbsp; ${p.max.toFixed(2)}m</span></td>
+    </tr>
+  `).join('');
+
+  return `
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+      <div>
+        <strong style="color:var(--azul-rio);font-size:1.15rem;">${est.nombre}</strong> 
+        <span style="color:var(--color-sub);font-size:.88rem;">(${est.cuenca})</span>
+      </div>
+      <div>${badgeTendencia}</div>
+    </div>
+    <div style="font-size:.84rem;color:var(--color-fecha);margin-bottom:8px;">
+      Emisión del modelo numérico oficial: ${fechaEmisionLegible}
+    </div>
+    <div class="tabla-prono-wrap">
+      <table class="tabla-prono" aria-label="Tabla de pronóstico hidrológico semanal para ${est.nombre}">
+        <thead>
+          <tr>
+            <th scope="col">Período</th>
+            <th scope="col">Nivel Esperado</th>
+            <th scope="col">Rango (Mín - Máx)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filas}
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.82rem;color:var(--color-sub);margin-top:8px;line-height:1.5;">
+      ℹ️ El nivel esperado corresponde a la simulación hidrodinámica oficial del INA. El rango mínimo y máximo refleja la incertidumbre según las lluvias pronosticadas en las cuencas superiores.
+    </p>
+  `;
+}
+
+function tarjetaPronosticosINA(pINA) {
+  if (!pINA || !pINA.estaciones) return '';
+  const estaciones = pINA.estaciones;
+  const listaKeys = Object.keys(estaciones);
+  if (listaKeys.length === 0) return '';
+
+  if (!estaciones[estacionPronoActiva]) {
+    estacionPronoActiva = listaKeys[0];
+  }
+
+  const tabsHTML = `
+    <div class="tabs-prono-container" role="tablist" aria-label="Estaciones con pronóstico hidrológico">
+      ${listaKeys.map(k => `
+        <button type="button" 
+                class="btn-tab-prono ${k === estacionPronoActiva ? 'activo' : ''}" 
+                role="tab"
+                data-estacion="${k}"
+                aria-selected="${k === estacionPronoActiva}"
+                onclick="seleccionarEstacionProno('${k}')">
+          ${estaciones[k].nombre}
+        </button>
+      `).join('')}
+    </div>
+  `;
+
+  return `
+    <div class="tarjeta tarjeta-pronostico" id="tarjeta-pronosticos-ina">
+      <div class="tarjeta-titulo">🔮 Pronóstico Hidrológico Oficial (INA)</div>
+      <div class="tarjeta-fecha">Tendencia hidrométrica a 14-21 días · Cuenca del Plata</div>
+      ${tabsHTML}
+      <div id="prono-contenido-dinamico">
+        ${renderContenidoEstacionProno(pINA, estacionPronoActiva)}
+      </div>
+      <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--borde-sub);font-size:.8rem;color:var(--color-sub);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+        <span>Fuente: <strong>Instituto Nacional del Agua (SIyAH)</strong></span>
+        <span>Actualización semanal</span>
+      </div>
+    </div>
+  `;
 }
 
 function tarjetaRio(nombre, d, idChart, keyPuerto) {
@@ -1418,12 +1648,30 @@ function renderBannerAlertas(d) {
       </div>`;
   }
 
+  if (d.pronosticoSudestada && d.pronosticoSudestada.estado !== 'sin_riesgo') {
+    const sud = d.pronosticoSudestada;
+    const clase = sud.nivelAlerta === 'rojo' ? 'evacuacion' : (sud.nivelAlerta === 'naranja' ? 'alerta' : 'precaucion');
+    const icono = sud.nivelAlerta === 'rojo' ? '🚨' : '🔮';
+    return `
+      <div class="banner-alerta-general ${clase}" role="alert">
+        <div class="banner-icono">${icono}</div>
+        <div class="banner-texto">
+          <strong>${sud.titulo}</strong><br>
+          ${sud.mensaje}
+        </div>
+      </div>`;
+  }
+
+  const avisoSud = d.pronosticoSudestada?.mensaje 
+    ? `<br><span style="font-size:0.88rem;opacity:0.95;">🔮 <strong>Previsión de Sudestada (SHN):</strong> ${d.pronosticoSudestada.mensaje}</span>`
+    : '';
+
   return `
     <div class="banner-alerta-general normal" role="status">
       <div class="banner-icono">🟢</div>
       <div class="banner-texto">
-        <strong>SIN ALERTAS</strong><br>
-        Todos los puertos monitoreados se encuentran en niveles normales y seguros.
+        <strong>SIN ALERTAS ACTIVAS</strong><br>
+        Todos los puertos monitoreados se encuentran en niveles normales y seguros.${avisoSud}
       </div>
     </div>`;
 }
@@ -1469,6 +1717,18 @@ function detectarCambiosDeEstado(nuevoD) {
   if (nuevoD.saltogrande) {
     evaluar('sg_arriba', 'Salto Grande Arriba', nuevoD.saltogrande.arriba, 'saltogrande_arriba');
     evaluar('sg_abajo', 'Salto Grande Abajo', nuevoD.saltogrande.abajo, 'saltogrande_abajo');
+  }
+
+  // Notificación de previsión de sudestada
+  if (nuevoD.pronosticoSudestada && nuevoD.pronosticoSudestada.estado !== 'sin_riesgo') {
+    const sudPrev = window.estadoSudestadaPrevio || 'sin_riesgo';
+    if (!esCargaInicial && sudPrev !== nuevoD.pronosticoSudestada.estado) {
+      lanzarNotificacion(nuevoD.pronosticoSudestada.titulo, nuevoD.pronosticoSudestada.mensaje);
+      mostrarToast(nuevoD.pronosticoSudestada.titulo, 'alerta');
+      reproducirAlertaSonora();
+      anunciarAriaLive(nuevoD.pronosticoSudestada.mensaje);
+    }
+    window.estadoSudestadaPrevio = nuevoD.pronosticoSudestada.estado;
   }
 
   estadosPuertosPrevios = nuevosEstados;
@@ -1574,7 +1834,8 @@ async function cargarDatos(esAuto = false) {
         if (tempDiv.firstElementChild) panel.insertBefore(tempDiv.firstElementChild, panel.firstChild);
       }
 
-      actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico));
+      actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada));
+      actualizarTarjetaEnLugar('tarjeta-pronosticos-ina', tarjetaPronosticosINA(d.pronosticosINA));
       actualizarTarjetaEnLugar('tarjeta-iguazu', tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu'));
       actualizarTarjetaEnLugar('tarjeta-saltogrande', tarjetaSaltoGrande(d.saltogrande));
       actualizarTarjetaEnLugar('tarjeta-concordia', tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia'));
@@ -1583,7 +1844,8 @@ async function cargarDatos(esAuto = false) {
     } else {
       // Renderizado completo del panel (localidades sin emojis en títulos)
       panel.innerHTML = renderBannerAlertas(d) +
-                       tarjetaLP(d.laplata, d.viento, d.pronostico) + 
+                       tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada) + 
+                       tarjetaPronosticosINA(d.pronosticosINA) +
                        tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
                        tarjetaSaltoGrande(d.saltogrande) +
                        tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
