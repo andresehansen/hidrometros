@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "28/09/2026 a las 19:19 hs",
-  "generadoEn": "2026-09-28T19:19:25.000Z",
+  "fechaReporte": "28/09/2026 a las 20:19 hs",
+  "generadoEn": "2026-09-28T20:19:26.000Z",
   "laplata": {
-    "altura": "1.08",
-    "horaStr": "18:45",
+    "altura": "0.91",
+    "horaStr": "19:45",
     "fechaStr": "28/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.08m (a las 18:45 hs) (Fuente: SHN)",
+    "textoFB": "0.91m (a las 19:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.35",
-        "fechaStr": "26/09/2026",
-        "horaStr": "19:45"
-      },
       {
         "altura": "1.33",
         "fechaStr": "26/09/2026",
@@ -251,19 +246,24 @@
         "altura": "1.08",
         "fechaStr": "28/09/2026",
         "horaStr": "18:45"
+      },
+      {
+        "altura": "0.91",
+        "fechaStr": "28/09/2026",
+        "horaStr": "19:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "texto": "Bajando (-0.17m)",
+      "diferencia": "-0.17"
     }
   },
   "viento": {
     "velocidad": 15.3,
     "direccion": "Sureste (SE)",
-    "temperatura": 17.4
+    "temperatura": 16.2
   },
   "pronostico": {
     "pleamar": {
@@ -278,12 +278,12 @@
     }
   },
   "iguazu": {
-    "altura": "15.39",
-    "horaStr": "19:00",
+    "altura": "3.47",
+    "horaStr": "00:00",
     "fechaStr": "28/09/2026",
-    "fuente": "AGPSE",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "15.39m (a las 19:00 hs)",
+    "textoFB": "3.47m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -529,10 +529,10 @@
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.20m)",
-      "diferencia": "+0.20"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-11.72m)",
+      "diferencia": "-11.72"
     }
   },
   "sanjavier": {
