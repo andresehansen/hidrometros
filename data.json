@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "29/09/2026 a las 18:19 hs",
-  "generadoEn": "2026-09-29T18:19:26.000Z",
+  "fechaReporte": "29/09/2026 a las 18:56 hs",
+  "generadoEn": "2026-09-29T18:56:11.000Z",
   "laplata": {
     "altura": "1.36",
     "horaStr": "17:45",
@@ -261,9 +261,9 @@
     }
   },
   "viento": {
-    "velocidad": 14.7,
+    "velocidad": 13.1,
     "direccion": "Sur (S)",
-    "temperatura": 16.9
+    "temperatura": 16.2
   },
   "pronostico": {
     "pleamar": {
@@ -281,7 +281,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.35m (29/09 a las 19:00 hs). Viento: 14.7 km/h Sur (S). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.35m (29/09 a las 19:00 hs). Viento: 13.1 km/h Sur (S). Condiciones habituales de marea.",
     "alturaActual": "1.36",
     "alturaProyectada": "1.36",
     "proximaPleamar": {
@@ -290,15 +290,15 @@
       "fecha": "29/09"
     },
     "viento": {
-      "velocidad": 14.7,
+      "velocidad": 13.1,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-09-29T21:20:38.045Z"
+    "actualizadoEn": "2026-09-29T21:57:20.667Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-09-29T21:20:31.600Z",
+    "actualizadoEn": "2026-09-29T21:57:11.012Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -420,19 +420,14 @@
   },
   "iguazu": {
     "altura": "15.17",
-    "horaStr": "18:00",
+    "horaStr": "18:40",
     "fechaStr": "29/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "15.17m (a las 18:00 hs)",
+    "textoFB": "15.17m (a las 18:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "16.37",
-        "fechaStr": "27/09/2026",
-        "horaStr": "10:40"
-      },
       {
         "altura": "16.32",
         "fechaStr": "27/09/2026",
@@ -667,13 +662,18 @@
         "altura": "15.17",
         "fechaStr": "29/09/2026",
         "horaStr": "18:00"
+      },
+      {
+        "altura": "15.17",
+        "fechaStr": "29/09/2026",
+        "horaStr": "18:40"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.12m)",
-      "diferencia": "-0.12"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
