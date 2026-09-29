@@ -623,12 +623,12 @@
   <nav class="nav-saltos-container" aria-label="Accesos directos a localidades">
     <div class="nav-saltos">
       <button type="button" class="btn-salto destacado" onclick="irAPuerto('tarjeta-laplata')">La Plata</button>
-      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-pronosticos-ina')">🔮 Pronóstico INA</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-iguazu')">Iguazú</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-saltogrande')">Salto Grande</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-concordia')">Concordia</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-sanjavier')">San Javier</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-santotome')">Santo Tomé</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-pronosticos-ina')">Pronóstico INA</button>
     </div>
   </nav>
 
@@ -1302,9 +1302,9 @@ function renderContenidoEstacionProno(pINA, key) {
   }
 
   const badgeTendencia = {
-    crecida: `<span class="badge-prono-tendencia crecida">📈 Crecida proyectada</span>`,
-    bajante: `<span class="badge-prono-tendencia bajante">📉 Bajante proyectada</span>`,
-    estable: `<span class="badge-prono-tendencia estable">🟢 Estable</span>`
+    crecida: `<span class="badge-prono-tendencia crecida">Crecida proyectada</span>`,
+    bajante: `<span class="badge-prono-tendencia bajante">Bajante proyectada</span>`,
+    estable: `<span class="badge-prono-tendencia estable">Estable</span>`
   }[est.tendencia] || '';
 
   const fechaEmisionLegible = est.fechaEmision ? est.fechaEmision.split('T')[0].split('-').reverse().join('/') : 'Reciente';
@@ -1343,7 +1343,7 @@ function renderContenidoEstacionProno(pINA, key) {
       </table>
     </div>
     <p style="font-size:.82rem;color:var(--color-sub);margin-top:8px;line-height:1.5;">
-      ℹ️ El nivel esperado corresponde a la simulación hidrodinámica oficial del INA. El rango mínimo y máximo refleja la incertidumbre según las lluvias pronosticadas en las cuencas superiores.
+      El nivel esperado corresponde a la simulación hidrodinámica oficial del INA. El rango mínimo y máximo refleja la incertidumbre según las lluvias pronosticadas en las cuencas superiores.
     </p>
   `;
 }
@@ -1375,7 +1375,7 @@ function tarjetaPronosticosINA(pINA) {
 
   return `
     <div class="tarjeta tarjeta-pronostico" id="tarjeta-pronosticos-ina">
-      <div class="tarjeta-titulo">🔮 Pronóstico Hidrológico Oficial (INA)</div>
+      <div class="tarjeta-titulo">Pronóstico Hidrológico Oficial (INA)</div>
       <div class="tarjeta-fecha">Tendencia hidrométrica a 14-21 días · Cuenca del Plata</div>
       ${tabsHTML}
       <div id="prono-contenido-dinamico">
@@ -1651,7 +1651,7 @@ function renderBannerAlertas(d) {
   if (d.pronosticoSudestada && d.pronosticoSudestada.estado !== 'sin_riesgo') {
     const sud = d.pronosticoSudestada;
     const clase = sud.nivelAlerta === 'rojo' ? 'evacuacion' : (sud.nivelAlerta === 'naranja' ? 'alerta' : 'precaucion');
-    const icono = sud.nivelAlerta === 'rojo' ? '🚨' : '🔮';
+    const icono = sud.nivelAlerta === 'rojo' ? '🚨' : '⚠️';
     return `
       <div class="banner-alerta-general ${clase}" role="alert">
         <div class="banner-icono">${icono}</div>
@@ -1663,7 +1663,7 @@ function renderBannerAlertas(d) {
   }
 
   const avisoSud = d.pronosticoSudestada?.mensaje 
-    ? `<br><span style="font-size:0.88rem;opacity:0.95;">🔮 <strong>Previsión de Sudestada (SHN):</strong> ${d.pronosticoSudestada.mensaje}</span>`
+    ? `<br><span style="font-size:0.88rem;opacity:0.95;"><strong>Previsión de Sudestada (SHN):</strong> ${d.pronosticoSudestada.mensaje}</span>`
     : '';
 
   return `
@@ -1835,22 +1835,22 @@ async function cargarDatos(esAuto = false) {
       }
 
       actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada));
-      actualizarTarjetaEnLugar('tarjeta-pronosticos-ina', tarjetaPronosticosINA(d.pronosticosINA));
       actualizarTarjetaEnLugar('tarjeta-iguazu', tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu'));
       actualizarTarjetaEnLugar('tarjeta-saltogrande', tarjetaSaltoGrande(d.saltogrande));
       actualizarTarjetaEnLugar('tarjeta-concordia', tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia'));
       actualizarTarjetaEnLugar('tarjeta-sanjavier', tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier'));
       actualizarTarjetaEnLugar('tarjeta-santotome', tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome'));
+      actualizarTarjetaEnLugar('tarjeta-pronosticos-ina', tarjetaPronosticosINA(d.pronosticosINA));
     } else {
-      // Renderizado completo del panel (localidades sin emojis en títulos)
+      // Renderizado completo del panel (puertos en tiempo real consecutivos + pronóstico hidrológico oficial al final)
       panel.innerHTML = renderBannerAlertas(d) +
                        tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada) + 
-                       tarjetaPronosticosINA(d.pronosticosINA) +
                        tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
                        tarjetaSaltoGrande(d.saltogrande) +
                        tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
                        tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier') + 
-                       tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome');
+                       tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome') +
+                       tarjetaPronosticosINA(d.pronosticosINA);
 
       // Restaurar los <details> que estaban abiertos
       detailsAbiertos.forEach(id => {

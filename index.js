@@ -916,7 +916,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
         } : (datosAnteriores.saltogrande || null);
 
         // ---- 7. PRONÓSTICOS HIDROLÓGICOS INA Y PREVISIÓN DE SUDESTADA ----
-        console.log("\n🔮 Obteniendo Pronósticos Hidrológicos Oficiales del INA...");
+        console.log("\n[INA] Obteniendo Pronósticos Hidrológicos Oficiales del INA...");
         const pronosticosINA = await fetchPronosticosINA(datosAnteriores);
         const pronosticoSudestada = calcularPronosticoSudestada(lpDatos, pronostico, viento);
 
