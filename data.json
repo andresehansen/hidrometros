@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "29/09/2026 a las 07:19 hs",
-  "generadoEn": "2026-09-29T07:19:27.000Z",
+  "fechaReporte": "29/09/2026 a las 08:08 hs",
+  "generadoEn": "2026-09-29T08:08:45.000Z",
   "laplata": {
-    "altura": "1.19",
-    "horaStr": "06:45",
+    "altura": "1.24",
+    "horaStr": "07:45",
     "fechaStr": "29/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.19m (a las 06:45 hs) (Fuente: SHN)",
+    "textoFB": "1.24m (a las 07:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.51",
-        "fechaStr": "27/09/2026",
-        "horaStr": "08:45"
-      },
       {
         "altura": "1.42",
         "fechaStr": "27/09/2026",
@@ -251,19 +246,24 @@
         "altura": "1.19",
         "fechaStr": "29/09/2026",
         "horaStr": "06:45"
+      },
+      {
+        "altura": "1.24",
+        "fechaStr": "29/09/2026",
+        "horaStr": "07:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.04m)",
-      "diferencia": "+0.04"
+      "texto": "Subiendo (+0.05m)",
+      "diferencia": "+0.05"
     }
   },
   "viento": {
-    "velocidad": 10.1,
+    "velocidad": 7.7,
     "direccion": "Sureste (SE)",
-    "temperatura": 14.3
+    "temperatura": 14.8
   },
   "pronostico": {
     "pleamar": {
@@ -281,24 +281,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 0.95m (29/09 a las 19:00 hs). Viento: 10.1 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "1.19",
-    "alturaProyectada": "1.19",
+    "mensaje": "Pleamar máxima prevista: 0.95m (29/09 a las 19:00 hs). Viento: 7.7 km/h Sureste (SE). Condiciones habituales de marea.",
+    "alturaActual": "1.24",
+    "alturaProyectada": "1.24",
     "proximaPleamar": {
       "hora": "19:00",
       "altura": "0.95",
       "fecha": "29/09"
     },
     "viento": {
-      "velocidad": 10.1,
+      "velocidad": 7.7,
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-09-29T10:20:40.338Z"
+    "actualizadoEn": "2026-09-29T11:11:23.585Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-09-29T10:20:33.617Z",
+    "actualizadoEn": "2026-09-29T11:11:17.933Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1367,12 +1367,12 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.29",
+      "altura": "34.20",
       "horaStr": "00:00",
-      "fechaStr": "29/09/2026",
-      "fuente": "CARU",
-      "antiguo": false,
-      "textoFB": "34.29m (a las 00:00 hs)",
+      "fechaStr": "28/09/2026",
+      "fuente": "INA",
+      "antiguo": true,
+      "textoFB": "34.20m (a las 00:00 hs) ⚠️ (Dato viejo)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1620,17 +1620,17 @@
       "tendencia": {
         "icono": "⬆️",
         "estado": "subiendo",
-        "texto": "Subiendo (+0.14m)",
-        "diferencia": "+0.14"
+        "texto": "Subiendo (+0.05m)",
+        "diferencia": "+0.05"
       }
     },
     "abajo": {
-      "altura": "10.96",
+      "altura": "10.57",
       "horaStr": "00:00",
-      "fechaStr": "29/09/2026",
-      "fuente": "CARU",
-      "antiguo": false,
-      "textoFB": "10.96m (a las 00:00 hs)",
+      "fechaStr": "28/09/2026",
+      "fuente": "INA",
+      "antiguo": true,
+      "textoFB": "10.57m (a las 00:00 hs) ⚠️ (Dato viejo)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1876,10 +1876,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬆️",
-        "estado": "subiendo",
-        "texto": "Subiendo (+0.36m)",
-        "diferencia": "+0.36"
+        "icono": "⬇️",
+        "estado": "bajando",
+        "texto": "Bajando (-0.03m)",
+        "diferencia": "-0.03"
       }
     }
   }
