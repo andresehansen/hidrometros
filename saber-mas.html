@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a3d62">
+<title>Saber Más — Claves y Secretos de Nuestros Ríos | Reporte Fluvial</title>
+<meta name="description" content="Guía interactiva y educativa sobre cómo se originan las sudestadas en el Río de La Plata, cómo viajan las crecidas en la Cuenca del Plata y qué hacer ante alertas oficiales.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://andresehansen.github.io/hidrometros/saber-mas.html">
+
+<!-- Open Graph / Redes Sociales -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Saber Más — Claves y Secretos de Nuestros Ríos | Reporte Fluvial">
+<meta property="og:description" content="Aprendé cómo funcionan las mareas, por qué se producen las sudestadas, cómo viaja el agua en la Cuenca del Plata y qué medidas de seguridad tomar ante alertas fluviales.">
+<meta property="og:url" content="https://andresehansen.github.io/hidrometros/saber-mas.html">
+<meta property="og:site_name" content="Reporte Fluvial">
+<meta property="og:locale" content="es_AR">
+
+<!-- Fuentes optimizadas sin bloqueo de renderizado -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap">
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4845331718157055" crossorigin="anonymous"></script>
+
+<!-- Marcado Estructurado Schema.org (Article + FAQPage + BreadcrumbList) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://andresehansen.github.io/hidrometros/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Saber Más",
+          "item": "https://andresehansen.github.io/hidrometros/saber-mas.html"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "Saber Más: Todo sobre Sudestadas, Mareas y la Cuenca del Plata",
+      "description": "Explicación integral sobre el funcionamiento de las mareas, el origen de las sudestadas en el Río de La Plata, los ciclos hidrológicos de la Cuenca del Plata y protocolos de seguridad.",
+      "inLanguage": "es-AR",
+      "author": {
+        "@type": "Organization",
+        "name": "Reporte Fluvial"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Reporte Fluvial",
+        "url": "https://andresehansen.github.io/hidrometros/"
+      },
+      "datePublished": "2026-09-28",
+      "dateModified": "2026-09-28"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Por qué se producen las sudestadas en el Río de La Plata?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Las sudestadas se originan cuando vientos persistentes del sector Sureste (SE) soplan sobre el estuario del Río de La Plata, actuando como un tapón que impide que el agua drene naturalmente hacia el Océano Atlántico. Si este fenómeno coincide con la pleamar astronómica, el nivel del agua se eleva provocando anegamientos costeros."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué diferencia hay entre marea astronómica y onda meteorológica?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La marea astronómica es la oscilación periódica y predecible del agua causada por la atracción gravitatoria de la Luna y el Sol. La onda meteorológica es la alteración generada por el viento y la presión atmosférica: un viento persistente del Sureste suma altura al río, mientras que un viento del Noroeste suele causar bajantes pronunciadas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué número de emergencia debo llamar ante una inundación o alerta fluvial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ante emergencias en el agua o navegación, llamá a Prefectura Naval Argentina al 106. Ante anegamientos urbanos, caída de postes o necesidad de evacuación, llamá a Defensa Civil de tu municipio al 103, o a Bomberos Voluntarios al 100."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --azul-rio: #0a3d62;
+    --azul-medio: #1a6fa8;
+    --verde-ok: #1e7e34;
+    --verde-bg: #d4edda;
+    --alerta-amarillo: #856404;
+    --alerta-amarillo-bg: #fff3cd;
+    --alerta-rojo: #721c24;
+    --alerta-rojo-bg: #f8d7da;
+    --texto: #1a1a2e;
+    --fondo-body: linear-gradient(160deg, #d6eaf8 0%, #eaf4fb 40%, #f0f8ff 100%);
+    --fondo-tarjeta: #ffffff;
+    --fondo-sub: #f8fafc;
+    --borde-sub: #e2e8f0;
+    --color-sub: #507080;
+    --radio: 20px;
+    --sombra: 0 6px 32px rgba(10, 61, 98, 0.13);
+  }
+
+  [data-tema="oscuro"] {
+    --azul-rio: #90caf9;
+    --azul-medio: #64b5f6;
+    --verde-ok: #66bb6a;
+    --verde-bg: #1b3a1e;
+    --alerta-amarillo: #ffe082;
+    --alerta-amarillo-bg: #3a3010;
+    --alerta-rojo: #ef9a9a;
+    --alerta-rojo-bg: #3d1417;
+    --texto: #e8f0fe;
+    --fondo-body: linear-gradient(160deg, #0a1622 0%, #0d1f2d 40%, #0f2235 100%);
+    --fondo-tarjeta: #1a2535;
+    --fondo-sub: #111e2d;
+    --borde-sub: #2a3f55;
+    --color-sub: #7aa8c8;
+    --sombra: 0 6px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo-body);
+    min-height: 100vh;
+    color: var(--texto);
+    transition: background .3s, color .3s;
+    line-height: 1.75;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' fill='none' stroke='%230a3d6215' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 100px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .contenedor {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+
+  /* Encabezado Principal */
+  .encabezado {
+    text-align: center;
+    background: var(--azul-rio);
+    border-radius: var(--radio);
+    padding: 32px 24px 26px;
+    margin-bottom: 22px;
+    box-shadow: var(--sombra);
+    color: #fff;
+  }
+  .encabezado h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.85rem;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+  .encabezado .subtitulo {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.88);
+    margin-top: 8px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50px;
+    padding: 9px 22px;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+    min-height: 48px;
+  }
+  .btn-volver:hover {
+    background: rgba(255, 255, 255, 0.32);
+    transform: translateY(-1px);
+  }
+
+  /* Índice de Accesos Rápidos */
+  .indice-card {
+    background: var(--fondo-tarjeta);
+    border-radius: var(--radio);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--sombra);
+    border-left: 6px solid var(--azul-medio);
+  }
+  .indice-titulo {
+    font-family: 'Merriweather', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--azul-rio);
+    margin-bottom: 12px;
+  }
+  .indice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .btn-indice {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--fondo-sub);
+    border: 1px solid var(--borde-sub);
+    border-radius: 12px;
+    color: var(--azul-medio);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .95rem;
+    min-height: 48px;
+    transition: background .2s, border-color .2s;
+  }
+  .btn-indice:hover {
+    background: rgba(26, 111, 168, 0.08);
+    border-color: var(--azul-medio);
+  }
+
+  /* Artículos de Contenido */
+  .articulo-card {
+    background: var(--fondo-tarjeta);
+    border-radius: var(--radio);
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    box-shadow: var(--sombra);
+  }
+  @media(max-width: 600px) {
+    .articulo-card { padding: 22px 18px; }
+  }
+
+  h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--azul-rio);
+    margin-bottom: 16px;
+    line-height: 1.35;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--borde-sub);
+  }
+
+  h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--azul-medio);
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 14px;
+    color: var(--texto);
+  }
+
+  ul, ol {
+    margin-left: 24px;
+    margin-bottom: 16px;
+    color: var(--texto);
+  }
+  li {
+    margin-bottom: 8px;
+  }
+
+  /* Cajas Informativas (Callouts) */
+  .caja-info {
+    background: var(--fondo-sub);
+    border-left: 4px solid var(--azul-medio);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 18px 0;
+    font-size: .95rem;
+  }
+  .caja-alerta {
+    background: var(--alerta-amarillo-bg);
+    border-left: 4px solid var(--alerta-amarillo);
+    color: var(--texto);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 18px 0;
+    font-size: .95rem;
+  }
+  .caja-peligro {
+    background: var(--alerta-rojo-bg);
+    border-left: 4px solid var(--alerta-rojo);
+    color: var(--texto);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 18px 0;
+    font-size: .95rem;
+  }
+
+  /* Tabla Explicativa */
+  .tabla-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    border: 1px solid var(--borde-sub);
+    border-radius: 12px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .92rem;
+  }
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--borde-sub);
+  }
+  th {
+    background: var(--fondo-sub);
+    color: var(--azul-rio);
+    font-weight: 700;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* Teléfonos de Emergencia */
+  .telefonos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .tel-item {
+    background: var(--fondo-sub);
+    border: 1px solid var(--borde-sub);
+    border-radius: 14px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .tel-numero {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--azul-rio);
+    letter-spacing: 0.05em;
+  }
+  .tel-nombre {
+    font-weight: 700;
+    font-size: .92rem;
+    margin-top: 2px;
+    color: var(--azul-medio);
+  }
+  .tel-desc {
+    font-size: .82rem;
+    color: var(--color-sub);
+    margin-top: 4px;
+  }
+
+  /* Pie de Página */
+  .pie {
+    text-align: center;
+    color: var(--color-sub);
+    font-size: .84rem;
+    margin-top: 36px;
+    line-height: 2.2;
+  }
+  .pie a {
+    color: var(--azul-medio);
+    text-decoration: none;
+    padding: 4px 6px;
+  }
+  .pie a:hover {
+    text-decoration: underline;
+  }
+
+  /* Botones Flotantes */
+  .btn-tema {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--fondo-tarjeta);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: background .3s, transform .2s;
+  }
+  .btn-tema:hover { transform: scale(1.1); }
+  .btn-subir {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: 50px;
+    border: 2px solid var(--borde-sub);
+    background: var(--fondo-tarjeta);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--azul-medio);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity .3s, transform .2s;
+  }
+  .btn-subir.visible { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+  <header class="encabezado">
+    <h1>SABER MÁS</h1>
+    <p class="subtitulo">Claves y secretos para entender las mareas, el origen de las sudestadas, los viajes de las crecidas y cómo cuidarnos ante alertas oficiales.</p>
+    <a href="./index.html" class="btn-volver" aria-label="Volver al monitoreo en tiempo real">← Volver al Reporte en Vivo</a>
+  </header>
+
+  <!-- Índice Rápido -->
+  <nav class="indice-card" aria-label="Índice de temas">
+    <div class="indice-titulo">¿Qué te gustaría descubrir hoy?</div>
+    <div class="indice-grid">
+      <a href="#sudestadas" class="btn-indice">1. Sudestadas y Río de La Plata</a>
+      <a href="#cuenca-plata" class="btn-indice">2. El Viaje del Agua en la Cuenca</a>
+      <a href="#seguridad-alertas" class="btn-indice">3. Semáforo de Alertas y Seguridad</a>
+    </div>
+  </nav>
+
+  <!-- ARTÍCULO 1: SUDESTADAS -->
+  <article class="articulo-card" id="sudestadas">
+    <h2>1. Todo sobre las Sudestadas y el Río de La Plata</h2>
+    
+    <p>El <strong>Río de La Plata</strong> es uno de los estuarios más singulares del planeta: tiene una longitud de unos 300 kilómetros, pero lo más determinante es su <strong>forma de embudo</strong>. En su cabecera (donde desembocan los ríos Paraná y Uruguay) apenas mide unos 40 kilómetros de ancho, mientras que en su salida al Océano Atlántico supera los 220 kilómetros.</p>
+
+    <h3>¿Por qué el río se frena y avanza sobre la costa?</h3>
+    <p>En condiciones habituales, las aguas de los grandes ríos de Sudamérica desaguan libremente hacia el mar. Sin embargo, cuando se instala un centro de alta presión en el Atlántico Sur y un centro de baja presión sobre el centro de Argentina, se genera una masa de aire sostenida que sopla con fuerza desde el <strong>Sureste (SE)</strong>.</p>
+    
+    <p>Este viento persistente actúa literalmente como un <strong>"tapón hidráulico"</strong>: empuja las aguas oceánicas hacia el interior del estuario y frena el desagüe normal de los ríos Paraná y Uruguay. Como el agua sigue bajando desde el norte pero no puede salir, el nivel sube drásticamente y desborda sobre las riberas más bajas de la costa bonaerense y porteña.</p>
+
+    <div class="caja-info">
+      <strong>La fórmula de la Sudestada:</strong><br>
+      <strong>Marea Astronómica + Onda Meteorológica = Altura Total Real</strong><br>
+      La marea astronómica (provocada por la gravedad de la Luna y el Sol) sube y baja dos veces al día de forma matemática y predecible. La onda meteorológica es el empuje extra que agrega el viento. Si el pico del viento coincide exactamente con la <strong>pleamar astronómica</strong>, el río alcanza niveles extraordinarios de anegamiento.
+    </div>
+
+    <h3>El enigma del "Cero del Mareógrafo"</h3>
+    <p>Muchos vecinos se preguntan: <em>"Si el hidrómetro marca 0.90 m, ¿significa que el río tiene menos de un metro de profundidad?"</em></p>
+    <p><strong>La respuesta es no.</strong> La altura no indica la profundidad total del río, sino el nivel del agua respecto a un plano de referencia histórico llamado <strong>Cero Local de Mareas</strong>. Dicho cero fue establecido por el Servicio de Hidrografía Naval en el punto más bajo alcanzado históricamente por la bajamar astronómica. Por ende, un valor de 1.50 m significa que el agua está 1 metro y medio por encima de ese nivel mínimo de referencia.</p>
+
+    <h3>Puntos calientes y umbrales críticos</h3>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nivel en La Plata</th>
+            <th>Estado</th>
+            <th>Impacto en la Costa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Hasta 2.10 m</strong></td>
+            <td>Normal</td>
+            <td>Condiciones habituales. El agua permanece dentro del cauce y playones costeros.</td>
+          </tr>
+          <tr>
+            <td><strong>2.50 m</strong></td>
+            <td>Nivel de Alerta</td>
+            <td>Comienza el anegamiento en calles costeras de Punta Lara (Ensenada), Berisso, Quilmes y Tigre. Se suspende la navegación menor.</td>
+          </tr>
+          <tr>
+            <td><strong>2.80 m o más</strong></td>
+            <td>Nivel de Evacuación</td>
+            <td>El agua ingresa a zonas urbanas consolidadas. Defensa Civil activa centros de evacuación y operativos de auxilio vecinal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caja-alerta">
+      <strong>Consejos prácticos de autoprotección:</strong>
+      <ul style="margin-top:8px;margin-bottom:0;">
+        <li>Si vivís en zonas bajas de Ensenada, Berisso, Quilmes o Tigre y se pronostica pleamar superior a 2.50 m, retirá tu vehículo hacia avenidas o zonas con mayor cota de elevación antes de la pleamar.</li>
+        <li>No manipules cables caídos, postes de alumbrado ni cajas eléctricas si la calzada está anegada.</li>
+        <li>Mantené limpios los desagües pluviales y las canaletas de tu hogar para evitar que el reflujo del agua ingrese a los ambientes.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- ARTÍCULO 2: CUENCA DEL PLATA -->
+  <article class="articulo-card" id="cuenca-plata">
+    <h2>2. El Viaje del Agua: La Cuenca del Plata por Dentro</h2>
+    
+    <p>La <strong>Cuenca del Plata</strong> es la segunda más extensa de América del Sur y la quinta del mundo, abarcando más de 3.100.000 km² distribuidos entre Argentina, Brasil, Bolivia, Paraguay y Uruguay. Todo lo que llueve en las selvas misioneras o en el Planalto brasileño termina, tarde o temprano, en nuestro estuario.</p>
+
+    <h3>¿De dónde viene tanta agua?</h3>
+    <p>El sistema se nutre principalmente de dos grandes gigantes fluviales:</p>
+    <ul>
+      <li><strong>El Río Paraná:</strong> Nace en el corazón de Brasil y recibe el aporte caudaloso del Río Iguazú y del Río Paraguay. Es un río de llanura, ancho y con un inmenso sistema de islas y humedales que funcionan como esponjas naturales atenuando las crecidas.</li>
+      <li><strong>El Río Uruguay:</strong> Nace en la Sierra do Mar (Brasil) y tiene un comportamiento muy diferente: corre sobre lechos de basalto con pendientes más pronunciadas. Por este motivo, el Río Uruguay suele llamarse "río nervioso", ya que sus crecidas y bajantes son abruptas y pueden desarrollarse en pocas horas.</li>
+    </ul>
+
+    <h3>El tiempo que tarda una crecida en viajar</h3>
+    <p>Una de las mayores ventajas del monitoreo hidrológico es la <strong>capacidad de anticipación</strong>. Una gota de lluvia caída en Puerto Iguazú no llega de inmediato a Buenos Aires, sino que recorre un largo trayecto que los científicos del <strong>Instituto Nacional del Agua (INA)</strong> simulan matemáticamente:</p>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tramo Fluvial</th>
+            <th>Tiempo estimado de viaje de la onda</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>De Puerto Iguazú a Corrientes</strong></td>
+            <td>Aproximadamente 2 a 4 días</td>
+          </tr>
+          <tr>
+            <td><strong>De Corrientes a Paraná / Santa Fe</strong></td>
+            <td>Aproximadamente 5 a 8 días</td>
+          </tr>
+          <tr>
+            <td><strong>De Paraná a Rosario</strong></td>
+            <td>Aproximadamente 3 a 5 días adicionales</td>
+          </tr>
+          <tr>
+            <td><strong>De Rosario al Delta y Río de La Plata</strong></td>
+            <td>Aproximadamente 2 a 4 días</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>La Represa de Salto Grande: El escudo regulador del Río Uruguay</h3>
+    <p>Ubicada entre la provincia de Entre Ríos y el departamento de Salto (Uruguay), el <strong>Complejo Hidroeléctrico Salto Grande</strong> no solo genera energía limpia para millones de hogares, sino que cumple una función crítica de <strong>laminación de crecidas</strong>.</p>
+    <p>Cuando aguas arriba se detectan lluvias torrenciales, los ingenieros de la Comisión Técnica Mixta operan las compuertas del vertedero para dejar espacio libre en el embalse. Esto permite almacenar transitoriamente los picos de agua y evitar que la ciudad de Concordia y localidades vecinas sufran anegamientos catastróficos.</p>
+  </article>
+
+  <!-- ARTÍCULO 3: SEGURIDAD Y ALERTAS -->
+  <article class="articulo-card" id="seguridad-alertas">
+    <h2>3. Códigos de Alerta y Seguridad Náutica</h2>
+    
+    <p>En Argentina, la autoridad marítima y fluvial encargada de la seguridad de la vida humana en el agua es la <strong>Prefectura Naval Argentina (PNA)</strong>, en coordinación permanente con los sistemas municipales y provinciales de <strong>Defensa Civil</strong>.</p>
+
+    <h3>El semáforo oficial del río</h3>
+    <p>Cada puerto cuenta con tablas históricas elaboradas en conjunto por Prefectura y las autoridades hidrológicas para determinar cuándo una situación pasa a ser de cuidado:</p>
+    <ul>
+      <li><strong>Nivel Verde (Normal):</strong> El río fluctúa dentro de sus márgenes habituales. No hay restricciones para la navegación ni riesgo para pobladores ribereños.</li>
+      <li><strong>Nivel Amarillo (Alerta):</strong> El nivel hidrométrico supera los muelles y áreas de ribera baja. Prefectura emite avisos a los navegantes deportivos, recomienda verificar amarras y restringe actividades en embarcaciones menores.</li>
+      <li><strong>Nivel Rojo (Evacuación):</strong> El río desborda sobre calles, accesos o viviendas. Se activan los protocolos de auxilio, se suspende la navegación comercial o deportiva y se inician las tareas de traslado de personas en riesgo.</li>
+    </ul>
+
+    <h3>Teléfonos gratuitos de emergencia en Argentina</h3>
+    <p>Si vivís cerca de la ribera o practicás deportes náuticos, agendá y tené siempre a mano estos números de marcado directo y gratuito:</p>
+
+    <div class="telefonos-grid">
+      <div class="tel-item">
+        <div class="tel-numero">106</div>
+        <div class="tel-nombre">Prefectura Naval</div>
+        <div class="tel-desc">Emergencias náuticas, búsqueda y rescate en ríos y lagos.</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-numero">103</div>
+        <div class="tel-nombre">Defensa Civil</div>
+        <div class="tel-desc">Asistencia vecinal por inundaciones, postes caídos y temporales.</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-numero">100</div>
+        <div class="tel-nombre">Bomberos Voluntarios</div>
+        <div class="tel-desc">Rescate urbano, evacuación y emergencias estructurales.</div>
+      </div>
+    </div>
+
+    <h3>Cómo leer e interpretar los pronósticos oficiales</h3>
+    <p>En <strong>Reporte Fluvial</strong> integramos dos herramientas oficiales que trabajan en conjunto:</p>
+    <ol>
+      <li><strong>Tablas de Mareas del SHN:</strong> Indican las horas exactas de las próximas pleamares (marea alta) y bajamares (marea baja) para las próximas 24 horas, ideales para planificar salidas náuticas o vigilar repuntes de agua.</li>
+      <li><strong>Pronóstico Hidrológico Semanal del INA:</strong> Proyecciones numéricas a 14-21 días que permiten anticipar si la cuenca viene en tendencia de <em>crecida</em> o <em>bajante</em>, otorgando previsibilidad a productores isleños, pescadores y navegantes comerciales.</li>
+    </ol>
+  </article>
+
+  <!-- Pie de Página -->
+  <footer class="pie">
+    <div style="margin-bottom:10px;">
+      Datos oficiales: AGPSE, SHN, INA, CARU y Prefectura Naval Argentina &nbsp;·&nbsp; Reporte Fluvial
+    </div>
+    <div style="margin-bottom:8px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:.84rem;">
+      <a href="./index.html">Reporte en Vivo</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="./saber-mas.html" style="font-weight:700;">Saber Más</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="./acerca.html">Acerca del Proyecto</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="./privacidad.html">Privacidad</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="./terminos.html">Términos</a>
+      <span style="color:var(--borde-sub);">·</span>
+      <a href="https://github.com/andresehansen/hidrometros" target="_blank" rel="noopener">Código en GitHub</a>
+    </div>
+    <div style="font-size:.78rem;margin-top:4px;">
+      Este sitio utiliza Google AdSense. <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Configurar preferencias de anuncios</a>
+    </div>
+  </footer>
+</div>
+
+<!-- Botón de Tema y Botón Subir -->
+<button class="btn-tema" id="btnTema" title="Cambiar tema" aria-label="Cambiar tema" onclick="toggleTema()">🌙</button>
+<button class="btn-subir" id="btnSubir" title="Volver al inicio" aria-label="Volver al inicio" onclick="volverArriba()">⬆️ Subir</button>
+
+<script>
+  function aplicarTema(tema) {
+    const html = document.documentElement;
+    const btn = document.getElementById('btnTema');
+    if (tema === 'oscuro') {
+      html.setAttribute('data-tema', 'oscuro');
+      if (btn) {
+        btn.textContent = '☀️';
+        btn.setAttribute('aria-label', 'Cambiar a modo claro');
+        btn.setAttribute('title', 'Cambiar a modo claro');
+      }
+    } else {
+      html.removeAttribute('data-tema');
+      if (btn) {
+        btn.textContent = '🌙';
+        btn.setAttribute('aria-label', 'Cambiar a modo oscuro');
+        btn.setAttribute('title', 'Cambiar a modo oscuro');
+      }
+    }
+  }
+
+  function toggleTema() {
+    const esOscuro = document.documentElement.getAttribute('data-tema') === 'oscuro';
+    const nuevo = esOscuro ? 'claro' : 'oscuro';
+    aplicarTema(nuevo);
+    localStorage.setItem('tema', nuevo);
+  }
+
+  (function () {
+    const guardado = localStorage.getItem('tema');
+    if (guardado) {
+      aplicarTema(guardado);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      aplicarTema('oscuro');
+    }
+  })();
+
+  const btnSubir = document.getElementById('btnSubir');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      btnSubir?.classList.add('visible');
+    } else {
+      btnSubir?.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  function volverArriba() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

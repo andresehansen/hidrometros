@@ -1,7 +1,8 @@
-const CACHE_NAME = 'reporte-fluvial-v4';
+const CACHE_NAME = 'reporte-fluvial-v5';
 const ASSETS = [
   './',
   './index.html',
+  './saber-mas.html',
   './privacidad.html',
   './terminos.html',
   './acerca.html',
