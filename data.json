@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "29/09/2026 a las 08:08 hs",
-  "generadoEn": "2026-09-29T08:08:45.000Z",
+  "fechaReporte": "29/09/2026 a las 08:19 hs",
+  "generadoEn": "2026-09-29T08:19:27.000Z",
   "laplata": {
     "altura": "1.24",
     "horaStr": "07:45",
@@ -261,7 +261,7 @@
     }
   },
   "viento": {
-    "velocidad": 7.7,
+    "velocidad": 7,
     "direccion": "Sureste (SE)",
     "temperatura": 14.8
   },
@@ -281,7 +281,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 0.95m (29/09 a las 19:00 hs). Viento: 7.7 km/h Sureste (SE). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 0.95m (29/09 a las 19:00 hs). Viento: 7 km/h Sureste (SE). Condiciones habituales de marea.",
     "alturaActual": "1.24",
     "alturaProyectada": "1.24",
     "proximaPleamar": {
@@ -290,15 +290,15 @@
       "fecha": "29/09"
     },
     "viento": {
-      "velocidad": 7.7,
+      "velocidad": 7,
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-09-29T11:11:23.585Z"
+    "actualizadoEn": "2026-09-29T11:20:49.625Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-09-29T11:11:17.933Z",
+    "actualizadoEn": "2026-09-29T11:20:42.452Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1367,12 +1367,12 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.20",
+      "altura": "34.29",
       "horaStr": "00:00",
-      "fechaStr": "28/09/2026",
-      "fuente": "INA",
-      "antiguo": true,
-      "textoFB": "34.20m (a las 00:00 hs) ⚠️ (Dato viejo)",
+      "fechaStr": "29/09/2026",
+      "fuente": "CARU",
+      "antiguo": false,
+      "textoFB": "34.29m (a las 00:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1620,17 +1620,17 @@
       "tendencia": {
         "icono": "⬆️",
         "estado": "subiendo",
-        "texto": "Subiendo (+0.05m)",
-        "diferencia": "+0.05"
+        "texto": "Subiendo (+0.14m)",
+        "diferencia": "+0.14"
       }
     },
     "abajo": {
-      "altura": "10.57",
+      "altura": "10.96",
       "horaStr": "00:00",
-      "fechaStr": "28/09/2026",
-      "fuente": "INA",
-      "antiguo": true,
-      "textoFB": "10.57m (a las 00:00 hs) ⚠️ (Dato viejo)",
+      "fechaStr": "29/09/2026",
+      "fuente": "CARU",
+      "antiguo": false,
+      "textoFB": "10.96m (a las 00:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1876,10 +1876,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.03m)",
-        "diferencia": "-0.03"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.36m)",
+        "diferencia": "+0.36"
       }
     }
   }
