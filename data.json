@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "29/09/2026 a las 23:19 hs",
-  "generadoEn": "2026-09-29T23:19:24.000Z",
+  "fechaReporte": "30/09/2026 a las 00:19 hs",
+  "generadoEn": "2026-09-30T00:19:27.000Z",
   "laplata": {
-    "altura": "1.08",
-    "horaStr": "22:45",
+    "altura": "1.02",
+    "horaStr": "23:45",
     "fechaStr": "29/09/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.08m (a las 22:45 hs) (Fuente: SHN)",
+    "textoFB": "1.02m (a las 23:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.58",
-        "fechaStr": "28/09/2026",
-        "horaStr": "00:45"
-      },
       {
         "altura": "0.69",
         "fechaStr": "28/09/2026",
@@ -251,19 +246,24 @@
         "altura": "1.08",
         "fechaStr": "29/09/2026",
         "horaStr": "22:45"
+      },
+      {
+        "altura": "1.02",
+        "fechaStr": "29/09/2026",
+        "horaStr": "23:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "texto": "Bajando (-0.06m)",
+      "diferencia": "-0.06"
     }
   },
   "viento": {
-    "velocidad": 16.4,
+    "velocidad": 15.1,
     "direccion": "Sur (S)",
-    "temperatura": 12.3
+    "temperatura": 11.3
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.65m (30/09 a las 09:00 hs). Viento: 16.4 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.08",
+    "mensaje": "Pleamar máxima prevista: 1.65m (30/09 a las 09:00 hs). Viento: 15.1 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "1.02",
     "alturaProyectada": "1.65",
     "proximaPleamar": {
       "hora": "09:00",
@@ -290,15 +290,15 @@
       "fecha": "30/09"
     },
     "viento": {
-      "velocidad": 16.4,
+      "velocidad": 15.1,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-09-30T02:20:52.944Z"
+    "actualizadoEn": "2026-09-30T03:20:43.105Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-09-30T02:20:46.497Z",
+    "actualizadoEn": "2026-09-30T03:20:36.285Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -447,20 +447,15 @@
     }
   },
   "iguazu": {
-    "altura": "15.39",
-    "horaStr": "23:00",
-    "fechaStr": "29/09/2026",
+    "altura": "15.44",
+    "horaStr": "00:00",
+    "fechaStr": "30/09/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "15.39m (a las 23:00 hs)",
+    "textoFB": "15.44m (a las 00:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "16.64",
-        "fechaStr": "27/09/2026",
-        "horaStr": "17:40"
-      },
       {
         "altura": "16.56",
         "fechaStr": "27/09/2026",
@@ -695,13 +690,18 @@
         "altura": "15.39",
         "fechaStr": "29/09/2026",
         "horaStr": "23:00"
+      },
+      {
+        "altura": "15.44",
+        "fechaStr": "30/09/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.07m)",
-      "diferencia": "+0.07"
+      "texto": "Subiendo (+0.05m)",
+      "diferencia": "+0.05"
     }
   },
   "sanjavier": {
@@ -709,8 +709,8 @@
     "horaStr": "00:00",
     "fechaStr": "29/09/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "3.20m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "3.20m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -922,8 +922,8 @@
     "horaStr": "00:00",
     "fechaStr": "29/09/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "5.80m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "5.80m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
