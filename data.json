@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "02/10/2026 a las 11:19 hs",
-  "generadoEn": "2026-10-02T11:19:29.000Z",
+  "fechaReporte": "02/10/2026 a las 12:19 hs",
+  "generadoEn": "2026-10-02T12:19:29.000Z",
   "laplata": {
-    "altura": "1.38",
-    "horaStr": "10:45",
+    "altura": "1.25",
+    "horaStr": "11:45",
     "fechaStr": "02/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.38m (a las 10:45 hs) (Fuente: SHN)",
+    "textoFB": "1.25m (a las 11:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.68",
-        "fechaStr": "30/09/2026",
-        "horaStr": "11:45"
-      },
       {
         "altura": "1.50",
         "fechaStr": "30/09/2026",
@@ -251,19 +246,24 @@
         "altura": "1.38",
         "fechaStr": "02/10/2026",
         "horaStr": "10:45"
+      },
+      {
+        "altura": "1.25",
+        "fechaStr": "02/10/2026",
+        "horaStr": "11:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.11m)",
-      "diferencia": "-0.11"
+      "texto": "Bajando (-0.13m)",
+      "diferencia": "-0.13"
     }
   },
   "viento": {
-    "velocidad": 10.8,
+    "velocidad": 10.5,
     "direccion": "Norte (N)",
-    "temperatura": 13.5
+    "temperatura": 14.1
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.50m (02/10 a las 10:00 hs). Viento: 10.8 km/h Norte (N). Condiciones habituales de marea.",
-    "alturaActual": "1.38",
+    "mensaje": "Pleamar máxima prevista: 1.50m (02/10 a las 10:00 hs). Viento: 10.5 km/h Norte (N). Condiciones habituales de marea.",
+    "alturaActual": "1.25",
     "alturaProyectada": "1.50",
     "proximaPleamar": {
       "hora": "10:00",
@@ -290,177 +290,172 @@
       "fecha": "02/10"
     },
     "viento": {
-      "velocidad": 10.8,
+      "velocidad": 10.5,
       "direccion": "Norte (N)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-02T14:20:36.756Z"
+    "actualizadoEn": "2026-10-02T15:22:35.565Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-02T14:20:30.053Z",
+    "actualizadoEn": "2026-10-02T15:22:30.568Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
         "cuenca": "Río Iguazú / Alto Paraná",
-        "fechaEmision": "2026-10-01T09:00:00",
-        "tendencia": "crecida",
+        "fechaEmision": "2026-10-02T09:00:00",
+        "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-10-04",
             "fechaStr": "04/10/2026",
-            "min": 10.24,
-            "esperado": 11.13,
-            "max": 12.14
+            "min": 13.77,
+            "esperado": 14.66,
+            "max": 15.67
           },
           {
             "fechaIso": "2026-10-11",
             "fechaStr": "11/10/2026",
-            "min": 9.07,
-            "esperado": 11.16,
-            "max": 13.61
+            "min": 12.36,
+            "esperado": 14.45,
+            "max": 16.91
           },
           {
             "fechaIso": "2026-10-18",
             "fechaStr": "18/10/2026",
-            "min": 8.88,
-            "esperado": 11.47,
-            "max": 14.79
+            "min": 11.86,
+            "esperado": 14.45,
+            "max": 17.76
           },
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 8.94,
-            "esperado": 11.79,
-            "max": 15.62
+            "min": 11.6,
+            "esperado": 14.45,
+            "max": 18.28
           }
         ]
       },
       "corrientes": {
         "nombre": "Corrientes",
         "cuenca": "Río Paraná (Confluencia)",
-        "fechaEmision": "2026-10-01T09:00:00",
+        "fechaEmision": "2026-10-02T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-10-04",
             "fechaStr": "04/10/2026",
-            "min": 3.22,
-            "esperado": 3.64,
-            "max": 4.05
+            "min": 3.59,
+            "esperado": 4.01,
+            "max": 4.42
           },
           {
             "fechaIso": "2026-10-11",
             "fechaStr": "11/10/2026",
-            "min": 2.15,
-            "esperado": 2.82,
-            "max": 3.17
+            "min": 2.86,
+            "esperado": 3.53,
+            "max": 3.88
           },
           {
             "fechaIso": "2026-10-18",
             "fechaStr": "18/10/2026",
-            "min": 1.87,
-            "esperado": 2.79,
-            "max": 3.42
+            "min": 2.54,
+            "esperado": 3.46,
+            "max": 4.09
           },
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 1.81,
-            "esperado": 2.85,
-            "max": 3.72
+            "min": 2.41,
+            "esperado": 3.45,
+            "max": 4.32
           }
         ]
       },
       "parana": {
         "nombre": "Paraná",
         "cuenca": "Río Paraná Medio",
-        "fechaEmision": "2026-10-01T09:00:00",
-        "tendencia": "estable",
+        "fechaEmision": "2026-10-02T09:00:00",
+        "tendencia": "crecida",
         "proyecciones": [
           {
             "fechaIso": "2026-10-04",
             "fechaStr": "04/10/2026",
-            "min": 2.6,
-            "esperado": 3.07,
-            "max": 3.58
+            "min": 2.67,
+            "esperado": 3.13,
+            "max": 3.64
           },
           {
             "fechaIso": "2026-10-11",
             "fechaStr": "11/10/2026",
-            "min": 2.82,
-            "esperado": 3.33,
-            "max": 3.87
+            "min": 2.89,
+            "esperado": 3.41,
+            "max": 3.95
           },
           {
             "fechaIso": "2026-10-18",
             "fechaStr": "18/10/2026",
-            "min": 2.9,
-            "esperado": 3.52,
-            "max": 4.12
+            "min": 2.95,
+            "esperado": 3.57,
+            "max": 4.17
           },
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 2.44,
-            "esperado": 3.09,
-            "max": 3.82
+            "min": 2.85,
+            "esperado": 3.5,
+            "max": 4.23
           }
         ]
       },
       "rosario": {
         "nombre": "Rosario",
         "cuenca": "Río Paraná Inferior",
-        "fechaEmision": "2026-10-01T09:00:00",
+        "fechaEmision": "2026-10-02T09:00:00",
         "tendencia": "crecida",
         "proyecciones": [
           {
             "fechaIso": "2026-10-04",
             "fechaStr": "04/10/2026",
-            "min": 2.52,
-            "esperado": 2.96,
-            "max": 3.42
+            "min": 2.55,
+            "esperado": 2.99,
+            "max": 3.45
           },
           {
             "fechaIso": "2026-10-11",
             "fechaStr": "11/10/2026",
-            "min": 2.61,
-            "esperado": 3.1,
-            "max": 3.61
+            "min": 2.64,
+            "esperado": 3.14,
+            "max": 3.65
           },
           {
             "fechaIso": "2026-10-18",
             "fechaStr": "18/10/2026",
             "min": 2.73,
-            "esperado": 3.32,
-            "max": 3.88
+            "esperado": 3.33,
+            "max": 3.89
           },
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 2.5,
-            "esperado": 3.15,
-            "max": 3.82
+            "min": 2.69,
+            "esperado": 3.34,
+            "max": 4
           }
         ]
       }
     }
   },
   "iguazu": {
-    "altura": "18.71",
-    "horaStr": "10:40",
+    "altura": "18.40",
+    "horaStr": "12:00",
     "fechaStr": "02/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "18.71m (a las 10:40 hs)",
+    "textoFB": "18.40m (a las 12:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "16.69",
-        "fechaStr": "30/09/2026",
-        "horaStr": "07:20"
-      },
       {
         "altura": "16.33",
         "fechaStr": "30/09/2026",
@@ -695,22 +690,27 @@
         "altura": "18.71",
         "fechaStr": "02/10/2026",
         "horaStr": "10:40"
+      },
+      {
+        "altura": "18.40",
+        "fechaStr": "02/10/2026",
+        "horaStr": "12:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "texto": "Bajando (-0.31m)",
+      "diferencia": "-0.31"
     }
   },
   "sanjavier": {
-    "altura": "3.60",
+    "altura": "6.85",
     "horaStr": "00:00",
-    "fechaStr": "01/10/2026",
+    "fechaStr": "02/10/2026",
     "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "3.60m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "antiguo": false,
+    "textoFB": "6.85m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -918,22 +918,27 @@
         "altura": "3.60",
         "fechaStr": "01/10/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "6.85",
+        "fechaStr": "02/10/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.55m)",
-      "diferencia": "+0.55"
+      "texto": "Subiendo (+3.25m)",
+      "diferencia": "+3.25"
     }
   },
   "santotome": {
-    "altura": "6.18",
+    "altura": "7.58",
     "horaStr": "00:00",
-    "fechaStr": "01/10/2026",
+    "fechaStr": "02/10/2026",
     "fuente": "INA",
-    "antiguo": true,
-    "textoFB": "6.18m (a las 00:00 hs) ⚠️ (Dato viejo)",
+    "antiguo": false,
+    "textoFB": "7.58m (a las 00:00 hs) (Fuente: INA)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
@@ -1156,13 +1161,18 @@
         "altura": "6.18",
         "fechaStr": "01/10/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "7.58",
+        "fechaStr": "02/10/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.52m)",
-      "diferencia": "+0.52"
+      "texto": "Subiendo (+1.40m)",
+      "diferencia": "+1.40"
     }
   },
   "concordia": {
@@ -1428,9 +1438,9 @@
       "altura": "34.65",
       "horaStr": "00:00",
       "fechaStr": "02/10/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "34.65m (a las 00:00 hs)",
+      "textoFB": "34.65m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1686,9 +1696,9 @@
       "altura": "11.89",
       "horaStr": "00:00",
       "fechaStr": "02/10/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "11.89m (a las 00:00 hs)",
+      "textoFB": "11.89m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
