@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "03/10/2026 a las 17:19 hs",
-  "generadoEn": "2026-10-03T17:19:25.000Z",
+  "fechaReporte": "03/10/2026 a las 17:38 hs",
+  "generadoEn": "2026-10-03T17:38:50.000Z",
   "laplata": {
     "altura": "0.02",
     "horaStr": "16:45",
@@ -261,8 +261,8 @@
     }
   },
   "viento": {
-    "velocidad": 4.1,
-    "direccion": "Noroeste (NW)",
+    "velocidad": 3.1,
+    "direccion": "Norte (N)",
     "temperatura": 15.7
   },
   "pronostico": {
@@ -281,7 +281,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.20m (03/10 a las 23:00 hs). Viento: 4.1 km/h Noroeste (NW). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.20m (03/10 a las 23:00 hs). Viento: 3.1 km/h Norte (N). Condiciones habituales de marea.",
     "alturaActual": "0.02",
     "alturaProyectada": "1.20",
     "proximaPleamar": {
@@ -290,15 +290,15 @@
       "fecha": "03/10"
     },
     "viento": {
-      "velocidad": 4.1,
-      "direccion": "Noroeste (NW)",
+      "velocidad": 3.1,
+      "direccion": "Norte (N)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-03T20:20:55.239Z"
+    "actualizadoEn": "2026-10-03T20:40:07.293Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-03T20:20:49.670Z",
+    "actualizadoEn": "2026-10-03T20:40:01.003Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -447,20 +447,15 @@
     }
   },
   "iguazu": {
-    "altura": "18.68",
-    "horaStr": "17:00",
+    "altura": "18.71",
+    "horaStr": "17:20",
     "fechaStr": "03/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "18.68m (a las 17:00 hs)",
+    "textoFB": "18.71m (a las 17:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.58",
-        "fechaStr": "01/10/2026",
-        "horaStr": "11:00"
-      },
       {
         "altura": "18.62",
         "fechaStr": "01/10/2026",
@@ -695,13 +690,18 @@
         "altura": "18.68",
         "fechaStr": "03/10/2026",
         "horaStr": "17:00"
+      },
+      {
+        "altura": "18.71",
+        "fechaStr": "03/10/2026",
+        "horaStr": "17:20"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.16m)",
-      "diferencia": "+0.16"
+      "texto": "Subiendo (+0.03m)",
+      "diferencia": "+0.03"
     }
   },
   "sanjavier": {
@@ -1186,12 +1186,12 @@
     }
   },
   "concordia": {
-    "altura": "9.10",
-    "horaStr": "00:00",
+    "altura": "9.18",
+    "horaStr": "12:00",
     "fechaStr": "03/10/2026",
-    "fuente": "INA",
+    "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "9.10m (a las 00:00 hs) (Fuente: INA)",
+    "textoFB": "9.18m (a las 12:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
@@ -1437,20 +1437,20 @@
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.08m)",
+      "diferencia": "+0.08"
     }
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.33",
-      "horaStr": "00:00",
+      "altura": "34.11",
+      "horaStr": "12:00",
       "fechaStr": "03/10/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "34.33m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "34.11m (a las 12:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1696,19 +1696,19 @@
         }
       ],
       "tendencia": {
-        "icono": "➡️",
-        "estado": "estacionado",
-        "texto": "Estacionado",
-        "diferencia": "0.00"
+        "icono": "⬇️",
+        "estado": "bajando",
+        "texto": "Bajando (-0.22m)",
+        "diferencia": "-0.22"
       }
     },
     "abajo": {
-      "altura": "12.16",
-      "horaStr": "00:00",
+      "altura": "12.24",
+      "horaStr": "12:00",
       "fechaStr": "03/10/2026",
-      "fuente": "INA",
+      "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "12.16m (a las 00:00 hs) (Fuente: INA)",
+      "textoFB": "12.24m (a las 12:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1954,10 +1954,10 @@
         }
       ],
       "tendencia": {
-        "icono": "➡️",
-        "estado": "estacionado",
-        "texto": "Estacionado",
-        "diferencia": "0.00"
+        "icono": "⬆️",
+        "estado": "subiendo",
+        "texto": "Subiendo (+0.08m)",
+        "diferencia": "+0.08"
       }
     }
   }
