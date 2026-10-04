@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "03/10/2026 a las 22:19 hs",
-  "generadoEn": "2026-10-03T22:19:24.000Z",
+  "fechaReporte": "03/10/2026 a las 23:19 hs",
+  "generadoEn": "2026-10-03T23:19:24.000Z",
   "laplata": {
-    "altura": "0.84",
-    "horaStr": "21:45",
+    "altura": "0.90",
+    "horaStr": "22:45",
     "fechaStr": "03/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.84m (a las 21:45 hs) (Fuente: SHN)",
+    "textoFB": "0.90m (a las 22:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.52",
-        "fechaStr": "01/10/2026",
-        "horaStr": "22:45"
-      },
       {
         "altura": "1.45",
         "fechaStr": "01/10/2026",
@@ -251,54 +246,59 @@
         "altura": "0.84",
         "fechaStr": "03/10/2026",
         "horaStr": "21:45"
+      },
+      {
+        "altura": "0.90",
+        "fechaStr": "03/10/2026",
+        "horaStr": "22:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.23m)",
-      "diferencia": "+0.23"
+      "texto": "Subiendo (+0.06m)",
+      "diferencia": "+0.06"
     }
   },
   "viento": {
-    "velocidad": 3.2,
-    "direccion": "Norte (N)",
-    "temperatura": 11.9
+    "velocidad": 4.4,
+    "direccion": "Oeste (W)",
+    "temperatura": 11
   },
   "pronostico": {
     "pleamar": {
-      "hora": "23:00",
-      "altura": "1.20",
-      "fecha": "03/10"
+      "hora": "12:00",
+      "altura": "1.00",
+      "fecha": "04/10"
     },
     "bajamar": {
-      "hora": "17:00",
-      "altura": "0.20",
-      "fecha": "03/10"
+      "hora": "06:00",
+      "altura": "0.35",
+      "fecha": "04/10"
     }
   },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.20m (03/10 a las 23:00 hs). Viento: 3.2 km/h Norte (N). Condiciones habituales de marea.",
-    "alturaActual": "0.84",
-    "alturaProyectada": "1.20",
+    "mensaje": "Pleamar máxima prevista: 1.00m (04/10 a las 12:00 hs). Viento: 4.4 km/h Oeste (W). Condiciones habituales de marea.",
+    "alturaActual": "0.90",
+    "alturaProyectada": "1.00",
     "proximaPleamar": {
-      "hora": "23:00",
-      "altura": "1.20",
-      "fecha": "03/10"
+      "hora": "12:00",
+      "altura": "1.00",
+      "fecha": "04/10"
     },
     "viento": {
-      "velocidad": 3.2,
-      "direccion": "Norte (N)",
+      "velocidad": 4.4,
+      "direccion": "Oeste (W)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-04T01:20:39.636Z"
+    "actualizadoEn": "2026-10-04T02:20:37.832Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-04T01:20:33.856Z",
+    "actualizadoEn": "2026-10-04T02:20:31.135Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -447,20 +447,15 @@
     }
   },
   "iguazu": {
-    "altura": "19.18",
-    "horaStr": "21:00",
+    "altura": "19.08",
+    "horaStr": "23:00",
     "fechaStr": "03/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "19.18m (a las 21:00 hs)",
+    "textoFB": "19.08m (a las 23:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.64",
-        "fechaStr": "01/10/2026",
-        "horaStr": "16:00"
-      },
       {
         "altura": "18.71",
         "fechaStr": "01/10/2026",
@@ -695,13 +690,18 @@
         "altura": "19.18",
         "fechaStr": "03/10/2026",
         "horaStr": "21:00"
+      },
+      {
+        "altura": "19.08",
+        "fechaStr": "03/10/2026",
+        "horaStr": "23:00"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.14m)",
-      "diferencia": "+0.14"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.10m)",
+      "diferencia": "-0.10"
     }
   },
   "sanjavier": {
