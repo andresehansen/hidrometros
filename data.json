@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "03/10/2026 a las 23:19 hs",
-  "generadoEn": "2026-10-03T23:19:24.000Z",
+  "fechaReporte": "04/10/2026 a las 00:19 hs",
+  "generadoEn": "2026-10-04T00:19:25.000Z",
   "laplata": {
-    "altura": "0.90",
-    "horaStr": "22:45",
+    "altura": "0.91",
+    "horaStr": "23:45",
     "fechaStr": "03/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.90m (a las 22:45 hs) (Fuente: SHN)",
+    "textoFB": "0.91m (a las 23:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.45",
-        "fechaStr": "01/10/2026",
-        "horaStr": "23:45"
-      },
       {
         "altura": "1.28",
         "fechaStr": "02/10/2026",
@@ -251,19 +246,24 @@
         "altura": "0.90",
         "fechaStr": "03/10/2026",
         "horaStr": "22:45"
+      },
+      {
+        "altura": "0.91",
+        "fechaStr": "03/10/2026",
+        "horaStr": "23:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.06m)",
-      "diferencia": "+0.06"
+      "texto": "Subiendo (+0.01m)",
+      "diferencia": "+0.01"
     }
   },
   "viento": {
-    "velocidad": 4.4,
-    "direccion": "Oeste (W)",
-    "temperatura": 11
+    "velocidad": 8.1,
+    "direccion": "Suroeste (SW)",
+    "temperatura": 10.6
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (04/10 a las 12:00 hs). Viento: 4.4 km/h Oeste (W). Condiciones habituales de marea.",
-    "alturaActual": "0.90",
+    "mensaje": "Pleamar máxima prevista: 1.00m (04/10 a las 12:00 hs). Viento: 8.1 km/h Suroeste (SW). Condiciones habituales de marea.",
+    "alturaActual": "0.91",
     "alturaProyectada": "1.00",
     "proximaPleamar": {
       "hora": "12:00",
@@ -290,15 +290,15 @@
       "fecha": "04/10"
     },
     "viento": {
-      "velocidad": 4.4,
-      "direccion": "Oeste (W)",
+      "velocidad": 8.1,
+      "direccion": "Suroeste (SW)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-04T02:20:37.832Z"
+    "actualizadoEn": "2026-10-04T03:20:44.848Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-04T02:20:31.135Z",
+    "actualizadoEn": "2026-10-04T03:20:38.410Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -448,19 +448,14 @@
   },
   "iguazu": {
     "altura": "19.08",
-    "horaStr": "23:00",
-    "fechaStr": "03/10/2026",
+    "horaStr": "00:00",
+    "fechaStr": "04/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "19.08m (a las 23:00 hs)",
+    "textoFB": "19.08m (a las 00:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "18.71",
-        "fechaStr": "01/10/2026",
-        "horaStr": "17:00"
-      },
       {
         "altura": "18.78",
         "fechaStr": "01/10/2026",
@@ -695,13 +690,18 @@
         "altura": "19.08",
         "fechaStr": "03/10/2026",
         "horaStr": "23:00"
+      },
+      {
+        "altura": "19.08",
+        "fechaStr": "04/10/2026",
+        "horaStr": "00:00"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.10m)",
-      "diferencia": "-0.10"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
@@ -709,8 +709,8 @@
     "horaStr": "00:00",
     "fechaStr": "03/10/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "7.73m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "7.73m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 8,
     "evacuacion": 10,
     "historico": [
@@ -942,8 +942,8 @@
     "horaStr": "00:00",
     "fechaStr": "03/10/2026",
     "fuente": "INA",
-    "antiguo": false,
-    "textoFB": "10.07m (a las 00:00 hs) (Fuente: INA)",
+    "antiguo": true,
+    "textoFB": "10.07m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 11.5,
     "evacuacion": 12.5,
     "historico": [
