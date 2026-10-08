@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "08/10/2026 a las 10:19 hs",
-  "generadoEn": "2026-10-08T10:19:25.000Z",
+  "fechaReporte": "08/10/2026 a las 11:19 hs",
+  "generadoEn": "2026-10-08T11:19:23.000Z",
   "laplata": {
-    "altura": "0.96",
-    "horaStr": "09:45",
+    "altura": "0.93",
+    "horaStr": "10:45",
     "fechaStr": "08/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.96m (a las 09:45 hs) (Fuente: SHN)",
+    "textoFB": "0.93m (a las 10:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.94",
-        "fechaStr": "06/10/2026",
-        "horaStr": "10:45"
-      },
       {
         "altura": "0.93",
         "fechaStr": "06/10/2026",
@@ -251,19 +246,24 @@
         "altura": "0.96",
         "fechaStr": "08/10/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "0.93",
+        "fechaStr": "08/10/2026",
+        "horaStr": "10:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.14m)",
-      "diferencia": "-0.14"
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "viento": {
-    "velocidad": 12.3,
-    "direccion": "Suroeste (SW)",
-    "temperatura": 17
+    "velocidad": 13.8,
+    "direccion": "Sur (S)",
+    "temperatura": 17.3
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.20m (08/10 a las 16:00 hs). Viento: 12.3 km/h Suroeste (SW). Condiciones habituales de marea.",
-    "alturaActual": "0.96",
+    "mensaje": "Pleamar máxima prevista: 1.20m (08/10 a las 16:00 hs). Viento: 13.8 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "0.93",
     "alturaProyectada": "1.20",
     "proximaPleamar": {
       "hora": "16:00",
@@ -290,15 +290,15 @@
       "fecha": "08/10"
     },
     "viento": {
-      "velocidad": 12.3,
-      "direccion": "Suroeste (SW)",
+      "velocidad": 13.8,
+      "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-08T13:20:39.374Z"
+    "actualizadoEn": "2026-10-08T14:20:41.523Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-08T13:20:33.268Z",
+    "actualizadoEn": "2026-10-08T14:20:35.852Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -447,20 +447,15 @@
     }
   },
   "iguazu": {
-    "altura": "20.67",
-    "horaStr": "10:00",
+    "altura": "20.73",
+    "horaStr": "10:40",
     "fechaStr": "08/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "20.67m (a las 10:00 hs)",
+    "textoFB": "20.73m (a las 10:40 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "19.04",
-        "fechaStr": "06/10/2026",
-        "horaStr": "01:00"
-      },
       {
         "altura": "19.18",
         "fechaStr": "06/10/2026",
@@ -695,6 +690,11 @@
         "altura": "20.67",
         "fechaStr": "08/10/2026",
         "horaStr": "10:00"
+      },
+      {
+        "altura": "20.73",
+        "fechaStr": "08/10/2026",
+        "horaStr": "10:40"
       }
     ],
     "tendencia": {
