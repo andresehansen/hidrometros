@@ -13,6 +13,10 @@
      https://alerta.ina.gob.ar/a5/obs/puntual/series/3314/observaciones
    - Pronóstico de Mareas (SHN):
      https://www.hidro.gov.ar/oceanografia/pronostico.asp
+   - Pronóstico Hidrodinámico a 7 días (Crux-Marine / AGPSE - VNT):
+     Web: https://pronostico-nivel-agua-vnt.crux-marine.com/
+     API: https://nivel-del-agua-test-back.candoit.com.ar/api/v1/forecast/now-by-hour/21
+     (Calibrado dinámicamente en tiempo real con el mareógrafo oficial AGPSE)
    - Clima y Viento (Open-Meteo):
      https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires
 

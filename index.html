@@ -671,7 +671,7 @@
 
     <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">🗺️ Puertos monitoreados</h2>
     <ul style="font-size:.92rem;line-height:1.85;color:var(--texto);padding-left:20px;">
-      <li><strong>La Plata (Bs. As.)</strong> — Datos de AGPSE cada 10 minutos. Incluye viento y pronóstico de mareas del Servicio de Hidrografía Naval (SHN).</li>
+      <li><strong>La Plata (Bs. As.)</strong> — Datos de AGPSE cada 10 minutos. Incluye viento, pronóstico de mareas (SHN) y pronóstico hidrodinámico continuo a 7 días (Crux-Marine / VNT).</li>
       <li><strong>Puerto Iguazú (Misiones)</strong> — Datos de AGPSE cada 20 minutos. Río Iguazú en el límite con Brasil.</li>
       <li><strong>Salto Grande (Entre Ríos)</strong> — Datos de CARU (Comisión Administradora del Río Uruguay). Cota del embalse y nivel de restitución aguas abajo.</li>
       <li><strong>Concordia (Entre Ríos)</strong> — Datos de CARU cada hora. Río Uruguay a la altura de la ciudad de Concordia.</li>
@@ -1229,10 +1229,41 @@ function renderTablaAccesible(hist, nombrePuerto) {
   `;
 }
 
+function exportarCSVCrux() {
+  if (!datosActuales?.pronosticoCrux?.curvaHoraria) return;
+  const curva = datosActuales.pronosticoCrux.curvaHoraria;
+  let csvContent = "Fecha,Hora,Altura_Metros_Calibrada,Altura_Original_Modelo,Puerto,Fuente\n";
+  curva.forEach(c => {
+    csvContent += `"${c.fechaStr}","${c.horaStr}",${c.altura},${c.alturaOriginal},"La Plata","Crux-Marine VNT"\n`;
+  });
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", `pronostico_laplata_7dias_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function renderTablaAccesibleCrux(curva) {
+  if (!curva || curva.length === 0) return '';
+  const rows = curva.slice(0, 48).map(c => `<tr><td>${c.fechaStr}</td><td>${c.horaStr}</td><td>${c.altura} m</td></tr>`).join('');
+  return `
+    <div class="sr-only">
+      <table>
+        <caption>Pronóstico continuo de altura del agua para La Plata (próximas 48 hs)</caption>
+        <thead><tr><th scope="col">Fecha</th><th scope="col">Hora</th><th scope="col">Altura Proyectada</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
 // ──────────────────────────────────────────────────────────────
 // TARJETAS DE PUERTOS
 // ──────────────────────────────────────────────────────────────
-function tarjetaLP(d, viento, pron, sudestada) {
+function tarjetaLP(d, viento, pron, sudestada, pronCrux) {
   const alerta = (d && d.alerta !== undefined) ? d.alerta : DEFAULTS_PUERTO.laplata.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : DEFAULTS_PUERTO.laplata.evacuacion;
   const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
@@ -1257,6 +1288,53 @@ function tarjetaLP(d, viento, pron, sudestada) {
         <strong>${sudestada.titulo}</strong><br>
         <span>${sudestada.mensaje}</span>
       </div>`;
+  }
+
+  let cruxHTML = '';
+  if (pronCrux && pronCrux.curvaHoraria && pronCrux.curvaHoraria.length > 0) {
+    const p24 = pronCrux.proximaPleamar24h;
+    const b24 = pronCrux.proximaBajamar24h;
+    const pSem = pronCrux.picoSemanal;
+    const resumen = pronCrux.resumenMama || '';
+
+    cruxHTML = `
+    <div class="sub-seccion-puerto" style="margin-top:16px;">
+      <div class="sub-seccion-titulo">
+        <span>🌊 Pronóstico Hidrodinámico a 7 días (VNT)</span>
+        ${renderTooltip('lp-crux-info', 'Modelo numérico hidrodinámico de la Vía Navegable Troncal (Crux-Marine / AGPSE), calibrado con corrección de sesgo dinámico en tiempo real frente al mareógrafo de La Plata.')}
+      </div>
+
+      <div class="estado-margen-box normal" style="margin-bottom:12px;background:var(--fondo-pronostico);color:var(--texto);border:1.5px solid var(--borde-sub);font-size:0.93rem;">
+        ${resumen}
+      </div>
+
+      <div class="pronostico-fila">
+        <div class="pronostico-item">
+          <div class="tipo">📈 Pleamar 24h ${renderTooltip('lp-crux-plea24', 'Máximo nivel proyectado para las próximas 24 horas considerando marea y viento.')}</div>
+          <div class="valor">${p24 ? p24.altura + ' m' : '—'}</div>
+          <div class="detalle">${p24 ? p24.fechaStr + ' · ' + p24.horaStr + ' hs' : ''}</div>
+        </div>
+        <div class="pronostico-item">
+          <div class="tipo">📉 Bajamar 24h ${renderTooltip('lp-crux-baja24', 'Nivel más bajo del río proyectado en las próximas 24 horas.')}</div>
+          <div class="valor">${b24 ? b24.altura + ' m' : '—'}</div>
+          <div class="detalle">${b24 ? b24.fechaStr + ' · ' + b24.horaStr + ' hs' : ''}</div>
+        </div>
+        <div class="pronostico-item">
+          <div class="tipo">⭐ Pico Semanal ${renderTooltip('lp-crux-sem', 'La crecida más alta proyectada en toda la semana (168 hs).')}</div>
+          <div class="valor" style="color:var(--azul-medio);">${pSem ? pSem.altura + ' m' : '—'}</div>
+          <div class="detalle">${pSem ? pSem.fechaStr + ' · ' + pSem.horaStr + ' hs' : ''}</div>
+        </div>
+      </div>
+
+      <details id="details-pronostico-crux" ontoggle="alAbrirDetails(this, 'pronostico-crux')" style="margin-top:12px;">
+        <summary>📊 Ver gráfico continuo hora a hora (168 hs)</summary>
+        <div class="historial-chart"><canvas id="chart-pronostico-crux" role="img" aria-label="Gráfico de pronóstico hidrodinámico continuo a 7 días para La Plata"></canvas></div>
+        ${renderTablaAccesibleCrux(pronCrux.curvaHoraria)}
+        <div class="historial-acciones">
+          <button class="btn-csv" onclick="exportarCSVCrux()">📥 Descargar Pronóstico CSV</button>
+        </div>
+      </details>
+    </div>`;
   }
 
   let histHTML = '';
@@ -1289,6 +1367,7 @@ function tarjetaLP(d, viento, pron, sudestada) {
       <div class="dato-etiqueta">Pronóstico de mareas (SHN)</div>
       ${pronHTML}
     </div></div>
+    ${cruxHTML}
     ${histHTML}
   </div>`;
 }
@@ -1510,6 +1589,91 @@ function renderizarGraficoIndividual(keyPuerto) {
   let idCanvas = '';
   let alerta = 0;
   let evacuacion = 0;
+
+  if (keyPuerto === 'pronostico-crux') {
+    const curva = datosActuales.pronosticoCrux?.curvaHoraria;
+    const canvas = document.getElementById('chart-pronostico-crux');
+    if (!canvas || !curva || curva.length === 0) return;
+
+    if (chartsInstancias['chart-pronostico-crux']) {
+      chartsInstancias['chart-pronostico-crux'].destroy();
+    }
+
+    const alerta = datosActuales.laplata?.alerta || DEFAULTS_PUERTO.laplata.alerta;
+    const evacuacion = datosActuales.laplata?.evacuacion || DEFAULTS_PUERTO.laplata.evacuacion;
+
+    const labels = curva.map(c => `${c.fechaStr.slice(0, 5)} ${c.horaStr}`);
+    const dataVals = curva.map(c => c.altura);
+
+    const datasets = [{
+      label: 'Nivel Pronosticado (m)',
+      data: dataVals,
+      borderColor: '#0284c7',
+      backgroundColor: 'rgba(2, 132, 199, 0.15)',
+      borderWidth: 2,
+      fill: true,
+      pointRadius: 1,
+      pointHoverRadius: 5,
+      tension: 0.3
+    }];
+
+    if (alerta) {
+      datasets.push({
+        label: `Alerta (${alerta}m)`,
+        data: Array(curva.length).fill(alerta),
+        borderColor: 'rgba(217, 119, 6, 0.7)',
+        borderWidth: 1.5,
+        borderDash: [5, 5],
+        pointRadius: 0,
+        fill: false
+      });
+    }
+    if (evacuacion) {
+      datasets.push({
+        label: `Evacuación (${evacuacion}m)`,
+        data: Array(curva.length).fill(evacuacion),
+        borderColor: 'rgba(217, 56, 30, 0.7)',
+        borderWidth: 1.5,
+        borderDash: [3, 3],
+        pointRadius: 0,
+        fill: false
+      });
+    }
+
+    chartsInstancias['chart-pronostico-crux'] = new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context) => `Pronóstico: ${context.parsed.y.toFixed(2)} m`
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              maxTicksLimit: 14,
+              font: { size: 10 },
+              maxRotation: 45,
+              minRotation: 45
+            }
+          },
+          y: {
+            ticks: { font: { size: 11 } }
+          }
+        }
+      }
+    });
+    return;
+  }
 
   if (keyPuerto === 'laplata' && datosActuales.laplata?.historico) {
     hist = datosActuales.laplata.historico;
@@ -1850,7 +2014,7 @@ async function cargarDatos(esAuto = false) {
         if (tempDiv.firstElementChild) panel.insertBefore(tempDiv.firstElementChild, panel.firstChild);
       }
 
-      actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada));
+      actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada, d.pronosticoCrux));
       actualizarTarjetaEnLugar('tarjeta-iguazu', tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu'));
       actualizarTarjetaEnLugar('tarjeta-saltogrande', tarjetaSaltoGrande(d.saltogrande));
       actualizarTarjetaEnLugar('tarjeta-concordia', tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia'));
@@ -1860,7 +2024,7 @@ async function cargarDatos(esAuto = false) {
     } else {
       // Renderizado completo del panel (puertos en tiempo real consecutivos + pronóstico hidrológico oficial al final)
       panel.innerHTML = renderBannerAlertas(d) +
-                       tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada) + 
+                       tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada, d.pronosticoCrux) + 
                        tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
                        tarjetaSaltoGrande(d.saltogrande) +
                        tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 

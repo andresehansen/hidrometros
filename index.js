@@ -353,11 +353,140 @@ async function fetchPronosticosINA(datosAnteriores = null) {
     return null;
 }
 
+// --- HELPER PRONÓSTICO NUMÉRICO HIDRODINÁMICO CRUX-MARINE (VNT - LA PLATA) ---
+async function fetchPronosticoCruxLaPlata(alturaReal, datosAnteriores = null) {
+    const url = "https://nivel-del-agua-test-back.candoit.com.ar/api/v1/forecast/now-by-hour/21";
+    try {
+        console.log("  → Consultando pronóstico hidrodinámico VNT Crux-Marine (La Plata ID 21)...");
+        const res = await fetch(url, {
+            headers: { "User-Agent": "Mozilla/5.0", "Accept": "application/json" },
+            signal: AbortSignal.timeout(12000)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const forecasts = data.forecasts || [];
+        if (forecasts.length === 0) throw new Error("Sin datos de pronóstico en respuesta");
+
+        function parseCruxDate(ts) {
+            const [dPart, tPart] = ts.split(' ');
+            const [dd, mm, yyyy] = dPart.split('-');
+            const [hh, min, ss] = tPart.split(':');
+            return new Date(+yyyy, +mm - 1, +dd, +hh, +min, +ss || 0);
+        }
+
+        const ahoraMs = Date.now();
+        let idxActual = 0;
+        let difMinMs = Infinity;
+
+        forecasts.forEach((f, idx) => {
+            const fTime = parseCruxDate(f.timestamp_start).getTime();
+            const diff = Math.abs(fTime - ahoraMs);
+            if (diff < difMinMs) {
+                difMinMs = diff;
+                idxActual = idx;
+            }
+        });
+
+        const predichoActual = forecasts[idxActual].value;
+        const realNum = (alturaReal !== null && alturaReal !== undefined && !isNaN(parseFloat(alturaReal))) 
+            ? parseFloat(alturaReal) 
+            : null;
+
+        // Corrección dinámica de sesgo (Real-Time Bias Correction):
+        // Calculamos la discrepancia actual entre el mareógrafo oficial y el modelo.
+        // Acotamos a [-1.0m, +1.0m] por seguridad física.
+        let bias0 = 0;
+        if (realNum !== null) {
+            bias0 = realNum - predichoActual;
+            bias0 = Math.max(-1.0, Math.min(1.0, bias0));
+        }
+
+        // Decaimiento exponencial con tau = 8 horas (persistencia física de anomalía meteorológica estuarial)
+        const tauHoras = 8.0;
+        const t0 = parseCruxDate(forecasts[idxActual].timestamp_start).getTime();
+
+        const curvaCorregida = forecasts.map(f => {
+            const ft = parseCruxDate(f.timestamp_start);
+            const deltaHoras = (ft.getTime() - t0) / (3600 * 1000);
+            let valorAjustado = f.value;
+            if (bias0 !== 0 && deltaHoras >= 0) {
+                const decay = Math.exp(-deltaHoras / tauHoras);
+                valorAjustado = f.value + (bias0 * decay);
+            }
+            const dd = ft.getDate().toString().padStart(2, '0');
+            const mm = (ft.getMonth() + 1).toString().padStart(2, '0');
+            const yyyy = ft.getFullYear();
+            const hh = ft.getHours().toString().padStart(2, '0');
+            const min = ft.getMinutes().toString().padStart(2, '0');
+
+            return {
+                timestamp: ft.toISOString(),
+                fechaStr: `${dd}/${mm}/${yyyy}`,
+                horaStr: `${hh}:${min}`,
+                altura: parseFloat(valorAjustado.toFixed(2)),
+                alturaOriginal: parseFloat(f.value.toFixed(2))
+            };
+        });
+
+        // Insights 24 hs
+        const prox24 = curvaCorregida.slice(idxActual, idxActual + 24);
+        let max24 = prox24[0] || curvaCorregida[0];
+        let min24 = prox24[0] || curvaCorregida[0];
+        prox24.forEach(p => {
+            if (p.altura > max24.altura) max24 = p;
+            if (p.altura < min24.altura) min24 = p;
+        });
+
+        // Insights semanal (próximos 7 días)
+        const futuro = curvaCorregida.slice(idxActual);
+        let maxSemanal = futuro[0] || curvaCorregida[0];
+        let minSemanal = futuro[0] || curvaCorregida[0];
+        futuro.forEach(p => {
+            if (p.altura > maxSemanal.altura) maxSemanal = p;
+            if (p.altura < minSemanal.altura) minSemanal = p;
+        });
+
+        // Resumen claro y accesible para vecinos ribereños y la familia
+        let resumenMama = "";
+        if (maxSemanal.altura >= 2.80) {
+            resumenMama = `🚨 ALERTA CRÍTICA: Se proyecta pleamar de ${maxSemanal.altura.toFixed(2)}m (nivel de evacuación) el ${maxSemanal.fechaStr} a las ${maxSemanal.horaStr} hs. Extremar precauciones en zonas ribereñas.`;
+        } else if (maxSemanal.altura >= 2.50) {
+            resumenMama = `⚠️ ALERTA PREVENTIVA: Se proyecta pleamar de ${maxSemanal.altura.toFixed(2)}m (supera alerta de 2.50m) el ${maxSemanal.fechaStr} a las ${maxSemanal.horaStr} hs.`;
+        } else if (maxSemanal.altura >= 2.10) {
+            resumenMama = `🟡 Marea crecida pero segura: Pleamar máxima de ${maxSemanal.altura.toFixed(2)}m prevista para el ${maxSemanal.fechaStr} a las ${maxSemanal.horaStr} hs, por debajo del nivel de alerta (2.50m).`;
+        } else {
+            resumenMama = `🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de ${maxSemanal.altura.toFixed(2)}m el ${maxSemanal.fechaStr} a las ${maxSemanal.horaStr} hs, sin riesgo de anegamiento.`;
+        }
+
+        console.log(`  ✅ Pronóstico Crux La Plata: ${curvaCorregida.length} horas procesadas (Bias corregido: ${bias0.toFixed(2)}m)`);
+        return {
+            fuente: "Crux-Marine / AGPSE (VNT)",
+            modelo: "Hidrodinámico VNT (Calibrado en tiempo real con mareógrafo AGPSE)",
+            actualizadoEn: new Date().toISOString(),
+            biasDetectado: parseFloat(bias0.toFixed(2)),
+            resumenMama,
+            proximaPleamar24h: { altura: max24.altura, fechaStr: max24.fechaStr, horaStr: max24.horaStr },
+            proximaBajamar24h: { altura: min24.altura, fechaStr: min24.fechaStr, horaStr: min24.horaStr },
+            picoSemanal: { altura: maxSemanal.altura, fechaStr: maxSemanal.fechaStr, horaStr: maxSemanal.horaStr },
+            valleSemanal: { altura: minSemanal.altura, fechaStr: minSemanal.fechaStr, horaStr: minSemanal.horaStr },
+            curvaHoraria: curvaCorregida
+        };
+    } catch (e) {
+        console.log(`⚠️ Error en pronóstico Crux La Plata: ${e.message}`);
+        if (datosAnteriores?.pronosticoCrux) {
+            console.log("  ℹ️ Conservando pronóstico Crux anterior de respaldo.");
+            return datosAnteriores.pronosticoCrux;
+        }
+        return null;
+    }
+}
+
 // --- HELPER PRONÓSTICO DE SUDESTADA (RÍO DE LA PLATA) ---
-function calcularPronosticoSudestada(lpDatos, pronostico, viento) {
+function calcularPronosticoSudestada(lpDatos, pronostico, viento, pronosticoCrux = null) {
     const alturaActual = lpDatos ? parseFloat(lpDatos.altura) : 0;
     const pleamar = pronostico?.pleamar;
     const pleamarAlt = pleamar ? parseFloat(pleamar.altura) : 0;
+    const cruxPleamarAlt = pronosticoCrux?.proximaPleamar24h ? parseFloat(pronosticoCrux.proximaPleamar24h.altura) : 0;
     const velViento = viento ? parseFloat(viento.velocidad) : 0;
     const dirViento = viento?.direccion || "";
 
@@ -365,15 +494,15 @@ function calcularPronosticoSudestada(lpDatos, pronostico, viento) {
     const esVientoSudeste = /SE|Sureste|Sur|SSE|ESE/i.test(dirViento) && velViento >= 20;
     const esVientoFuerte = esVientoSudeste && velViento >= 35;
 
-    // Altura crítica proyectada (considera la próxima pleamar o el nivel actual)
-    const alturaProyectada = Math.max(alturaActual, pleamarAlt);
+    // Altura crítica proyectada (considera la próxima pleamar SHN, el modelo Crux o el nivel actual)
+    const alturaProyectada = Math.max(alturaActual, pleamarAlt, cruxPleamarAlt);
 
     let estado = "sin_riesgo";
     let nivelAlerta = "verde";
     let titulo = "🟢 Sin previsión de sudestada para las próximas 24 hs";
     let mensaje = pleamar
-        ? `Pleamar máxima prevista: ${pleamarAlt.toFixed(2)}m (${pleamar.fecha} a las ${pleamar.hora} hs). Viento: ${velViento} km/h ${dirViento}. Condiciones habituales de marea.`
-        : "Nivel de marea dentro de parámetros habituales.";
+        ? `Pleamar máxima prevista: ${Math.max(pleamarAlt, cruxPleamarAlt).toFixed(2)}m (${pleamar.fecha} a las ${pleamar.hora} hs). Viento: ${velViento} km/h ${dirViento}. Condiciones habituales de marea.`
+        : (pronosticoCrux?.resumenMama || "Nivel de marea dentro de parámetros habituales.");
 
     if (alturaProyectada >= 2.80) {
         estado = "alerta_critica";
@@ -400,6 +529,7 @@ function calcularPronosticoSudestada(lpDatos, pronostico, viento) {
         alturaActual: alturaActual > 0 ? alturaActual.toFixed(2) : null,
         alturaProyectada: alturaProyectada > 0 ? alturaProyectada.toFixed(2) : null,
         proximaPleamar: pleamar || null,
+        picoCrux24h: pronosticoCrux?.proximaPleamar24h || null,
         viento: viento ? { velocidad: velViento, direccion: dirViento, esSudeste: esVientoSudeste } : null,
         actualizadoEn: new Date().toISOString()
     };
@@ -915,10 +1045,13 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             abajo:  sgAbajoDatos
         } : (datosAnteriores.saltogrande || null);
 
-        // ---- 7. PRONÓSTICOS HIDROLÓGICOS INA Y PREVISIÓN DE SUDESTADA ----
+        // ---- 7. PRONÓSTICOS HIDROLÓGICOS INA, CRUX-MARINE Y PREVISIÓN DE SUDESTADA ----
         console.log("\n[INA] Obteniendo Pronósticos Hidrológicos Oficiales del INA...");
         const pronosticosINA = await fetchPronosticosINA(datosAnteriores);
-        const pronosticoSudestada = calcularPronosticoSudestada(lpDatos, pronostico, viento);
+
+        console.log("\n[Crux-Marine] Obteniendo Pronóstico Hidrodinámico a 7 días (La Plata - VNT)...");
+        const pronosticoCrux = await fetchPronosticoCruxLaPlata(lpDatos?.altura, datosAnteriores);
+        const pronosticoSudestada = calcularPronosticoSudestada(lpDatos, pronostico, viento, pronosticoCrux);
 
         // ---- GENERAR data.json PARA EL SITIO WEB ----
         const dataJson = {
@@ -929,6 +1062,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             viento,
             pronostico,
             pronosticoSudestada,
+            pronosticoCrux,
             pronosticosINA,
             iguazu:     igDatos,
             sanjavier:  sjDatos,
