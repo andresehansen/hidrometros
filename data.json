@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "09/10/2026 a las 14:19 hs",
-  "generadoEn": "2026-10-09T14:19:23.000Z",
+  "fechaReporte": "09/10/2026 a las 14:20 hs",
+  "generadoEn": "2026-10-09T14:20:52.000Z",
   "laplata": {
-    "altura": "1.79",
-    "horaStr": "12:45",
+    "altura": "1.82",
+    "horaStr": "13:45",
     "fechaStr": "09/10/2026",
-    "fuente": "INA",
+    "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.79m (a las 12:45 hs) (Fuente: INA)",
+    "textoFB": "1.82m (a las 13:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.14",
-        "fechaStr": "07/10/2026",
-        "horaStr": "13:45"
-      },
       {
         "altura": "1.20",
         "fechaStr": "07/10/2026",
@@ -251,6 +246,11 @@
         "altura": "1.79",
         "fechaStr": "09/10/2026",
         "horaStr": "12:45"
+      },
+      {
+        "altura": "1.82",
+        "fechaStr": "09/10/2026",
+        "horaStr": "13:45"
       }
     ],
     "tendencia": {
@@ -265,25 +265,40 @@
     "direccion": "Sureste (SE)",
     "temperatura": 15.1
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "16:30",
+      "altura": "2.20",
+      "fecha": "09/10"
+    },
+    "bajamar": {
+      "hora": "23:30",
+      "altura": "1.40",
+      "fecha": "10/10"
+    }
+  },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Nivel de marea dentro de parámetros habituales.",
-    "alturaActual": "1.79",
-    "alturaProyectada": "1.79",
-    "proximaPleamar": null,
+    "mensaje": "Pleamar máxima prevista: 2.20m (09/10 a las 16:30 hs). Viento: 20.1 km/h Sureste (SE). Condiciones habituales de marea.",
+    "alturaActual": "1.82",
+    "alturaProyectada": "2.20",
+    "proximaPleamar": {
+      "hora": "16:30",
+      "altura": "2.20",
+      "fecha": "09/10"
+    },
     "viento": {
       "velocidad": 20.1,
       "direccion": "Sureste (SE)",
       "esSudeste": true
     },
-    "actualizadoEn": "2026-10-09T17:21:02.130Z"
+    "actualizadoEn": "2026-10-09T17:22:16.851Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-09T17:20:55.506Z",
+    "actualizadoEn": "2026-10-09T17:22:10.161Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
