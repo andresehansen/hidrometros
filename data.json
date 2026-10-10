@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "10/10/2026 a las 01:19 hs",
-  "generadoEn": "2026-10-10T01:19:20.000Z",
+  "fechaReporte": "10/10/2026 a las 02:19 hs",
+  "generadoEn": "2026-10-10T02:19:22.000Z",
   "laplata": {
-    "altura": "1.25",
-    "horaStr": "00:45",
+    "altura": "1.70",
+    "horaStr": "01:45",
     "fechaStr": "10/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.25m (a las 00:45 hs) (Fuente: SHN)",
+    "textoFB": "1.70m (a las 01:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.70",
-        "fechaStr": "08/10/2026",
-        "horaStr": "02:45"
-      },
       {
         "altura": "1.70",
         "fechaStr": "08/10/2026",
@@ -251,17 +246,22 @@
         "altura": "1.25",
         "fechaStr": "10/10/2026",
         "horaStr": "00:45"
+      },
+      {
+        "altura": "1.70",
+        "fechaStr": "10/10/2026",
+        "horaStr": "01:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.19m)",
-      "diferencia": "+0.19"
+      "texto": "Subiendo (+0.45m)",
+      "diferencia": "+0.45"
     }
   },
   "viento": {
-    "velocidad": 17.7,
+    "velocidad": 15,
     "direccion": "Sureste (SE)",
     "temperatura": 11
   },
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 2.00m (10/10 a las 05:00 hs). Viento: 17.7 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "1.25",
+    "mensaje": "Pleamar máxima prevista: 2.00m (10/10 a las 05:00 hs). Viento: 15 km/h Sureste (SE). Condiciones habituales de marea.",
+    "alturaActual": "1.70",
     "alturaProyectada": "2.00",
     "proximaPleamar": {
       "hora": "05:00",
@@ -290,736 +290,652 @@
       "fecha": "10/10"
     },
     "picoCrux24h": {
-      "altura": 1.32,
+      "altura": 1.7,
       "fechaStr": "10/10/2026",
       "horaStr": "05:00"
     },
     "viento": {
-      "velocidad": 17.7,
+      "velocidad": 15,
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-10T04:20:31.772Z"
+    "actualizadoEn": "2026-10-10T05:20:29.991Z"
   },
   "pronosticoCrux": {
     "fuente": "Crux-Marine / AGPSE (VNT)",
     "modelo": "Hidrodinámico VNT (Calibrado en tiempo real con mareógrafo AGPSE)",
-    "actualizadoEn": "2026-10-10T04:20:31.772Z",
-    "biasDetectado": -0.25,
-    "resumenMama": "🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de 1.32m el 10/10/2026 a las 05:00 hs, sin riesgo de anegamiento.",
+    "actualizadoEn": "2026-10-10T05:20:29.990Z",
+    "biasDetectado": 0.21,
+    "resumenMama": "🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de 1.70m el 10/10/2026 a las 05:00 hs, sin riesgo de anegamiento.",
     "proximaPleamar24h": {
-      "altura": 1.32,
+      "altura": 1.7,
       "fechaStr": "10/10/2026",
       "horaStr": "05:00"
     },
     "proximaBajamar24h": {
-      "altura": 0.5,
+      "altura": 0.58,
       "fechaStr": "11/10/2026",
       "horaStr": "00:00"
     },
     "picoSemanal": {
-      "altura": 1.32,
+      "altura": 1.7,
       "fechaStr": "10/10/2026",
       "horaStr": "05:00"
     },
     "valleSemanal": {
-      "altura": 0.48,
+      "altura": 0.52,
       "fechaStr": "12/10/2026",
-      "horaStr": "01:00"
+      "horaStr": "14:00"
     },
     "curvaHoraria": [
-      {
-        "timestamp": "2026-10-09T13:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "13:00",
-        "altura": 1.45,
-        "alturaOriginal": 1.45
-      },
-      {
-        "timestamp": "2026-10-09T14:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "14:00",
-        "altura": 1.45,
-        "alturaOriginal": 1.45
-      },
-      {
-        "timestamp": "2026-10-09T15:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "15:00",
-        "altura": 1.43,
-        "alturaOriginal": 1.43
-      },
-      {
-        "timestamp": "2026-10-09T16:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "16:00",
-        "altura": 1.39,
-        "alturaOriginal": 1.39
-      },
-      {
-        "timestamp": "2026-10-09T17:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "17:00",
-        "altura": 1.31,
-        "alturaOriginal": 1.31
-      },
-      {
-        "timestamp": "2026-10-09T18:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "18:00",
-        "altura": 1.2,
-        "alturaOriginal": 1.2
-      },
-      {
-        "timestamp": "2026-10-09T19:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "19:00",
-        "altura": 1.11,
-        "alturaOriginal": 1.11
-      },
-      {
-        "timestamp": "2026-10-09T20:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "20:00",
-        "altura": 1.02,
-        "alturaOriginal": 1.02
-      },
-      {
-        "timestamp": "2026-10-09T21:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "21:00",
-        "altura": 0.94,
-        "alturaOriginal": 0.94
-      },
-      {
-        "timestamp": "2026-10-09T22:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "22:00",
-        "altura": 0.85,
-        "alturaOriginal": 0.85
-      },
-      {
-        "timestamp": "2026-10-09T23:00:00.000Z",
-        "fechaStr": "09/10/2026",
-        "horaStr": "23:00",
-        "altura": 0.82,
-        "alturaOriginal": 0.82
-      },
-      {
-        "timestamp": "2026-10-10T00:00:00.000Z",
-        "fechaStr": "10/10/2026",
-        "horaStr": "00:00",
-        "altura": 0.89,
-        "alturaOriginal": 0.89
-      },
       {
         "timestamp": "2026-10-10T01:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "01:00",
-        "altura": 1.05,
-        "alturaOriginal": 1.05
+        "altura": 0.96,
+        "alturaOriginal": 0.96
       },
       {
         "timestamp": "2026-10-10T02:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "02:00",
-        "altura": 1.24,
-        "alturaOriginal": 1.24
+        "altura": 1.16,
+        "alturaOriginal": 1.16
       },
       {
         "timestamp": "2026-10-10T03:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "03:00",
-        "altura": 1.39,
-        "alturaOriginal": 1.39
+        "altura": 1.32,
+        "alturaOriginal": 1.32
       },
       {
         "timestamp": "2026-10-10T04:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "04:00",
-        "altura": 1.25,
-        "alturaOriginal": 1.5
+        "altura": 1.44,
+        "alturaOriginal": 1.44
       },
       {
         "timestamp": "2026-10-10T05:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "05:00",
-        "altura": 1.32,
-        "alturaOriginal": 1.54
+        "altura": 1.7,
+        "alturaOriginal": 1.49
       },
       {
         "timestamp": "2026-10-10T06:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "06:00",
-        "altura": 1.32,
-        "alturaOriginal": 1.51
+        "altura": 1.66,
+        "alturaOriginal": 1.47
       },
       {
         "timestamp": "2026-10-10T07:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "07:00",
-        "altura": 1.26,
-        "alturaOriginal": 1.43
+        "altura": 1.55,
+        "alturaOriginal": 1.39
       },
       {
         "timestamp": "2026-10-10T08:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "08:00",
-        "altura": 1.16,
-        "alturaOriginal": 1.31
+        "altura": 1.41,
+        "alturaOriginal": 1.27
       },
       {
         "timestamp": "2026-10-10T09:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "09:00",
-        "altura": 1.05,
-        "alturaOriginal": 1.18
+        "altura": 1.27,
+        "alturaOriginal": 1.14
       },
       {
         "timestamp": "2026-10-10T10:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "10:00",
-        "altura": 0.91,
-        "alturaOriginal": 1.03
+        "altura": 1.11,
+        "alturaOriginal": 1
       },
       {
         "timestamp": "2026-10-10T11:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "11:00",
-        "altura": 0.77,
-        "alturaOriginal": 0.87
+        "altura": 0.94,
+        "alturaOriginal": 0.84
       },
       {
         "timestamp": "2026-10-10T12:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "12:00",
-        "altura": 0.66,
-        "alturaOriginal": 0.75
+        "altura": 0.82,
+        "alturaOriginal": 0.73
       },
       {
         "timestamp": "2026-10-10T13:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "13:00",
-        "altura": 0.66,
-        "alturaOriginal": 0.74
+        "altura": 0.79,
+        "alturaOriginal": 0.71
       },
       {
         "timestamp": "2026-10-10T14:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "14:00",
-        "altura": 0.73,
-        "alturaOriginal": 0.8
+        "altura": 0.85,
+        "alturaOriginal": 0.78
       },
       {
         "timestamp": "2026-10-10T15:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "15:00",
-        "altura": 0.83,
-        "alturaOriginal": 0.89
+        "altura": 0.93,
+        "alturaOriginal": 0.87
       },
       {
         "timestamp": "2026-10-10T16:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "16:00",
-        "altura": 0.89,
-        "alturaOriginal": 0.95
+        "altura": 0.99,
+        "alturaOriginal": 0.94
       },
       {
         "timestamp": "2026-10-10T17:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "17:00",
-        "altura": 0.93,
-        "alturaOriginal": 0.98
+        "altura": 1.02,
+        "alturaOriginal": 0.97
       },
       {
         "timestamp": "2026-10-10T18:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "18:00",
-        "altura": 0.92,
+        "altura": 1,
         "alturaOriginal": 0.96
       },
       {
         "timestamp": "2026-10-10T19:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "19:00",
-        "altura": 0.87,
+        "altura": 0.95,
         "alturaOriginal": 0.91
       },
       {
         "timestamp": "2026-10-10T20:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "20:00",
-        "altura": 0.8,
+        "altura": 0.86,
         "alturaOriginal": 0.83
       },
       {
         "timestamp": "2026-10-10T21:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "21:00",
-        "altura": 0.7,
-        "alturaOriginal": 0.73
+        "altura": 0.78,
+        "alturaOriginal": 0.75
       },
       {
         "timestamp": "2026-10-10T22:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "22:00",
-        "altura": 0.61,
-        "alturaOriginal": 0.64
+        "altura": 0.69,
+        "alturaOriginal": 0.66
       },
       {
         "timestamp": "2026-10-10T23:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "23:00",
-        "altura": 0.54,
-        "alturaOriginal": 0.56
+        "altura": 0.6,
+        "alturaOriginal": 0.58
       },
       {
         "timestamp": "2026-10-11T00:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "00:00",
-        "altura": 0.5,
-        "alturaOriginal": 0.52
+        "altura": 0.58,
+        "alturaOriginal": 0.56
       },
       {
         "timestamp": "2026-10-11T01:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "01:00",
-        "altura": 0.58,
-        "alturaOriginal": 0.6
+        "altura": 0.65,
+        "alturaOriginal": 0.63
       },
       {
         "timestamp": "2026-10-11T02:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "02:00",
-        "altura": 0.75,
-        "alturaOriginal": 0.77
+        "altura": 0.83,
+        "alturaOriginal": 0.81
       },
       {
         "timestamp": "2026-10-11T03:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "03:00",
-        "altura": 0.96,
-        "alturaOriginal": 0.97
+        "altura": 1.01,
+        "alturaOriginal": 1
       },
       {
         "timestamp": "2026-10-11T04:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "04:00",
-        "altura": 1.12,
-        "alturaOriginal": 1.13
+        "altura": 1.18,
+        "alturaOriginal": 1.17
       },
       {
         "timestamp": "2026-10-11T05:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "05:00",
-        "altura": 1.23,
-        "alturaOriginal": 1.24
+        "altura": 1.29,
+        "alturaOriginal": 1.28
       },
       {
         "timestamp": "2026-10-11T06:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "06:00",
-        "altura": 1.28,
-        "alturaOriginal": 1.29
+        "altura": 1.33,
+        "alturaOriginal": 1.32
       },
       {
         "timestamp": "2026-10-11T07:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "07:00",
-        "altura": 1.26,
-        "alturaOriginal": 1.27
+        "altura": 1.31,
+        "alturaOriginal": 1.3
       },
       {
         "timestamp": "2026-10-11T08:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "08:00",
-        "altura": 1.18,
-        "alturaOriginal": 1.19
+        "altura": 1.23,
+        "alturaOriginal": 1.22
       },
       {
         "timestamp": "2026-10-11T09:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "09:00",
-        "altura": 1.07,
-        "alturaOriginal": 1.08
+        "altura": 1.12,
+        "alturaOriginal": 1.11
       },
       {
         "timestamp": "2026-10-11T10:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "10:00",
-        "altura": 0.95,
-        "alturaOriginal": 0.96
+        "altura": 1,
+        "alturaOriginal": 0.99
       },
       {
         "timestamp": "2026-10-11T11:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "11:00",
-        "altura": 0.81,
-        "alturaOriginal": 0.82
+        "altura": 0.84,
+        "alturaOriginal": 0.84
       },
       {
         "timestamp": "2026-10-11T12:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "12:00",
-        "altura": 0.67,
-        "alturaOriginal": 0.67
+        "altura": 0.7,
+        "alturaOriginal": 0.7
       },
       {
         "timestamp": "2026-10-11T13:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "13:00",
-        "altura": 0.6,
-        "alturaOriginal": 0.6
+        "altura": 0.62,
+        "alturaOriginal": 0.62
       },
       {
         "timestamp": "2026-10-11T14:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "14:00",
-        "altura": 0.63,
-        "alturaOriginal": 0.63
+        "altura": 0.66,
+        "alturaOriginal": 0.66
       },
       {
         "timestamp": "2026-10-11T15:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "15:00",
-        "altura": 0.74,
-        "alturaOriginal": 0.74
+        "altura": 0.77,
+        "alturaOriginal": 0.77
       },
       {
         "timestamp": "2026-10-11T16:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "16:00",
-        "altura": 0.85,
-        "alturaOriginal": 0.85
+        "altura": 0.88,
+        "alturaOriginal": 0.88
       },
       {
         "timestamp": "2026-10-11T17:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "17:00",
-        "altura": 0.93,
-        "alturaOriginal": 0.93
+        "altura": 0.96,
+        "alturaOriginal": 0.96
       },
       {
         "timestamp": "2026-10-11T18:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "18:00",
-        "altura": 0.96,
-        "alturaOriginal": 0.96
+        "altura": 0.99,
+        "alturaOriginal": 0.99
       },
       {
         "timestamp": "2026-10-11T19:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "19:00",
-        "altura": 0.93,
-        "alturaOriginal": 0.93
+        "altura": 0.97,
+        "alturaOriginal": 0.97
       },
       {
         "timestamp": "2026-10-11T20:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "20:00",
-        "altura": 0.87,
-        "alturaOriginal": 0.87
+        "altura": 0.91,
+        "alturaOriginal": 0.91
       },
       {
         "timestamp": "2026-10-11T21:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "21:00",
-        "altura": 0.78,
-        "alturaOriginal": 0.78
+        "altura": 0.83,
+        "alturaOriginal": 0.83
       },
       {
         "timestamp": "2026-10-11T22:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "22:00",
-        "altura": 0.68,
-        "alturaOriginal": 0.68
+        "altura": 0.75,
+        "alturaOriginal": 0.75
       },
       {
         "timestamp": "2026-10-11T23:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "23:00",
-        "altura": 0.59,
-        "alturaOriginal": 0.59
+        "altura": 0.66,
+        "alturaOriginal": 0.66
       },
       {
         "timestamp": "2026-10-12T00:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "00:00",
-        "altura": 0.5,
-        "alturaOriginal": 0.5
+        "altura": 0.57,
+        "alturaOriginal": 0.57
       },
       {
         "timestamp": "2026-10-12T01:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "01:00",
-        "altura": 0.48,
-        "alturaOriginal": 0.48
+        "altura": 0.54,
+        "alturaOriginal": 0.54
       },
       {
         "timestamp": "2026-10-12T02:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "02:00",
-        "altura": 0.56,
-        "alturaOriginal": 0.56
+        "altura": 0.62,
+        "alturaOriginal": 0.62
       },
       {
         "timestamp": "2026-10-12T03:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "03:00",
-        "altura": 0.74,
-        "alturaOriginal": 0.74
+        "altura": 0.79,
+        "alturaOriginal": 0.79
       },
       {
         "timestamp": "2026-10-12T04:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "04:00",
-        "altura": 0.93,
-        "alturaOriginal": 0.93
+        "altura": 0.97,
+        "alturaOriginal": 0.97
       },
       {
         "timestamp": "2026-10-12T05:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "05:00",
-        "altura": 1.09,
-        "alturaOriginal": 1.09
+        "altura": 1.12,
+        "alturaOriginal": 1.12
       },
       {
         "timestamp": "2026-10-12T06:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "06:00",
-        "altura": 1.19,
-        "alturaOriginal": 1.19
+        "altura": 1.21,
+        "alturaOriginal": 1.21
       },
       {
         "timestamp": "2026-10-12T07:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "07:00",
-        "altura": 1.24,
-        "alturaOriginal": 1.24
+        "altura": 1.23,
+        "alturaOriginal": 1.23
       },
       {
         "timestamp": "2026-10-12T08:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "08:00",
-        "altura": 1.23,
-        "alturaOriginal": 1.23
+        "altura": 1.18,
+        "alturaOriginal": 1.18
       },
       {
         "timestamp": "2026-10-12T09:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "09:00",
-        "altura": 1.16,
-        "alturaOriginal": 1.16
+        "altura": 1.08,
+        "alturaOriginal": 1.08
       },
       {
         "timestamp": "2026-10-12T10:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "10:00",
-        "altura": 1.07,
-        "alturaOriginal": 1.07
+        "altura": 0.95,
+        "alturaOriginal": 0.95
       },
       {
         "timestamp": "2026-10-12T11:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "11:00",
-        "altura": 0.97,
-        "alturaOriginal": 0.97
+        "altura": 0.82,
+        "alturaOriginal": 0.82
       },
       {
         "timestamp": "2026-10-12T12:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "12:00",
-        "altura": 0.86,
-        "alturaOriginal": 0.86
+        "altura": 0.67,
+        "alturaOriginal": 0.67
       },
       {
         "timestamp": "2026-10-12T13:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "13:00",
-        "altura": 0.75,
-        "alturaOriginal": 0.75
+        "altura": 0.55,
+        "alturaOriginal": 0.55
       },
       {
         "timestamp": "2026-10-12T14:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "14:00",
-        "altura": 0.72,
-        "alturaOriginal": 0.72
+        "altura": 0.52,
+        "alturaOriginal": 0.52
       },
       {
         "timestamp": "2026-10-12T15:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "15:00",
-        "altura": 0.8,
-        "alturaOriginal": 0.8
+        "altura": 0.6,
+        "alturaOriginal": 0.6
       },
       {
         "timestamp": "2026-10-12T16:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "16:00",
-        "altura": 0.95,
-        "alturaOriginal": 0.95
+        "altura": 0.74,
+        "alturaOriginal": 0.74
       },
       {
         "timestamp": "2026-10-12T17:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "17:00",
-        "altura": 1.07,
-        "alturaOriginal": 1.07
+        "altura": 0.87,
+        "alturaOriginal": 0.87
       },
       {
         "timestamp": "2026-10-12T18:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "18:00",
-        "altura": 1.14,
-        "alturaOriginal": 1.14
+        "altura": 0.93,
+        "alturaOriginal": 0.93
       },
       {
         "timestamp": "2026-10-12T19:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "19:00",
-        "altura": 1.13,
-        "alturaOriginal": 1.13
+        "altura": 0.96,
+        "alturaOriginal": 0.96
       },
       {
         "timestamp": "2026-10-12T20:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "20:00",
-        "altura": 1.09,
-        "alturaOriginal": 1.09
+        "altura": 0.95,
+        "alturaOriginal": 0.95
       },
       {
         "timestamp": "2026-10-12T21:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "21:00",
-        "altura": 1.01,
-        "alturaOriginal": 1.01
+        "altura": 0.91,
+        "alturaOriginal": 0.91
       },
       {
         "timestamp": "2026-10-12T22:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "22:00",
-        "altura": 0.92,
-        "alturaOriginal": 0.92
+        "altura": 0.84,
+        "alturaOriginal": 0.84
       },
       {
         "timestamp": "2026-10-12T23:00:00.000Z",
         "fechaStr": "12/10/2026",
         "horaStr": "23:00",
-        "altura": 0.81,
-        "alturaOriginal": 0.81
+        "altura": 0.77,
+        "alturaOriginal": 0.77
       },
       {
         "timestamp": "2026-10-13T00:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "00:00",
-        "altura": 0.7,
-        "alturaOriginal": 0.7
+        "altura": 0.69,
+        "alturaOriginal": 0.69
       },
       {
         "timestamp": "2026-10-13T01:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "01:00",
-        "altura": 0.6,
-        "alturaOriginal": 0.6
+        "altura": 0.62,
+        "alturaOriginal": 0.62
       },
       {
         "timestamp": "2026-10-13T02:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "02:00",
-        "altura": 0.58,
-        "alturaOriginal": 0.58
+        "altura": 0.61,
+        "alturaOriginal": 0.61
       },
       {
         "timestamp": "2026-10-13T03:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "03:00",
-        "altura": 0.66,
-        "alturaOriginal": 0.66
+        "altura": 0.71,
+        "alturaOriginal": 0.71
       },
       {
         "timestamp": "2026-10-13T04:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "04:00",
-        "altura": 0.82,
-        "alturaOriginal": 0.82
+        "altura": 0.89,
+        "alturaOriginal": 0.89
       },
       {
         "timestamp": "2026-10-13T05:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "05:00",
-        "altura": 0.98,
-        "alturaOriginal": 0.98
+        "altura": 1.07,
+        "alturaOriginal": 1.07
       },
       {
         "timestamp": "2026-10-13T06:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "06:00",
-        "altura": 1.1,
-        "alturaOriginal": 1.1
+        "altura": 1.21,
+        "alturaOriginal": 1.21
       },
       {
         "timestamp": "2026-10-13T07:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "07:00",
-        "altura": 1.18,
-        "alturaOriginal": 1.18
+        "altura": 1.28,
+        "alturaOriginal": 1.28
       },
       {
         "timestamp": "2026-10-13T08:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "08:00",
-        "altura": 1.19,
-        "alturaOriginal": 1.19
+        "altura": 1.28,
+        "alturaOriginal": 1.28
       },
       {
         "timestamp": "2026-10-13T09:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "09:00",
-        "altura": 1.15,
-        "alturaOriginal": 1.15
+        "altura": 1.22,
+        "alturaOriginal": 1.22
       },
       {
         "timestamp": "2026-10-13T10:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "10:00",
-        "altura": 1.06,
-        "alturaOriginal": 1.06
+        "altura": 1.13,
+        "alturaOriginal": 1.13
       },
       {
         "timestamp": "2026-10-13T11:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "11:00",
-        "altura": 0.95,
-        "alturaOriginal": 0.95
+        "altura": 1.01,
+        "alturaOriginal": 1.01
       },
       {
         "timestamp": "2026-10-13T12:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "12:00",
-        "altura": 0.84,
-        "alturaOriginal": 0.84
+        "altura": 0.89,
+        "alturaOriginal": 0.89
       },
       {
         "timestamp": "2026-10-13T13:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "13:00",
-        "altura": 0.72,
-        "alturaOriginal": 0.72
+        "altura": 0.76,
+        "alturaOriginal": 0.76
       },
       {
         "timestamp": "2026-10-13T14:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "14:00",
-        "altura": 0.65,
-        "alturaOriginal": 0.65
+        "altura": 0.68,
+        "alturaOriginal": 0.68
       },
       {
         "timestamp": "2026-10-13T15:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "15:00",
-        "altura": 0.67,
-        "alturaOriginal": 0.67
+        "altura": 0.69,
+        "alturaOriginal": 0.69
       },
       {
         "timestamp": "2026-10-13T16:00:00.000Z",
@@ -1032,22 +948,22 @@
         "timestamp": "2026-10-13T17:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "17:00",
-        "altura": 0.95,
-        "alturaOriginal": 0.95
+        "altura": 0.94,
+        "alturaOriginal": 0.94
       },
       {
         "timestamp": "2026-10-13T18:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "18:00",
-        "altura": 1.05,
-        "alturaOriginal": 1.05
+        "altura": 1.04,
+        "alturaOriginal": 1.04
       },
       {
         "timestamp": "2026-10-13T19:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "19:00",
-        "altura": 1.08,
-        "alturaOriginal": 1.08
+        "altura": 1.07,
+        "alturaOriginal": 1.07
       },
       {
         "timestamp": "2026-10-13T20:00:00.000Z",
@@ -1067,448 +983,532 @@
         "timestamp": "2026-10-13T22:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "22:00",
-        "altura": 0.93,
-        "alturaOriginal": 0.93
+        "altura": 0.94,
+        "alturaOriginal": 0.94
       },
       {
         "timestamp": "2026-10-13T23:00:00.000Z",
         "fechaStr": "13/10/2026",
         "horaStr": "23:00",
-        "altura": 0.83,
-        "alturaOriginal": 0.83
+        "altura": 0.85,
+        "alturaOriginal": 0.85
       },
       {
         "timestamp": "2026-10-14T00:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "00:00",
-        "altura": 0.71,
-        "alturaOriginal": 0.71
+        "altura": 0.75,
+        "alturaOriginal": 0.75
       },
       {
         "timestamp": "2026-10-14T01:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "01:00",
-        "altura": 0.61,
-        "alturaOriginal": 0.61
+        "altura": 0.65,
+        "alturaOriginal": 0.65
       },
       {
         "timestamp": "2026-10-14T02:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "02:00",
-        "altura": 0.53,
-        "alturaOriginal": 0.53
+        "altura": 0.58,
+        "alturaOriginal": 0.58
       },
       {
         "timestamp": "2026-10-14T03:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "03:00",
-        "altura": 0.53,
-        "alturaOriginal": 0.53
+        "altura": 0.59,
+        "alturaOriginal": 0.59
       },
       {
         "timestamp": "2026-10-14T04:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "04:00",
-        "altura": 0.62,
-        "alturaOriginal": 0.62
+        "altura": 0.7,
+        "alturaOriginal": 0.7
       },
       {
         "timestamp": "2026-10-14T05:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "05:00",
-        "altura": 0.77,
-        "alturaOriginal": 0.77
+        "altura": 0.85,
+        "alturaOriginal": 0.85
       },
       {
         "timestamp": "2026-10-14T06:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "06:00",
-        "altura": 0.91,
-        "alturaOriginal": 0.91
+        "altura": 1,
+        "alturaOriginal": 1
       },
       {
         "timestamp": "2026-10-14T07:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "07:00",
-        "altura": 1.01,
-        "alturaOriginal": 1.01
+        "altura": 1.11,
+        "alturaOriginal": 1.11
       },
       {
         "timestamp": "2026-10-14T08:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "08:00",
-        "altura": 1.07,
-        "alturaOriginal": 1.07
+        "altura": 1.16,
+        "alturaOriginal": 1.16
       },
       {
         "timestamp": "2026-10-14T09:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "09:00",
-        "altura": 1.06,
-        "alturaOriginal": 1.06
+        "altura": 1.16,
+        "alturaOriginal": 1.16
       },
       {
         "timestamp": "2026-10-14T10:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "10:00",
-        "altura": 1.01,
-        "alturaOriginal": 1.01
+        "altura": 1.11,
+        "alturaOriginal": 1.11
       },
       {
         "timestamp": "2026-10-14T11:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "11:00",
-        "altura": 0.92,
-        "alturaOriginal": 0.92
+        "altura": 1.01,
+        "alturaOriginal": 1.01
       },
       {
         "timestamp": "2026-10-14T12:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "12:00",
-        "altura": 0.82,
-        "alturaOriginal": 0.82
+        "altura": 0.91,
+        "alturaOriginal": 0.91
       },
       {
         "timestamp": "2026-10-14T13:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "13:00",
-        "altura": 0.72,
-        "alturaOriginal": 0.72
+        "altura": 0.81,
+        "alturaOriginal": 0.81
       },
       {
         "timestamp": "2026-10-14T14:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "14:00",
-        "altura": 0.65,
-        "alturaOriginal": 0.65
+        "altura": 0.74,
+        "alturaOriginal": 0.74
       },
       {
         "timestamp": "2026-10-14T15:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "15:00",
-        "altura": 0.63,
-        "alturaOriginal": 0.63
+        "altura": 0.72,
+        "alturaOriginal": 0.72
       },
       {
         "timestamp": "2026-10-14T16:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "16:00",
-        "altura": 0.72,
-        "alturaOriginal": 0.72
+        "altura": 0.81,
+        "alturaOriginal": 0.81
       },
       {
         "timestamp": "2026-10-14T17:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "17:00",
-        "altura": 0.87,
-        "alturaOriginal": 0.87
+        "altura": 0.97,
+        "alturaOriginal": 0.97
       },
       {
         "timestamp": "2026-10-14T18:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "18:00",
-        "altura": 1.03,
-        "alturaOriginal": 1.03
+        "altura": 1.12,
+        "alturaOriginal": 1.12
       },
       {
         "timestamp": "2026-10-14T19:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "19:00",
-        "altura": 1.11,
-        "alturaOriginal": 1.11
+        "altura": 1.2,
+        "alturaOriginal": 1.2
       },
       {
         "timestamp": "2026-10-14T20:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "20:00",
-        "altura": 1.13,
-        "alturaOriginal": 1.13
+        "altura": 1.22,
+        "alturaOriginal": 1.22
       },
       {
         "timestamp": "2026-10-14T21:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "21:00",
-        "altura": 1.11,
-        "alturaOriginal": 1.11
+        "altura": 1.2,
+        "alturaOriginal": 1.2
       },
       {
         "timestamp": "2026-10-14T22:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "22:00",
-        "altura": 1.06,
-        "alturaOriginal": 1.06
+        "altura": 1.15,
+        "alturaOriginal": 1.15
       },
       {
         "timestamp": "2026-10-14T23:00:00.000Z",
         "fechaStr": "14/10/2026",
         "horaStr": "23:00",
-        "altura": 0.98,
-        "alturaOriginal": 0.98
+        "altura": 1.07,
+        "alturaOriginal": 1.07
       },
       {
         "timestamp": "2026-10-15T00:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "00:00",
-        "altura": 0.89,
-        "alturaOriginal": 0.89
+        "altura": 0.98,
+        "alturaOriginal": 0.98
       },
       {
         "timestamp": "2026-10-15T01:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "01:00",
-        "altura": 0.79,
-        "alturaOriginal": 0.79
+        "altura": 0.87,
+        "alturaOriginal": 0.87
       },
       {
         "timestamp": "2026-10-15T02:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "02:00",
-        "altura": 0.69,
-        "alturaOriginal": 0.69
+        "altura": 0.77,
+        "alturaOriginal": 0.77
       },
       {
         "timestamp": "2026-10-15T03:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "03:00",
-        "altura": 0.64,
-        "alturaOriginal": 0.64
+        "altura": 0.71,
+        "alturaOriginal": 0.71
       },
       {
         "timestamp": "2026-10-15T04:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "04:00",
-        "altura": 0.66,
-        "alturaOriginal": 0.66
+        "altura": 0.72,
+        "alturaOriginal": 0.72
       },
       {
         "timestamp": "2026-10-15T05:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "05:00",
-        "altura": 0.76,
-        "alturaOriginal": 0.76
+        "altura": 0.81,
+        "alturaOriginal": 0.81
       },
       {
         "timestamp": "2026-10-15T06:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "06:00",
-        "altura": 0.88,
-        "alturaOriginal": 0.88
+        "altura": 0.93,
+        "alturaOriginal": 0.93
       },
       {
         "timestamp": "2026-10-15T07:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "07:00",
-        "altura": 0.99,
-        "alturaOriginal": 0.99
+        "altura": 1.04,
+        "alturaOriginal": 1.04
       },
       {
         "timestamp": "2026-10-15T08:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "08:00",
-        "altura": 1.07,
-        "alturaOriginal": 1.07
+        "altura": 1.11,
+        "alturaOriginal": 1.11
       },
       {
         "timestamp": "2026-10-15T09:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "09:00",
-        "altura": 1.1,
-        "alturaOriginal": 1.1
+        "altura": 1.14,
+        "alturaOriginal": 1.14
       },
       {
         "timestamp": "2026-10-15T10:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "10:00",
-        "altura": 1.07,
-        "alturaOriginal": 1.07
+        "altura": 1.12,
+        "alturaOriginal": 1.12
       },
       {
         "timestamp": "2026-10-15T11:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "11:00",
-        "altura": 1,
-        "alturaOriginal": 1
+        "altura": 1.05,
+        "alturaOriginal": 1.05
       },
       {
         "timestamp": "2026-10-15T12:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "12:00",
-        "altura": 0.9,
-        "alturaOriginal": 0.9
+        "altura": 0.95,
+        "alturaOriginal": 0.95
       },
       {
         "timestamp": "2026-10-15T13:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "13:00",
-        "altura": 0.8,
-        "alturaOriginal": 0.8
+        "altura": 0.86,
+        "alturaOriginal": 0.86
       },
       {
         "timestamp": "2026-10-15T14:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "14:00",
-        "altura": 0.71,
-        "alturaOriginal": 0.71
+        "altura": 0.79,
+        "alturaOriginal": 0.79
       },
       {
         "timestamp": "2026-10-15T15:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "15:00",
-        "altura": 0.67,
-        "alturaOriginal": 0.67
+        "altura": 0.76,
+        "alturaOriginal": 0.76
       },
       {
         "timestamp": "2026-10-15T16:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "16:00",
-        "altura": 0.7,
-        "alturaOriginal": 0.7
+        "altura": 0.81,
+        "alturaOriginal": 0.81
       },
       {
         "timestamp": "2026-10-15T17:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "17:00",
-        "altura": 0.82,
-        "alturaOriginal": 0.82
+        "altura": 0.95,
+        "alturaOriginal": 0.95
       },
       {
         "timestamp": "2026-10-15T18:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "18:00",
-        "altura": 0.98,
-        "alturaOriginal": 0.98
+        "altura": 1.12,
+        "alturaOriginal": 1.12
       },
       {
         "timestamp": "2026-10-15T19:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "19:00",
-        "altura": 1.09,
-        "alturaOriginal": 1.09
+        "altura": 1.25,
+        "alturaOriginal": 1.25
       },
       {
         "timestamp": "2026-10-15T20:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "20:00",
-        "altura": 1.14,
-        "alturaOriginal": 1.14
+        "altura": 1.31,
+        "alturaOriginal": 1.31
       },
       {
         "timestamp": "2026-10-15T21:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "21:00",
-        "altura": 1.14,
-        "alturaOriginal": 1.14
+        "altura": 1.32,
+        "alturaOriginal": 1.32
       },
       {
         "timestamp": "2026-10-15T22:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "22:00",
-        "altura": 1.1,
-        "alturaOriginal": 1.1
+        "altura": 1.3,
+        "alturaOriginal": 1.3
       },
       {
         "timestamp": "2026-10-15T23:00:00.000Z",
         "fechaStr": "15/10/2026",
         "horaStr": "23:00",
-        "altura": 1.03,
-        "alturaOriginal": 1.03
+        "altura": 1.25,
+        "alturaOriginal": 1.25
       },
       {
         "timestamp": "2026-10-16T00:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "00:00",
-        "altura": 0.95,
-        "alturaOriginal": 0.95
+        "altura": 1.18,
+        "alturaOriginal": 1.18
       },
       {
         "timestamp": "2026-10-16T01:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "01:00",
-        "altura": 0.83,
-        "alturaOriginal": 0.83
+        "altura": 1.07,
+        "alturaOriginal": 1.07
       },
       {
         "timestamp": "2026-10-16T02:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "02:00",
-        "altura": 0.7,
-        "alturaOriginal": 0.7
+        "altura": 0.96,
+        "alturaOriginal": 0.96
       },
       {
         "timestamp": "2026-10-16T03:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "03:00",
-        "altura": 0.6,
-        "alturaOriginal": 0.6
+        "altura": 0.87,
+        "alturaOriginal": 0.87
       },
       {
         "timestamp": "2026-10-16T04:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "04:00",
-        "altura": 0.55,
-        "alturaOriginal": 0.55
+        "altura": 0.82,
+        "alturaOriginal": 0.82
       },
       {
         "timestamp": "2026-10-16T05:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "05:00",
-        "altura": 0.55,
-        "alturaOriginal": 0.55
+        "altura": 0.84,
+        "alturaOriginal": 0.84
       },
       {
         "timestamp": "2026-10-16T06:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "06:00",
-        "altura": 0.61,
-        "alturaOriginal": 0.61
+        "altura": 0.92,
+        "alturaOriginal": 0.92
       },
       {
         "timestamp": "2026-10-16T07:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "07:00",
-        "altura": 0.69,
-        "alturaOriginal": 0.69
+        "altura": 0.99,
+        "alturaOriginal": 0.99
       },
       {
         "timestamp": "2026-10-16T08:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "08:00",
-        "altura": 0.75,
-        "alturaOriginal": 0.75
+        "altura": 1.06,
+        "alturaOriginal": 1.06
       },
       {
         "timestamp": "2026-10-16T09:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "09:00",
-        "altura": 0.79,
-        "alturaOriginal": 0.79
+        "altura": 1.09,
+        "alturaOriginal": 1.09
       },
       {
         "timestamp": "2026-10-16T10:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "10:00",
-        "altura": 0.78,
-        "alturaOriginal": 0.78
+        "altura": 1.08,
+        "alturaOriginal": 1.08
       },
       {
         "timestamp": "2026-10-16T11:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "11:00",
-        "altura": 0.72,
-        "alturaOriginal": 0.72
+        "altura": 1.02,
+        "alturaOriginal": 1.02
       },
       {
         "timestamp": "2026-10-16T12:00:00.000Z",
         "fechaStr": "16/10/2026",
         "horaStr": "12:00",
-        "altura": 0.63,
-        "alturaOriginal": 0.63
+        "altura": 0.92,
+        "alturaOriginal": 0.92
+      },
+      {
+        "timestamp": "2026-10-16T13:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "13:00",
+        "altura": 0.8,
+        "alturaOriginal": 0.8
+      },
+      {
+        "timestamp": "2026-10-16T14:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "14:00",
+        "altura": 0.68,
+        "alturaOriginal": 0.68
+      },
+      {
+        "timestamp": "2026-10-16T15:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "15:00",
+        "altura": 0.6,
+        "alturaOriginal": 0.6
+      },
+      {
+        "timestamp": "2026-10-16T16:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "16:00",
+        "altura": 0.58,
+        "alturaOriginal": 0.58
+      },
+      {
+        "timestamp": "2026-10-16T17:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "17:00",
+        "altura": 0.64,
+        "alturaOriginal": 0.64
+      },
+      {
+        "timestamp": "2026-10-16T18:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "18:00",
+        "altura": 0.76,
+        "alturaOriginal": 0.76
+      },
+      {
+        "timestamp": "2026-10-16T19:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "19:00",
+        "altura": 0.89,
+        "alturaOriginal": 0.89
+      },
+      {
+        "timestamp": "2026-10-16T20:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "20:00",
+        "altura": 0.97,
+        "alturaOriginal": 0.97
+      },
+      {
+        "timestamp": "2026-10-16T21:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "21:00",
+        "altura": 0.99,
+        "alturaOriginal": 0.99
+      },
+      {
+        "timestamp": "2026-10-16T22:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "22:00",
+        "altura": 0.97,
+        "alturaOriginal": 0.97
+      },
+      {
+        "timestamp": "2026-10-16T23:00:00.000Z",
+        "fechaStr": "16/10/2026",
+        "horaStr": "23:00",
+        "altura": 0.91,
+        "alturaOriginal": 0.91
+      },
+      {
+        "timestamp": "2026-10-17T00:00:00.000Z",
+        "fechaStr": "17/10/2026",
+        "horaStr": "00:00",
+        "altura": 0.84,
+        "alturaOriginal": 0.84
       }
     ]
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-10T04:20:24.483Z",
+    "actualizadoEn": "2026-10-10T05:20:21.410Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
