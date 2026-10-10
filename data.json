@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "10/10/2026 a las 20:16 hs",
-  "generadoEn": "2026-10-10T20:16:35.000Z",
+  "fechaReporte": "10/10/2026 a las 20:19 hs",
+  "generadoEn": "2026-10-10T20:19:20.000Z",
   "laplata": {
     "altura": "1.05",
     "horaStr": "19:45",
@@ -299,12 +299,12 @@
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-10T23:18:13.649Z"
+    "actualizadoEn": "2026-10-10T23:21:15.954Z"
   },
   "pronosticoCrux": {
     "fuente": "Crux-Marine / AGPSE (VNT)",
     "modelo": "Hidrodinámico VNT (Calibrado en tiempo real con mareógrafo AGPSE)",
-    "actualizadoEn": "2026-10-10T23:18:13.649Z",
+    "actualizadoEn": "2026-10-10T23:21:15.954Z",
     "biasDetectado": 0.49,
     "resumenMama": "🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de 1.54m el 11/10/2026 a las 06:00 hs, sin riesgo de anegamiento.",
     "proximaPleamar24h": {
@@ -1508,7 +1508,7 @@
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-10T23:18:06.401Z",
+    "actualizadoEn": "2026-10-10T23:21:09.077Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1657,20 +1657,15 @@
     }
   },
   "iguazu": {
-    "altura": "3.76",
-    "horaStr": "00:00",
+    "altura": "21.13",
+    "horaStr": "20:00",
     "fechaStr": "10/10/2026",
-    "fuente": "INA",
+    "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "3.76m (a las 00:00 hs) (Fuente: INA)",
+    "textoFB": "21.13m (a las 20:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.78",
-        "fechaStr": "08/10/2026",
-        "horaStr": "12:40"
-      },
       {
         "altura": "20.55",
         "fechaStr": "08/10/2026",
@@ -1905,13 +1900,18 @@
         "altura": "20.83",
         "fechaStr": "10/10/2026",
         "horaStr": "14:00"
+      },
+      {
+        "altura": "21.13",
+        "fechaStr": "10/10/2026",
+        "horaStr": "20:00"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-17.06m)",
-      "diferencia": "-17.06"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.30m)",
+      "diferencia": "+0.30"
     }
   },
   "sanjavier": {
