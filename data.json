@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "10/10/2026 a las 13:19 hs",
-  "generadoEn": "2026-10-10T13:19:20.000Z",
+  "fechaReporte": "10/10/2026 a las 14:19 hs",
+  "generadoEn": "2026-10-10T14:19:21.000Z",
   "laplata": {
-    "altura": "1.09",
-    "horaStr": "12:45",
+    "altura": "1.18",
+    "horaStr": "13:45",
     "fechaStr": "10/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.09m (a las 12:45 hs) (Fuente: SHN)",
+    "textoFB": "1.18m (a las 13:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.09",
-        "fechaStr": "08/10/2026",
-        "horaStr": "14:45"
-      },
       {
         "altura": "1.11",
         "fechaStr": "08/10/2026",
@@ -251,19 +246,24 @@
         "altura": "1.09",
         "fechaStr": "10/10/2026",
         "horaStr": "12:45"
+      },
+      {
+        "altura": "1.18",
+        "fechaStr": "10/10/2026",
+        "horaStr": "13:45"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.09m)",
-      "diferencia": "-0.09"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.09m)",
+      "diferencia": "+0.09"
     }
   },
   "viento": {
-    "velocidad": 9.9,
+    "velocidad": 10.9,
     "direccion": "Sur (S)",
-    "temperatura": 13.8
+    "temperatura": 14.3
   },
   "pronostico": {
     "pleamar": {
@@ -281,46 +281,46 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.36m (10/10 a las 14:00 hs). Viento: 9.9 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.09",
-    "alturaProyectada": "1.36",
+    "mensaje": "Pleamar máxima prevista: 1.38m (10/10 a las 14:00 hs). Viento: 10.9 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "1.18",
+    "alturaProyectada": "1.38",
     "proximaPleamar": {
       "hora": "14:00",
       "altura": "1.15",
       "fecha": "10/10"
     },
     "picoCrux24h": {
-      "altura": 1.36,
+      "altura": 1.38,
       "fechaStr": "11/10/2026",
       "horaStr": "06:00"
     },
     "viento": {
-      "velocidad": 9.9,
+      "velocidad": 10.9,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-10T16:20:44.895Z"
+    "actualizadoEn": "2026-10-10T17:20:30.169Z"
   },
   "pronosticoCrux": {
     "fuente": "Crux-Marine / AGPSE (VNT)",
     "modelo": "Hidrodinámico VNT (Calibrado en tiempo real con mareógrafo AGPSE)",
-    "actualizadoEn": "2026-10-10T16:20:44.895Z",
-    "biasDetectado": 0.12,
-    "resumenMama": "🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de 1.37m el 12/10/2026 a las 07:00 hs, sin riesgo de anegamiento.",
+    "actualizadoEn": "2026-10-10T17:20:30.168Z",
+    "biasDetectado": 0.2,
+    "resumenMama": "🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de 1.38m el 11/10/2026 a las 06:00 hs, sin riesgo de anegamiento.",
     "proximaPleamar24h": {
-      "altura": 1.36,
+      "altura": 1.38,
       "fechaStr": "11/10/2026",
       "horaStr": "06:00"
     },
     "proximaBajamar24h": {
-      "altura": 0.57,
+      "altura": 0.61,
       "fechaStr": "11/10/2026",
       "horaStr": "00:00"
     },
     "picoSemanal": {
-      "altura": 1.37,
-      "fechaStr": "12/10/2026",
-      "horaStr": "07:00"
+      "altura": 1.38,
+      "fechaStr": "11/10/2026",
+      "horaStr": "06:00"
     },
     "valleSemanal": {
       "altura": 0.42,
@@ -353,154 +353,154 @@
         "timestamp": "2026-10-10T16:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "16:00",
-        "altura": 1.09,
+        "altura": 0.97,
         "alturaOriginal": 0.97
       },
       {
         "timestamp": "2026-10-10T17:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "17:00",
-        "altura": 1.09,
+        "altura": 1.18,
         "alturaOriginal": 0.98
       },
       {
         "timestamp": "2026-10-10T18:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "18:00",
-        "altura": 1.03,
+        "altura": 1.12,
         "alturaOriginal": 0.94
       },
       {
         "timestamp": "2026-10-10T19:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "19:00",
-        "altura": 0.97,
+        "altura": 1.05,
         "alturaOriginal": 0.89
       },
       {
         "timestamp": "2026-10-10T20:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "20:00",
-        "altura": 0.88,
+        "altura": 0.95,
         "alturaOriginal": 0.81
       },
       {
         "timestamp": "2026-10-10T21:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "21:00",
-        "altura": 0.78,
+        "altura": 0.84,
         "alturaOriginal": 0.72
       },
       {
         "timestamp": "2026-10-10T22:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "22:00",
-        "altura": 0.7,
+        "altura": 0.75,
         "alturaOriginal": 0.64
       },
       {
         "timestamp": "2026-10-10T23:00:00.000Z",
         "fechaStr": "10/10/2026",
         "horaStr": "23:00",
-        "altura": 0.61,
+        "altura": 0.65,
         "alturaOriginal": 0.56
       },
       {
         "timestamp": "2026-10-11T00:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "00:00",
-        "altura": 0.57,
+        "altura": 0.61,
         "alturaOriginal": 0.53
       },
       {
         "timestamp": "2026-10-11T01:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "01:00",
-        "altura": 0.65,
+        "altura": 0.68,
         "alturaOriginal": 0.61
       },
       {
         "timestamp": "2026-10-11T02:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "02:00",
-        "altura": 0.82,
+        "altura": 0.85,
         "alturaOriginal": 0.79
       },
       {
         "timestamp": "2026-10-11T03:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "03:00",
-        "altura": 1.03,
+        "altura": 1.06,
         "alturaOriginal": 1
       },
       {
         "timestamp": "2026-10-11T04:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "04:00",
-        "altura": 1.2,
+        "altura": 1.22,
         "alturaOriginal": 1.17
       },
       {
         "timestamp": "2026-10-11T05:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "05:00",
-        "altura": 1.3,
+        "altura": 1.32,
         "alturaOriginal": 1.28
       },
       {
         "timestamp": "2026-10-11T06:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "06:00",
-        "altura": 1.36,
+        "altura": 1.38,
         "alturaOriginal": 1.34
       },
       {
         "timestamp": "2026-10-11T07:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "07:00",
-        "altura": 1.35,
+        "altura": 1.36,
         "alturaOriginal": 1.33
       },
       {
         "timestamp": "2026-10-11T08:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "08:00",
-        "altura": 1.28,
+        "altura": 1.29,
         "alturaOriginal": 1.26
       },
       {
         "timestamp": "2026-10-11T09:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "09:00",
-        "altura": 1.17,
+        "altura": 1.19,
         "alturaOriginal": 1.16
       },
       {
         "timestamp": "2026-10-11T10:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "10:00",
-        "altura": 1.06,
+        "altura": 1.07,
         "alturaOriginal": 1.05
       },
       {
         "timestamp": "2026-10-11T11:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "11:00",
-        "altura": 0.93,
+        "altura": 0.94,
         "alturaOriginal": 0.92
       },
       {
         "timestamp": "2026-10-11T12:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "12:00",
-        "altura": 0.8,
+        "altura": 0.81,
         "alturaOriginal": 0.79
       },
       {
         "timestamp": "2026-10-11T13:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "13:00",
-        "altura": 0.73,
+        "altura": 0.74,
         "alturaOriginal": 0.72
       },
       {
@@ -535,35 +535,35 @@
         "timestamp": "2026-10-11T18:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "18:00",
-        "altura": 1.1,
+        "altura": 1.11,
         "alturaOriginal": 1.1
       },
       {
         "timestamp": "2026-10-11T19:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "19:00",
-        "altura": 1.08,
+        "altura": 1.09,
         "alturaOriginal": 1.08
       },
       {
         "timestamp": "2026-10-11T20:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "20:00",
-        "altura": 1.02,
+        "altura": 1.03,
         "alturaOriginal": 1.02
       },
       {
         "timestamp": "2026-10-11T21:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "21:00",
-        "altura": 0.94,
+        "altura": 0.95,
         "alturaOriginal": 0.94
       },
       {
         "timestamp": "2026-10-11T22:00:00.000Z",
         "fechaStr": "11/10/2026",
         "horaStr": "22:00",
-        "altura": 0.86,
+        "altura": 0.87,
         "alturaOriginal": 0.86
       },
       {
@@ -1508,7 +1508,7 @@
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-10T16:20:38.093Z",
+    "actualizadoEn": "2026-10-10T17:20:22.925Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1657,20 +1657,15 @@
     }
   },
   "iguazu": {
-    "altura": "20.82",
-    "horaStr": "13:20",
+    "altura": "20.83",
+    "horaStr": "14:00",
     "fechaStr": "10/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "20.82m (a las 13:20 hs)",
+    "textoFB": "20.83m (a las 14:00 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.79",
-        "fechaStr": "08/10/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "20.78",
         "fechaStr": "08/10/2026",
@@ -1905,13 +1900,18 @@
         "altura": "20.82",
         "fechaStr": "10/10/2026",
         "horaStr": "13:20"
+      },
+      {
+        "altura": "20.83",
+        "fechaStr": "10/10/2026",
+        "horaStr": "14:00"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.01m)",
-      "diferencia": "+0.01"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
