@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "11/10/2026 a las 14:19 hs",
-  "generadoEn": "2026-10-11T14:19:23.000Z",
+  "fechaReporte": "11/10/2026 a las 14:24 hs",
+  "generadoEn": "2026-10-11T14:24:24.000Z",
   "laplata": {
     "altura": "0.90",
     "horaStr": "13:45",
@@ -268,25 +268,25 @@
   "pronostico": {
     "pleamar": {
       "hora": "19:00",
-      "altura": "1.20",
+      "altura": "1.40",
       "fecha": "11/10"
     },
     "bajamar": {
-      "hora": "14:30",
-      "altura": "0.90",
-      "fecha": "11/10"
+      "hora": "01:00",
+      "altura": "0.75",
+      "fecha": "12/10"
     }
   },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.27m (11/10 a las 19:00 hs). Viento: 7.7 km/h Sureste (SE). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.40m (11/10 a las 19:00 hs). Viento: 7.7 km/h Sureste (SE). Condiciones habituales de marea.",
     "alturaActual": "0.90",
-    "alturaProyectada": "1.27",
+    "alturaProyectada": "1.40",
     "proximaPleamar": {
       "hora": "19:00",
-      "altura": "1.20",
+      "altura": "1.40",
       "fecha": "11/10"
     },
     "picoCrux24h": {
@@ -299,12 +299,12 @@
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-11T17:20:38.054Z"
+    "actualizadoEn": "2026-10-11T17:25:50.643Z"
   },
   "pronosticoCrux": {
     "fuente": "Crux-Marine / AGPSE (VNT)",
     "modelo": "Hidrodinámico VNT (Calibrado en tiempo real con mareógrafo AGPSE)",
-    "actualizadoEn": "2026-10-11T17:20:38.054Z",
+    "actualizadoEn": "2026-10-11T17:25:50.643Z",
     "biasDetectado": -0.12,
     "resumenMama": "🟢 Río tranquilo durante toda la semana. La pleamar máxima prevista será de 1.35m el 15/10/2026 a las 20:00 hs, sin riesgo de anegamiento.",
     "proximaPleamar24h": {
@@ -1508,7 +1508,7 @@
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-11T17:20:31.690Z",
+    "actualizadoEn": "2026-10-11T17:25:44.101Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1658,19 +1658,14 @@
   },
   "iguazu": {
     "altura": "22.65",
-    "horaStr": "14:00",
+    "horaStr": "14:20",
     "fechaStr": "11/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "22.65m (a las 14:00 hs)",
+    "textoFB": "22.65m (a las 14:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.59",
-        "fechaStr": "09/10/2026",
-        "horaStr": "05:00"
-      },
       {
         "altura": "20.60",
         "fechaStr": "09/10/2026",
@@ -1905,13 +1900,18 @@
         "altura": "22.65",
         "fechaStr": "11/10/2026",
         "horaStr": "14:00"
+      },
+      {
+        "altura": "22.65",
+        "fechaStr": "11/10/2026",
+        "horaStr": "14:20"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.37m)",
-      "diferencia": "+0.37"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
