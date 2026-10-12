@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "12/10/2026 a las 13:19 hs",
-  "generadoEn": "2026-10-12T13:19:24.000Z",
+  "fechaReporte": "12/10/2026 a las 14:19 hs",
+  "generadoEn": "2026-10-12T14:19:22.000Z",
   "laplata": {
-    "altura": "1.05",
-    "horaStr": "12:45",
+    "altura": "NaN",
+    "horaStr": "13:45",
     "fechaStr": "12/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.05m (a las 12:45 hs) (Fuente: SHN)",
+    "textoFB": "NaNm (a las 13:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -254,14 +254,14 @@
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.01m)",
-      "diferencia": "+0.01"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 14.6,
+    "velocidad": 13.4,
     "direccion": "Este (E)",
     "temperatura": 15.1
   },
@@ -281,24 +281,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.35m (12/10 a las 19:00 hs). Viento: 14.6 km/h Este (E). Condiciones habituales de marea.",
-    "alturaActual": "1.05",
-    "alturaProyectada": "1.35",
+    "mensaje": "Pleamar máxima prevista: 1.35m (12/10 a las 19:00 hs). Viento: 13.4 km/h Este (E). Condiciones habituales de marea.",
+    "alturaActual": null,
+    "alturaProyectada": null,
     "proximaPleamar": {
       "hora": "19:00",
       "altura": "1.35",
       "fecha": "12/10"
     },
     "viento": {
-      "velocidad": 14.6,
+      "velocidad": 13.4,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-12T16:20:36.021Z"
+    "actualizadoEn": "2026-10-12T17:20:35.046Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-12T16:20:29.390Z",
+    "actualizadoEn": "2026-10-12T17:20:28.510Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
