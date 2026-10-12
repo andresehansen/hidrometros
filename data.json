@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "12/10/2026 a las 05:19 hs",
-  "generadoEn": "2026-10-12T05:19:23.000Z",
+  "fechaReporte": "12/10/2026 a las 05:41 hs",
+  "generadoEn": "2026-10-12T05:41:32.000Z",
   "laplata": {
     "altura": "1.32",
     "horaStr": "04:45",
@@ -261,8 +261,8 @@
     }
   },
   "viento": {
-    "velocidad": 11.2,
-    "direccion": "Sur (S)",
+    "velocidad": 11.5,
+    "direccion": "Sureste (SE)",
     "temperatura": 9.7
   },
   "pronostico": {
@@ -281,7 +281,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.40m (12/10 a las 07:00 hs). Viento: 11.2 km/h Sur (S). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.40m (12/10 a las 07:00 hs). Viento: 11.5 km/h Sureste (SE). Condiciones habituales de marea.",
     "alturaActual": "1.32",
     "alturaProyectada": "1.40",
     "proximaPleamar": {
@@ -290,15 +290,15 @@
       "fecha": "12/10"
     },
     "viento": {
-      "velocidad": 11.2,
-      "direccion": "Sur (S)",
+      "velocidad": 11.5,
+      "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-12T08:20:42.717Z"
+    "actualizadoEn": "2026-10-12T08:42:31.887Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-12T08:20:36.267Z",
+    "actualizadoEn": "2026-10-12T08:42:25.394Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -419,20 +419,15 @@
     }
   },
   "iguazu": {
-    "altura": "25.96",
-    "horaStr": "05:00",
+    "altura": "26.09",
+    "horaStr": "05:20",
     "fechaStr": "12/10/2026",
     "fuente": "AGPSE",
     "antiguo": false,
-    "textoFB": "25.96m (a las 05:00 hs)",
+    "textoFB": "26.09m (a las 05:20 hs)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.55",
-        "fechaStr": "09/10/2026",
-        "horaStr": "15:00"
-      },
       {
         "altura": "20.61",
         "fechaStr": "09/10/2026",
@@ -667,13 +662,18 @@
         "altura": "25.96",
         "fechaStr": "12/10/2026",
         "horaStr": "05:00"
+      },
+      {
+        "altura": "26.09",
+        "fechaStr": "12/10/2026",
+        "horaStr": "05:20"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.38m)",
-      "diferencia": "+0.38"
+      "texto": "Subiendo (+0.13m)",
+      "diferencia": "+0.13"
     }
   },
   "sanjavier": {
