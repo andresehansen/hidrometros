@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "11/10/2026 a las 23:19 hs",
-  "generadoEn": "2026-10-11T23:19:23.000Z",
+  "fechaReporte": "12/10/2026 a las 00:19 hs",
+  "generadoEn": "2026-10-12T00:19:20.000Z",
   "laplata": {
     "altura": "0.88",
     "horaStr": "22:45",
     "fechaStr": "11/10/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "0.88m (a las 22:45 hs) (Fuente: SHN)",
+    "textoFB": "0.88m (a las 22:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -261,44 +261,29 @@
     }
   },
   "viento": {
-    "velocidad": 11.8,
+    "velocidad": 10.2,
     "direccion": "Sureste (SE)",
-    "temperatura": 10.7
+    "temperatura": 9.9
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "07:00",
-      "altura": "1.40",
-      "fecha": "12/10"
-    },
-    "bajamar": {
-      "hora": "02:00",
-      "altura": "0.65",
-      "fecha": "12/10"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.40m (12/10 a las 07:00 hs). Viento: 11.8 km/h Sureste (SE). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "0.88",
-    "alturaProyectada": "1.40",
-    "proximaPleamar": {
-      "hora": "07:00",
-      "altura": "1.40",
-      "fecha": "12/10"
-    },
+    "alturaProyectada": "0.88",
+    "proximaPleamar": null,
     "viento": {
-      "velocidad": 11.8,
+      "velocidad": 10.2,
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-12T02:20:37.959Z"
+    "actualizadoEn": "2026-10-12T03:20:58.470Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-12T02:20:31.979Z",
+    "actualizadoEn": "2026-10-12T03:20:52.607Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
