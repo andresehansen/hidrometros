@@ -335,6 +335,160 @@
     font-weight: 800;
   }
 
+  /* Módulo de Alerta Temprana en Cascada (Río Uruguay) */
+  .tarjeta.tarjeta-cascada {
+    border-left: 6px solid #0284c7;
+    background: var(--fondo-tarjeta);
+  }
+  .cascada-flujo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  @media (min-width: 680px) {
+    .cascada-flujo {
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: space-between;
+    }
+  }
+  .cascada-nodo {
+    flex: 1;
+    background: var(--fondo-sub);
+    border: 1px solid var(--borde-sub);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cascada-nodo:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra);
+  }
+  .cascada-nodo.normal { border-top: 4px solid var(--verde-ok); }
+  .cascada-nodo.alerta { border-top: 4px solid var(--amarillo-alerta); }
+  .cascada-nodo.evacuacion { border-top: 4px solid var(--rojo-evacuacion); }
+  .cascada-nodo-sector {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-sub);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .cascada-nodo-nombre {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--azul-rio);
+  }
+  .cascada-nodo-valor {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--texto);
+    margin: 5px 0;
+  }
+  .cascada-nodo-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .cascada-nodo.normal .cascada-nodo-badge { background: var(--verde-bg); color: var(--verde-ok); }
+  .cascada-nodo.alerta .cascada-nodo-badge { background: var(--amarillo-bg); color: var(--amarillo-alerta); }
+  .cascada-nodo.evacuacion .cascada-nodo-badge { background: var(--rojo-bg); color: var(--rojo-evacuacion); }
+
+  .cascada-conector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-sub);
+    background: var(--fondo-sub);
+    border: 1px dashed var(--borde-sub);
+    border-radius: 8px;
+    margin: 2px 0;
+  }
+  @media (min-width: 680px) {
+    .cascada-conector {
+      flex-direction: column;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0 4px;
+      margin: 0;
+    }
+  }
+  .cascada-conector-flecha {
+    font-size: 1.15rem;
+    color: var(--azul-medio);
+  }
+
+  .cascada-diagnostico {
+    background: var(--fondo-sub);
+    border: 1px solid var(--borde-sub);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--texto);
+    margin-top: 14px;
+  }
+  .cascada-diagnostico.alerta {
+    background: var(--amarillo-bg);
+    border-color: var(--amarillo-border);
+    color: var(--amarillo-alerta);
+  }
+  .cascada-diagnostico.evacuacion {
+    background: var(--rojo-bg);
+    border-color: var(--rojo-border);
+    color: var(--rojo-evacuacion);
+  }
+  .cascada-diagnostico strong {
+    font-weight: 800;
+  }
+
+  /* Badge / Caja de Aviso Predictivo dentro de las tarjetas individuales */
+  .aviso-cuenca-cascada {
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid transparent;
+  }
+  .aviso-cuenca-cascada.info {
+    background: var(--azul-claro);
+    color: var(--azul-rio);
+    border-color: rgba(26, 111, 168, 0.25);
+  }
+  .aviso-cuenca-cascada.alerta {
+    background: var(--amarillo-bg);
+    color: var(--amarillo-alerta);
+    border-color: var(--amarillo-border);
+  }
+  .aviso-cuenca-cascada.evacuacion {
+    background: var(--rojo-bg);
+    color: var(--rojo-evacuacion);
+    border-color: var(--rojo-border);
+  }
+  .aviso-cuenca-icono {
+    font-size: 1.3rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
   /* Estilos Módulo Pronósticos INA */
   .tarjeta.tarjeta-pronostico {
     border-left: 6px solid var(--azul-medio);
@@ -445,6 +599,10 @@
   body.modo-letra-grande .pronostico-item .tipo { font-size: 1rem; }
   body.modo-letra-grande .pronostico-item .valor { font-size: 1.7rem; }
   body.modo-letra-grande .pronostico-item .detalle { font-size: 1.05rem; }
+  body.modo-letra-grande .cascada-nodo-nombre { font-size: 1.25rem; }
+  body.modo-letra-grande .cascada-nodo-valor { font-size: 1.7rem; }
+  body.modo-letra-grande .cascada-diagnostico { font-size: 1.05rem; }
+  body.modo-letra-grande .aviso-cuenca-cascada { font-size: 1rem; }
 
   /* In-app Toasts de Alerta */
   #toastContainer{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;width:90%;max-width:480px;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -662,6 +820,7 @@
     <div class="nav-saltos">
       <button type="button" class="btn-salto destacado" onclick="irAPuerto('tarjeta-laplata')">La Plata</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-iguazu')">Iguazú</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-cascada-uruguay')">Cascada Río Uruguay</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-saltogrande')">Salto Grande</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-concordia')">Concordia</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-sanjavier')">San Javier</button>
@@ -1457,11 +1616,145 @@ function tarjetaPronosticosINA(pINA) {
   `;
 }
 
+// ─────────────────────────────────────────────────────────────
+// MÓDULO ALERTA TEMPRANA: ONDA DE CRECIDA EN CASCADA (RÍO URUGUAY)
+// ─────────────────────────────────────────────────────────────
+function renderTarjetaCascada(d) {
+  if (!d) return '';
+  const sj = d.sanjavier;
+  const st = d.santotome;
+  const co = d.concordia;
+  const sg = d.saltogrande?.abajo;
+
+  if (!sj && !st && !co) return '';
+
+  const defSJ = DEFAULTS_PUERTO.sanjavier;
+  const defST = DEFAULTS_PUERTO.santotome;
+  const defCO = DEFAULTS_PUERTO.concordia;
+
+  const stSJ = sj ? getEstadoPuerto(sj.altura, sj.alerta !== undefined ? sj.alerta : defSJ.alerta, sj.evacuacion !== undefined ? sj.evacuacion : defSJ.evacuacion) : 'normal';
+  const stST = st ? getEstadoPuerto(st.altura, st.alerta !== undefined ? st.alerta : defST.alerta, st.evacuacion !== undefined ? st.evacuacion : defST.evacuacion) : 'normal';
+  const stCO = co ? getEstadoPuerto(co.altura, co.alerta !== undefined ? co.alerta : defCO.alerta, co.evacuacion !== undefined ? co.evacuacion : defCO.evacuacion) : 'normal';
+
+  // Diagnóstico hidrográfico de cuenca en cascada
+  let diagTitulo = '';
+  let diagTexto = '';
+  let diagClase = 'info';
+
+  if (stSJ === 'evacuacion' || stSJ === 'alerta') {
+    diagClase = stSJ === 'evacuacion' ? 'evacuacion' : 'alerta';
+    diagTitulo = `Alerta en Cuenca Alta (San Javier ${sj.altura}m)`;
+    diagTexto = `Se registra onda de crecida severa en el Alto Uruguay. El incremento de caudal se desplazará aguas abajo con arribo previsto a <strong>Santo Tomé en ⏳ ~24 a 36 hs</strong> y al <strong>Embalse Salto Grande / Concordia en ⏳ ~48 a 72 hs</strong>.`;
+  } else if (stST === 'evacuacion' || stST === 'alerta' || (st && parseFloat(st.altura) >= 10.0)) {
+    diagClase = stST === 'evacuacion' ? 'evacuacion' : 'alerta';
+    diagTitulo = `Onda de Crecida en Tránsito (Santo Tomé ${st.altura}m)`;
+    diagTexto = `El pico de caudal se encuentra atravesando el tramo medio del Río Uruguay. Se proyecta que la masa hídrica continúe su desplazamiento hacia el <strong>Complejo Salto Grande y Concordia dentro de las próximas ⏳ 24 a 48 hs</strong>.`;
+  } else if (stCO === 'evacuacion' || stCO === 'alerta') {
+    diagClase = stCO === 'evacuacion' ? 'evacuacion' : 'alerta';
+    diagTitulo = `Afección Activa en Cuenca Baja (Concordia ${co.altura}m)`;
+    diagTexto = `El tramo inferior del río registra niveles críticos de alerta por afluencia acumulada y erogación de la represa Salto Grande (${sg ? sg.altura + 'm' : ''}). Monitorear la evolución de aportes desde el norte.`;
+  } else {
+    diagTitulo = `Cuenca del Río Uruguay Estable`;
+    diagTexto = `Todos los puntos de control en el río Uruguay se mantienen en régimen normal o dentro de márgenes seguros sin ondas de crecida extraordinarias en propagación.`;
+  }
+
+  const renderNodo = (sector, nombre, dataPuerto, stPuerto) => {
+    const alt = dataPuerto ? parseFloat(dataPuerto.altura).toFixed(2) + ' m' : '—';
+    const tag = stPuerto === 'evacuacion' ? 'Evacuación' : (stPuerto === 'alerta' ? 'Alerta' : 'Normal');
+    return `
+      <div class="cascada-nodo ${stPuerto}">
+        <div>
+          <div class="cascada-nodo-sector">${sector}</div>
+          <div class="cascada-nodo-nombre">${nombre}</div>
+        </div>
+        <div class="cascada-nodo-valor">${alt}</div>
+        <div><span class="cascada-nodo-badge">${tag}</span></div>
+      </div>
+    `;
+  };
+
+  return `
+    <div class="tarjeta tarjeta-cascada" id="tarjeta-cascada-uruguay">
+      <div class="tarjeta-titulo">🏞️ Alerta Temprana: Propagación de Crecida en Cascada</div>
+      <div class="tarjeta-fecha">Cuenca del Río Uruguay • Monitoreo hidrográfico de caudales aguas abajo</div>
+      
+      <div class="cascada-flujo">
+        ${renderNodo('Cuenca Alta', 'San Javier', sj, stSJ)}
+        
+        <div class="cascada-conector" aria-label="Tiempo de viaje hacia Santo Tomé: 24 a 36 horas">
+          <span class="cascada-conector-flecha">➔</span>
+          <span>⏳ ~24-36 hs</span>
+        </div>
+        
+        ${renderNodo('Cuenca Media', 'Santo Tomé', st, stST)}
+        
+        <div class="cascada-conector" aria-label="Tiempo de viaje hacia Concordia: 24 a 48 horas">
+          <span class="cascada-conector-flecha">➔</span>
+          <span>⏳ ~24-48 hs</span>
+        </div>
+        
+        ${renderNodo('Cuenca Baja', 'Concordia', co, stCO)}
+      </div>
+
+      <div class="cascada-diagnostico ${diagClase}">
+        <strong>🏞️ Diagnóstico de Cuenca: ${diagTitulo}</strong><br>
+        ${diagTexto}
+      </div>
+    </div>
+  `;
+}
+
 function tarjetaRio(nombre, d, idChart, keyPuerto) {
   const defaults = DEFAULTS_PUERTO[keyPuerto] || { alerta: 0, evacuacion: 0 };
   const alerta = (d && d.alerta !== undefined) ? d.alerta : defaults.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : defaults.evacuacion;
   const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
+
+  let avisoCascadaHTML = '';
+  if (datosActuales) {
+    if (keyPuerto === 'santotome' && datosActuales.sanjavier) {
+      const sj = datosActuales.sanjavier;
+      const defSJ = DEFAULTS_PUERTO.sanjavier;
+      const stSJ = getEstadoPuerto(sj.altura, sj.alerta !== undefined ? sj.alerta : defSJ.alerta, sj.evacuacion !== undefined ? sj.evacuacion : defSJ.evacuacion);
+      const clase = stSJ === 'normal' ? 'info' : (stSJ === 'evacuacion' ? 'evacuacion' : 'alerta');
+      avisoCascadaHTML = `
+        <div class="aviso-cuenca-cascada ${clase}">
+          <div class="aviso-cuenca-icono">🏞️</div>
+          <div>
+            <strong>Aviso de Cuenca Alta (San Javier ${sj.altura}m):</strong>
+            ${stSJ !== 'normal'
+              ? ` Onda de crecida registrada aguas arriba. Tiempo estimado de arribo a Santo Tomé: <strong>⏳ ~24 a 36 hs</strong>.`
+              : ` Caudal dentro de márgenes normales aguas arriba. Tiempo de viaje de la corriente hacia este puerto: <strong>⏳ ~24 a 36 hs</strong>.`}
+          </div>
+        </div>`;
+    } else if (keyPuerto === 'concordia' && (datosActuales.santotome || datosActuales.sanjavier)) {
+      const st = datosActuales.santotome;
+      const defST = DEFAULTS_PUERTO.santotome;
+      const stST = st ? getEstadoPuerto(st.altura, st.alerta !== undefined ? st.alerta : defST.alerta, st.evacuacion !== undefined ? st.evacuacion : defST.evacuacion) : 'normal';
+      const clase = stST === 'normal' ? 'info' : (stST === 'evacuacion' ? 'evacuacion' : 'alerta');
+      avisoCascadaHTML = `
+        <div class="aviso-cuenca-cascada ${clase}">
+          <div class="aviso-cuenca-icono">🏞️</div>
+          <div>
+            <strong>Aviso de Cuenca Media (Santo Tomé ${st ? st.altura + 'm' : ''}):</strong>
+            ${stST !== 'normal' || (st && parseFloat(st.altura) >= 10.0)
+              ? ` Caudales elevados en tránsito aguas abajo. Mayor afluencia estimada hacia el Embalse Salto Grande y Concordia en <strong>⏳ ~24 a 48 hs</strong>.`
+              : ` Comportamiento hidrológico habitual del tramo medio. Tiempo de tránsito hacia Concordia: <strong>⏳ ~24 a 48 hs</strong>.`}
+          </div>
+        </div>`;
+    } else if (keyPuerto === 'iguazu' && d && parseFloat(d.altura) >= 25.0) {
+      const stIG = getEstadoPuerto(d.altura, alerta, evacuacion);
+      const clase = stIG === 'evacuacion' ? 'evacuacion' : 'alerta';
+      avisoCascadaHTML = `
+        <div class="aviso-cuenca-cascada ${clase}">
+          <div class="aviso-cuenca-icono">🏞️</div>
+          <div>
+            <strong>Impacto en Cuenca Baja (Río Paraná):</strong>
+            La masa de agua de ${stIG === 'evacuacion' ? 'evacuación' : 'alerta'} (${d.altura}m) drenará hacia la confluencia con el Río Paraná, trasladando la onda hacia Corrientes y Chaco en <strong>⏳ ~48 a 72 hs</strong> y hacia Santa Fe y Rosario en <strong>⏳ 5 a 7 días</strong>.
+          </div>
+        </div>`;
+    }
+  }
 
   let histHTML = '';
   if (d && d.historico && d.historico.length > 1) {
@@ -1479,6 +1772,7 @@ function tarjetaRio(nombre, d, idChart, keyPuerto) {
   return `<div class="tarjeta estado-${estado}" id="tarjeta-${keyPuerto}">
     <div class="tarjeta-titulo">${nombre}</div>
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
+    ${avisoCascadaHTML}
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
       <div class="dato-etiqueta">Altura del río</div>
       ${renderVisorAltura(d, alerta, evacuacion)}
@@ -1509,6 +1803,22 @@ function tarjetaSaltoGrande(d) {
     estadoGeneral = 'alerta';
   }
 
+  let avisoCascadaSG = '';
+  if (datosActuales && datosActuales.santotome) {
+    const st = datosActuales.santotome;
+    const defST = DEFAULTS_PUERTO.santotome;
+    const stST = getEstadoPuerto(st.altura, st.alerta !== undefined ? st.alerta : defST.alerta, st.evacuacion !== undefined ? st.evacuacion : defST.evacuacion);
+    const clase = stST === 'normal' ? 'info' : (stST === 'evacuacion' ? 'evacuacion' : 'alerta');
+    avisoCascadaSG = `
+      <div class="aviso-cuenca-cascada ${clase}" style="margin: 10px 0 14px;">
+        <div class="aviso-cuenca-icono">🏞️</div>
+        <div>
+          <strong>Previsión de Afluencia al Embalse:</strong>
+          El caudal procedente de Santo Tomé (${st.altura}m) tardará <strong>⏳ ~24 a 48 hs</strong> en alcanzar la cola del lago de Salto Grande.
+        </div>
+      </div>`;
+  }
+
   const renderSubSection = (titulo, subD, estadoSub, alertaSub, evacSub, chartId, tooltipId, tooltipTexto) => {
     let histHTML = '';
     if (subD && subD.historico && subD.historico.length > 1) {
@@ -1537,6 +1847,7 @@ function tarjetaSaltoGrande(d) {
   return `<div class="tarjeta estado-${estadoGeneral}" id="tarjeta-saltogrande">
     <div class="tarjeta-titulo">Embalse Salto Grande</div>
     <div class="tarjeta-fecha">Complejo Hidroeléctrico Binacional • Río Uruguay</div>
+    ${avisoCascadaSG}
     ${renderSubSection('Salto Grande Arriba (Cota del Embalse)', arriba, estadoArriba, alertaArriba, evacArriba, 'saltogrande-arriba', 'sg-cota', 'Altura del agua en el lago de la represa aguas arriba de las compuertas.')}
     <hr class="sub-divider" />
     ${renderSubSection('Salto Grande Abajo (Restitución)', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo', 'sg-restitucion', 'Nivel del agua río abajo inmediatamente después de turbinar y verter el caudal.')}
@@ -1922,6 +2233,7 @@ async function cargarDatos(esAuto = false) {
 
       actualizarTarjetaEnLugar('tarjeta-laplata', tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada));
       actualizarTarjetaEnLugar('tarjeta-iguazu', tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu'));
+      actualizarTarjetaEnLugar('tarjeta-cascada-uruguay', renderTarjetaCascada(d));
       actualizarTarjetaEnLugar('tarjeta-saltogrande', tarjetaSaltoGrande(d.saltogrande));
       actualizarTarjetaEnLugar('tarjeta-concordia', tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia'));
       actualizarTarjetaEnLugar('tarjeta-sanjavier', tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier'));
@@ -1931,6 +2243,7 @@ async function cargarDatos(esAuto = false) {
       panel.innerHTML = renderBannerAlertas(d) +
                         tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada) + 
                         tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
+                        renderTarjetaCascada(d) +
                         tarjetaSaltoGrande(d.saltogrande) + 
                         tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
                         tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier') + 
