@@ -10,12 +10,14 @@
  *  4. Opcionalmente publicar el reporte en Facebook si existen credenciales.
  */
 const https = require('https');  // necesario para TLS inválido en AGPSE
+const http  = require('http');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const urlLaPlata    = "https://hidrografia.agpse.gob.ar/histdat/LAPLATA.dat";
 const urlClima      = "https://api.open-meteo.com/v1/forecast?latitude=-34.8339&longitude=-57.8803&current_weather=true&timezone=America/Argentina/Buenos_Aires";
 const urlPronostico = "https://www.hidro.gov.ar/oceanografia/pronostico.asp";
-const urlIguazu     = "https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
+// Nota: hidrografia2 presenta timeouts en TLS/HTTPS, usamos HTTP primario con fallback
+const urlIguazu     = "http://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat";
 const urlConcordia  = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 // --- FUNCIONES AUXILIARES ---
@@ -178,7 +180,7 @@ function parsearObsINA(prop) {
 // --- Plan B opción 1: API a5 por series_id (más directa y estable) ---
 async function fetchINA_a5(seriesIds, nombrePuerto) {
     const hoy    = obtenerHoraArgentina();
-    // Ventana amplia: 7 días (la serie 26 de La Plata puede tener delay de días)
+    // Ventana amplia: 7 días
     const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 7);
     const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 2);
 
@@ -347,7 +349,7 @@ async function fetchPronosticosINA(datosAnteriores = null) {
     }
 
     if (datosAnteriores?.pronosticosINA) {
-        console.log("  ℹ️ Manteniendo pronósticos INA anteriores.");
+        console.log("  ↩️ Manteniendo pronósticos INA anteriores.");
         return datosAnteriores.pronosticosINA;
     }
     return null;
@@ -428,7 +430,6 @@ async function publicarDataJson(datos) {
     let sha = undefined;
     try {
         const getRes = await fetch(apiUrl, {
-            // Cambiado a Bearer y agregando Accept de la API v3
             headers: { Authorization: `Bearer ${token}`, "User-Agent": "hidrometros-bot", "Accept": "application/vnd.github.v3+json" }
         });
         if (getRes.ok) {
@@ -567,16 +568,15 @@ function parseAGPSE(txtDat) {
             const rc = await fetch(urlClima);
             const dc = await rc.json();
             viento = {
-                velocidad:  dc.current_weather.windspeed,
-                direccion:  gradosACardinal(dc.current_weather.winddirection),
+                velocidad:   dc.current_weather.windspeed,
+                direccion:   gradosACardinal(dc.current_weather.winddirection),
                 temperatura: dc.current_weather.temperature
             };
         } catch (e) { console.log("⚠️ Error clima:", e.message); }
 
-// ---- PRONÓSTICO ----
+        // ---- PRONÓSTICO ----
         let pronostico = null;
         try {
-            // Reemplazamos fetch por https.request para bypasear TLS y agregar User-Agent
             const rpText = await new Promise((resolve, reject) => {
                 const req = https.request(urlPronostico, { 
                     rejectUnauthorized: false,
@@ -606,15 +606,43 @@ function parseAGPSE(txtDat) {
         // ---- 2. IGUAZÚ ----
         let igDatos = null;
         try {
-            const r = await fetch(urlIguazu);
-            if (!r.ok) throw new Error("HTTP error");
-            const t = await r.text();
-            igDatos = parseAGPSE(t);
-            if (igDatos && igDatos.antiguo) igDatos = null; 
-        } catch (e) { console.log("⚠️ Error Iguazú primario:", e.message); }
+            console.log("  → Fuente primaria AGPSE para Iguazú...");
+            // Intentar primero HTTP (rápido y sin problemas de TLS en AGPSE) y fallback a HTTPS
+            const resAgpse = await fetch(urlIguazu, { signal: AbortSignal.timeout(10000) })
+                .catch(() => fetch("https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat", { signal: AbortSignal.timeout(10000) }));
+            if (resAgpse && resAgpse.ok) {
+                const t = await resAgpse.text();
+                igDatos = parseAGPSE(t);
+            }
+        } catch (e) { console.log("⚠️ Error Iguazú primario AGPSE:", e.message); }
 
-        if (!igDatos) {
-            igDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú", [31]);
+        // Si AGPSE falló o el dato es antiguo (>24h), consultar respaldo INA (Serie 9: Puerto Iguazú oficial)
+        if (!igDatos || igDatos.antiguo) {
+            try {
+                console.log("  → Consultando respaldo INA para Iguazú (Serie 9)...");
+                const inaDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú", [9]);
+                if (inaDatos) {
+                    if (!igDatos) {
+                        igDatos = inaDatos;
+                    } else if (!inaDatos.antiguo) {
+                        // Si INA tiene dato reciente y AGPSE está viejo, conmutamos a INA
+                        igDatos = inaDatos;
+                    } else {
+                        // Si ambos son viejos, comparar fechas y conservar el más reciente
+                        const [da, ma, ya] = igDatos.fechaStr.split('/');
+                        const [ha, mina] = igDatos.horaStr.split(':');
+                        const fAGPSE = new Date(+ya, +ma - 1, +da, +ha, +mina);
+
+                        const [di, mi, yi] = inaDatos.fechaStr.split('/');
+                        const [hi, mini] = inaDatos.horaStr.split(':');
+                        const fINA = new Date(+yi, +mi - 1, +di, +hi, +mini);
+
+                        if (fINA > fAGPSE) {
+                            igDatos = inaDatos;
+                        }
+                    }
+                }
+            } catch (e) { console.log("⚠️ Error Iguazú respaldo INA:", e.message); }
         }
 
         // ---- 3. CONCORDIA ----
@@ -625,7 +653,7 @@ function parseAGPSE(txtDat) {
             const t  = (await r.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
             const idx = t.indexOf("Concordia");
             const blq = t.substring(idx, idx + 150);
-            const mA  = blq.match(/(\d+[,.]\d{1,2})/);
+            const mA  = blq.match(/(\d+[.,]\d{1,2})/);
             const mH  = blq.match(/(\d{2}:\d{2})/);
             const mF  = blq.match(/(\d{2}\/\d{2}\/\d{4})/);
             if (mA && mH && mF) {
@@ -725,8 +753,8 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             const rCARU = await fetch("http://190.0.152.194:8080/alturas/web/user/alturas", { signal: AbortSignal.timeout(10000) });
             if (rCARU.ok) {
                 const tCARU = (await rCARU.text()).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
-                const mA = tCARU.match(/Salto Grande Aguas Arriba\s*(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}:\d{2})\s*(\d+[\.,]\d{1,2})/i);
-                const mB = tCARU.match(/Salto Grande Aguas Abajo\s*(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}:\d{2})\s*(\d+[\.,]\d{1,2})/i);
+                const mA = tCARU.match(/Salto Grande Aguas Arriba\s*(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}:\d{2})\s*(\d+[.,]\d{1,2})/i);
+                const mB = tCARU.match(/Salto Grande Aguas Abajo\s*(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}:\d{2})\s*(\d+[.,]\d{1,2})/i);
 
                 if (mA) {
                     const [d, m, y] = mA[1].split('/');
@@ -738,7 +766,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
                         fechaStr: mA[1],
                         fuente:   "CARU",
                         antiguo:  esAntiguo(fechaMed),
-                        textoFB:  `${mA[3].replace(',','.')}m (a las ${mA[2]} hs)`
+                        textoFB:  `${mA[3].replace(',', '.')}m (a las ${mA[2]} hs)`
                     };
                 }
                 if (mB) {
@@ -751,7 +779,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
                         fechaStr: mB[1],
                         fuente:   "CARU",
                         antiguo:  esAntiguo(fechaMed),
-                        textoFB:  `${mB[3].replace(',','.')}m (a las ${mB[2]} hs)`
+                        textoFB:  `${mB[3].replace(',', '.')}m (a las ${mB[2]} hs)`
                     };
                 }
             }
@@ -782,6 +810,13 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             }
             const sign = diff > 0 ? '+' : '';
             const diffStr = `${sign}${diff.toFixed(2)}`;
+
+            // Salvaguarda: si la diferencia excede un umbral físicamente anómalo para una hora (> 4.0m),
+            // indica cambio de escala/estación o discrepancia entre fuentes dispares.
+            if (Math.abs(diff) > 4.0) {
+                return { icono: '⚠️', estado: 'discrepancia', texto: `Discrepancia de fuente (${diffStr}m)`, diferencia: diffStr };
+            }
+
             if (diff > 0) {
                 return { icono: '⬆️', estado: 'subiendo', texto: `Subiendo (${diffStr}m)`, diferencia: diffStr };
             } else {
@@ -966,9 +1001,33 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             ? `\n\n${aNegrita("AVISO:")} ${pronosticoSudestada.titulo}\n${pronosticoSudestada.mensaje}`
             : "";
 
-        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊\n📅 ${fechaReporte}\n\n📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(lpTxt)}\n🌬️ Viento: ${viTxt}\n\n⚓ ${aNegrita("SHN:")}\n${prTxt}${sudTxt}\n\n📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(igTxt)}\n\n📍 ${aNegrita("SAN JAVIER")} (${sjDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(sjTxt)}\n\n📍 ${aNegrita("SANTO TOMÉ")} (${stDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(stTxt)}\n\n📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})\n📏 Altura: ${aNegrita(coTxt)}\n\n⚡ ${aNegrita("EMBALSE SALTO GRANDE")}\n🔼 Cota Embalse (Arriba): ${aNegrita(sgArribaTxt)}\n🔽 Restitución (Abajo): ${aNegrita(sgAbajoTxt)}`;
+        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊
+📅 ${fechaReporte}
 
-        console.log("\n📝 PUBLICACIÓN FACEBOOK:\n", msg);
+📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})
+📏 Altura: ${aNegrita(lpTxt)}
+🌬️ Viento: ${viTxt}
+
+⚓ ${aNegrita("SHN:")}
+${prTxt}${sudTxt}
+
+📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})
+📏 Altura: ${aNegrita(igTxt)}
+
+📍 ${aNegrita("SAN JAVIER")} (${sjDatos?.fechaStr ?? hoy})
+📏 Altura: ${aNegrita(sjTxt)}
+
+📍 ${aNegrita("SANTO TOMÉ")} (${stDatos?.fechaStr ?? hoy})
+📏 Altura: ${aNegrita(stTxt)}
+
+📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})
+📏 Altura: ${aNegrita(coTxt)}
+
+⚠️ ${aNegrita("EMBALSE SALTO GRANDE")}
+🔽 Cota Embalse (Arriba): ${aNegrita(sgArribaTxt)}
+🔼 Restitución (Abajo): ${aNegrita(sgAbajoTxt)}`;
+
+        console.log("\n📄 PUBLICACIÓN FACEBOOK:\n", msg);
 
         if (!pageAccessToken || !pageId) {
             console.log("⚠️  Sin credenciales Facebook — saltando publicación.");
@@ -988,7 +1047,9 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             console.log(`✅ Publicado en Facebook. ID: ${fbData.id}`);
         }
 
-    } catch (e) { console.error("Error fatal:", e.message); }
+    } catch (e) {
+        console.error("Error fatal:", e.message);
+    }
 }
 
 obtenerDatos();
