@@ -461,11 +461,46 @@
   details { margin-top: 15px; border-top: 1px solid var(--borde-sub); padding-top: 12px; }
   summary { font-size: 0.95rem; font-weight: 700; color: var(--azul-medio); cursor: pointer; list-style: none; user-select: none; display:flex; align-items:center; justify-content:space-between; }
   summary::-webkit-details-marker { display: none; }
-  summary::before { content: '📊 '; margin-right: 4px; }
+  summary::before { content: '📈 '; margin-right: 4px; }
   .historial-chart { width: 100%; height: 160px; margin-top: 15px; }
   .historial-acciones { display: flex; justify-content: flex-end; margin-top: 10px; }
   .btn-csv { background: var(--fondo-sub); color: var(--azul-medio); border: 1px solid var(--borde-sub); border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: background .2s; }
   .btn-csv:hover { background: var(--azul-claro); }
+
+  /* Tabla de Historial Visible y Scrolleable (Fecha y Hora) */
+  .tabla-historial-wrap {
+    max-height: 180px;
+    overflow-y: auto;
+    margin-top: 12px;
+    border: 1px solid var(--borde-sub);
+    border-radius: 10px;
+    background: var(--fondo-sub);
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabla-historial {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+  }
+  .tabla-historial th {
+    position: sticky;
+    top: 0;
+    background: var(--azul-claro);
+    color: var(--color-sub);
+    font-weight: 700;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--borde-sub);
+    z-index: 1;
+  }
+  .tabla-historial td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--borde-sub);
+    color: var(--texto);
+  }
+  .tabla-historial tr:last-child td { border-bottom: none; }
+  .tabla-historial .col-altura { font-weight: 700; color: var(--azul-rio); }
+  [data-tema="oscuro"] .tabla-historial th { background: #14283d; color: var(--azul-rio); }
 
   /* Botón flotante volver arriba */
   .btn-subir {
@@ -605,7 +640,7 @@
         🔍 A+ Letra grande
       </button>
       <button class="btn-toolbar" onclick="compartirReporte()" aria-label="Compartir reporte">
-        📲 Compartir
+        📤 Compartir
       </button>
       <button class="btn-toolbar" onclick="alternarModoSimple()" id="btnModoSimple" aria-label="Alternar vista simple para imprimir o enviar">
         🖨️ Vista simple
@@ -648,12 +683,19 @@
         <div class="skeleton-line skeleton-fecha"></div>
         <div class="skeleton-visor-box"></div>
       </div>
+      <div class="skeleton-tarjeta">
+        <div class="skeleton-line skeleton-titulo"></div>
+        <div class="skeleton-line skeleton-fecha"></div>
+        <div class="skeleton-visor-box"></div>
+      </div>
     </div>
   </div>
 
   <!-- Sección informativa semántica para indexación de Google -->
   <section style="background:var(--fondo-tarjeta);border-radius:var(--radio);padding:24px;margin-bottom:16px;box-shadow:var(--sombra);border-left:6px solid var(--azul-medio);">
-    <h2 style="font-family:'Merriweather',serif;font-size:1.15rem;font-weight:700;color:var(--azul-rio);margin-bottom:14px;">📖 ¿Cómo interpretar los niveles hidrométricos?</h2>
+    <h2 style="font-family:'Merriweather',serif;font-size:1.15rem;font-weight:700;color:var(--azul-rio);margin-bottom:14px;">
+      📖 ¿Cómo interpretar los niveles hidrométricos?
+    </h2>
     <p style="font-size:.95rem;line-height:1.7;color:var(--texto);margin-bottom:12px;">
       El <strong>nivel hidrométrico</strong> (o altura del río) es la medición de la lámina de agua sobre una escala graduada fija, expresada en metros. Cada puerto tiene sus propios umbrales de alerta y evacuación definidos por organismos oficiales.
     </p>
@@ -669,14 +711,14 @@
       </div>
     </div>
 
-    <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">🗺️ Puertos monitoreados</h2>
+    <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">🛳️ Puertos monitoreados</h2>
     <ul style="font-size:.92rem;line-height:1.85;color:var(--texto);padding-left:20px;">
-      <li><strong>La Plata (Bs. As.)</strong> — Datos de AGPSE cada 10 minutos. Incluye viento y pronóstico de mareas del Servicio de Hidrografía Naval (SHN).</li>
-      <li><strong>Puerto Iguazú (Misiones)</strong> — Datos de AGPSE cada 20 minutos. Río Iguazú en el límite con Brasil.</li>
+      <li><strong>La Plata (Bs. As.)</strong> — Datos de AGPSE cada 10 minutos con respaldo oficial del SHN. Incluye viento y pronóstico de mareas.</li>
+      <li><strong>Puerto Iguazú (Misiones)</strong> — Datos de AGPSE cada 20 minutos con respaldo oficial del INA (Serie 9). Río Iguazú en el límite con Brasil.</li>
       <li><strong>Salto Grande (Entre Ríos)</strong> — Datos de CARU (Comisión Administradora del Río Uruguay). Cota del embalse y nivel de restitución aguas abajo.</li>
       <li><strong>Concordia (Entre Ríos)</strong> — Datos de CARU cada hora. Río Uruguay a la altura de la ciudad de Concordia.</li>
-      <li><strong>San Javier (Santa Fe)</strong> — Datos de la Prefectura Naval Argentina (PNA). Río Paraná, actualización diaria.</li>
-      <li><strong>Santo Tomé (Corrientes)</strong> — Datos de la Prefectura Naval Argentina (PNA). Río Uruguay, actualización diaria.</li>
+      <li><strong>San Javier (Santa Fe)</strong> — Datos de Prefectura Naval Argentina (PNA) con respaldo del INA (Serie 65). Río Paraná.</li>
+      <li><strong>Santo Tomé (Corrientes)</strong> — Datos de Prefectura Naval Argentina (PNA) con respaldo del INA (Serie 68). Río Uruguay.</li>
     </ul>
 
     <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">❓ Preguntas frecuentes</h2>
@@ -701,23 +743,23 @@
       Descubrí qué provoca una sudestada, qué significa el cero del mareógrafo, cómo viajan las crecidas en la Cuenca del Plata y qué precauciones tomar ante una alerta oficial.
     </p>
     <a href="./saber-mas.html" class="btn-salto destacado" style="display:inline-flex;text-decoration:none;padding:12px 28px;font-size:1.05rem;border-radius:50px;">
-      SABER MÁS →
+      SABER MÁS ➔
     </a>
   </section>
 
   <footer class="pie">
     <div style="margin-bottom:10px;">
-      Datos oficiales: AGPSE, SHN, INA, CARU y Prefectura Naval Argentina &nbsp;·&nbsp; Actualización automática cada hora
+      Datos oficiales: AGPSE, SHN, INA, CARU y Prefectura Naval Argentina &nbsp;•&nbsp; Actualización automática cada hora
     </div>
     <div style="margin-bottom:8px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:.82rem;">
       <a href="./saber-mas.html" style="color:var(--azul-medio);text-decoration:none;font-weight:700;">Saber Más</a>
-      <span style="color:var(--borde-sub);">·</span>
+      <span style="color:var(--borde-sub);">•</span>
       <a href="./privacidad.html" style="color:var(--azul-medio);text-decoration:none;">Política de Privacidad</a>
-      <span style="color:var(--borde-sub);">·</span>
+      <span style="color:var(--borde-sub);">•</span>
       <a href="./terminos.html" style="color:var(--azul-medio);text-decoration:none;">Términos de Uso</a>
-      <span style="color:var(--borde-sub);">·</span>
+      <span style="color:var(--borde-sub);">•</span>
       <a href="./acerca.html" style="color:var(--azul-medio);text-decoration:none;">Acerca del Proyecto</a>
-      <span style="color:var(--borde-sub);">·</span>
+      <span style="color:var(--borde-sub);">•</span>
       <a href="https://github.com/andresehansen/hidrometros" target="_blank" rel="noopener" style="color:var(--azul-medio);text-decoration:none;">Código en GitHub</a>
     </div>
     <div style="font-size:.78rem;margin-top:4px;">
@@ -730,9 +772,9 @@
 <button class="btn-subir" id="btnSubir" title="Volver al inicio" aria-label="Volver al inicio" onclick="volverArriba()">⬆️ Subir</button>
 
 <script>
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // CONFIGURACIÓN GLOBAL Y UMBRALES
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 const DATA_URL = "https://cdn.jsdelivr.net/gh/andresehansen/hidrometros@main/data.json";
 
 const DEFAULTS_PUERTO = {
@@ -753,9 +795,9 @@ let sonidoHabilitado = localStorage.getItem('sonido_alerta') !== 'false';
 let chartJsCargado = false;
 let chartJsPromise = null;
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // P0-1. GESTIÓN DE TEMA OSCURO / CLARO
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function aplicarTema(tema) {
   const html = document.documentElement;
   const btn = document.getElementById('btnTema');
@@ -800,9 +842,9 @@ function inicializarTema() {
 }
 inicializarTema();
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // GESTIÓN DE MODO LETRA GRANDE Y NAVEGACIÓN POR SALTOS
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function aplicarLetraGrande(activa) {
   const btn = document.getElementById('btnLetraGrande');
   if (activa) {
@@ -881,9 +923,9 @@ function renderSkeletons() {
   `;
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // P1-1 & P1-2. NOTIFICACIONES DEL SISTEMA Y ALERTAS SONORAS
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function actualizarBotonesToolbar() {
   const btnNotif = document.getElementById('btnNotif');
   const btnSonido = document.getElementById('btnSonido');
@@ -936,7 +978,6 @@ function toggleSonido() {
   }
 }
 
-// Generador de tono sonoro con Web Audio API (cero dependencias externas)
 function reproducirAlertaSonora() {
   if (!sonidoHabilitado) return;
   try {
@@ -946,8 +987,8 @@ function reproducirAlertaSonora() {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // Nota D5
-    osc.frequency.exponentialRampToValueAtTime(880.00, ctx.currentTime + 0.15); // Nota A5
+    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+    osc.frequency.exponentialRampToValueAtTime(880.00, ctx.currentTime + 0.15); // A5
     gain.gain.setValueAtTime(0.2, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
     osc.connect(gain);
@@ -987,9 +1028,9 @@ function mostrarToast(mensaje, tipo = 'alerta') {
   setTimeout(() => { toast.remove(); }, 8000);
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // P1-5. FETCH CON REINTENTOS Y BACKOFF EXPONENCIAL
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 async function fetchConReintentos(url, maxReintentos = 2, delayMs = 1500) {
   for (let intento = 0; intento <= maxReintentos; intento++) {
     try {
@@ -1004,9 +1045,9 @@ async function fetchConReintentos(url, maxReintentos = 2, delayMs = 1500) {
   throw new Error(`Fallo de conexión tras ${maxReintentos + 1} intentos.`);
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // P2-4. CARGA DIFERIDA (LAZY LOAD) DE CHART.JS
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function asegurarChartJs() {
   if (chartJsCargado || window.Chart) {
     chartJsCargado = true;
@@ -1031,9 +1072,9 @@ function asegurarChartJs() {
   return chartJsPromise;
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // FUNCIONES DE RENDERIZADO Y HELPERS DE UI
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function getEstadoPuerto(alturaStr, alerta, evacuacion) {
   if (alturaStr === null || alturaStr === undefined || isNaN(alturaStr)) return 'normal';
   const alt = parseFloat(alturaStr);
@@ -1056,7 +1097,6 @@ function fechaLegible(str) {
   return new Date(+y,+m-1,+d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
 
-// P2-8: Granularidad temporal del dato
 function calcularTiempoRelativo(fechaStr, horaStr) {
   if (!fechaStr || !horaStr) return '';
   try {
@@ -1081,9 +1121,9 @@ function calcularTiempoRelativo(fechaStr, horaStr) {
 function badge(antiguo, fuente, fechaStr, horaStr) {
   const tiempo = (fechaStr && horaStr) ? calcularTiempoRelativo(fechaStr, horaStr) : '';
   if (antiguo) {
-    return `<span class="badge badge-alerta">⚠️ Dato anterior${tiempo} · ${fuente}</span>`;
+    return `<span class="badge badge-alerta">⚠️ Dato anterior${tiempo} • ${fuente}</span>`;
   }
-  return `<span class="badge badge-ok">✅ Actualizado · ${fuente}</span>`;
+  return `<span class="badge badge-ok">✅ Actualizado • ${fuente}</span>`;
 }
 
 const badgeND = () => `<span class="badge badge-nd">No disponible ahora</span>`;
@@ -1096,10 +1136,9 @@ function renderBadgeTendencia(t) {
   return `<span class="badge ${cls}">${t.icono} ${t.texto}</span>`;
 }
 
-// P1-7: Tooltips de ayuda técnica interactivos
 function renderTooltip(id, textoExplicativo) {
   return `
-    <button type="button" class="btn-info-tooltip" onclick="toggleTooltip('${id}')" aria-label="Más información" title="Más información">ⓘ</button>
+    <button type="button" class="btn-info-tooltip" onclick="toggleTooltip('${id}')" aria-label="Más información" title="Más información">ℹ️</button>
     <div id="tooltip-${id}" class="tooltip-popover" role="tooltip">${textoExplicativo}</div>
   `;
 }
@@ -1109,9 +1148,9 @@ function toggleTooltip(id) {
   if (el) el.classList.toggle('abierto');
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // VISOR DE ALTURA Y SEMÁFORO DE RIESGO INTUITIVO
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function renderVisorAltura(d, alerta, evacuacion) {
   if (!d || d.altura === undefined || d.altura === null || isNaN(d.altura)) {
     return badgeND();
@@ -1121,7 +1160,6 @@ function renderVisorAltura(d, alerta, evacuacion) {
   const estado = getEstadoPuerto(d.altura, alerta, evacuacion);
   const valClass = "dato-valor grande " + (estado === 'evacuacion' ? 'val-evacuacion' : (estado === 'alerta' ? 'val-alerta' : ''));
 
-  // Explicación de margen o exceso en lenguaje simple
   let textoMargen = '';
   if (estado === 'normal') {
     const margenAlerta = (alerta - alt).toFixed(2);
@@ -1135,7 +1173,6 @@ function renderVisorAltura(d, alerta, evacuacion) {
     textoMargen = `🚨 <strong>Nivel de Evacuación:</strong> Superó la cota crítica de evacuación por <strong>${sobreEvac} m</strong>.`;
   }
 
-  // Progreso visual simplificado en semáforo de 3 estados
   let pct = 25;
   let colorBarra = 'var(--verde-ok)';
   if (estado === 'normal') {
@@ -1182,7 +1219,9 @@ function renderVisorAltura(d, alerta, evacuacion) {
   `;
 }
 
-// P1-9 & P1-11: Exportación a CSV y Tabla alternativa accesible
+// ─────────────────────────────────────────────────────────────
+// EXPORTACIÓN A CSV Y TABLA DE HISTORIAL CON FECHA Y HORA
+// ─────────────────────────────────────────────────────────────
 function exportarCSV(keyPuerto, nombre) {
   if (!datosActuales) return;
   let hist = null;
@@ -1215,35 +1254,48 @@ function exportarCSV(keyPuerto, nombre) {
   document.body.removeChild(link);
 }
 
-function renderTablaAccesible(hist, nombrePuerto) {
+// Renderiza la tabla histórica visible mostrando Fecha, Hora y Altura (ordenada con la más reciente arriba)
+function renderTablaHistorial(hist, nombrePuerto) {
   if (!hist || hist.length === 0) return '';
-  const rows = hist.map(h => `<tr><td>${h.fechaStr || 'Hoy'}</td><td>${h.horaStr}</td><td>${h.altura} m</td></tr>`).join('');
+  const rows = hist.slice().reverse().map(h => `
+    <tr>
+      <td>${h.fechaStr || 'Hoy'}</td>
+      <td><strong>${h.horaStr} hs</strong></td>
+      <td class="col-altura">${parseFloat(h.altura).toFixed(2)} m</td>
+    </tr>
+  `).join('');
   return `
-    <div class="sr-only">
-      <table>
-        <caption>Historial de mediciones para ${nombrePuerto}</caption>
-        <thead><tr><th scope="col">Fecha</th><th scope="col">Hora</th><th scope="col">Altura</th></tr></thead>
+    <div class="tabla-historial-wrap" role="region" aria-label="Historial de mediciones para ${nombrePuerto}" tabindex="0">
+      <table class="tabla-historial">
+        <caption class="sr-only">Historial de mediciones para ${nombrePuerto}</caption>
+        <thead>
+          <tr>
+            <th scope="col">📅 Fecha</th>
+            <th scope="col">⏰ Hora</th>
+            <th scope="col">📏 Altura</th>
+          </tr>
+        </thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
   `;
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // TARJETAS DE PUERTOS
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function tarjetaLP(d, viento, pron, sudestada) {
   const alerta = (d && d.alerta !== undefined) ? d.alerta : DEFAULTS_PUERTO.laplata.alerta;
   const evacuacion = (d && d.evacuacion !== undefined) ? d.evacuacion : DEFAULTS_PUERTO.laplata.evacuacion;
   const estado = d ? getEstadoPuerto(d.altura, alerta, evacuacion) : 'normal';
 
-  const vTxt = viento ? `${viento.velocidad} km/h · ${viento.direccion}` : 'No disponible';
+  const vTxt = viento ? `${viento.velocidad} km/h • ${viento.direccion}` : 'No disponible';
   const tTxt = viento ? `Temperatura: ${viento.temperatura}°C` : '';
   let pronHTML = `<p style="color:var(--color-sub);font-size:.95rem">No disponible</p>`;
   if (pron && (pron.pleamar || pron.bajamar)) {
     pronHTML = `<div class="pronostico-fila">`;
-    if (pron.pleamar) pronHTML += `<div class="pronostico-item"><div class="tipo">📈 Pleamar ${renderTooltip('lp-pleamar', 'Nivel máximo que alcanzará la marea astronómica.')}</div><div class="valor">${pron.pleamar.altura} m</div><div class="detalle">${pron.pleamar.fecha} · ${pron.pleamar.hora} hs</div></div>`;
-    if (pron.bajamar) pronHTML += `<div class="pronostico-item"><div class="tipo">📉 Bajamar ${renderTooltip('lp-bajamar', 'Nivel mínimo previsto durante la marea bajante.')}</div><div class="valor">${pron.bajamar.altura} m</div><div class="detalle">${pron.bajamar.fecha} · ${pron.bajamar.hora} hs</div></div>`;
+    if (pron.pleamar) pronHTML += `<div class="pronostico-item"><div class="tipo">📈 Pleamar ${renderTooltip('lp-pleamar', 'Nivel máximo que alcanzará la marea astronómica.')}</div><div class="valor">${pron.pleamar.altura} m</div><div class="detalle">${pron.pleamar.fecha} • ${pron.pleamar.hora} hs</div></div>`;
+    if (pron.bajamar) pronHTML += `<div class="pronostico-item"><div class="tipo">📉 Bajamar ${renderTooltip('lp-bajamar', 'Nivel mínimo previsto durante la marea bajante.')}</div><div class="valor">${pron.bajamar.altura} m</div><div class="detalle">${pron.bajamar.fecha} • ${pron.bajamar.hora} hs</div></div>`;
     pronHTML += `</div>`;
   }
   
@@ -1265,7 +1317,7 @@ function tarjetaLP(d, viento, pron, sudestada) {
     <details id="details-laplata" ontoggle="alAbrirDetails(this, 'laplata')">
       <summary>Ver historial (últimas ${d.historico.length} mediciones)</summary>
       <div class="historial-chart"><canvas id="chart-laplata" role="img" aria-label="Gráfico de evolución de altura en La Plata"></canvas></div>
-      ${renderTablaAccesible(d.historico, 'La Plata')}
+      ${renderTablaHistorial(d.historico, 'La Plata')}
       <div class="historial-acciones">
         <button class="btn-csv" onclick="exportarCSV('laplata', 'La Plata')">📥 Descargar CSV</button>
       </div>
@@ -1277,7 +1329,7 @@ function tarjetaLP(d, viento, pron, sudestada) {
     <div class="tarjeta-fecha">📅 ${d ? fechaLegible(d.fechaStr) : '—'}</div>
     ${sudestadaHTML}
     <div class="dato-fila"><div class="dato-icono">📏</div><div class="dato-contenido">
-      <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo oficial de AGPSE en el Puerto La Plata.')}</div>
+      <div class="dato-etiqueta">Altura del río ${renderTooltip('lp-altura', 'Medición del mareógrafo oficial en el Puerto La Plata con respaldo del SHN.')}</div>
       ${renderVisorAltura(d, alerta, evacuacion)}
     </div></div>
     <div class="dato-fila"><div class="dato-icono">🌬️</div><div class="dato-contenido">
@@ -1293,9 +1345,9 @@ function tarjetaLP(d, viento, pron, sudestada) {
   </div>`;
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // MÓDULO PRONÓSTICOS INA (CUENCA DEL PLATA)
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 let estacionPronoActiva = 'iguazu';
 
 function seleccionarEstacionProno(key) {
@@ -1392,7 +1444,7 @@ function tarjetaPronosticosINA(pINA) {
   return `
     <div class="tarjeta tarjeta-pronostico" id="tarjeta-pronosticos-ina">
       <div class="tarjeta-titulo">Pronóstico Hidrológico Oficial (INA)</div>
-      <div class="tarjeta-fecha">Tendencia hidrométrica a 14-21 días · Cuenca del Plata</div>
+      <div class="tarjeta-fecha">Tendencia hidrométrica a 14-21 días • Cuenca del Plata</div>
       ${tabsHTML}
       <div id="prono-contenido-dinamico">
         ${renderContenidoEstacionProno(pINA, estacionPronoActiva)}
@@ -1417,7 +1469,7 @@ function tarjetaRio(nombre, d, idChart, keyPuerto) {
     <details id="details-${idChart}" ontoggle="alAbrirDetails(this, '${keyPuerto}')">
       <summary>Ver historial (últimas ${d.historico.length} mediciones)</summary>
       <div class="historial-chart"><canvas id="chart-${idChart}" role="img" aria-label="Gráfico de evolución de altura en ${nombre}"></canvas></div>
-      ${renderTablaAccesible(d.historico, nombre)}
+      ${renderTablaHistorial(d.historico, nombre)}
       <div class="historial-acciones">
         <button class="btn-csv" onclick="exportarCSV('${keyPuerto}', '${nombre}')">📥 Descargar CSV</button>
       </div>
@@ -1464,7 +1516,7 @@ function tarjetaSaltoGrande(d) {
       <details id="details-${chartId}" ontoggle="alAbrirDetails(this, '${chartId}')">
         <summary>Ver historial (${subD.historico.length} mediciones)</summary>
         <div class="historial-chart"><canvas id="chart-${chartId}" role="img" aria-label="Gráfico de evolución de altura en ${titulo}"></canvas></div>
-        ${renderTablaAccesible(subD.historico, titulo)}
+        ${renderTablaHistorial(subD.historico, titulo)}
         <div class="historial-acciones">
           <button class="btn-csv" onclick="exportarCSV('${chartId}', '${titulo}')">📥 Descargar CSV</button>
         </div>
@@ -1484,16 +1536,16 @@ function tarjetaSaltoGrande(d) {
 
   return `<div class="tarjeta estado-${estadoGeneral}" id="tarjeta-saltogrande">
     <div class="tarjeta-titulo">Embalse Salto Grande</div>
-    <div class="tarjeta-fecha">Complejo Hidroeléctrico Binacional · Río Uruguay</div>
+    <div class="tarjeta-fecha">Complejo Hidroeléctrico Binacional • Río Uruguay</div>
     ${renderSubSection('Salto Grande Arriba (Cota del Embalse)', arriba, estadoArriba, alertaArriba, evacArriba, 'saltogrande-arriba', 'sg-cota', 'Altura del agua en el lago de la represa aguas arriba de las compuertas.')}
     <hr class="sub-divider" />
     ${renderSubSection('Salto Grande Abajo (Restitución)', abajo, estadoAbajo, alertaAbajo, evacAbajo, 'saltogrande-abajo', 'sg-restitucion', 'Nivel del agua río abajo inmediatamente después de turbinar y verter el caudal.')}
   </div>`;
 }
 
-// ──────────────────────────────────────────────────────────────
-// GESTIÓN DE GRÁFICOS CHART.JS ON DEMAND
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// GESTIÓN DE GRÁFICOS CHART.JS ON DEMAND CON FECHA Y HORA
+// ─────────────────────────────────────────────────────────────
 const chartsInstancias = {};
 
 async function alAbrirDetails(detailsEl, keyPuerto) {
@@ -1595,16 +1647,39 @@ function renderizarGraficoIndividual(keyPuerto) {
     });
   }
 
+  // Generar etiquetas multilínea con fecha corta y hora en el eje X
+  const etiquetasX = hist.map(h => {
+    const diaMes = h.fechaStr ? h.fechaStr.slice(0, 5) : '';
+    return diaMes ? [diaMes, h.horaStr] : h.horaStr;
+  });
+
   chartsInstancias[idCanvas] = new Chart(canvas, {
     type: 'line',
     data: {
-      labels: hist.map(h => h.horaStr),
+      labels: etiquetasX,
       datasets: datasets
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: function(context) {
+              const idx = context[0].dataIndex;
+              const h = hist[idx];
+              if (h && h.fechaStr) {
+                return `${h.fechaStr} a las ${h.horaStr} hs`;
+              }
+              return context[0].label;
+            },
+            label: function(context) {
+              return ` Altura: ${context.parsed.y.toFixed(2)} m`;
+            }
+          }
+        }
+      },
       scales: {
         x: { ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 45 } },
         y: { ticks: { font: { size: 11 } } }
@@ -1692,9 +1767,9 @@ function renderBannerAlertas(d) {
     </div>`;
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // DETECCIÓN DE CAMBIOS DE ESTADO PARA NOTIFICACIONES
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function detectarCambiosDeEstado(nuevoD) {
   if (!nuevoD) return;
   const nuevosEstados = {};
@@ -1706,7 +1781,6 @@ function detectarCambiosDeEstado(nuevoD) {
     const st = getEstadoPuerto(pData.altura, al, ev);
     nuevosEstados[key] = { estado: st, altura: pData.altura, nombre: nombre };
     
-    // Comparar con lectura previa
     const previo = estadosPuertosPrevios[key]?.estado || 'normal';
     if (!esCargaInicial && previo !== st) {
       if (st === 'evacuacion') {
@@ -1735,7 +1809,6 @@ function detectarCambiosDeEstado(nuevoD) {
     evaluar('sg_abajo', 'Salto Grande Abajo', nuevoD.saltogrande.abajo, 'saltogrande_abajo');
   }
 
-  // Notificación de previsión de sudestada
   if (nuevoD.pronosticoSudestada && nuevoD.pronosticoSudestada.estado !== 'sin_riesgo') {
     const sudPrev = window.estadoSudestadaPrevio || 'sin_riesgo';
     if (!esCargaInicial && sudPrev !== nuevoD.pronosticoSudestada.estado) {
@@ -1757,9 +1830,9 @@ function anunciarAriaLive(mensaje) {
   }
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // MUTACIÓN DIRIGIDA DEL DOM PARA AUTO-ACTUALIZACIÓN
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function actualizarTarjetaEnLugar(idTarjeta, nuevoHTML) {
   const tarjetaActual = document.getElementById(idTarjeta);
   if (!tarjetaActual) return false;
@@ -1788,9 +1861,9 @@ function actualizarTarjetaEnLugar(idTarjeta, nuevoHTML) {
   return true;
 }
 
-// ──────────────────────────────────────────────────────────────
-// P1-4. CARGAR DATOS CON PRESERVACIÓN DE ESTADO
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// CARGAR DATOS CON PRESERVACIÓN DE ESTADO
+// ─────────────────────────────────────────────────────────────
 async function cargarDatos(esAuto = false) {
   const btn = document.getElementById('btnActualizar');
   const panel = document.getElementById('contenidoPrincipal');
@@ -1802,7 +1875,6 @@ async function cargarDatos(esAuto = false) {
     btn.querySelector('span:last-child').textContent = esAuto ? 'Auto-actualizando...' : 'Actualizando...';
   }
 
-  // Guardar estado de la interfaz antes de recargar
   const scrollY = window.scrollY;
   const detailsAbiertos = new Set();
   document.querySelectorAll('details[id]').forEach(d => {
@@ -1824,7 +1896,6 @@ async function cargarDatos(esAuto = false) {
 
     const d = await res.json();
 
-    // P2-9: Validación de schemaVersion
     if (d.schemaVersion && parseInt(d.schemaVersion.split('.')[0], 10) > 1) {
       console.warn('El esquema de datos recibido es más reciente que el soportado:', d.schemaVersion);
     }
@@ -1832,11 +1903,10 @@ async function cargarDatos(esAuto = false) {
     datosActuales = d;
     detectarCambiosDeEstado(d);
 
-    const offlineNotice = (!navigator.onLine) ? ' (Sin conexión · Reporte guardado)' : '';
+    const offlineNotice = (!navigator.onLine) ? ' (Sin conexión • Reporte guardado)' : '';
     fEl.textContent = `📅 Reporte del ${d.fechaReporte}${offlineNotice}`;
     ultimaActualizacionExitosa = Date.now();
 
-    // Mutación dirigida del DOM en auto-actualización si ya existen las tarjetas
     if (esAuto && !esCargaInicial && document.getElementById('tarjeta-laplata')) {
       const bannerExistente = panel.querySelector('.banner-alerta-general');
       const nuevoBannerHTML = renderBannerAlertas(d);
@@ -1858,17 +1928,15 @@ async function cargarDatos(esAuto = false) {
       actualizarTarjetaEnLugar('tarjeta-santotome', tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome'));
       actualizarTarjetaEnLugar('tarjeta-pronosticos-ina', tarjetaPronosticosINA(d.pronosticosINA));
     } else {
-      // Renderizado completo del panel (puertos en tiempo real consecutivos + pronóstico hidrológico oficial al final)
       panel.innerHTML = renderBannerAlertas(d) +
-                       tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada) + 
-                       tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
-                       tarjetaSaltoGrande(d.saltogrande) +
-                       tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
-                       tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier') + 
-                       tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome') +
-                       tarjetaPronosticosINA(d.pronosticosINA);
+                        tarjetaLP(d.laplata, d.viento, d.pronostico, d.pronosticoSudestada) + 
+                        tarjetaRio('Iguazú', d.iguazu, 'iguazu', 'iguazu') + 
+                        tarjetaSaltoGrande(d.saltogrande) + 
+                        tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
+                        tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier') + 
+                        tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome') +
+                        tarjetaPronosticosINA(d.pronosticosINA);
 
-      // Restaurar los <details> que estaban abiertos
       detailsAbiertos.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -1879,7 +1947,6 @@ async function cargarDatos(esAuto = false) {
       });
     }
 
-    // Restaurar scroll si no era carga inicial
     if (!esCargaInicial) {
       window.scrollTo(0, scrollY);
     }
@@ -1890,7 +1957,7 @@ async function cargarDatos(esAuto = false) {
     console.error('Error cargando datos:', err);
     if (esCargaInicial) {
       fEl.textContent = '⚠️ Sin conexión';
-      panel.innerHTML = `<div class="aviso-info">😕 No se pudo cargar el reporte en este momento.<br><br>Puede que no haya conexión a Internet o el servidor de datos esté en mantenimiento. Volvé a intentarlo en unos minutos.</div>`;
+      panel.innerHTML = `<div class="aviso-info">😢 No se pudo cargar el reporte en este momento.<br><br>Puede que no haya conexión a Internet o el servidor de datos esté en mantenimiento. Volvé a intentarlo en unos minutos.</div>`;
     } else {
       mostrarToast('No se pudo actualizar los datos en segundo plano.', 'alerta');
     }
@@ -1903,9 +1970,9 @@ async function cargarDatos(esAuto = false) {
   }
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // P1-3. AUTO-ACTUALIZACIÓN PERIÓDICA CON PAUSA EN VISIBILIDAD
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 const INTERVALO_REFRESH_MS = 5 * 60 * 1000; // 5 minutos
 
 setInterval(() => {
@@ -1923,22 +1990,21 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // P1-10. VISTA SIMPLIFICADA / IMPRESIÓN Y COMPARTIR
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function alternarModoSimple() {
   document.body.classList.toggle('modo-simple');
   const esSimple = document.body.classList.contains('modo-simple');
   const btn = document.getElementById('btnModoSimple');
   if (btn) {
-    btn.innerHTML = esSimple ? '📑 Vista completa' : '🖨️ Vista simple';
+    btn.innerHTML = esSimple ? '📖 Vista completa' : '🖨️ Vista simple';
   }
   if (esSimple) {
     window.print();
   }
 }
 
-// Verificar si viene con parámetro ?modo=simple
 if (new URLSearchParams(window.location.search).get('modo') === 'simple') {
   document.body.classList.add('modo-simple');
 }
@@ -1959,12 +2025,11 @@ async function compartirReporte() {
   }
 }
 
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // INICIALIZACIÓN
-// ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-    // En desarrollo local desregistramos el SW y vaciamos cachés para evitar ver versiones viejas
     navigator.serviceWorker.getRegistrations().then(regs => {
       for (const reg of regs) reg.unregister();
     });
