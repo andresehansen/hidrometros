@@ -607,16 +607,27 @@ function parseAGPSE(txtDat) {
         let igDatos = null;
         try {
             console.log("  → Fuente primaria AGPSE para Iguazú...");
-            // Intentar primero HTTP (rápido y sin problemas de TLS en AGPSE) y fallback a HTTPS
-            const resAgpse = await fetch(urlIguazu, { signal: AbortSignal.timeout(10000) })
-                .catch(() => fetch("https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat", { signal: AbortSignal.timeout(10000) }));
+            // Intentar HTTP primero con timeout acotado de 5s para conmutar rápido si AGPSE está bloqueado
+            const resAgpse = await fetch(urlIguazu, { signal: AbortSignal.timeout(5000) })
+                .catch(() => fetch("https://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat", { signal: AbortSignal.timeout(5000) }));
             if (resAgpse && resAgpse.ok) {
                 const t = await resAgpse.text();
                 igDatos = parseAGPSE(t);
             }
         } catch (e) { console.log("⚠️ Error Iguazú primario AGPSE:", e.message); }
 
-        // Si AGPSE falló o el dato es antiguo (>24h), consultar respaldo INA (Serie 9: Puerto Iguazú oficial)
+        // Si AGPSE falló o el dato es antiguo (>24h), consultar primero Prefectura (PNA)
+        if (!igDatos || igDatos.antiguo) {
+            try {
+                console.log("  → Consultando fuente PNA para Iguazú...");
+                const pnaIguazu = await fetchPrefecturaPNA('Puerto Iguazú', /PUERTO IGUAZU\s+IGUAZU\s+(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
+                if (pnaIguazu && (!igDatos || !pnaIguazu.antiguo)) {
+                    igDatos = pnaIguazu;
+                }
+            } catch (e) { console.log("⚠️ Error Iguazú PNA:", e.message); }
+        }
+
+        // Si AGPSE y PNA fallaron o son antiguos (>24h), consultar respaldo INA (Serie 9: Puerto Iguazú oficial)
         if (!igDatos || igDatos.antiguo) {
             try {
                 console.log("  → Consultando respaldo INA para Iguazú (Serie 9)...");
@@ -625,19 +636,19 @@ function parseAGPSE(txtDat) {
                     if (!igDatos) {
                         igDatos = inaDatos;
                     } else if (!inaDatos.antiguo) {
-                        // Si INA tiene dato reciente y AGPSE está viejo, conmutamos a INA
+                        // Si INA tiene dato reciente y anterior está viejo, conmutamos a INA
                         igDatos = inaDatos;
                     } else {
                         // Si ambos son viejos, comparar fechas y conservar el más reciente
                         const [da, ma, ya] = igDatos.fechaStr.split('/');
                         const [ha, mina] = igDatos.horaStr.split(':');
-                        const fAGPSE = new Date(+ya, +ma - 1, +da, +ha, +mina);
+                        const fPrevio = new Date(+ya, +ma - 1, +da, +ha, +mina);
 
                         const [di, mi, yi] = inaDatos.fechaStr.split('/');
                         const [hi, mini] = inaDatos.horaStr.split(':');
                         const fINA = new Date(+yi, +mi - 1, +di, +hi, +mini);
 
-                        if (fINA > fAGPSE) {
+                        if (fINA > fPrevio) {
                             igDatos = inaDatos;
                         }
                     }
@@ -681,22 +692,38 @@ function parseAGPSE(txtDat) {
         }
 
 // --- Fuente primaria Prefectura Naval Argentina (PNA) ---
-async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
+let cachePNAHtml = null;
+let pnaConsultado = false;
+
+async function obtenerHtmlPNA() {
+    if (pnaConsultado) return cachePNAHtml;
+    pnaConsultado = true;
     try {
-        console.log(`  → Fuente primaria PNA para ${nombrePuerto}...`);
-        const txtDat = await new Promise((resolve, reject) => {
+        console.log(`  → Consultando tabla general de alturas de PNA...`);
+        cachePNAHtml = await new Promise((resolve, reject) => {
             const req = https.request("https://contenidosweb.prefecturanaval.gob.ar/alturas/", {
                 rejectUnauthorized: false,
-                headers: { 'User-Agent': 'Mozilla/5.0' }
+                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36' }
             }, (res) => {
                 let buf = '';
                 res.on('data', chunk => buf += chunk);
                 res.on('end', () => resolve(buf));
             });
             req.on('error', reject);
-            req.setTimeout(15000, () => { req.destroy(new Error('timeout')); });
+            req.setTimeout(8000, () => { req.destroy(new Error('timeout')); });
             req.end();
         });
+    } catch(e) {
+        console.log(`⚠️ Error conexión PNA:`, e.message);
+        cachePNAHtml = null;
+    }
+    return cachePNAHtml;
+}
+
+async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
+    try {
+        const txtDat = await obtenerHtmlPNA();
+        if (!txtDat) return null;
 
         const clean = txtDat.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
         const match = clean.match(regexSearch);
@@ -727,7 +754,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
             };
         }
     } catch(e) {
-        console.log(`⚠️ Error PNA ${nombrePuerto}:`, e.message);
+        console.log(`⚠️ Error procesando PNA ${nombrePuerto}:`, e.message);
     }
     return null;
 }
