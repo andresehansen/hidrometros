@@ -251,6 +251,74 @@ async function fetchGeoServerINA(bbox, nombrePuerto, seriesIds = []) {
     return fetchINA_geoserver(bbox, nombrePuerto);
 }
 
+// --- Fuente primaria / respaldo Prefectura Naval Argentina (PNA) ---
+let cachePNAHtml = null;
+let pnaConsultado = false;
+
+async function obtenerHtmlPNA() {
+    if (pnaConsultado) return cachePNAHtml;
+    pnaConsultado = true;
+    try {
+        console.log(`  → Consultando tabla general de alturas de PNA...`);
+        cachePNAHtml = await new Promise((resolve, reject) => {
+            const req = https.request("https://contenidosweb.prefecturanaval.gob.ar/alturas/", {
+                rejectUnauthorized: false,
+                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36' }
+            }, (res) => {
+                let buf = '';
+                res.on('data', chunk => buf += chunk);
+                res.on('end', () => resolve(buf));
+            });
+            req.on('error', reject);
+            req.setTimeout(25000, () => { req.destroy(new Error('timeout')); });
+            req.end();
+        });
+    } catch(e) {
+        console.log(`⚠️ Error conexión PNA:`, e.message);
+        cachePNAHtml = null;
+    }
+    return cachePNAHtml;
+}
+
+async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
+    try {
+        const txtDat = await obtenerHtmlPNA();
+        if (!txtDat) return null;
+
+        const clean = txtDat.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
+        const match = clean.match(regexSearch);
+        if (match) {
+            const alt = parseFloat(match[1].replace(',', '.')).toFixed(2);
+            const rawHora = match[3];
+            const horaStr = `${rawHora.substring(0, 2)}:${rawHora.substring(2, 4)}`;
+
+            const parts = match[2].split('/');
+            const mesesMap = { JAN: '01', FEB: '02', MAR: '03', APR: '04', MAY: '05', JUN: '06', JUL: '07', AUG: '08', SEP: '09', OCT: '10', NOV: '11', DEC: '12' };
+            const day = parts[0].padStart(2, '0');
+            const month = mesesMap[parts[1].toUpperCase()] || '08';
+            const year = '20' + parts[2];
+            const fechaStr = `${day}/${month}/${year}`;
+
+            const fechaMed = new Date(+year, +month - 1, +day, +rawHora.substring(0, 2), +rawHora.substring(2, 4));
+            const antiguo = esAntiguo(fechaMed);
+
+            console.log(`  ✅ PNA ${nombrePuerto}: ${alt}m @ ${fechaStr} ${horaStr}`);
+
+            return {
+                altura:   alt,
+                horaStr:  horaStr,
+                fechaStr: fechaStr,
+                fuente:   "PNA",
+                antiguo,
+                textoFB:  `${alt}m (a las ${horaStr} hs)`
+            };
+        }
+    } catch(e) {
+        console.log(`⚠️ Error procesando PNA ${nombrePuerto}:`, e.message);
+    }
+    return null;
+}
+
 // --- HELPER PRONÓSTICOS OFICIALES INA (CUENCA DEL PLATA) ---
 async function fetchPronosticosINA(datosAnteriores = null) {
     try {
@@ -616,44 +684,28 @@ function parseAGPSE(txtDat) {
             }
         } catch (e) { console.log("⚠️ Error Iguazú primario AGPSE:", e.message); }
 
-        // Si AGPSE falló o el dato es antiguo (>24h), consultar primero Prefectura (PNA)
+        // Si AGPSE falló o el dato es antiguo (>24h), consultar telemetría oficial INA en tiempo real
+        // Serie 36964: RHN-SAT (Estación 7277 Pto. Iguazú - lecturas cada 30 min satelitales en tiempo real)
+        // Serie 9: Escala manual PNA Puerto Iguazú oficial en catálogo nacional
         if (!igDatos || igDatos.antiguo) {
             try {
-                console.log("  → Consultando fuente PNA para Iguazú...");
-                const pnaIguazu = await fetchPrefecturaPNA('Puerto Iguazú', /PUERTO IGUAZU\s+IGUAZU\s+(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
+                console.log("  → Consultando telemetría INA en tiempo real para Iguazú (Serie 36964 / 9)...");
+                const inaDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú", [36964, 9]);
+                if (inaDatos && (!igDatos || !inaDatos.antiguo)) {
+                    igDatos = inaDatos;
+                }
+            } catch (e) { console.log("⚠️ Error Iguazú telemetría INA:", e.message); }
+        }
+
+        // Si aún no hay dato reciente, consultar escala física en web de Prefectura (PNA)
+        if (!igDatos || igDatos.antiguo) {
+            try {
+                console.log("  → Consultando fuente PNA web para Iguazú...");
+                const pnaIguazu = await fetchPrefecturaPNA('Puerto Iguazú', /PUERTO IGUAZU\b[^\d]*(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
                 if (pnaIguazu && (!igDatos || !pnaIguazu.antiguo)) {
                     igDatos = pnaIguazu;
                 }
             } catch (e) { console.log("⚠️ Error Iguazú PNA:", e.message); }
-        }
-
-        // Si AGPSE y PNA fallaron o son antiguos (>24h), consultar respaldo INA (Serie 9: Puerto Iguazú oficial)
-        if (!igDatos || igDatos.antiguo) {
-            try {
-                console.log("  → Consultando respaldo INA para Iguazú (Serie 9)...");
-                const inaDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú", [9]);
-                if (inaDatos) {
-                    if (!igDatos) {
-                        igDatos = inaDatos;
-                    } else if (!inaDatos.antiguo) {
-                        // Si INA tiene dato reciente y anterior está viejo, conmutamos a INA
-                        igDatos = inaDatos;
-                    } else {
-                        // Si ambos son viejos, comparar fechas y conservar el más reciente
-                        const [da, ma, ya] = igDatos.fechaStr.split('/');
-                        const [ha, mina] = igDatos.horaStr.split(':');
-                        const fPrevio = new Date(+ya, +ma - 1, +da, +ha, +mina);
-
-                        const [di, mi, yi] = inaDatos.fechaStr.split('/');
-                        const [hi, mini] = inaDatos.horaStr.split(':');
-                        const fINA = new Date(+yi, +mi - 1, +di, +hi, +mini);
-
-                        if (fINA > fPrevio) {
-                            igDatos = inaDatos;
-                        }
-                    }
-                }
-            } catch (e) { console.log("⚠️ Error Iguazú respaldo INA:", e.message); }
         }
 
         // ---- 3. CONCORDIA ----
@@ -690,74 +742,6 @@ function parseAGPSE(txtDat) {
             coDatos = await fetchGeoServerINA("-31.41,-58.03,-31.38,-57.99", "Concordia", [79]);
             if (coDatos && parseFloat(coDatos.altura) <= 0.5) coDatos = null;
         }
-
-// --- Fuente primaria Prefectura Naval Argentina (PNA) ---
-let cachePNAHtml = null;
-let pnaConsultado = false;
-
-async function obtenerHtmlPNA() {
-    if (pnaConsultado) return cachePNAHtml;
-    pnaConsultado = true;
-    try {
-        console.log(`  → Consultando tabla general de alturas de PNA...`);
-        cachePNAHtml = await new Promise((resolve, reject) => {
-            const req = https.request("https://contenidosweb.prefecturanaval.gob.ar/alturas/", {
-                rejectUnauthorized: false,
-                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36' }
-            }, (res) => {
-                let buf = '';
-                res.on('data', chunk => buf += chunk);
-                res.on('end', () => resolve(buf));
-            });
-            req.on('error', reject);
-            req.setTimeout(8000, () => { req.destroy(new Error('timeout')); });
-            req.end();
-        });
-    } catch(e) {
-        console.log(`⚠️ Error conexión PNA:`, e.message);
-        cachePNAHtml = null;
-    }
-    return cachePNAHtml;
-}
-
-async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
-    try {
-        const txtDat = await obtenerHtmlPNA();
-        if (!txtDat) return null;
-
-        const clean = txtDat.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ');
-        const match = clean.match(regexSearch);
-        if (match) {
-            const alt = parseFloat(match[1].replace(',', '.')).toFixed(2);
-            const rawHora = match[3];
-            const horaStr = `${rawHora.substring(0, 2)}:${rawHora.substring(2, 4)}`;
-
-            const parts = match[2].split('/');
-            const mesesMap = { JAN: '01', FEB: '02', MAR: '03', APR: '04', MAY: '05', JUN: '06', JUL: '07', AUG: '08', SEP: '09', OCT: '10', NOV: '11', DEC: '12' };
-            const day = parts[0].padStart(2, '0');
-            const month = mesesMap[parts[1].toUpperCase()] || '08';
-            const year = '20' + parts[2];
-            const fechaStr = `${day}/${month}/${year}`;
-
-            const fechaMed = new Date(+year, +month - 1, +day, +rawHora.substring(0, 2), +rawHora.substring(2, 4));
-            const antiguo = esAntiguo(fechaMed);
-
-            console.log(`  ✅ PNA ${nombrePuerto}: ${alt}m @ ${fechaStr} ${horaStr}`);
-
-            return {
-                altura:   alt,
-                horaStr:  horaStr,
-                fechaStr: fechaStr,
-                fuente:   "PNA",
-                antiguo,
-                textoFB:  `${alt}m (a las ${horaStr} hs)`
-            };
-        }
-    } catch(e) {
-        console.log(`⚠️ Error procesando PNA ${nombrePuerto}:`, e.message);
-    }
-    return null;
-}
 
         // ---- 4. SAN JAVIER ----
         let sjDatos = await fetchPrefecturaPNA('San Javier', /SAN JAVIER\s+URUGUAY\s+(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
