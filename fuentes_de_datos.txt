@@ -19,16 +19,17 @@
 --------------------------------------------------------------------------------
 
 2. IGUAZÚ
-   - Fuente Primaria (AGPSE - Web):
+   - Fuente Primaria (AGPSE - Web / DAT crudo):
      https://hidrografia2.agpse.gob.ar/PuertoIguazu/index.html
-   - Fuente Primaria (AGPSE - Datos crudos DAT):
      http://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.dat
-   - Fuente Secundaria / Telemetría Satelital Tiempo Real (INA API a5 - Serie 36964 - Estación 7277 RHN-SAT):
+   - Telemetría Automática INA (Serie 36964 - Estación 7277 RHN-SAT, cadencia 30 min):
      https://alerta.ina.gob.ar/a5/obs/puntual/series/36964/observaciones
-   - Fuente Terciaria / Escala Manual Prefectura (PNA Web):
-     https://contenidosweb.prefecturanaval.gob.ar/alturas/
-   - Fuente Cuaternaria / Respaldo Diario (INA API a5 - Serie 9 - Escala Puerto Iguazú PNA):
+     * PRIORIDAD POR DEFECTO: Brinda actualizaciones cada 30 minutos.
+     * NOTA: Satura o se traba en 28.52m durante crecidas extremas al verse superada la cota física del sensor.
+   - Escala Oficial Prefectura PNA (INA Serie 9 - tabla alturas_prefe id 20 / PNA Web):
      https://alerta.ina.gob.ar/a5/obs/puntual/series/9/observaciones
+     https://contenidosweb.prefecturanaval.gob.ar/alturas/?page=historico&tiempo=7&id=20
+     * REGLA DE ARBITRAJE: Si PNA informa una altura SUPERIOR y más actualizada (o si la telemetría automática está trabada/saturada), se asigna prioridad inmediata a la altura de Prefectura (Ground truth).
 
 --------------------------------------------------------------------------------
 

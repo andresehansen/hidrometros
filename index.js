@@ -177,12 +177,23 @@ function parsearObsINA(prop) {
     };
 }
 
+// Detecta si un sensor electrónico está trabado/saturado con múltiples lecturas idénticas
+function sensorEstaTrabado(arr) {
+    if (!arr || arr.length < 6) return false;
+    const ultimas = arr.slice(-6);
+    const primerValor = ultimas[0]?.valor;
+    if (primerValor === null || primerValor === undefined || isNaN(primerValor)) return false;
+    return ultimas.every(o => Math.abs(o.valor - primerValor) < 0.001);
+}
+
 // --- Plan B opción 1: API a5 por series_id (más directa y estable) ---
 async function fetchINA_a5(seriesIds, nombrePuerto) {
     const hoy    = obtenerHoraArgentina();
     // Ventana amplia: 7 días
     const inicio = new Date(hoy); inicio.setDate(hoy.getDate() - 7);
     const fin    = new Date(hoy); fin.setDate(hoy.getDate() + 2);
+
+    let mejorOpcion = null;
 
     for (const sid of seriesIds) {
         try {
@@ -196,8 +207,18 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
             const data = await res.json();
             const arr  = Array.isArray(data) ? data : (data.observaciones || []);
             const obs  = arr.length > 0 ? arr[arr.length - 1] : null;
+
             if (obs && obs.valor !== null && obs.valor !== undefined) {
-                console.log(`  ✅ a5 series_id=${sid}: ${obs.valor}m @ ${obs.timestart}`);
+                const trabado = sensorEstaTrabado(arr);
+                if (trabado) {
+                    console.log(`  ⚠️ a5 series_id=${sid}: Sensor trabado/saturado en ${obs.valor}m con múltiples lecturas idénticas.`);
+                    // Si hay más de una serie para probar, saltamos a la siguiente alternativa
+                    if (seriesIds.length > 1) {
+                        continue;
+                    }
+                }
+
+                console.log(`  ✅ a5 series_id=${sid}: ${obs.valor}m @ ${obs.timestart}${trabado ? ' ⚠️ [TRABADO/SATURADO]' : ''}`);
                 const fechaZ  = new Date(obs.timestart);
                 const argTime = new Date(fechaZ.getTime() - 3 * 3600 * 1000);
                 const antiguo = esAntiguo(fechaZ);
@@ -206,19 +227,36 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
                 const yyyy = argTime.getUTCFullYear();
                 const hh   = argTime.getUTCHours().toString().padStart(2,'0');
                 const min  = argTime.getUTCMinutes().toString().padStart(2,'0');
-                const tag  = antiguo ? " ⚠️ (Dato viejo)" : " (Fuente: INA)";
-                return {
+
+                // Las series 9 (Pto Iguazú id 20), 65 (San Javier) y 68 (Santo Tomé) son escalas oficiales de Prefectura (PNA)
+                const esPNA = (sid === 9 || sid === 65 || sid === 68);
+                const fuente = esPNA ? "PNA" : "INA";
+                const tag  = antiguo ? " ⚠️ (Dato viejo)" : ` (Fuente: ${fuente})`;
+
+                const resultado = {
                     altura:   parseFloat(obs.valor).toFixed(2),
                     horaStr:  `${hh}:${min}`,
                     fechaStr: `${dd}/${mm}/${yyyy}`,
-                    fuente:   "INA",
+                    fuente:   fuente,
                     antiguo,
+                    ts:       fechaZ.getTime(),
+                    trabado,
                     textoFB:  `${parseFloat(obs.valor).toFixed(2)}m (a las ${hh}:${min} hs)${tag}`
                 };
+
+                // Si encontramos un dato reciente no antiguo y no trabado, lo retornamos de inmediato
+                if (!antiguo && !trabado) {
+                    return resultado;
+                }
+
+                // Si es antiguo o trabado, lo guardamos como candidato por si ninguna otra serie tiene dato nuevo
+                if (!mejorOpcion) {
+                    mejorOpcion = resultado;
+                }
             }
         } catch(e) { console.log(`  ⚠️ a5 series ${sid} error: ${e.message}`); }
     }
-    return null;
+    return mejorOpcion;
 }
 
 // --- Plan B opción 2: GeoServer WMS por bbox (fallback geográfico) ---
@@ -310,6 +348,7 @@ async function fetchPrefecturaPNA(nombrePuerto, regexSearch) {
                 fechaStr: fechaStr,
                 fuente:   "PNA",
                 antiguo,
+                ts:       fechaMed.getTime(),
                 textoFB:  `${alt}m (a las ${horaStr} hs)`
             };
         }
@@ -578,6 +617,7 @@ function parseAGPSE(txtDat) {
                 fechaStr: fechaStr,
                 fuente:   "AGPSE",
                 antiguo,
+                ts:       fechaMed.getTime(),
                 textoFB:  `${altStr}m (a las ${hhmm} hs)`
             };
         }
@@ -684,28 +724,74 @@ function parseAGPSE(txtDat) {
             }
         } catch (e) { console.log("⚠️ Error Iguazú primario AGPSE:", e.message); }
 
-        // Si AGPSE falló o el dato es antiguo (>24h), consultar telemetría oficial INA en tiempo real
-        // Serie 36964: RHN-SAT (Estación 7277 Pto. Iguazú - lecturas cada 30 min satelitales en tiempo real)
-        // Serie 9: Escala manual PNA Puerto Iguazú oficial en catálogo nacional
+        // Si AGPSE falló o el dato es antiguo (>24h), arbitrar entre Telemetría INA y Escala Prefectura (PNA)
+        // Regla: La telemetría INA (Serie 36964, cadencia 30 min) tiene prioridad por defecto debido a su
+        // menor período de actualización.
+        // Excepción: Si Prefectura (PNA) informa una altura superior y más actualizada (o si la telemetría
+        // automática está trabada/saturada), se le asigna prioridad a la altura de Prefectura.
         if (!igDatos || igDatos.antiguo) {
-            try {
-                console.log("  → Consultando telemetría INA en tiempo real para Iguazú (Serie 36964 / 9)...");
-                const inaDatos = await fetchGeoServerINA("-25.648,-54.64,-25.50,-54.50", "Iguazú", [36964, 9]);
-                if (inaDatos && (!igDatos || !inaDatos.antiguo)) {
-                    igDatos = inaDatos;
-                }
-            } catch (e) { console.log("⚠️ Error Iguazú telemetría INA:", e.message); }
-        }
+            let inaAuto = null;
+            let pnaOficial = null;
 
-        // Si aún no hay dato reciente, consultar escala física en web de Prefectura (PNA)
-        if (!igDatos || igDatos.antiguo) {
+            // 1. Telemetría automática INA (Serie 36964: RHN-SAT estación 7277, cada 30 min)
             try {
-                console.log("  → Consultando fuente PNA web para Iguazú...");
-                const pnaIguazu = await fetchPrefecturaPNA('Puerto Iguazú', /PUERTO IGUAZU\b[^\d]*(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
-                if (pnaIguazu && (!igDatos || !pnaIguazu.antiguo)) {
-                    igDatos = pnaIguazu;
+                console.log("  → Consultando telemetría automática INA para Iguazú (Serie 36964)...");
+                inaAuto = await fetchINA_a5([36964], "Iguazú (Telemetría INA 30m)");
+            } catch (e) { console.log("  ⚠️ Error telemetría INA 36964:", e.message); }
+
+            // 2. Escala oficial de Prefectura (PNA) vía Serie 9 de INA (tabla alturas_prefe id 20)
+            try {
+                console.log("  → Consultando escala oficial PNA para Iguazú (Serie 9)...");
+                pnaOficial = await fetchINA_a5([9], "Iguazú (Escala PNA Serie 9)");
+            } catch (e) { console.log("  ⚠️ Error escala PNA Serie 9:", e.message); }
+
+            // 3. Respaldo directo: Web oficial de Prefectura Naval Argentina (PNA)
+            try {
+                console.log("  → Consultando web de Prefectura (PNA) para Iguazú...");
+                const pnaWeb = await fetchPrefecturaPNA('Puerto Iguazú', /PUERTO IGUAZU\b[^\d]*(\d+[\.,]\d{1,2})\s+[-+]?\d+[\.,]\d{1,2}\s+\d+\s+(\d{2}\/[A-Z]{3}\/\d{2})\s*-\s*(\d{2}\d{2})/i);
+                if (pnaWeb) {
+                    if (!pnaOficial || (pnaWeb.ts || 0) >= (pnaOficial.ts || 0)) {
+                        pnaOficial = pnaWeb;
+                    }
                 }
-            } catch (e) { console.log("⚠️ Error Iguazú PNA:", e.message); }
+            } catch (e) { console.log("  ⚠️ Error Iguazú PNA web:", e.message); }
+
+            // 4. Arbitraje inteligente según la regla establecida
+            if (inaAuto && pnaOficial) {
+                const altINA = parseFloat(inaAuto.altura);
+                const altPNA = parseFloat(pnaOficial.altura);
+                const tsINA  = inaAuto.ts || 0;
+                const tsPNA  = pnaOficial.ts || 0;
+
+                const pnaEsSuperior      = !isNaN(altPNA) && !isNaN(altINA) && (altPNA > altINA);
+                const pnaEsMasNueva      = tsPNA >= tsINA;
+                const pnaReciente        = !pnaOficial.antiguo;
+                const pnaDiferenciaMayor = pnaEsSuperior && (altPNA - altINA >= 0.5);
+
+                if (inaAuto.trabado) {
+                    console.log(`  🚨 Telemetría INA trabada/saturada en ${altINA}m. Se asigna prioridad a Prefectura (${altPNA}m @ ${pnaOficial.horaStr} hs).`);
+                    igDatos = pnaOficial;
+                } else if (pnaEsSuperior && (pnaEsMasNueva || inaAuto.antiguo)) {
+                    console.log(`  🚨 PNA informa altura SUPERIOR (${altPNA}m @ ${pnaOficial.horaStr} hs) y MÁS ACTUALIZADA que telemetría INA (${altINA}m @ ${inaAuto.horaStr} hs). Se asigna prioridad a Prefectura.`);
+                    igDatos = pnaOficial;
+                } else if (pnaDiferenciaMayor && pnaReciente) {
+                    console.log(`  🚨 PNA informa altura significativamente SUPERIOR (+${(altPNA - altINA).toFixed(2)}m: ${altPNA}m vs ${altINA}m) y vigente. Sensor automático posiblemente saturado/sumergido. Se asigna prioridad a Prefectura.`);
+                    igDatos = pnaOficial;
+                } else if (!inaAuto.antiguo) {
+                    console.log(`  ✅ Telemetría INA priorizada por cadencia corta (30 min): ${altINA}m @ ${inaAuto.horaStr} hs (PNA informó ${altPNA}m @ ${pnaOficial.horaStr} hs).`);
+                    igDatos = inaAuto;
+                } else {
+                    igDatos = pnaReciente ? pnaOficial : inaAuto;
+                }
+            } else if (inaAuto && !inaAuto.trabado && !inaAuto.antiguo) {
+                console.log(`  ✅ Telemetría INA seleccionada: ${inaAuto.altura}m @ ${inaAuto.horaStr} hs.`);
+                igDatos = inaAuto;
+            } else if (pnaOficial) {
+                console.log(`  ✅ Escala Prefectura (PNA) seleccionada: ${pnaOficial.altura}m @ ${pnaOficial.horaStr} hs.`);
+                igDatos = pnaOficial;
+            } else if (inaAuto) {
+                igDatos = inaAuto;
+            }
         }
 
         // ---- 3. CONCORDIA ----
