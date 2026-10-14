@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "14/10/2026 a las 08:19 hs",
-  "generadoEn": "2026-10-14T08:19:23.000Z",
+  "fechaReporte": "14/10/2026 a las 09:19 hs",
+  "generadoEn": "2026-10-14T09:19:22.000Z",
   "laplata": {
-    "altura": "1.27",
-    "horaStr": "07:45",
+    "altura": "1.32",
+    "horaStr": "08:45",
     "fechaStr": "14/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.27m (a las 07:45 hs) (Fuente: SHN)",
+    "textoFB": "1.32m (a las 08:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.32",
-        "fechaStr": "12/10/2026",
-        "horaStr": "09:45"
-      },
       {
         "altura": "1.19",
         "fechaStr": "12/10/2026",
@@ -251,19 +246,24 @@
         "altura": "1.27",
         "fechaStr": "14/10/2026",
         "horaStr": "07:45"
+      },
+      {
+        "altura": "1.32",
+        "fechaStr": "14/10/2026",
+        "horaStr": "08:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.08m)",
-      "diferencia": "+0.08"
+      "texto": "Subiendo (+0.05m)",
+      "diferencia": "+0.05"
     }
   },
   "viento": {
-    "velocidad": 11.2,
+    "velocidad": 10.2,
     "direccion": "Sur (S)",
-    "temperatura": 14.9
+    "temperatura": 16
   },
   "pronostico": {
     "pleamar": {
@@ -281,24 +281,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.20m (14/10 a las 20:30 hs). Viento: 11.2 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.27",
-    "alturaProyectada": "1.27",
+    "mensaje": "Pleamar máxima prevista: 1.20m (14/10 a las 20:30 hs). Viento: 10.2 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "1.32",
+    "alturaProyectada": "1.32",
     "proximaPleamar": {
       "hora": "20:30",
       "altura": "1.20",
       "fecha": "14/10"
     },
     "viento": {
-      "velocidad": 11.2,
+      "velocidad": 10.2,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-14T11:20:19.253Z"
+    "actualizadoEn": "2026-10-14T12:20:13.629Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-14T11:20:13.766Z",
+    "actualizadoEn": "2026-10-14T12:20:07.125Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -448,19 +448,14 @@
   },
   "iguazu": {
     "altura": "28.52",
-    "horaStr": "00:30",
+    "horaStr": "04:00",
     "fechaStr": "14/10/2026",
     "fuente": "INA",
     "antiguo": false,
-    "textoFB": "28.52m (a las 00:30 hs) (Fuente: INA)",
+    "textoFB": "28.52m (a las 04:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.68",
-        "fechaStr": "10/10/2026",
-        "horaStr": "05:40"
-      },
       {
         "altura": "20.75",
         "fechaStr": "10/10/2026",
@@ -695,6 +690,11 @@
         "altura": "28.52",
         "fechaStr": "14/10/2026",
         "horaStr": "00:30"
+      },
+      {
+        "altura": "28.52",
+        "fechaStr": "14/10/2026",
+        "horaStr": "04:00"
       }
     ],
     "tendencia": {
@@ -1221,20 +1221,15 @@
     }
   },
   "concordia": {
-    "altura": "11.10",
-    "horaStr": "06:00",
+    "altura": "11.06",
+    "horaStr": "08:00",
     "fechaStr": "14/10/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "11.10m (a las 06:00 hs)",
+    "textoFB": "11.06m (a las 08:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "8.88",
-        "fechaStr": "30/09/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "8.92",
         "fechaStr": "01/10/2026",
@@ -1469,13 +1464,18 @@
         "altura": "11.10",
         "fechaStr": "14/10/2026",
         "horaStr": "06:00"
+      },
+      {
+        "altura": "11.06",
+        "fechaStr": "14/10/2026",
+        "horaStr": "08:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "texto": "Bajando (-0.04m)",
+      "diferencia": "-0.04"
     }
   },
   "saltogrande": {
