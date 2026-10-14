@@ -233,6 +233,22 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
                 const fuente = esPNA ? "PNA" : "INA";
                 const tag  = antiguo ? " ⚠️ (Dato viejo)" : ` (Fuente: ${fuente})`;
 
+                // Construir lote histórico de la serie (permite poblar curvas y gráficos)
+                const historialLecturas = [];
+                for (const item of arr) {
+                    if (item && item.valor !== null && item.valor !== undefined && !isNaN(parseFloat(item.valor))) {
+                        const fZ = new Date(item.timestart);
+                        const aT = new Date(fZ.getTime() - 3 * 3600 * 1000);
+                        const dStr = `${aT.getUTCDate().toString().padStart(2,'0')}/${(aT.getUTCMonth()+1).toString().padStart(2,'0')}/${aT.getUTCFullYear()}`;
+                        const hStr = `${aT.getUTCHours().toString().padStart(2,'0')}:${aT.getUTCMinutes().toString().padStart(2,'0')}`;
+                        historialLecturas.push({
+                            altura: parseFloat(item.valor).toFixed(2),
+                            fechaStr: dStr,
+                            horaStr: hStr
+                        });
+                    }
+                }
+
                 const resultado = {
                     altura:   parseFloat(obs.valor).toFixed(2),
                     horaStr:  `${hh}:${min}`,
@@ -241,6 +257,7 @@ async function fetchINA_a5(seriesIds, nombrePuerto) {
                     antiguo,
                     ts:       fechaZ.getTime(),
                     trabado,
+                    historialLecturas,
                     textoFB:  `${parseFloat(obs.valor).toFixed(2)}m (a las ${hh}:${min} hs)${tag}`
                 };
 
@@ -932,7 +949,14 @@ function parseAGPSE(txtDat) {
             // Filtrar lecturas corruptas o inválidas del historial
             hist = hist.filter(h => h && !isNaN(parseFloat(h.altura)) && parseFloat(h.altura) > minAlturaValida);
 
-            // Incorporar lote histórico si nuevoDato lo provee (ej. SHN Alturas Horarias)
+            // Depuración de lecturas espurias en Iguazú:
+            // Si la fuente activa es PNA (o hay lecturas oficiales de Prefectura), limpiar del historial
+            // las lecturas repetitivas de 28.52m generadas mientras el sensor satelital estuvo trabado/saturado
+            if (puertoKey === 'iguazu' && nuevoDato && nuevoDato.fuente === 'PNA') {
+                hist = hist.filter(h => h.altura !== '28.52');
+            }
+
+            // Incorporar lote histórico si nuevoDato lo provee (ej. SHN o INA API a5)
             if (nuevoDato && Array.isArray(nuevoDato.historialLecturas)) {
                 for (const l of nuevoDato.historialLecturas) {
                     if (l && !isNaN(parseFloat(l.altura)) && parseFloat(l.altura) > minAlturaValida) {
@@ -991,6 +1015,7 @@ function parseAGPSE(txtDat) {
             igDatos.alerta = 25.0; 
             igDatos.evacuacion = 28.0; 
             igDatos.historico = getHistorico('iguazu', igDatos);
+            delete igDatos.historialLecturas;
             igDatos.tendencia = calcularTendencia(igDatos.historico, igDatos.altura);
         } else if (datosAnteriores.iguazu) {
             igDatos = datosAnteriores.iguazu;
@@ -1000,6 +1025,7 @@ function parseAGPSE(txtDat) {
             coDatos.alerta = 11.0; 
             coDatos.evacuacion = 12.5; 
             coDatos.historico = getHistorico('concordia', coDatos, null, 0.5);
+            delete coDatos.historialLecturas;
             coDatos.tendencia = calcularTendencia(coDatos.historico, coDatos.altura);
         } else if (datosAnteriores.concordia && parseFloat(datosAnteriores.concordia.altura) > 0.5) {
             coDatos = datosAnteriores.concordia;
@@ -1010,6 +1036,7 @@ function parseAGPSE(txtDat) {
             sjDatos.alerta = 8.0;
             sjDatos.evacuacion = 10.0;
             sjDatos.historico = getHistorico('sanjavier', sjDatos);
+            delete sjDatos.historialLecturas;
             sjDatos.tendencia = calcularTendencia(sjDatos.historico, sjDatos.altura);
         } else if (datosAnteriores.sanjavier) {
             sjDatos = datosAnteriores.sanjavier;
@@ -1019,6 +1046,7 @@ function parseAGPSE(txtDat) {
             stDatos.alerta = 11.5;
             stDatos.evacuacion = 12.5;
             stDatos.historico = getHistorico('santotome', stDatos);
+            delete stDatos.historialLecturas;
             stDatos.tendencia = calcularTendencia(stDatos.historico, stDatos.altura);
         } else if (datosAnteriores.santotome) {
             stDatos = datosAnteriores.santotome;
