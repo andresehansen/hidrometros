@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "15/10/2026 a las 18:19 hs",
-  "generadoEn": "2026-10-15T18:19:23.000Z",
+  "fechaReporte": "15/10/2026 a las 18:57 hs",
+  "generadoEn": "2026-10-15T18:57:19.000Z",
   "laplata": {
-    "altura": "1.55",
-    "horaStr": "17:45",
+    "altura": "1.65",
+    "horaStr": "18:45",
     "fechaStr": "15/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.55m (a las 17:45 hs) (Fuente: SHN)",
+    "textoFB": "1.65m (a las 18:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.34",
-        "fechaStr": "13/10/2026",
-        "horaStr": "19:45"
-      },
       {
         "altura": "1.35",
         "fechaStr": "13/10/2026",
@@ -251,19 +246,24 @@
         "altura": "1.55",
         "fechaStr": "15/10/2026",
         "horaStr": "17:45"
+      },
+      {
+        "altura": "1.65",
+        "fechaStr": "15/10/2026",
+        "horaStr": "18:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.18m)",
-      "diferencia": "+0.18"
+      "texto": "Subiendo (+0.10m)",
+      "diferencia": "+0.10"
     }
   },
   "viento": {
-    "velocidad": 18.6,
+    "velocidad": 18.8,
     "direccion": "Sureste (SE)",
-    "temperatura": 15
+    "temperatura": 14.5
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.90m (15/10 a las 21:00 hs). Viento: 18.6 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "1.55",
+    "mensaje": "Pleamar máxima prevista: 1.90m (15/10 a las 21:00 hs). Viento: 18.8 km/h Sureste (SE). Condiciones habituales de marea.",
+    "alturaActual": "1.65",
     "alturaProyectada": "1.90",
     "proximaPleamar": {
       "hora": "21:00",
@@ -290,15 +290,15 @@
       "fecha": "15/10"
     },
     "viento": {
-      "velocidad": 18.6,
+      "velocidad": 18.8,
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-15T21:20:21.490Z"
+    "actualizadoEn": "2026-10-15T21:58:09.410Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-15T21:20:16.489Z",
+    "actualizadoEn": "2026-10-15T21:58:04.022Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
