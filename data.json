@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "15/10/2026 a las 15:19 hs",
-  "generadoEn": "2026-10-15T15:19:23.000Z",
+  "fechaReporte": "15/10/2026 a las 16:19 hs",
+  "generadoEn": "2026-10-15T16:19:23.000Z",
   "laplata": {
-    "altura": "1.08",
-    "horaStr": "14:45",
+    "altura": "1.14",
+    "horaStr": "15:45",
     "fechaStr": "15/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.08m (a las 14:45 hs) (Fuente: SHN)",
+    "textoFB": "1.14m (a las 15:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.12",
-        "fechaStr": "13/10/2026",
-        "horaStr": "16:45"
-      },
       {
         "altura": "1.22",
         "fechaStr": "13/10/2026",
@@ -251,54 +246,59 @@
         "altura": "1.08",
         "fechaStr": "15/10/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "1.14",
+        "fechaStr": "15/10/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.06m)",
+      "diferencia": "+0.06"
     }
   },
   "viento": {
-    "velocidad": 22.9,
+    "velocidad": 21.9,
     "direccion": "Sureste (SE)",
-    "temperatura": 17.1
+    "temperatura": 16.5
   },
   "pronostico": {
     "pleamar": {
-      "hora": "09:00",
-      "altura": "1.50",
+      "hora": "21:00",
+      "altura": "1.90",
       "fecha": "15/10"
     },
     "bajamar": {
-      "hora": "15:00",
-      "altura": "1.10",
-      "fecha": "15/10"
+      "hora": "04:00",
+      "altura": "1.30",
+      "fecha": "16/10"
     }
   },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.50m (15/10 a las 09:00 hs). Viento: 22.9 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "1.08",
-    "alturaProyectada": "1.50",
+    "mensaje": "Pleamar máxima prevista: 1.90m (15/10 a las 21:00 hs). Viento: 21.9 km/h Sureste (SE). Condiciones habituales de marea.",
+    "alturaActual": "1.14",
+    "alturaProyectada": "1.90",
     "proximaPleamar": {
-      "hora": "09:00",
-      "altura": "1.50",
+      "hora": "21:00",
+      "altura": "1.90",
       "fecha": "15/10"
     },
     "viento": {
-      "velocidad": 22.9,
+      "velocidad": 21.9,
       "direccion": "Sureste (SE)",
       "esSudeste": true
     },
-    "actualizadoEn": "2026-10-15T18:20:31.485Z"
+    "actualizadoEn": "2026-10-15T19:20:17.436Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-15T18:20:26.066Z",
+    "actualizadoEn": "2026-10-15T19:20:12.031Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
