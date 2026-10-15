@@ -1,24 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "15/10/2026 a las 04:01 hs",
-  "generadoEn": "2026-10-15T04:01:04.000Z",
+  "fechaReporte": "15/10/2026 a las 04:19 hs",
+  "generadoEn": "2026-10-15T04:19:22.000Z",
   "laplata": {
-    "altura": "0.93",
-    "horaStr": "02:45",
+    "altura": "0.91",
+    "horaStr": "03:45",
     "fechaStr": "15/10/2026",
-    "fuente": "INA",
+    "fuente": "SHN",
     "antiguo": false,
-    "ts": 1792043100000,
-    "trabado": false,
-    "textoFB": "0.93m (a las 02:45 hs) (Fuente: INA)",
+    "textoFB": "0.91m (a las 03:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.09",
-        "fechaStr": "13/10/2026",
-        "horaStr": "04:45"
-      },
       {
         "altura": "1.23",
         "fechaStr": "13/10/2026",
@@ -253,13 +246,18 @@
         "altura": "0.93",
         "fechaStr": "15/10/2026",
         "horaStr": "02:45"
+      },
+      {
+        "altura": "0.91",
+        "fechaStr": "15/10/2026",
+        "horaStr": "03:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.08m)",
-      "diferencia": "-0.08"
+      "texto": "Bajando (-0.02m)",
+      "diferencia": "-0.02"
     }
   },
   "viento": {
@@ -267,25 +265,40 @@
     "direccion": "Sur (S)",
     "temperatura": 13.5
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "09:30",
+      "altura": "1.50",
+      "fecha": "15/10"
+    },
+    "bajamar": {
+      "hora": "03:00",
+      "altura": "1.00",
+      "fecha": "15/10"
+    }
+  },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Nivel de marea dentro de parámetros habituales.",
-    "alturaActual": "0.93",
-    "alturaProyectada": "0.93",
-    "proximaPleamar": null,
+    "mensaje": "Pleamar máxima prevista: 1.50m (15/10 a las 09:30 hs). Viento: 12.4 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "0.91",
+    "alturaProyectada": "1.50",
+    "proximaPleamar": {
+      "hora": "09:30",
+      "altura": "1.50",
+      "fecha": "15/10"
+    },
     "viento": {
       "velocidad": 12.4,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-15T07:02:20.868Z"
+    "actualizadoEn": "2026-10-15T07:20:28.168Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-15T07:02:15.425Z",
+    "actualizadoEn": "2026-10-15T07:20:22.795Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
