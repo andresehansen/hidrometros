@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "14/10/2026 a las 21:19 hs",
-  "generadoEn": "2026-10-14T21:19:25.000Z",
+  "fechaReporte": "14/10/2026 a las 22:13 hs",
+  "generadoEn": "2026-10-14T22:13:37.000Z",
   "laplata": {
-    "altura": "1.48",
-    "horaStr": "20:45",
+    "altura": "1.46",
+    "horaStr": "21:45",
     "fechaStr": "14/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.48m (a las 20:45 hs) (Fuente: SHN)",
+    "textoFB": "1.46m (a las 21:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.03",
-        "fechaStr": "12/10/2026",
-        "horaStr": "22:45"
-      },
       {
         "altura": "0.90",
         "fechaStr": "12/10/2026",
@@ -251,20 +246,21 @@
         "altura": "1.48",
         "fechaStr": "14/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "1.46",
+        "fechaStr": "14/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.05m)",
-      "diferencia": "+0.05"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.02m)",
+      "diferencia": "-0.02"
     }
   },
-  "viento": {
-    "velocidad": 12.5,
-    "direccion": "Sureste (SE)",
-    "temperatura": 13.8
-  },
+  "viento": null,
   "pronostico": {
     "pleamar": {
       "hora": "21:30",
@@ -281,24 +277,20 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.40m (14/10 a las 21:30 hs). Viento: 12.5 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "1.48",
-    "alturaProyectada": "1.48",
+    "mensaje": "Pleamar máxima prevista: 1.40m (14/10 a las 21:30 hs). Viento: 0 km/h . Condiciones habituales de marea.",
+    "alturaActual": "1.46",
+    "alturaProyectada": "1.46",
     "proximaPleamar": {
       "hora": "21:30",
       "altura": "1.40",
       "fecha": "14/10"
     },
-    "viento": {
-      "velocidad": 12.5,
-      "direccion": "Sureste (SE)",
-      "esSudeste": false
-    },
-    "actualizadoEn": "2026-10-15T00:20:14.541Z"
+    "viento": null,
+    "actualizadoEn": "2026-10-15T01:14:57.210Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-15T00:20:09.120Z",
+    "actualizadoEn": "2026-10-15T01:14:51.744Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1463,12 +1455,56 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "32.64",
-      "horaStr": "12:00",
+      "altura": "32.78",
+      "horaStr": "00:00",
       "fechaStr": "14/10/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "32.64m (a las 12:00 hs)",
+      "ts": 1791946800000,
+      "trabado": false,
+      "historialLecturas": [
+        {
+          "altura": "33.03",
+          "fechaStr": "07/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.63",
+          "fechaStr": "08/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.35",
+          "fechaStr": "09/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.20",
+          "fechaStr": "10/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.24",
+          "fechaStr": "11/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.28",
+          "fechaStr": "12/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.51",
+          "fechaStr": "13/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.78",
+          "fechaStr": "14/10/2026",
+          "horaStr": "00:00"
+        }
+      ],
+      "textoFB": "32.78m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1714,19 +1750,63 @@
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.14m)",
-        "diferencia": "-0.14"
+        "icono": "➡️",
+        "estado": "estacionado",
+        "texto": "Estacionado",
+        "diferencia": "0.00"
       }
     },
     "abajo": {
-      "altura": "14.25",
-      "horaStr": "12:00",
+      "altura": "14.16",
+      "horaStr": "00:00",
       "fechaStr": "14/10/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "14.25m (a las 12:00 hs)",
+      "ts": 1791946800000,
+      "trabado": false,
+      "historialLecturas": [
+        {
+          "altura": "13.91",
+          "fechaStr": "07/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.24",
+          "fechaStr": "08/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.63",
+          "fechaStr": "09/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.68",
+          "fechaStr": "10/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.63",
+          "fechaStr": "11/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.59",
+          "fechaStr": "12/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.32",
+          "fechaStr": "13/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "14.16",
+          "fechaStr": "14/10/2026",
+          "horaStr": "00:00"
+        }
+      ],
+      "textoFB": "14.16m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -1972,10 +2052,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬆️",
-        "estado": "subiendo",
-        "texto": "Subiendo (+0.09m)",
-        "diferencia": "+0.09"
+        "icono": "➡️",
+        "estado": "estacionado",
+        "texto": "Estacionado",
+        "diferencia": "0.00"
       }
     }
   }
