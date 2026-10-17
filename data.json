@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "16/10/2026 a las 22:05 hs",
-  "generadoEn": "2026-10-16T22:05:28.000Z",
+  "fechaReporte": "16/10/2026 a las 22:19 hs",
+  "generadoEn": "2026-10-16T22:19:19.000Z",
   "laplata": {
     "altura": "1.86",
     "horaStr": "21:45",
@@ -260,7 +260,11 @@
       "diferencia": "+0.03"
     }
   },
-  "viento": null,
+  "viento": {
+    "velocidad": 13.3,
+    "direccion": "Sur (S)",
+    "temperatura": 11.1
+  },
   "pronostico": {
     "pleamar": {
       "hora": "22:00",
@@ -277,7 +281,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 2.20m (16/10 a las 22:00 hs). Viento: 0 km/h . Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 2.20m (16/10 a las 22:00 hs). Viento: 13.3 km/h Sur (S). Condiciones habituales de marea.",
     "alturaActual": "1.86",
     "alturaProyectada": "2.20",
     "proximaPleamar": {
@@ -285,12 +289,16 @@
       "altura": "2.20",
       "fecha": "16/10"
     },
-    "viento": null,
-    "actualizadoEn": "2026-10-17T01:06:27.966Z"
+    "viento": {
+      "velocidad": 13.3,
+      "direccion": "Sur (S)",
+      "esSudeste": false
+    },
+    "actualizadoEn": "2026-10-17T01:20:19.228Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-17T01:06:22.486Z",
+    "actualizadoEn": "2026-10-17T01:20:13.767Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
