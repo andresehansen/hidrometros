@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "17/10/2026 a las 01:19 hs",
-  "generadoEn": "2026-10-17T01:19:24.000Z",
+  "fechaReporte": "17/10/2026 a las 02:19 hs",
+  "generadoEn": "2026-10-17T02:19:21.000Z",
   "laplata": {
-    "altura": "1.70",
-    "horaStr": "00:45",
+    "altura": "1.59",
+    "horaStr": "01:45",
     "fechaStr": "17/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.70m (a las 00:45 hs) (Fuente: SHN)",
+    "textoFB": "1.59m (a las 01:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.01",
-        "fechaStr": "15/10/2026",
-        "horaStr": "01:45"
-      },
       {
         "altura": "0.93",
         "fechaStr": "15/10/2026",
@@ -251,6 +246,11 @@
         "altura": "1.70",
         "fechaStr": "17/10/2026",
         "horaStr": "00:45"
+      },
+      {
+        "altura": "1.59",
+        "fechaStr": "17/10/2026",
+        "horaStr": "01:45"
       }
     ],
     "tendencia": {
@@ -261,9 +261,9 @@
     }
   },
   "viento": {
-    "velocidad": 13.5,
+    "velocidad": 13.9,
     "direccion": "Sur (S)",
-    "temperatura": 9.3
+    "temperatura": 9.1
   },
   "pronostico": {
     "pleamar": {
@@ -281,24 +281,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.55m (17/10 a las 11:00 hs). Viento: 13.5 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.70",
-    "alturaProyectada": "1.70",
+    "mensaje": "Pleamar máxima prevista: 1.55m (17/10 a las 11:00 hs). Viento: 13.9 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "1.59",
+    "alturaProyectada": "1.59",
     "proximaPleamar": {
       "hora": "11:00",
       "altura": "1.55",
       "fecha": "17/10"
     },
     "viento": {
-      "velocidad": 13.5,
+      "velocidad": 13.9,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-17T04:20:43.807Z"
+    "actualizadoEn": "2026-10-17T05:20:20.158Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-17T04:20:37.513Z",
+    "actualizadoEn": "2026-10-17T05:20:14.698Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -447,42 +447,17 @@
     }
   },
   "iguazu": {
-    "altura": "32.47",
-    "horaStr": "23:00",
-    "fechaStr": "16/10/2026",
+    "altura": "32.26",
+    "horaStr": "01:30",
+    "fechaStr": "17/10/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1792202400000,
+    "ts": 1792211400000,
     "trabado": false,
-    "textoFB": "32.47m (a las 23:00 hs) (Fuente: INA)",
+    "textoFB": "32.26m (a las 01:30 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "32.97",
-        "fechaStr": "15/10/2026",
-        "horaStr": "23:30"
-      },
-      {
-        "altura": "32.93",
-        "fechaStr": "16/10/2026",
-        "horaStr": "00:00"
-      },
-      {
-        "altura": "32.94",
-        "fechaStr": "16/10/2026",
-        "horaStr": "00:30"
-      },
-      {
-        "altura": "32.91",
-        "fechaStr": "16/10/2026",
-        "horaStr": "01:00"
-      },
-      {
-        "altura": "32.89",
-        "fechaStr": "16/10/2026",
-        "horaStr": "01:30"
-      },
       {
         "altura": "32.87",
         "fechaStr": "16/10/2026",
@@ -697,6 +672,31 @@
         "altura": "32.47",
         "fechaStr": "16/10/2026",
         "horaStr": "23:00"
+      },
+      {
+        "altura": "32.44",
+        "fechaStr": "16/10/2026",
+        "horaStr": "23:30"
+      },
+      {
+        "altura": "32.37",
+        "fechaStr": "17/10/2026",
+        "horaStr": "00:00"
+      },
+      {
+        "altura": "32.31",
+        "fechaStr": "17/10/2026",
+        "horaStr": "00:30"
+      },
+      {
+        "altura": "32.25",
+        "fechaStr": "17/10/2026",
+        "horaStr": "01:00"
+      },
+      {
+        "altura": "32.26",
+        "fechaStr": "17/10/2026",
+        "horaStr": "01:30"
       }
     ],
     "tendencia": {
