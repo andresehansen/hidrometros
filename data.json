@@ -1,14 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "18/10/2026 a las 00:15 hs",
-  "generadoEn": "2026-10-18T00:15:33.000Z",
+  "fechaReporte": "18/10/2026 a las 00:19 hs",
+  "generadoEn": "2026-10-18T00:19:21.000Z",
   "laplata": {
-    "altura": "1.61",
-    "horaStr": "23:45",
+    "altura": "1.64",
+    "horaStr": "22:45",
     "fechaStr": "17/10/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "1.61m (a las 23:45 hs) (Fuente: SHN)",
+    "ts": 1792287900000,
+    "trabado": false,
+    "textoFB": "1.64m (a las 22:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -254,10 +256,10 @@
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
@@ -265,40 +267,25 @@
     "direccion": "Sur (S)",
     "temperatura": 9.3
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "09:30",
-      "altura": "1.00",
-      "fecha": "18/10"
-    },
-    "bajamar": {
-      "hora": "06:00",
-      "altura": "0.80",
-      "fecha": "18/10"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (18/10 a las 09:30 hs). Viento: 11 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.61",
-    "alturaProyectada": "1.61",
-    "proximaPleamar": {
-      "hora": "09:30",
-      "altura": "1.00",
-      "fecha": "18/10"
-    },
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
+    "alturaActual": "1.64",
+    "alturaProyectada": "1.64",
+    "proximaPleamar": null,
     "viento": {
       "velocidad": 11,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-18T03:16:44.329Z"
+    "actualizadoEn": "2026-10-18T03:20:38.986Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-18T03:16:38.801Z",
+    "actualizadoEn": "2026-10-18T03:20:33.648Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
