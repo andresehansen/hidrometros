@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "18/10/2026 a las 12:19 hs",
-  "generadoEn": "2026-10-18T12:19:25.000Z",
+  "fechaReporte": "18/10/2026 a las 13:19 hs",
+  "generadoEn": "2026-10-18T13:19:23.000Z",
   "laplata": {
-    "altura": "1.23",
-    "horaStr": "11:45",
+    "altura": "1.22",
+    "horaStr": "12:45",
     "fechaStr": "18/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.23m (a las 11:45 hs) (Fuente: SHN)",
+    "textoFB": "1.22m (a las 12:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.73",
-        "fechaStr": "16/10/2026",
-        "horaStr": "12:45"
-      },
       {
         "altura": "1.56",
         "fechaStr": "16/10/2026",
@@ -251,19 +246,24 @@
         "altura": "1.23",
         "fechaStr": "18/10/2026",
         "horaStr": "11:45"
+      },
+      {
+        "altura": "1.22",
+        "fechaStr": "18/10/2026",
+        "horaStr": "12:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.08m)",
-      "diferencia": "-0.08"
+      "texto": "Bajando (-0.01m)",
+      "diferencia": "-0.01"
     }
   },
   "viento": {
-    "velocidad": 8.5,
+    "velocidad": 7.8,
     "direccion": "Sur (S)",
-    "temperatura": 13.5
+    "temperatura": 14
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.25m (18/10 a las 10:00 hs). Viento: 8.5 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.23",
+    "mensaje": "Pleamar máxima prevista: 1.25m (18/10 a las 10:00 hs). Viento: 7.8 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "1.22",
     "alturaProyectada": "1.25",
     "proximaPleamar": {
       "hora": "10:00",
@@ -290,15 +290,15 @@
       "fecha": "18/10"
     },
     "viento": {
-      "velocidad": 8.5,
+      "velocidad": 7.8,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-18T15:20:24.517Z"
+    "actualizadoEn": "2026-10-18T16:20:18.147Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-18T15:20:19.025Z",
+    "actualizadoEn": "2026-10-18T16:20:12.672Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1227,20 +1227,15 @@
     }
   },
   "concordia": {
-    "altura": "10.74",
-    "horaStr": "00:00",
+    "altura": "10.70",
+    "horaStr": "12:00",
     "fechaStr": "18/10/2026",
     "fuente": "SRH",
     "antiguo": false,
-    "textoFB": "10.74m (a las 00:00 hs)",
+    "textoFB": "10.70m (a las 12:00 hs)",
     "alerta": 11,
     "evacuacion": 12.5,
     "historico": [
-      {
-        "altura": "10.08",
-        "fechaStr": "05/10/2026",
-        "horaStr": "12:00"
-      },
       {
         "altura": "10.30",
         "fechaStr": "06/10/2026",
@@ -1475,13 +1470,18 @@
         "altura": "10.74",
         "fechaStr": "18/10/2026",
         "horaStr": "00:00"
+      },
+      {
+        "altura": "10.70",
+        "fechaStr": "18/10/2026",
+        "horaStr": "12:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.10m)",
-      "diferencia": "-0.10"
+      "texto": "Bajando (-0.04m)",
+      "diferencia": "-0.04"
     }
   },
   "saltogrande": {
