@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "18/10/2026 a las 05:35 hs",
-  "generadoEn": "2026-10-18T05:35:10.000Z",
+  "fechaReporte": "18/10/2026 a las 06:19 hs",
+  "generadoEn": "2026-10-18T06:19:22.000Z",
   "laplata": {
-    "altura": "1.11",
-    "horaStr": "04:45",
+    "altura": "1.09",
+    "horaStr": "05:45",
     "fechaStr": "18/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.11m (a las 04:45 hs) (Fuente: SHN)",
+    "textoFB": "1.09m (a las 05:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.51",
-        "fechaStr": "16/10/2026",
-        "horaStr": "05:45"
-      },
       {
         "altura": "1.57",
         "fechaStr": "16/10/2026",
@@ -251,19 +246,24 @@
         "altura": "1.11",
         "fechaStr": "18/10/2026",
         "horaStr": "04:45"
+      },
+      {
+        "altura": "1.09",
+        "fechaStr": "18/10/2026",
+        "horaStr": "05:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "texto": "Bajando (-0.02m)",
+      "diferencia": "-0.02"
     }
   },
   "viento": {
-    "velocidad": 12.3,
+    "velocidad": 12.2,
     "direccion": "Sur (S)",
-    "temperatura": 6.7
+    "temperatura": 6.8
   },
   "pronostico": {
     "pleamar": {
@@ -281,24 +281,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (18/10 a las 09:30 hs). Viento: 12.3 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "1.11",
-    "alturaProyectada": "1.11",
+    "mensaje": "Pleamar máxima prevista: 1.00m (18/10 a las 09:30 hs). Viento: 12.2 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "1.09",
+    "alturaProyectada": "1.09",
     "proximaPleamar": {
       "hora": "09:30",
       "altura": "1.00",
       "fecha": "18/10"
     },
     "viento": {
-      "velocidad": 12.3,
+      "velocidad": 12.2,
       "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-18T08:36:07.976Z"
+    "actualizadoEn": "2026-10-18T09:20:48.392Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-18T08:36:02.521Z",
+    "actualizadoEn": "2026-10-18T09:20:42.907Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -447,37 +447,17 @@
     }
   },
   "iguazu": {
-    "altura": "31.41",
-    "horaStr": "03:00",
+    "altura": "31.28",
+    "horaStr": "05:00",
     "fechaStr": "18/10/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1792303200000,
+    "ts": 1792310400000,
     "trabado": false,
-    "textoFB": "31.41m (a las 03:00 hs) (Fuente: INA)",
+    "textoFB": "31.28m (a las 05:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "32.16",
-        "fechaStr": "17/10/2026",
-        "horaStr": "03:30"
-      },
-      {
-        "altura": "32.15",
-        "fechaStr": "17/10/2026",
-        "horaStr": "04:00"
-      },
-      {
-        "altura": "32.14",
-        "fechaStr": "17/10/2026",
-        "horaStr": "04:30"
-      },
-      {
-        "altura": "32.17",
-        "fechaStr": "17/10/2026",
-        "horaStr": "05:00"
-      },
       {
         "altura": "32.19",
         "fechaStr": "17/10/2026",
@@ -697,13 +677,33 @@
         "altura": "31.41",
         "fechaStr": "18/10/2026",
         "horaStr": "03:00"
+      },
+      {
+        "altura": "31.38",
+        "fechaStr": "18/10/2026",
+        "horaStr": "03:30"
+      },
+      {
+        "altura": "31.35",
+        "fechaStr": "18/10/2026",
+        "horaStr": "04:00"
+      },
+      {
+        "altura": "31.33",
+        "fechaStr": "18/10/2026",
+        "horaStr": "04:30"
+      },
+      {
+        "altura": "31.28",
+        "fechaStr": "18/10/2026",
+        "horaStr": "05:00"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "sanjavier": {
