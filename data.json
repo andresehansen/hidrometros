@@ -1,22 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "19/10/2026 a las 11:19 hs",
-  "generadoEn": "2026-10-19T11:19:22.000Z",
+  "fechaReporte": "19/10/2026 a las 12:19 hs",
+  "generadoEn": "2026-10-19T12:19:26.000Z",
   "laplata": {
     "altura": "0.83",
-    "horaStr": "10:45",
+    "horaStr": "11:45",
     "fechaStr": "19/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "0.83m (a las 10:45 hs) (Fuente: SHN)",
+    "textoFB": "0.83m (a las 11:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.41",
-        "fechaStr": "17/10/2026",
-        "horaStr": "11:45"
-      },
       {
         "altura": "1.40",
         "fechaStr": "17/10/2026",
@@ -251,18 +246,23 @@
         "altura": "0.83",
         "fechaStr": "19/10/2026",
         "horaStr": "10:45"
+      },
+      {
+        "altura": "0.83",
+        "fechaStr": "19/10/2026",
+        "horaStr": "11:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.03m)",
-      "diferencia": "+0.03"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 3.4,
-    "direccion": "Este (E)",
+    "velocidad": 4.5,
+    "direccion": "Noreste (NE)",
     "temperatura": 14.3
   },
   "pronostico": {
@@ -281,7 +281,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (19/10 a las 23:00 hs). Viento: 3.4 km/h Este (E). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.00m (19/10 a las 23:00 hs). Viento: 4.5 km/h Noreste (NE). Condiciones habituales de marea.",
     "alturaActual": "0.83",
     "alturaProyectada": "1.00",
     "proximaPleamar": {
@@ -290,129 +290,129 @@
       "fecha": "19/10"
     },
     "viento": {
-      "velocidad": 3.4,
-      "direccion": "Este (E)",
+      "velocidad": 4.5,
+      "direccion": "Noreste (NE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-19T14:20:11.409Z"
+    "actualizadoEn": "2026-10-19T15:20:24.293Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-19T14:20:06.031Z",
+    "actualizadoEn": "2026-10-19T15:20:18.800Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
         "cuenca": "Río Iguazú / Alto Paraná",
-        "fechaEmision": "2026-10-16T09:00:00",
+        "fechaEmision": "2026-10-19T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 12.28,
-            "esperado": 14.36,
-            "max": 16.82
+            "min": 14.39,
+            "esperado": 15.28,
+            "max": 16.29
           },
           {
             "fechaIso": "2026-11-01",
             "fechaStr": "01/11/2026",
-            "min": 11.77,
-            "esperado": 14.36,
-            "max": 17.68
+            "min": 12.29,
+            "esperado": 14.37,
+            "max": 16.83
           },
           {
             "fechaIso": "2026-11-08",
             "fechaStr": "08/11/2026",
-            "min": 11.34,
-            "esperado": 14.19,
-            "max": 18.02
+            "min": 11.73,
+            "esperado": 14.32,
+            "max": 17.63
           }
         ]
       },
       "corrientes": {
         "nombre": "Corrientes",
         "cuenca": "Río Paraná (Confluencia)",
-        "fechaEmision": "2026-10-16T09:00:00",
+        "fechaEmision": "2026-10-19T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 3.31,
-            "esperado": 3.99,
-            "max": 4.33
+            "min": 6.17,
+            "esperado": 6.6,
+            "max": 7.01
           },
           {
             "fechaIso": "2026-11-01",
             "fechaStr": "01/11/2026",
-            "min": 2.59,
-            "esperado": 3.52,
-            "max": 4.15
+            "min": 3.33,
+            "esperado": 4.01,
+            "max": 4.35
           },
           {
             "fechaIso": "2026-11-08",
             "fechaStr": "08/11/2026",
-            "min": 2.45,
-            "esperado": 3.49,
-            "max": 4.36
+            "min": 2.55,
+            "esperado": 3.47,
+            "max": 4.11
           }
         ]
       },
       "parana": {
         "nombre": "Paraná",
         "cuenca": "Río Paraná Medio",
-        "fechaEmision": "2026-10-16T09:00:00",
+        "fechaEmision": "2026-10-19T09:00:00",
         "tendencia": "crecida",
         "proyecciones": [
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 3.27,
-            "esperado": 3.78,
-            "max": 4.32
+            "min": 3.2,
+            "esperado": 3.66,
+            "max": 4.18
           },
           {
             "fechaIso": "2026-11-01",
             "fechaStr": "01/11/2026",
-            "min": 4.28,
-            "esperado": 4.89,
-            "max": 5.5
+            "min": 3.97,
+            "esperado": 4.48,
+            "max": 5.02
           },
           {
             "fechaIso": "2026-11-08",
             "fechaStr": "08/11/2026",
-            "min": 4.24,
-            "esperado": 4.89,
-            "max": 5.62
+            "min": 5.16,
+            "esperado": 5.78,
+            "max": 6.38
           }
         ]
       },
       "rosario": {
         "nombre": "Rosario",
         "cuenca": "Río Paraná Inferior",
-        "fechaEmision": "2026-10-16T09:00:00",
+        "fechaEmision": "2026-10-19T09:00:00",
         "tendencia": "crecida",
         "proyecciones": [
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
-            "min": 2.95,
-            "esperado": 3.44,
-            "max": 3.95
+            "min": 2.99,
+            "esperado": 3.43,
+            "max": 3.89
           },
           {
             "fechaIso": "2026-11-01",
             "fechaStr": "01/11/2026",
-            "min": 3.37,
-            "esperado": 3.96,
-            "max": 4.52
+            "min": 3.11,
+            "esperado": 3.6,
+            "max": 4.11
           },
           {
             "fechaIso": "2026-11-08",
             "fechaStr": "08/11/2026",
-            "min": 3.65,
-            "esperado": 4.3,
-            "max": 4.97
+            "min": 3.87,
+            "esperado": 4.46,
+            "max": 5.02
           }
         ]
       }
