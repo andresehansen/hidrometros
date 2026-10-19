@@ -1,27 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "18/10/2026 a las 20:19 hs",
-  "generadoEn": "2026-10-18T20:19:23.000Z",
+  "fechaReporte": "18/10/2026 a las 21:19 hs",
+  "generadoEn": "2026-10-18T21:19:23.000Z",
   "laplata": {
-    "altura": "1.12",
-    "horaStr": "18:45",
+    "altura": "1.36",
+    "horaStr": "20:45",
     "fechaStr": "18/10/2026",
     "fuente": "SHN",
     "antiguo": false,
-    "textoFB": "1.12m (a las 18:45 hs) (Fuente: SHN)",
+    "textoFB": "1.36m (a las 20:45 hs) (Fuente: SHN)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.83",
-        "fechaStr": "16/10/2026",
-        "horaStr": "19:45"
-      },
-      {
-        "altura": "1.83",
-        "fechaStr": "16/10/2026",
-        "horaStr": "20:45"
-      },
       {
         "altura": "1.86",
         "fechaStr": "16/10/2026",
@@ -251,19 +241,29 @@
         "altura": "1.12",
         "fechaStr": "18/10/2026",
         "horaStr": "18:45"
+      },
+      {
+        "altura": "1.30",
+        "fechaStr": "18/10/2026",
+        "horaStr": "19:45"
+      },
+      {
+        "altura": "1.36",
+        "fechaStr": "18/10/2026",
+        "horaStr": "20:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.11m)",
-      "diferencia": "+0.11"
+      "texto": "Subiendo (+0.06m)",
+      "diferencia": "+0.06"
     }
   },
   "viento": {
-    "velocidad": 8.7,
+    "velocidad": 7.3,
     "direccion": "Este (E)",
-    "temperatura": 11.5
+    "temperatura": 11.1
   },
   "pronostico": {
     "pleamar": {
@@ -281,8 +281,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.55m (18/10 a las 23:00 hs). Viento: 8.7 km/h Este (E). Condiciones habituales de marea.",
-    "alturaActual": "1.12",
+    "mensaje": "Pleamar máxima prevista: 1.55m (18/10 a las 23:00 hs). Viento: 7.3 km/h Este (E). Condiciones habituales de marea.",
+    "alturaActual": "1.36",
     "alturaProyectada": "1.55",
     "proximaPleamar": {
       "hora": "23:00",
@@ -290,15 +290,15 @@
       "fecha": "18/10"
     },
     "viento": {
-      "velocidad": 8.7,
+      "velocidad": 7.3,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-18T23:20:20.031Z"
+    "actualizadoEn": "2026-10-19T00:20:22.066Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-18T23:20:14.544Z",
+    "actualizadoEn": "2026-10-19T00:20:16.675Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -306,13 +306,6 @@
         "fechaEmision": "2026-10-16T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
-          {
-            "fechaIso": "2026-10-18",
-            "fechaStr": "18/10/2026",
-            "min": 14.43,
-            "esperado": 15.32,
-            "max": 16.33
-          },
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
@@ -343,13 +336,6 @@
         "tendencia": "bajante",
         "proyecciones": [
           {
-            "fechaIso": "2026-10-18",
-            "fechaStr": "18/10/2026",
-            "min": 5.74,
-            "esperado": 6.16,
-            "max": 6.58
-          },
-          {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
             "min": 3.31,
@@ -379,13 +365,6 @@
         "tendencia": "crecida",
         "proyecciones": [
           {
-            "fechaIso": "2026-10-18",
-            "fechaStr": "18/10/2026",
-            "min": 3.16,
-            "esperado": 3.62,
-            "max": 4.14
-          },
-          {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
             "min": 3.27,
@@ -414,13 +393,6 @@
         "fechaEmision": "2026-10-16T09:00:00",
         "tendencia": "crecida",
         "proyecciones": [
-          {
-            "fechaIso": "2026-10-18",
-            "fechaStr": "18/10/2026",
-            "min": 2.98,
-            "esperado": 3.42,
-            "max": 3.88
-          },
           {
             "fechaIso": "2026-10-25",
             "fechaStr": "25/10/2026",
