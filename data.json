@@ -1,14 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "20/10/2026 a las 22:19 hs",
-  "generadoEn": "2026-10-20T22:19:21.000Z",
+  "fechaReporte": "20/10/2026 a las 23:19 hs",
+  "generadoEn": "2026-10-20T23:19:23.000Z",
   "laplata": {
     "altura": "1.08",
     "horaStr": "21:45",
     "fechaStr": "20/10/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
-    "textoFB": "1.08m (a las 21:45 hs) (Fuente: SHN)",
+    "ts": 1792543500000,
+    "trabado": false,
+    "textoFB": "1.08m (a las 21:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -261,44 +263,29 @@
     }
   },
   "viento": {
-    "velocidad": 16.4,
+    "velocidad": 16.3,
     "direccion": "Este (E)",
-    "temperatura": 15.3
+    "temperatura": 15.4
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "01:00",
-      "altura": "1.35",
-      "fecha": "21/10"
-    },
-    "bajamar": {
-      "hora": "17:00",
-      "altura": "0.55",
-      "fecha": "20/10"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.35m (21/10 a las 01:00 hs). Viento: 16.4 km/h Este (E). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "1.08",
-    "alturaProyectada": "1.35",
-    "proximaPleamar": {
-      "hora": "01:00",
-      "altura": "1.35",
-      "fecha": "21/10"
-    },
+    "alturaProyectada": "1.08",
+    "proximaPleamar": null,
     "viento": {
-      "velocidad": 16.4,
+      "velocidad": 16.3,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-21T01:20:27.616Z"
+    "actualizadoEn": "2026-10-21T02:20:41.620Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-21T01:20:22.231Z",
+    "actualizadoEn": "2026-10-21T02:20:36.070Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
