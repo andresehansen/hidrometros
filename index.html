@@ -971,6 +971,8 @@
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-concordia')">Concordia</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-sanjavier')">San Javier</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-santotome')">Santo Tomé</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-sanfernando')">San Fernando</button>
+      <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-martingarcia')">Martín García / Atalaya</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-cascada-uruguay')">🏞️ Cascada Uruguay</button>
       <button type="button" class="btn-salto" onclick="irAPuerto('tarjeta-pronosticos-ina')">Pronóstico INA</button>
     </div>
@@ -1025,6 +1027,8 @@
       <li><strong>Concordia (Entre Ríos)</strong> — Datos de CARU cada hora. Río Uruguay a la altura de la ciudad de Concordia.</li>
       <li><strong>San Javier (Santa Fe)</strong> — Datos de Prefectura Naval Argentina (PNA) con respaldo del INA (Serie 65). Río Paraná.</li>
       <li><strong>Santo Tomé (Corrientes)</strong> — Datos de Prefectura Naval Argentina (PNA) con respaldo del INA (Serie 68). Río Uruguay.</li>
+      <li><strong>San Fernando (Bs. As.)</strong> — Datos del mareógrafo oficial del Servicio de Hidrografía Naval (SHN) en el Delta / Río Luján.</li>
+      <li><strong>Isla Martín García / Atalaya</strong> — Mediciones mareográficas oficiales del Servicio de Hidrografía Naval (SHN) en el Río de la Plata.</li>
     </ul>
 
     <h2 style="font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--azul-rio);margin-bottom:10px;margin-top:18px;">❓ Preguntas frecuentes</h2>
@@ -1090,7 +1094,9 @@ const DEFAULTS_PUERTO = {
   santotome:          { alerta: 11.5, evacuacion: 12.5 },
   concordia:          { alerta: 11.0, evacuacion: 12.5 },
   saltogrande_arriba: { alerta: 35.5, evacuacion: 36.0 },
-  saltogrande_abajo:  { alerta: 17.3, evacuacion: 17.8 }
+  saltogrande_abajo:  { alerta: 17.3, evacuacion: 17.8 },
+  sanfernando:        { alerta: 2.8,  evacuacion: 3.2 },
+  martingarcia:       { alerta: 2.3,  evacuacion: 2.6 }
 };
 
 let datosActuales = null;
@@ -1412,6 +1418,13 @@ function calcularTiempoRelativo(fechaStr, horaStr) {
     const [hh, mm] = horaStr.split(':');
     const medDate = new Date(+y, +m - 1, +d, +hh, +mm);
     const ahora = new Date();
+
+    // Si la lectura es a las 00:00 hs y corresponde al día de hoy, representa la toma de escala oficial consolidada
+    const esHoy = (+d === ahora.getDate() && +m - 1 === ahora.getMonth() && +y === ahora.getFullYear());
+    if (esHoy && horaStr === '00:00') {
+      return ' • Escala oficial del día';
+    }
+
     const diffMs = ahora - medDate;
     if (diffMs < 0 || isNaN(diffMs)) return '';
     const diffMin = Math.floor(diffMs / 60000);
@@ -1539,6 +1552,8 @@ function exportarCSV(keyPuerto, nombre) {
   else if (keyPuerto === 'concordia') { hist = datosActuales.concordia?.historico; fuente = datosActuales.concordia?.fuente || 'CARU'; }
   else if (keyPuerto === 'saltogrande-arriba') { hist = datosActuales.saltogrande?.arriba?.historico; fuente = 'CARU'; }
   else if (keyPuerto === 'saltogrande-abajo') { hist = datosActuales.saltogrande?.abajo?.historico; fuente = 'CARU'; }
+  else if (keyPuerto === 'sanfernando') { hist = datosActuales.sanfernando?.historico; fuente = datosActuales.sanfernando?.fuente || 'SHN'; }
+  else if (keyPuerto === 'martingarcia') { hist = datosActuales.martingarcia?.historico; fuente = datosActuales.martingarcia?.fuente || 'SHN'; }
 
   if (!hist || hist.length === 0) {
     alert('No hay historial disponible para exportar.');
@@ -2124,6 +2139,16 @@ function renderizarGraficoIndividual(keyPuerto) {
     idCanvas = 'chart-saltogrande-abajo';
     alerta = datosActuales.saltogrande.abajo.alerta || DEFAULTS_PUERTO.saltogrande_abajo.alerta;
     evacuacion = datosActuales.saltogrande.abajo.evacuacion || DEFAULTS_PUERTO.saltogrande_abajo.evacuacion;
+  } else if (keyPuerto === 'sanfernando' && datosActuales.sanfernando?.historico) {
+    hist = datosActuales.sanfernando.historico;
+    idCanvas = 'chart-sanfernando';
+    alerta = datosActuales.sanfernando.alerta || DEFAULTS_PUERTO.sanfernando.alerta;
+    evacuacion = datosActuales.sanfernando.evacuacion || DEFAULTS_PUERTO.sanfernando.evacuacion;
+  } else if (keyPuerto === 'martingarcia' && datosActuales.martingarcia?.historico) {
+    hist = datosActuales.martingarcia.historico;
+    idCanvas = 'chart-martingarcia';
+    alerta = datosActuales.martingarcia.alerta || DEFAULTS_PUERTO.martingarcia.alerta;
+    evacuacion = datosActuales.martingarcia.evacuacion || DEFAULTS_PUERTO.martingarcia.evacuacion;
   }
 
   const canvas = document.getElementById(idCanvas);
@@ -2236,6 +2261,8 @@ function renderBannerAlertas(d) {
   chequear('Iguazú', d.iguazu, 'iguazu');
   chequear('San Javier', d.sanjavier, 'sanjavier');
   chequear('Santo Tomé', d.santotome, 'santotome');
+  chequear('San Fernando', d.sanfernando, 'sanfernando');
+  chequear('Isla Martín García / Atalaya', d.martingarcia, 'martingarcia');
   chequear('Concordia', d.concordia, 'concordia');
   if (d.saltogrande) {
     chequear('Salto Grande Arriba', d.saltogrande.arriba, 'saltogrande_arriba');
@@ -2329,6 +2356,8 @@ function detectarCambiosDeEstado(nuevoD) {
   evaluar('iguazu', 'Puerto Iguazú', nuevoD.iguazu, 'iguazu');
   evaluar('sanjavier', 'San Javier', nuevoD.sanjavier, 'sanjavier');
   evaluar('santotome', 'Santo Tomé', nuevoD.santotome, 'santotome');
+  evaluar('sanfernando', 'San Fernando', nuevoD.sanfernando, 'sanfernando');
+  evaluar('martingarcia', 'Isla Martín García / Atalaya', nuevoD.martingarcia, 'martingarcia');
   evaluar('concordia', 'Concordia', nuevoD.concordia, 'concordia');
   if (nuevoD.saltogrande) {
     evaluar('sg_arriba', 'Salto Grande Arriba', nuevoD.saltogrande.arriba, 'saltogrande_arriba');
@@ -2452,6 +2481,8 @@ async function cargarDatos(esAuto = false) {
       actualizarTarjetaEnLugar('tarjeta-concordia', tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia'));
       actualizarTarjetaEnLugar('tarjeta-sanjavier', tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier'));
       actualizarTarjetaEnLugar('tarjeta-santotome', tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome'));
+      actualizarTarjetaEnLugar('tarjeta-sanfernando', tarjetaRio('San Fernando', d.sanfernando, 'sanfernando', 'sanfernando'));
+      actualizarTarjetaEnLugar('tarjeta-martingarcia', tarjetaRio('Isla Martín García / Atalaya', d.martingarcia, 'martingarcia', 'martingarcia'));
       actualizarTarjetaEnLugar('tarjeta-cascada-uruguay', renderTarjetaCascada(d));
       actualizarTarjetaEnLugar('tarjeta-pronosticos-ina', tarjetaPronosticosINA(d.pronosticosINA));
     } else {
@@ -2462,6 +2493,8 @@ async function cargarDatos(esAuto = false) {
                         tarjetaRio('Concordia', d.concordia, 'concordia', 'concordia') + 
                         tarjetaRio('San Javier', d.sanjavier, 'sanjavier', 'sanjavier') + 
                         tarjetaRio('Santo Tomé', d.santotome, 'santotome', 'santotome') +
+                        tarjetaRio('San Fernando', d.sanfernando, 'sanfernando', 'sanfernando') +
+                        tarjetaRio('Isla Martín García / Atalaya', d.martingarcia, 'martingarcia', 'martingarcia') +
                         renderTarjetaCascada(d) +
                         tarjetaPronosticosINA(d.pronosticosINA);
 

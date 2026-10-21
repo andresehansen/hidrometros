@@ -7,9 +7,8 @@
  *  1. Consultar APIs oficiales (AGPSE, INA, CARU, PNA, SHN, Open-Meteo).
  *  2. Consolidar el historial de lecturas y calcular tendencias.
  *  3. Generar y commitear data.json (schemaVersion 1.0.0).
- *  4. Opcionalmente publicar el reporte en Facebook si existen credenciales.
  */
-const https = require('https');  // necesario para TLS inválido en AGPSE
+const https = require('https');  // necesario para TLS inválido en AGPSE / SHN
 const http  = require('http');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -21,15 +20,6 @@ const urlIguazu     = "http://hidrografia2.agpse.gob.ar/histdat/PUERTO_IGUAZU.da
 const urlConcordia  = "http://190.0.152.194:8080/alturas/web/user/alturas";
 
 // --- FUNCIONES AUXILIARES ---
-
-function aNegrita(texto) {
-    const normal  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const negrita = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵";
-    return texto.split('').map(char => {
-        const index = normal.indexOf(char);
-        return index > -1 ? negrita.slice(index * 2, index * 2 + 2) : char;
-    }).join('');
-}
 
 function gradosACardinal(grados) {
     const dir = ['Norte (N)', 'Noreste (NE)', 'Este (E)', 'Sureste (SE)', 'Sur (S)', 'Suroeste (SW)', 'Oeste (W)', 'Noroeste (NW)'];
@@ -51,20 +41,53 @@ function esAntiguo(fechaMedicion, maxHoras = 24) {
     return Math.abs(Date.now() - t) / 36e5 > maxHoras;
 }
 
+// Request HTTP/HTTPS robusto que tolera certificados autofirmados/viejos sin fallas de Undici/fetch
+function requestHttps(url, timeoutMs = 15000) {
+    return new Promise((resolve, reject) => {
+        const u = new URL(url);
+        const options = {
+            hostname: u.hostname,
+            port: u.port || (u.protocol === 'https:' ? 443 : 80),
+            path: u.pathname + u.search,
+            method: 'GET',
+            rejectUnauthorized: false,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                'Accept': 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'es-AR,es;q=0.9,en;q=0.8',
+                'Cache-Control': 'no-cache'
+            }
+        };
+        const client = u.protocol === 'https:' ? https : http;
+        const req = client.request(options, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => resolve({
+                ok: res.statusCode >= 200 && res.statusCode < 300,
+                status: res.statusCode,
+                text: () => Promise.resolve(data),
+                json: () => Promise.resolve(JSON.parse(data))
+            }));
+        });
+        req.on('error', reject);
+        req.setTimeout(timeoutMs, () => {
+            req.destroy(new Error(`timeout (${timeoutMs}ms)`));
+        });
+        req.end();
+    });
+}
+
 // --- HELPER SHN (SERVICIO DE HIDROGRAFÍA NAVAL - ALTURAS HORARIAS) ---
-async function fetchSHN_AlturasHorarias(cod = 'LPLA', nombrePuerto = 'La Plata') {
+async function fetchSHN_AlturasHorarias(cod = 'LPLA', nombrePuerto = 'La Plata', regexNombreHTML = null) {
     const ahora = obtenerHoraArgentina();
     const pad = v => v.toString().padStart(2, '0');
     const fechaReq = `${ahora.getFullYear()}${pad(ahora.getMonth() + 1)}${pad(ahora.getDate())}${pad(ahora.getHours())}${pad(ahora.getMinutes())}`;
     
-    // 1. Intentar API REST v1
+    // 1. Intentar API REST v1 oficial (dominio canónico hidro.gov.ar)
     try {
         console.log(`  → SHN API v1 para ${cod} (${fechaReq})...`);
-        const url = `https://www.hidro.gob.ar/api/v1/AlturasHorarias/${cod}/${fechaReq}`;
-        const res = await fetch(url, {
-            headers: { 'User-Agent': 'Mozilla/5.0' },
-            signal: AbortSignal.timeout(10000)
-        });
+        const url = `https://www.hidro.gov.ar/api/v1/AlturasHorarias/${cod}/${fechaReq}`;
+        const res = await requestHttps(url, 12000);
         if (res.ok) {
             const data = await res.json();
             const lecturas = data.lecturas || [];
@@ -95,37 +118,51 @@ async function fetchSHN_AlturasHorarias(cod = 'LPLA', nombrePuerto = 'La Plata')
                     fechaStr: fechaStr,
                     fuente: 'SHN',
                     antiguo,
-                    textoFB: `${altStr}m (a las ${hhmm} hs) (Fuente: SHN)`,
                     historialLecturas: historial
                 };
             }
         }
     } catch(e) { console.log(`  ⚠️ Aviso API SHN ${cod}: ${e.message}`); }
 
-    // 2. Fallback a tabla HTML de alturashorarias.asp
+    // 2. Fallback a tabla HTML de alturashorarias.asp (con https.request para evitar error TLS de fetch)
     try {
         console.log(`  → SHN HTML fallback para ${nombrePuerto}...`);
-        const url = 'https://www.hidro.gob.ar/oceanografia/alturashorarias.asp';
-        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(15000) });
+        const url = 'https://www.hidro.gov.ar/oceanografia/alturashorarias.asp';
+        const res = await requestHttps(url, 15000);
         if (res.ok) {
             const html = await res.text();
-            const headerMatch = html.match(/<thead>[\s\S]*?<\/thead>/i);
+            const headerMatch = html.match(/<thead>[\s\S]*?<\/thead>/i) || html.match(/<tr[^>]*>[\s\S]*?<\/tr>/i);
             const headers = [];
             if (headerMatch) {
-                const thRegex = /<th[^>]*>\s*(\d{2}\/\d{2}\/\d{4})<br>(\d{2}:\d{2})\s*<\/th>/gi;
+                const thRegex = /<(?:th|td)[^>]*>\s*(\d{2}\/\d{2}\/\d{4})<br\s*\/?>(\d{2}:\d{2})\s*<\/(?:th|td)>/gi;
                 let m;
                 while ((m = thRegex.exec(headerMatch[0])) !== null) {
                     headers.push({ fechaStr: m[1], horaStr: m[2] });
                 }
             }
-            const rowRegex = new RegExp(`data-estacion=['"]${cod}['"][\\s\\S]*?<\\/tr>`, 'i');
-            const rowMatch = html.match(rowRegex);
-            if (rowMatch && headers.length > 0) {
-                const tdRegex = /<td[^>]*>\s*(\d+[\.,]\d{1,2})\s*<\/td>/gi;
+
+            // Buscar fila por atributo data-estacion o por coincidencia con el nombre del puerto
+            let rowContent = null;
+            const rowByAttr = new RegExp(`data-estacion=['"]${cod}['"][\\s\\S]*?<\\/tr>`, 'i').exec(html);
+            if (rowByAttr) {
+                rowContent = rowByAttr[0];
+            } else if (regexNombreHTML) {
+                const trRegex = /<tr[^>]*>[\s\S]*?<\/tr>/gi;
+                let trMatch;
+                while ((trMatch = trRegex.exec(html)) !== null) {
+                    if (regexNombreHTML.test(trMatch[0])) {
+                        rowContent = trMatch[0];
+                        break;
+                    }
+                }
+            }
+
+            if (rowContent && headers.length > 0) {
+                const tdRegex = /<td[^>]*>\s*([-+]?\d+[\.,]\d{1,2})\s*<\/td>/gi;
                 const lecturas = [];
                 let m;
                 let i = 0;
-                while ((m = tdRegex.exec(rowMatch[0])) !== null && i < headers.length) {
+                while ((m = tdRegex.exec(rowContent)) !== null && i < headers.length) {
                     lecturas.push({
                         altura: parseFloat(m[1].replace(',', '.')).toFixed(2),
                         fechaStr: headers[i].fechaStr,
@@ -146,8 +183,7 @@ async function fetchSHN_AlturasHorarias(cod = 'LPLA', nombrePuerto = 'La Plata')
                         fechaStr: ult.fechaStr,
                         fuente: 'SHN',
                         antiguo,
-                        textoFB: `${ult.altura}m (a las ${ult.horaStr} hs) (Fuente: SHN)`,
-                        historialLecturas: lecturas.reverse()
+                        historialLecturas: lecturas.slice().reverse()
                     };
                 }
             }
@@ -315,21 +351,23 @@ async function obtenerHtmlPNA() {
     pnaConsultado = true;
     try {
         console.log(`  → Consultando tabla general de alturas de PNA...`);
-        cachePNAHtml = await new Promise((resolve, reject) => {
-            const req = https.request("https://contenidosweb.prefecturanaval.gob.ar/alturas/", {
-                rejectUnauthorized: false,
-                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36' }
-            }, (res) => {
-                let buf = '';
-                res.on('data', chunk => buf += chunk);
-                res.on('end', () => resolve(buf));
-            });
-            req.on('error', reject);
-            req.setTimeout(25000, () => { req.destroy(new Error('timeout')); });
-            req.end();
+        const res = await fetch("https://contenidosweb.prefecturanaval.gob.ar/alturas/", {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'es-AR,es;q=0.9,en;q=0.8',
+                'Cache-Control': 'no-cache'
+            },
+            signal: AbortSignal.timeout(6000)
         });
+        if (res.ok) {
+            cachePNAHtml = await res.text();
+            return cachePNAHtml;
+        } else {
+            console.log(`⚠️ PNA HTTP ${res.status}`);
+        }
     } catch(e) {
-        console.log(`⚠️ Error conexión PNA:`, e.message);
+        console.log(`⚠️ Aviso conexión PNA (${e.message}): Firewall institucional con geobloqueo a IPs cloud.`);
         cachePNAHtml = null;
     }
     return cachePNAHtml;
@@ -675,7 +713,7 @@ function parseAGPSE(txtDat) {
         if (!lpDatos) {
             try {
                 console.log("  → Conmutando a SHN Alturas Horarias para La Plata...");
-                lpDatos = await fetchSHN_AlturasHorarias('LPLA', 'La Plata');
+                lpDatos = await fetchSHN_AlturasHorarias('LPLA', 'La Plata', /La Plata/i);
                 if (lpDatos && lpDatos.antiguo) lpDatos = null;
             } catch (e) {
                 console.log("⚠️ Error La Plata SHN:", e.message);
@@ -908,6 +946,29 @@ function parseAGPSE(txtDat) {
             sgAbajoDatos  = await fetchGeoServerINA("-31.35,-57.98,-31.25,-57.88", "Salto Grande Abajo", [78]);
         }
 
+        // ---- 7. SAN FERNANDO (SHN - ALTURAS HORARIAS) ----
+        let sfDatos = null;
+        try {
+            console.log("  → Consultando SHN para San Fernando...");
+            sfDatos = await fetchSHN_AlturasHorarias('SFER', 'San Fernando', /San Fernando/i);
+        } catch (e) {
+            console.log("⚠️ Error San Fernando SHN:", e.message);
+        }
+
+        // ---- 8. ISLA MARTÍN GARCÍA / ATALAYA (SHN - ALTURAS HORARIAS) ----
+        let mgDatos = null;
+        try {
+            console.log("  → Consultando SHN para Isla Martín García...");
+            mgDatos = await fetchSHN_AlturasHorarias('MGAR', 'Isla Martín García', /Mart[ií]n Garc[ií]a/i);
+            if (!mgDatos) {
+                console.log("  → Conmutando a Atalaya como alternativa SHN...");
+                mgDatos = await fetchSHN_AlturasHorarias('ATAL', 'Atalaya', /Atalaya/i);
+                if (mgDatos) mgDatos.fuente = "SHN (Atalaya)";
+            }
+        } catch (e) {
+            console.log("⚠️ Error Isla Martín García / Atalaya SHN:", e.message);
+        }
+
         // --- FUNCIÓN PARA CALCULAR TENDENCIA DE UN PUERTO ---
         function calcularTendencia(historico, alturaActual) {
             if (!historico || historico.length < 2 || alturaActual === undefined || alturaActual === null) {
@@ -1075,6 +1136,26 @@ function parseAGPSE(txtDat) {
             abajo:  sgAbajoDatos
         } : (datosAnteriores.saltogrande || null);
 
+        if (sfDatos) {
+            sfDatos.alerta = 2.8;
+            sfDatos.evacuacion = 3.2;
+            sfDatos.historico = getHistorico('sanfernando', sfDatos);
+            delete sfDatos.historialLecturas;
+            sfDatos.tendencia = calcularTendencia(sfDatos.historico, sfDatos.altura);
+        } else if (datosAnteriores.sanfernando) {
+            sfDatos = datosAnteriores.sanfernando;
+        }
+
+        if (mgDatos) {
+            mgDatos.alerta = 2.3;
+            mgDatos.evacuacion = 2.6;
+            mgDatos.historico = getHistorico('martingarcia', mgDatos);
+            delete mgDatos.historialLecturas;
+            mgDatos.tendencia = calcularTendencia(mgDatos.historico, mgDatos.altura);
+        } else if (datosAnteriores.martingarcia) {
+            mgDatos = datosAnteriores.martingarcia;
+        }
+
         // ---- 7. PRONÓSTICOS HIDROLÓGICOS INA Y PREVISIÓN DE SUDESTADA ----
         console.log("\n[INA] Obteniendo Pronósticos Hidrológicos Oficiales del INA...");
         const pronosticosINA = await fetchPronosticosINA(datosAnteriores);
@@ -1085,92 +1166,21 @@ function parseAGPSE(txtDat) {
             schemaVersion: "1.0.0",
             fechaReporte,
             generadoEn: ahora.toISOString(),
-            laplata:    lpDatos,
+            laplata:     lpDatos,
             viento,
             pronostico,
             pronosticoSudestada,
             pronosticosINA,
-            iguazu:     igDatos,
-            sanjavier:  sjDatos,
-            santotome:  stDatos,
-            concordia:  coDatos,
+            iguazu:      igDatos,
+            sanjavier:   sjDatos,
+            santotome:   stDatos,
+            sanfernando: sfDatos,
+            martingarcia: mgDatos,
+            concordia:   coDatos,
             saltogrande: sgDatosCombined
         };
 
         await publicarDataJson(dataJson);
-
-        // ---- PUBLICAR EN FACEBOOK ----
-        const pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
-        const pageId          = process.env.FACEBOOK_PAGE_ID;
-
-        function tagEstadoFB(d) {
-            if (!d || d.altura === undefined) return '';
-            const alt = parseFloat(d.altura);
-            if (alt >= d.evacuacion) return ' 🚨 [EVACUACIÓN]';
-            if (alt >= d.alerta) return ' ⚠️ [ALERTA]';
-            return '';
-        }
-
-        const lpTxt = lpDatos   ? `${lpDatos.textoFB}${tagEstadoFB(lpDatos)}` : "N/D";
-        const igTxt = igDatos   ? `${igDatos.textoFB}${tagEstadoFB(igDatos)}` : "N/D";
-        const coTxt = coDatos   ? `${coDatos.textoFB}${tagEstadoFB(coDatos)}` : "N/D";
-        const sjTxt = sjDatos   ? `${sjDatos.textoFB}${tagEstadoFB(sjDatos)}` : "N/D";
-        const stTxt = stDatos   ? `${stDatos.textoFB}${tagEstadoFB(stDatos)}` : "N/D";
-        const sgArribaTxt = sgArribaDatos ? `${sgArribaDatos.textoFB}${tagEstadoFB(sgArribaDatos)}` : "N/D";
-        const sgAbajoTxt  = sgAbajoDatos  ? `${sgAbajoDatos.textoFB}${tagEstadoFB(sgAbajoDatos)}`  : "N/D";
-        const viTxt = viento    ? `${viento.velocidad} km/h ${viento.direccion}` : "N/D";
-        const prTxt = pronostico
-            ? `📈 Pleamar: ${pronostico.pleamar ? pronostico.pleamar.altura+'m el '+pronostico.pleamar.fecha+' '+pronostico.pleamar.hora : 'S/D'}\n📉 Bajamar: ${pronostico.bajamar ? pronostico.bajamar.altura+'m el '+pronostico.bajamar.fecha+' '+pronostico.bajamar.hora : 'S/D'}`
-            : "N/D";
-        const sudTxt = (pronosticoSudestada && pronosticoSudestada.estado !== 'sin_riesgo')
-            ? `\n\n${aNegrita("AVISO:")} ${pronosticoSudestada.titulo}\n${pronosticoSudestada.mensaje}`
-            : "";
-
-        const msg = `🌊 ${aNegrita("REPORTE FLUVIAL")} 🌊
-📅 ${fechaReporte}
-
-📍 ${aNegrita("LA PLATA")} (${lpDatos?.fechaStr ?? hoy})
-📏 Altura: ${aNegrita(lpTxt)}
-🌬️ Viento: ${viTxt}
-
-⚓ ${aNegrita("SHN:")}
-${prTxt}${sudTxt}
-
-📍 ${aNegrita("IGUAZÚ")} (${igDatos?.fechaStr ?? hoy})
-📏 Altura: ${aNegrita(igTxt)}
-
-📍 ${aNegrita("SAN JAVIER")} (${sjDatos?.fechaStr ?? hoy})
-📏 Altura: ${aNegrita(sjTxt)}
-
-📍 ${aNegrita("SANTO TOMÉ")} (${stDatos?.fechaStr ?? hoy})
-📏 Altura: ${aNegrita(stTxt)}
-
-📍 ${aNegrita("CONCORDIA")} (${coDatos?.fechaStr ?? hoy})
-📏 Altura: ${aNegrita(coTxt)}
-
-⚠️ ${aNegrita("EMBALSE SALTO GRANDE")}
-🔽 Cota Embalse (Arriba): ${aNegrita(sgArribaTxt)}
-🔼 Restitución (Abajo): ${aNegrita(sgAbajoTxt)}`;
-
-        console.log("\n📄 PUBLICACIÓN FACEBOOK:\n", msg);
-
-        if (!pageAccessToken || !pageId) {
-            console.log("⚠️  Sin credenciales Facebook — saltando publicación.");
-            return;
-        }
-
-        const fbRes  = await fetch(`https://graph.facebook.com/v19.0/${pageId}/feed`, {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({ access_token: pageAccessToken, message: msg })
-        });
-        const fbData = await fbRes.json();
-
-        if (fbData.error) {
-            console.error("❌ Error Facebook:", fbData.error.message);
-        } else {
-            console.log(`✅ Publicado en Facebook. ID: ${fbData.id}`);
-        }
 
     } catch (e) {
         console.error("Error fatal:", e.message);
