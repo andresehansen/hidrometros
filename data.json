@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "21/10/2026 a las 15:19 hs",
-  "generadoEn": "2026-10-21T15:19:27.000Z",
+  "fechaReporte": "21/10/2026 a las 15:24 hs",
+  "generadoEn": "2026-10-21T15:24:39.000Z",
   "laplata": {
     "altura": "0.52",
     "horaStr": "14:45",
@@ -293,11 +293,11 @@
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-21T18:20:51.052Z"
+    "actualizadoEn": "2026-10-21T18:27:15.126Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-21T18:20:44.939Z",
+    "actualizadoEn": "2026-10-21T18:27:08.076Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1644,12 +1644,56 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.99",
-      "horaStr": "12:00",
+      "altura": "34.90",
+      "horaStr": "00:00",
       "fechaStr": "21/10/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "34.99m (a las 12:00 hs)",
+      "ts": 1792551600000,
+      "trabado": false,
+      "historialLecturas": [
+        {
+          "altura": "32.78",
+          "fechaStr": "14/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "32.78",
+          "fechaStr": "15/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "33.40",
+          "fechaStr": "16/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "33.70",
+          "fechaStr": "17/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "34.04",
+          "fechaStr": "18/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "34.39",
+          "fechaStr": "19/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "34.68",
+          "fechaStr": "20/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "34.90",
+          "fechaStr": "21/10/2026",
+          "horaStr": "00:00"
+        }
+      ],
+      "textoFB": "34.90m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
@@ -1895,19 +1939,63 @@
         }
       ],
       "tendencia": {
-        "icono": "⬆️",
-        "estado": "subiendo",
-        "texto": "Subiendo (+0.09m)",
-        "diferencia": "+0.09"
+        "icono": "➡️",
+        "estado": "estacionado",
+        "texto": "Estacionado",
+        "diferencia": "0.00"
       }
     },
     "abajo": {
-      "altura": "13.52",
-      "horaStr": "12:00",
+      "altura": "13.57",
+      "horaStr": "00:00",
       "fechaStr": "21/10/2026",
-      "fuente": "CARU",
+      "fuente": "INA",
       "antiguo": false,
-      "textoFB": "13.52m (a las 12:00 hs)",
+      "ts": 1792551600000,
+      "trabado": false,
+      "historialLecturas": [
+        {
+          "altura": "14.16",
+          "fechaStr": "14/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "10.92",
+          "fechaStr": "15/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "13.91",
+          "fechaStr": "16/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "13.90",
+          "fechaStr": "17/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "13.76",
+          "fechaStr": "18/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "13.73",
+          "fechaStr": "19/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "13.65",
+          "fechaStr": "20/10/2026",
+          "horaStr": "00:00"
+        },
+        {
+          "altura": "13.57",
+          "fechaStr": "21/10/2026",
+          "horaStr": "00:00"
+        }
+      ],
+      "textoFB": "13.57m (a las 00:00 hs) (Fuente: INA)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
@@ -2153,10 +2241,10 @@
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.05m)",
-        "diferencia": "-0.05"
+        "icono": "➡️",
+        "estado": "estacionado",
+        "texto": "Estacionado",
+        "diferencia": "0.00"
       }
     }
   }
