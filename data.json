@@ -1,13 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "22/10/2026 a las 08:19 hs",
-  "generadoEn": "2026-10-22T08:19:24.000Z",
+  "fechaReporte": "22/10/2026 a las 09:19 hs",
+  "generadoEn": "2026-10-22T09:19:22.000Z",
   "laplata": {
     "altura": "1.03",
     "horaStr": "07:45",
     "fechaStr": "22/10/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
+    "ts": 1792665900000,
+    "trabado": false,
+    "textoFB": "1.03m (a las 07:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -262,42 +265,27 @@
   "viento": {
     "velocidad": 17.5,
     "direccion": "Este (E)",
-    "temperatura": 15.6
+    "temperatura": 16.1
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "11:00",
-      "altura": "1.00",
-      "fecha": "22/10"
-    },
-    "bajamar": {
-      "hora": "20:00",
-      "altura": "0.70",
-      "fecha": "22/10"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (22/10 a las 11:00 hs). Viento: 17.5 km/h Este (E). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "1.03",
     "alturaProyectada": "1.03",
-    "proximaPleamar": {
-      "hora": "11:00",
-      "altura": "1.00",
-      "fecha": "22/10"
-    },
+    "proximaPleamar": null,
     "viento": {
       "velocidad": 17.5,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-22T11:20:39.978Z"
+    "actualizadoEn": "2026-10-22T12:21:05.971Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-22T11:20:34.094Z",
+    "actualizadoEn": "2026-10-22T12:21:00.128Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
