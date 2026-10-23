@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "23/10/2026 a las 09:19 hs",
-  "generadoEn": "2026-10-23T09:19:27.000Z",
+  "fechaReporte": "23/10/2026 a las 10:06 hs",
+  "generadoEn": "2026-10-23T10:06:27.000Z",
   "laplata": {
-    "altura": "0.74",
-    "horaStr": "08:45",
+    "altura": "0.67",
+    "horaStr": "09:45",
     "fechaStr": "23/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.67",
-        "fechaStr": "21/10/2026",
-        "horaStr": "09:45"
-      },
       {
         "altura": "0.65",
         "fechaStr": "21/10/2026",
@@ -250,6 +245,11 @@
         "altura": "0.74",
         "fechaStr": "23/10/2026",
         "horaStr": "08:45"
+      },
+      {
+        "altura": "0.67",
+        "fechaStr": "23/10/2026",
+        "horaStr": "09:45"
       }
     ],
     "tendencia": {
@@ -259,11 +259,7 @@
       "diferencia": "-0.07"
     }
   },
-  "viento": {
-    "velocidad": 10.3,
-    "direccion": "Oeste (W)",
-    "temperatura": 19.9
-  },
+  "viento": null,
   "pronostico": {
     "pleamar": {
       "hora": "15:00",
@@ -280,24 +276,20 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 0.85m (23/10 a las 15:00 hs). Viento: 10.3 km/h Oeste (W). Condiciones habituales de marea.",
-    "alturaActual": "0.74",
+    "mensaje": "Pleamar máxima prevista: 0.85m (23/10 a las 15:00 hs). Viento: 0 km/h . Condiciones habituales de marea.",
+    "alturaActual": "0.67",
     "alturaProyectada": "0.85",
     "proximaPleamar": {
       "hora": "15:00",
       "altura": "0.85",
       "fecha": "23/10"
     },
-    "viento": {
-      "velocidad": 10.3,
-      "direccion": "Oeste (W)",
-      "esSudeste": false
-    },
-    "actualizadoEn": "2026-10-23T12:20:27.246Z"
+    "viento": null,
+    "actualizadoEn": "2026-10-23T13:07:32.735Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-23T12:20:21.442Z",
+    "actualizadoEn": "2026-10-23T13:07:26.011Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1218,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.92",
-    "horaStr": "08:45",
+    "altura": "0.83",
+    "horaStr": "09:45",
     "fechaStr": "23/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.90",
-        "fechaStr": "21/10/2026",
-        "horaStr": "09:45"
-      },
       {
         "altura": "0.82",
         "fechaStr": "21/10/2026",
@@ -1473,29 +1460,29 @@
         "altura": "0.92",
         "fechaStr": "23/10/2026",
         "horaStr": "08:45"
+      },
+      {
+        "altura": "0.83",
+        "fechaStr": "23/10/2026",
+        "horaStr": "09:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.10m)",
-      "diferencia": "-0.10"
+      "texto": "Bajando (-0.09m)",
+      "diferencia": "-0.09"
     }
   },
   "martingarcia": {
-    "altura": "1.17",
-    "horaStr": "08:45",
+    "altura": "1.11",
+    "horaStr": "09:45",
     "fechaStr": "23/10/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.06",
-        "fechaStr": "21/10/2026",
-        "horaStr": "09:45"
-      },
       {
         "altura": "1.01",
         "fechaStr": "21/10/2026",
@@ -1730,13 +1717,18 @@
         "altura": "1.17",
         "fechaStr": "23/10/2026",
         "horaStr": "08:45"
+      },
+      {
+        "altura": "1.11",
+        "fechaStr": "23/10/2026",
+        "horaStr": "09:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "texto": "Bajando (-0.06m)",
+      "diferencia": "-0.06"
     }
   },
   "concordia": {
