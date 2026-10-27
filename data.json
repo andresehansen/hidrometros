@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "27/10/2026 a las 15:19 hs",
-  "generadoEn": "2026-10-27T15:19:24.000Z",
+  "fechaReporte": "27/10/2026 a las 16:19 hs",
+  "generadoEn": "2026-10-27T16:19:22.000Z",
   "laplata": {
-    "altura": "0.84",
-    "horaStr": "14:45",
+    "altura": "1.00",
+    "horaStr": "15:45",
     "fechaStr": "27/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.45",
-        "fechaStr": "25/10/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "1.39",
         "fechaStr": "25/10/2026",
@@ -250,19 +245,24 @@
         "altura": "0.84",
         "fechaStr": "27/10/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "1.00",
+        "fechaStr": "27/10/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.15m)",
-      "diferencia": "+0.15"
+      "texto": "Subiendo (+0.16m)",
+      "diferencia": "+0.16"
     }
   },
   "viento": {
-    "velocidad": 3.7,
+    "velocidad": 4.9,
     "direccion": "Noreste (NE)",
-    "temperatura": 17.1
+    "temperatura": 17.5
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.25m (27/10 a las 18:00 hs). Viento: 3.7 km/h Noreste (NE). Condiciones habituales de marea.",
-    "alturaActual": "0.84",
+    "mensaje": "Pleamar máxima prevista: 1.25m (27/10 a las 18:00 hs). Viento: 4.9 km/h Noreste (NE). Condiciones habituales de marea.",
+    "alturaActual": "1.00",
     "alturaProyectada": "1.25",
     "proximaPleamar": {
       "hora": "18:00",
@@ -289,15 +289,15 @@
       "fecha": "27/10"
     },
     "viento": {
-      "velocidad": 3.7,
+      "velocidad": 4.9,
       "direccion": "Noreste (NE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-27T18:20:26.917Z"
+    "actualizadoEn": "2026-10-27T19:20:24.336Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-27T18:20:20.367Z",
+    "actualizadoEn": "2026-10-27T19:20:14.966Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1198,19 +1198,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.84",
-    "horaStr": "14:45",
+    "altura": "0.76",
+    "horaStr": "15:45",
     "fechaStr": "27/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.42",
-        "fechaStr": "25/10/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "1.41",
         "fechaStr": "25/10/2026",
@@ -1445,6 +1440,11 @@
         "altura": "0.84",
         "fechaStr": "27/10/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.76",
+        "fechaStr": "27/10/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
@@ -1455,19 +1455,14 @@
     }
   },
   "martingarcia": {
-    "altura": "1.14",
-    "horaStr": "14:45",
+    "altura": "1.09",
+    "horaStr": "15:45",
     "fechaStr": "27/10/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.64",
-        "fechaStr": "25/10/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "1.61",
         "fechaStr": "25/10/2026",
@@ -1702,13 +1697,18 @@
         "altura": "1.14",
         "fechaStr": "27/10/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "1.09",
+        "fechaStr": "27/10/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "concordia": {
