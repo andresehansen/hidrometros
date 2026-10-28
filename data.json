@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "27/10/2026 a las 21:19 hs",
-  "generadoEn": "2026-10-27T21:19:21.000Z",
+  "fechaReporte": "27/10/2026 a las 22:19 hs",
+  "generadoEn": "2026-10-27T22:19:22.000Z",
   "laplata": {
-    "altura": "0.83",
-    "horaStr": "20:45",
+    "altura": "0.73",
+    "horaStr": "21:45",
     "fechaStr": "27/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.85",
-        "fechaStr": "25/10/2026",
-        "horaStr": "21:45"
-      },
       {
         "altura": "0.81",
         "fechaStr": "25/10/2026",
@@ -250,19 +245,24 @@
         "altura": "0.83",
         "fechaStr": "27/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "0.73",
+        "fechaStr": "27/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.09m)",
-      "diferencia": "-0.09"
+      "texto": "Bajando (-0.10m)",
+      "diferencia": "-0.10"
     }
   },
   "viento": {
-    "velocidad": 7.5,
+    "velocidad": 4.5,
     "direccion": "Este (E)",
-    "temperatura": 13.5
+    "temperatura": 12.8
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.25m (27/10 a las 18:00 hs). Viento: 7.5 km/h Este (E). Condiciones habituales de marea.",
-    "alturaActual": "0.83",
+    "mensaje": "Pleamar máxima prevista: 1.25m (27/10 a las 18:00 hs). Viento: 4.5 km/h Este (E). Condiciones habituales de marea.",
+    "alturaActual": "0.73",
     "alturaProyectada": "1.25",
     "proximaPleamar": {
       "hora": "18:00",
@@ -289,15 +289,15 @@
       "fecha": "27/10"
     },
     "viento": {
-      "velocidad": 7.5,
+      "velocidad": 4.5,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-28T00:20:17.590Z"
+    "actualizadoEn": "2026-10-28T01:20:23.549Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-28T00:20:11.476Z",
+    "actualizadoEn": "2026-10-28T01:20:17.207Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.20",
-    "horaStr": "20:45",
+    "altura": "1.10",
+    "horaStr": "21:45",
     "fechaStr": "27/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.20",
-        "fechaStr": "25/10/2026",
-        "horaStr": "21:45"
-      },
       {
         "altura": "1.12",
         "fechaStr": "25/10/2026",
@@ -1473,29 +1468,29 @@
         "altura": "1.20",
         "fechaStr": "27/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "1.10",
+        "fechaStr": "27/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "texto": "Bajando (-0.10m)",
+      "diferencia": "-0.10"
     }
   },
   "martingarcia": {
     "altura": "1.21",
-    "horaStr": "20:45",
+    "horaStr": "21:45",
     "fechaStr": "27/10/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.50",
-        "fechaStr": "25/10/2026",
-        "horaStr": "21:45"
-      },
       {
         "altura": "1.45",
         "fechaStr": "25/10/2026",
@@ -1730,13 +1725,18 @@
         "altura": "1.21",
         "fechaStr": "27/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "1.21",
+        "fechaStr": "27/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.05m)",
-      "diferencia": "+0.05"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "concordia": {
