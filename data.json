@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "28/10/2026 a las 21:19 hs",
-  "generadoEn": "2026-10-28T21:19:22.000Z",
+  "fechaReporte": "28/10/2026 a las 22:19 hs",
+  "generadoEn": "2026-10-28T22:19:24.000Z",
   "laplata": {
-    "altura": "1.10",
-    "horaStr": "20:45",
+    "altura": "1.01",
+    "horaStr": "21:45",
     "fechaStr": "28/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.72",
-        "fechaStr": "26/10/2026",
-        "horaStr": "21:45"
-      },
       {
         "altura": "0.64",
         "fechaStr": "26/10/2026",
@@ -250,19 +245,24 @@
         "altura": "1.10",
         "fechaStr": "28/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "1.01",
+        "fechaStr": "28/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.13m)",
-      "diferencia": "-0.13"
+      "texto": "Bajando (-0.09m)",
+      "diferencia": "-0.09"
     }
   },
   "viento": {
-    "velocidad": 8.1,
-    "direccion": "Este (E)",
-    "temperatura": 15.1
+    "velocidad": 9,
+    "direccion": "Noreste (NE)",
+    "temperatura": 15.2
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.50m (28/10 a las 19:00 hs). Viento: 8.1 km/h Este (E). Condiciones habituales de marea.",
-    "alturaActual": "1.10",
+    "mensaje": "Pleamar máxima prevista: 1.50m (28/10 a las 19:00 hs). Viento: 9 km/h Noreste (NE). Condiciones habituales de marea.",
+    "alturaActual": "1.01",
     "alturaProyectada": "1.50",
     "proximaPleamar": {
       "hora": "19:00",
@@ -289,15 +289,15 @@
       "fecha": "28/10"
     },
     "viento": {
-      "velocidad": 8.1,
-      "direccion": "Este (E)",
+      "velocidad": 9,
+      "direccion": "Noreste (NE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-29T00:20:34.543Z"
+    "actualizadoEn": "2026-10-29T01:20:43.647Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-29T00:20:28.038Z",
+    "actualizadoEn": "2026-10-29T01:20:37.183Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -446,37 +446,17 @@
     }
   },
   "iguazu": {
-    "altura": "29.67",
-    "horaStr": "19:00",
+    "altura": "29.50",
+    "horaStr": "21:00",
     "fechaStr": "28/10/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1793224800000,
+    "ts": 1793232000000,
     "trabado": false,
-    "textoFB": "29.67m (a las 19:00 hs) (Fuente: INA)",
+    "textoFB": "29.50m (a las 21:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "29.29",
-        "fechaStr": "27/10/2026",
-        "horaStr": "19:30"
-      },
-      {
-        "altura": "29.31",
-        "fechaStr": "27/10/2026",
-        "horaStr": "20:00"
-      },
-      {
-        "altura": "29.26",
-        "fechaStr": "27/10/2026",
-        "horaStr": "20:30"
-      },
-      {
-        "altura": "29.26",
-        "fechaStr": "27/10/2026",
-        "horaStr": "21:00"
-      },
       {
         "altura": "29.25",
         "fechaStr": "27/10/2026",
@@ -696,13 +676,33 @@
         "altura": "29.67",
         "fechaStr": "28/10/2026",
         "horaStr": "19:00"
+      },
+      {
+        "altura": "29.58",
+        "fechaStr": "28/10/2026",
+        "horaStr": "19:30"
+      },
+      {
+        "altura": "29.56",
+        "fechaStr": "28/10/2026",
+        "horaStr": "20:00"
+      },
+      {
+        "altura": "29.53",
+        "fechaStr": "28/10/2026",
+        "horaStr": "20:30"
+      },
+      {
+        "altura": "29.50",
+        "fechaStr": "28/10/2026",
+        "horaStr": "21:00"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.06m)",
-      "diferencia": "+0.06"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "sanjavier": {
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.44",
-    "horaStr": "20:45",
+    "altura": "1.47",
+    "horaStr": "21:45",
     "fechaStr": "28/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.06",
-        "fechaStr": "26/10/2026",
-        "horaStr": "21:45"
-      },
       {
         "altura": "1.00",
         "fechaStr": "26/10/2026",
@@ -1473,29 +1468,29 @@
         "altura": "1.44",
         "fechaStr": "28/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "1.47",
+        "fechaStr": "28/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.08m)",
-      "diferencia": "+0.08"
+      "texto": "Subiendo (+0.03m)",
+      "diferencia": "+0.03"
     }
   },
   "martingarcia": {
-    "altura": "1.32",
-    "horaStr": "20:45",
+    "altura": "1.37",
+    "horaStr": "21:45",
     "fechaStr": "28/10/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.26",
-        "fechaStr": "26/10/2026",
-        "horaStr": "21:45"
-      },
       {
         "altura": "1.22",
         "fechaStr": "26/10/2026",
@@ -1730,13 +1725,18 @@
         "altura": "1.32",
         "fechaStr": "28/10/2026",
         "horaStr": "20:45"
+      },
+      {
+        "altura": "1.37",
+        "fechaStr": "28/10/2026",
+        "horaStr": "21:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.12m)",
-      "diferencia": "+0.12"
+      "texto": "Subiendo (+0.05m)",
+      "diferencia": "+0.05"
     }
   },
   "concordia": {
