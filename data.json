@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "30/10/2026 a las 10:19 hs",
-  "generadoEn": "2026-10-30T10:19:23.000Z",
+  "fechaReporte": "30/10/2026 a las 11:19 hs",
+  "generadoEn": "2026-10-30T11:19:25.000Z",
   "laplata": {
-    "altura": "0.99",
-    "horaStr": "09:45",
+    "altura": "0.91",
+    "horaStr": "10:45",
     "fechaStr": "30/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.92",
-        "fechaStr": "28/10/2026",
-        "horaStr": "10:45"
-      },
       {
         "altura": "0.82",
         "fechaStr": "28/10/2026",
@@ -250,19 +245,24 @@
         "altura": "0.99",
         "fechaStr": "30/10/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "0.91",
+        "fechaStr": "30/10/2026",
+        "horaStr": "10:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "texto": "Bajando (-0.08m)",
+      "diferencia": "-0.08"
     }
   },
   "viento": {
-    "velocidad": 17.2,
-    "direccion": "Noreste (NE)",
-    "temperatura": 16.4
+    "velocidad": 19.3,
+    "direccion": "Norte (N)",
+    "temperatura": 17.6
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.20m (30/10 a las 09:00 hs). Viento: 17.2 km/h Noreste (NE). Condiciones habituales de marea.",
-    "alturaActual": "0.99",
+    "mensaje": "Pleamar máxima prevista: 1.20m (30/10 a las 09:00 hs). Viento: 19.3 km/h Norte (N). Condiciones habituales de marea.",
+    "alturaActual": "0.91",
     "alturaProyectada": "1.20",
     "proximaPleamar": {
       "hora": "09:00",
@@ -289,15 +289,15 @@
       "fecha": "30/10"
     },
     "viento": {
-      "velocidad": 17.2,
-      "direccion": "Noreste (NE)",
+      "velocidad": 19.3,
+      "direccion": "Norte (N)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-30T13:20:31.905Z"
+    "actualizadoEn": "2026-10-30T14:20:49.560Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-30T13:20:26.123Z",
+    "actualizadoEn": "2026-10-30T14:20:38.283Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.12",
-    "horaStr": "09:45",
+    "altura": "1.19",
+    "horaStr": "10:45",
     "fechaStr": "30/10/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.27",
-        "fechaStr": "28/10/2026",
-        "horaStr": "10:45"
-      },
       {
         "altura": "1.15",
         "fechaStr": "28/10/2026",
@@ -1473,29 +1468,29 @@
         "altura": "1.12",
         "fechaStr": "30/10/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "1.19",
+        "fechaStr": "30/10/2026",
+        "horaStr": "10:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.19m)",
-      "diferencia": "+0.19"
+      "texto": "Subiendo (+0.07m)",
+      "diferencia": "+0.07"
     }
   },
   "martingarcia": {
-    "altura": "1.07",
-    "horaStr": "09:45",
+    "altura": "1.14",
+    "horaStr": "10:45",
     "fechaStr": "30/10/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.30",
-        "fechaStr": "28/10/2026",
-        "horaStr": "10:45"
-      },
       {
         "altura": "1.28",
         "fechaStr": "28/10/2026",
@@ -1730,6 +1725,11 @@
         "altura": "1.07",
         "fechaStr": "30/10/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "1.14",
+        "fechaStr": "30/10/2026",
+        "horaStr": "10:45"
       }
     ],
     "tendencia": {
