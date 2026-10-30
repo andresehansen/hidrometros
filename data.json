@@ -1,13 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "30/10/2026 a las 04:19 hs",
-  "generadoEn": "2026-10-30T04:19:23.000Z",
+  "fechaReporte": "30/10/2026 a las 05:07 hs",
+  "generadoEn": "2026-10-30T05:07:29.000Z",
   "laplata": {
     "altura": "0.72",
     "horaStr": "03:45",
     "fechaStr": "30/10/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
+    "ts": 1793342700000,
+    "trabado": false,
+    "textoFB": "0.72m (a las 03:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -260,44 +263,29 @@
     }
   },
   "viento": {
-    "velocidad": 6,
+    "velocidad": 12.1,
     "direccion": "Noreste (NE)",
-    "temperatura": 15
+    "temperatura": 15.3
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "08:00",
-      "altura": "1.15",
-      "fecha": "30/10"
-    },
-    "bajamar": {
-      "hora": "03:00",
-      "altura": "0.50",
-      "fecha": "30/10"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.15m (30/10 a las 08:00 hs). Viento: 6 km/h Noreste (NE). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "0.72",
-    "alturaProyectada": "1.15",
-    "proximaPleamar": {
-      "hora": "08:00",
-      "altura": "1.15",
-      "fecha": "30/10"
-    },
+    "alturaProyectada": "0.72",
+    "proximaPleamar": null,
     "viento": {
-      "velocidad": 6,
+      "velocidad": 12.1,
       "direccion": "Noreste (NE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-10-30T07:20:38.528Z"
+    "actualizadoEn": "2026-10-30T08:09:23.142Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-10-30T07:20:32.193Z",
+    "actualizadoEn": "2026-10-30T08:09:16.770Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
