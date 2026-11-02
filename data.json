@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "02/11/2026 a las 17:19 hs",
-  "generadoEn": "2026-11-02T17:19:22.000Z",
+  "fechaReporte": "02/11/2026 a las 18:19 hs",
+  "generadoEn": "2026-11-02T18:19:22.000Z",
   "laplata": {
-    "altura": "0.70",
-    "horaStr": "16:45",
+    "altura": "0.67",
+    "horaStr": "17:45",
     "fechaStr": "02/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.17",
-        "fechaStr": "31/10/2026",
-        "horaStr": "17:45"
-      },
       {
         "altura": "1.35",
         "fechaStr": "31/10/2026",
@@ -250,19 +245,24 @@
         "altura": "0.70",
         "fechaStr": "02/11/2026",
         "horaStr": "16:45"
+      },
+      {
+        "altura": "0.67",
+        "fechaStr": "02/11/2026",
+        "horaStr": "17:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "viento": {
-    "velocidad": 9.4,
-    "direccion": "Sureste (SE)",
-    "temperatura": 23.8
+    "velocidad": 8.2,
+    "direccion": "Este (E)",
+    "temperatura": 22.5
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.80m (02/11 a las 23:30 hs). Viento: 9.4 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "0.70",
+    "mensaje": "Pleamar máxima prevista: 1.80m (02/11 a las 23:30 hs). Viento: 8.2 km/h Este (E). Condiciones habituales de marea.",
+    "alturaActual": "0.67",
     "alturaProyectada": "1.80",
     "proximaPleamar": {
       "hora": "23:30",
@@ -289,15 +289,15 @@
       "fecha": "02/11"
     },
     "viento": {
-      "velocidad": 9.4,
-      "direccion": "Sureste (SE)",
+      "velocidad": 8.2,
+      "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-02T20:20:42.048Z"
+    "actualizadoEn": "2026-11-02T21:20:28.519Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-02T20:20:36.261Z",
+    "actualizadoEn": "2026-11-02T21:20:22.471Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1198,19 +1198,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.02",
-    "horaStr": "16:45",
+    "altura": "0.90",
+    "horaStr": "17:45",
     "fechaStr": "02/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.60",
-        "fechaStr": "31/10/2026",
-        "horaStr": "17:45"
-      },
       {
         "altura": "0.60",
         "fechaStr": "31/10/2026",
@@ -1445,29 +1440,29 @@
         "altura": "1.02",
         "fechaStr": "02/11/2026",
         "horaStr": "16:45"
+      },
+      {
+        "altura": "0.90",
+        "fechaStr": "02/11/2026",
+        "horaStr": "17:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.14m)",
-      "diferencia": "-0.14"
+      "texto": "Bajando (-0.12m)",
+      "diferencia": "-0.12"
     }
   },
   "martingarcia": {
-    "altura": "1.19",
-    "horaStr": "16:45",
+    "altura": "1.13",
+    "horaStr": "17:45",
     "fechaStr": "02/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "0.86",
-        "fechaStr": "31/10/2026",
-        "horaStr": "17:45"
-      },
       {
         "altura": "0.83",
         "fechaStr": "31/10/2026",
@@ -1702,6 +1697,11 @@
         "altura": "1.19",
         "fechaStr": "02/11/2026",
         "horaStr": "16:45"
+      },
+      {
+        "altura": "1.13",
+        "fechaStr": "02/11/2026",
+        "horaStr": "17:45"
       }
     ],
     "tendencia": {
