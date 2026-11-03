@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "03/11/2026 a las 08:19 hs",
-  "generadoEn": "2026-11-03T08:19:22.000Z",
+  "fechaReporte": "03/11/2026 a las 09:19 hs",
+  "generadoEn": "2026-11-03T09:19:22.000Z",
   "laplata": {
-    "altura": "0.99",
-    "horaStr": "07:45",
+    "altura": "1.10",
+    "horaStr": "08:45",
     "fechaStr": "03/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.90",
-        "fechaStr": "01/11/2026",
-        "horaStr": "08:45"
-      },
       {
         "altura": "0.88",
         "fechaStr": "01/11/2026",
@@ -250,19 +245,24 @@
         "altura": "0.99",
         "fechaStr": "03/11/2026",
         "horaStr": "07:45"
+      },
+      {
+        "altura": "1.10",
+        "fechaStr": "03/11/2026",
+        "horaStr": "08:45"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.11m)",
+      "diferencia": "+0.11"
     }
   },
   "viento": {
-    "velocidad": 10.3,
+    "velocidad": 10.4,
     "direccion": "Este (E)",
-    "temperatura": 18.9
+    "temperatura": 20
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.30m (03/11 a las 13:00 hs). Viento: 10.3 km/h Este (E). Condiciones habituales de marea.",
-    "alturaActual": "0.99",
+    "mensaje": "Pleamar máxima prevista: 1.30m (03/11 a las 13:00 hs). Viento: 10.4 km/h Este (E). Condiciones habituales de marea.",
+    "alturaActual": "1.10",
     "alturaProyectada": "1.30",
     "proximaPleamar": {
       "hora": "13:00",
@@ -289,15 +289,15 @@
       "fecha": "03/11"
     },
     "viento": {
-      "velocidad": 10.3,
+      "velocidad": 10.4,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-03T11:20:26.995Z"
+    "actualizadoEn": "2026-11-03T12:20:24.944Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-03T11:20:20.785Z",
+    "actualizadoEn": "2026-11-03T12:20:18.816Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1198,19 +1198,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.27",
-    "horaStr": "07:45",
+    "altura": "1.17",
+    "horaStr": "08:45",
     "fechaStr": "03/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.67",
-        "fechaStr": "01/11/2026",
-        "horaStr": "08:45"
-      },
       {
         "altura": "0.63",
         "fechaStr": "01/11/2026",
@@ -1445,6 +1440,11 @@
         "altura": "1.27",
         "fechaStr": "03/11/2026",
         "horaStr": "07:45"
+      },
+      {
+        "altura": "1.17",
+        "fechaStr": "03/11/2026",
+        "horaStr": "08:45"
       }
     ],
     "tendencia": {
@@ -1455,19 +1455,14 @@
     }
   },
   "martingarcia": {
-    "altura": "1.37",
-    "horaStr": "07:45",
+    "altura": "1.29",
+    "horaStr": "08:45",
     "fechaStr": "03/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.00",
-        "fechaStr": "01/11/2026",
-        "horaStr": "08:45"
-      },
       {
         "altura": "0.95",
         "fechaStr": "01/11/2026",
@@ -1702,13 +1697,18 @@
         "altura": "1.37",
         "fechaStr": "03/11/2026",
         "horaStr": "07:45"
+      },
+      {
+        "altura": "1.29",
+        "fechaStr": "03/11/2026",
+        "horaStr": "08:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.09m)",
-      "diferencia": "-0.09"
+      "texto": "Bajando (-0.08m)",
+      "diferencia": "-0.08"
     }
   },
   "concordia": {
