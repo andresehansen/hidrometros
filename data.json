@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "04/11/2026 a las 19:26 hs",
-  "generadoEn": "2026-11-04T19:26:09.000Z",
+  "fechaReporte": "04/11/2026 a las 20:19 hs",
+  "generadoEn": "2026-11-04T20:19:20.000Z",
   "laplata": {
-    "altura": "0.35",
-    "horaStr": "18:45",
+    "altura": "0.30",
+    "horaStr": "19:45",
     "fechaStr": "04/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.85",
-        "fechaStr": "02/11/2026",
-        "horaStr": "18:45"
-      },
       {
         "altura": "1.19",
         "fechaStr": "02/11/2026",
@@ -250,19 +245,24 @@
         "altura": "0.35",
         "fechaStr": "04/11/2026",
         "horaStr": "18:45"
+      },
+      {
+        "altura": "0.30",
+        "fechaStr": "04/11/2026",
+        "horaStr": "19:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.07m)",
-      "diferencia": "-0.07"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "viento": {
-    "velocidad": 19.5,
+    "velocidad": 17.7,
     "direccion": "Suroeste (SW)",
-    "temperatura": 20.1
+    "temperatura": 18.5
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.30m (05/11 a las 02:00 hs). Viento: 19.5 km/h Suroeste (SW). Condiciones habituales de marea.",
-    "alturaActual": "0.35",
+    "mensaje": "Pleamar máxima prevista: 1.30m (05/11 a las 02:00 hs). Viento: 17.7 km/h Suroeste (SW). Condiciones habituales de marea.",
+    "alturaActual": "0.30",
     "alturaProyectada": "1.30",
     "proximaPleamar": {
       "hora": "02:00",
@@ -289,15 +289,15 @@
       "fecha": "05/11"
     },
     "viento": {
-      "velocidad": 19.5,
+      "velocidad": 17.7,
       "direccion": "Suroeste (SW)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-04T22:27:24.203Z"
+    "actualizadoEn": "2026-11-04T23:21:11.840Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-04T22:27:17.955Z",
+    "actualizadoEn": "2026-11-04T23:21:05.420Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.45",
-    "horaStr": "18:45",
+    "altura": "0.37",
+    "horaStr": "19:45",
     "fechaStr": "04/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.69",
-        "fechaStr": "02/11/2026",
-        "horaStr": "19:45"
-      },
       {
         "altura": "0.62",
         "fechaStr": "02/11/2026",
@@ -1473,6 +1468,11 @@
         "altura": "0.45",
         "fechaStr": "04/11/2026",
         "horaStr": "18:45"
+      },
+      {
+        "altura": "0.37",
+        "fechaStr": "04/11/2026",
+        "horaStr": "19:45"
       }
     ],
     "tendencia": {
@@ -1483,19 +1483,14 @@
     }
   },
   "martingarcia": {
-    "altura": "0.95",
-    "horaStr": "18:45",
+    "altura": "0.93",
+    "horaStr": "19:45",
     "fechaStr": "04/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "0.99",
-        "fechaStr": "02/11/2026",
-        "horaStr": "19:45"
-      },
       {
         "altura": "0.94",
         "fechaStr": "02/11/2026",
@@ -1730,13 +1725,18 @@
         "altura": "0.95",
         "fechaStr": "04/11/2026",
         "horaStr": "18:45"
+      },
+      {
+        "altura": "0.93",
+        "fechaStr": "04/11/2026",
+        "horaStr": "19:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "texto": "Bajando (-0.02m)",
+      "diferencia": "-0.02"
     }
   },
   "concordia": {
