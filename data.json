@@ -1,13 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "05/11/2026 a las 02:19 hs",
-  "generadoEn": "2026-11-05T02:19:21.000Z",
+  "fechaReporte": "05/11/2026 a las 03:19 hs",
+  "generadoEn": "2026-11-05T03:19:22.000Z",
   "laplata": {
     "altura": "1.25",
     "horaStr": "01:45",
     "fechaStr": "05/11/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
+    "ts": 1793853900000,
+    "trabado": false,
+    "textoFB": "1.25m (a las 01:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -260,44 +263,29 @@
     }
   },
   "viento": {
-    "velocidad": 12.4,
+    "velocidad": 10.7,
     "direccion": "Suroeste (SW)",
-    "temperatura": 14.1
+    "temperatura": 13.5
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "03:00",
-      "altura": "1.20",
-      "fecha": "05/11"
-    },
-    "bajamar": {
-      "hora": "11:00",
-      "altura": "0.30",
-      "fecha": "05/11"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.20m (05/11 a las 03:00 hs). Viento: 12.4 km/h Suroeste (SW). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "1.25",
     "alturaProyectada": "1.25",
-    "proximaPleamar": {
-      "hora": "03:00",
-      "altura": "1.20",
-      "fecha": "05/11"
-    },
+    "proximaPleamar": null,
     "viento": {
-      "velocidad": 12.4,
+      "velocidad": 10.7,
       "direccion": "Suroeste (SW)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-05T05:20:31.781Z"
+    "actualizadoEn": "2026-11-05T06:21:27.256Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-05T05:20:25.581Z",
+    "actualizadoEn": "2026-11-05T06:21:20.788Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1999,20 +1987,15 @@
   },
   "saltogrande": {
     "arriba": {
-      "altura": "34.93",
-      "horaStr": "12:00",
-      "fechaStr": "04/11/2026",
+      "altura": "34.92",
+      "horaStr": "00:00",
+      "fechaStr": "05/11/2026",
       "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "34.93m (a las 12:00 hs)",
+      "textoFB": "34.92m (a las 00:00 hs)",
       "alerta": 35.5,
       "evacuacion": 36,
       "historico": [
-        {
-          "altura": "32.28",
-          "fechaStr": "12/10/2026",
-          "horaStr": "00:00"
-        },
         {
           "altura": "32.38",
           "fechaStr": "12/10/2026",
@@ -2247,30 +2230,30 @@
           "altura": "34.93",
           "fechaStr": "04/11/2026",
           "horaStr": "12:00"
+        },
+        {
+          "altura": "34.92",
+          "fechaStr": "05/11/2026",
+          "horaStr": "00:00"
         }
       ],
       "tendencia": {
-        "icono": "⬇️",
-        "estado": "bajando",
-        "texto": "Bajando (-0.03m)",
-        "diferencia": "-0.03"
+        "icono": "➡️",
+        "estado": "estacionado",
+        "texto": "Estacionado",
+        "diferencia": "0.00"
       }
     },
     "abajo": {
-      "altura": "10.98",
-      "horaStr": "12:00",
-      "fechaStr": "04/11/2026",
+      "altura": "10.6",
+      "horaStr": "00:00",
+      "fechaStr": "05/11/2026",
       "fuente": "CARU",
       "antiguo": false,
-      "textoFB": "10.98m (a las 12:00 hs)",
+      "textoFB": "10.6m (a las 00:00 hs)",
       "alerta": 17.3,
       "evacuacion": 17.8,
       "historico": [
-        {
-          "altura": "14.59",
-          "fechaStr": "12/10/2026",
-          "horaStr": "00:00"
-        },
         {
           "altura": "14.49",
           "fechaStr": "12/10/2026",
@@ -2505,13 +2488,18 @@
           "altura": "10.98",
           "fechaStr": "04/11/2026",
           "horaStr": "12:00"
+        },
+        {
+          "altura": "10.6",
+          "fechaStr": "05/11/2026",
+          "horaStr": "00:00"
         }
       ],
       "tendencia": {
         "icono": "⬇️",
         "estado": "bajando",
-        "texto": "Bajando (-0.30m)",
-        "diferencia": "-0.30"
+        "texto": "Bajando (-0.38m)",
+        "diferencia": "-0.38"
       }
     }
   }
