@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "05/11/2026 a las 08:54 hs",
-  "generadoEn": "2026-11-05T08:54:10.000Z",
+  "fechaReporte": "05/11/2026 a las 09:19 hs",
+  "generadoEn": "2026-11-05T09:19:29.000Z",
   "laplata": {
     "altura": "0.99",
     "horaStr": "08:45",
@@ -260,9 +260,9 @@
     }
   },
   "viento": {
-    "velocidad": 7.6,
+    "velocidad": 8.9,
     "direccion": "Oeste (W)",
-    "temperatura": 18.4
+    "temperatura": 19.8
   },
   "pronostico": {
     "pleamar": {
@@ -280,7 +280,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.10m (05/11 a las 15:00 hs). Viento: 7.6 km/h Oeste (W). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.10m (05/11 a las 15:00 hs). Viento: 8.9 km/h Oeste (W). Condiciones habituales de marea.",
     "alturaActual": "0.99",
     "alturaProyectada": "1.10",
     "proximaPleamar": {
@@ -289,15 +289,15 @@
       "fecha": "05/11"
     },
     "viento": {
-      "velocidad": 7.6,
+      "velocidad": 8.9,
       "direccion": "Oeste (W)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-05T11:55:21.601Z"
+    "actualizadoEn": "2026-11-05T12:20:53.155Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-05T11:55:15.530Z",
+    "actualizadoEn": "2026-11-05T12:20:45.342Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -446,14 +446,14 @@
     }
   },
   "iguazu": {
-    "altura": "25.92",
-    "horaStr": "07:00",
-    "fechaStr": "05/11/2026",
-    "fuente": "INA",
-    "antiguo": false,
-    "ts": 1793872800000,
+    "altura": "26.10",
+    "horaStr": "00:00",
+    "fechaStr": "04/11/2026",
+    "fuente": "PNA",
+    "antiguo": true,
+    "ts": 1793761200000,
     "trabado": false,
-    "textoFB": "25.92m (a las 07:00 hs) (Fuente: INA)",
+    "textoFB": "26.10m (a las 00:00 hs) ⚠️ (Dato viejo)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
@@ -699,10 +699,10 @@
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.12m)",
+      "diferencia": "+0.12"
     }
   },
   "sanjavier": {
