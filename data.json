@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "11/11/2026 a las 04:19 hs",
-  "generadoEn": "2026-11-11T04:19:21.000Z",
+  "fechaReporte": "11/11/2026 a las 05:19 hs",
+  "generadoEn": "2026-11-11T05:19:21.000Z",
   "laplata": {
-    "altura": "0.83",
-    "horaStr": "03:45",
+    "altura": "0.95",
+    "horaStr": "04:45",
     "fechaStr": "11/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.41",
-        "fechaStr": "09/11/2026",
-        "horaStr": "04:45"
-      },
       {
         "altura": "1.40",
         "fechaStr": "09/11/2026",
@@ -250,19 +245,24 @@
         "altura": "0.83",
         "fechaStr": "11/11/2026",
         "horaStr": "03:45"
+      },
+      {
+        "altura": "0.95",
+        "fechaStr": "11/11/2026",
+        "horaStr": "04:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.15m)",
-      "diferencia": "+0.15"
+      "texto": "Subiendo (+0.12m)",
+      "diferencia": "+0.12"
     }
   },
   "viento": {
-    "velocidad": 4,
+    "velocidad": 2.8,
     "direccion": "Sureste (SE)",
-    "temperatura": 17.7
+    "temperatura": 17.5
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (11/11 a las 07:00 hs). Viento: 4 km/h Sureste (SE). Condiciones habituales de marea.",
-    "alturaActual": "0.83",
+    "mensaje": "Pleamar máxima prevista: 1.00m (11/11 a las 07:00 hs). Viento: 2.8 km/h Sureste (SE). Condiciones habituales de marea.",
+    "alturaActual": "0.95",
     "alturaProyectada": "1.00",
     "proximaPleamar": {
       "hora": "07:00",
@@ -289,15 +289,15 @@
       "fecha": "11/11"
     },
     "viento": {
-      "velocidad": 4,
+      "velocidad": 2.8,
       "direccion": "Sureste (SE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-11T07:21:44.652Z"
+    "actualizadoEn": "2026-11-11T08:20:32.231Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-11T06:20:22.397Z",
+    "actualizadoEn": "2026-11-11T08:20:25.808Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.71",
-    "horaStr": "03:45",
+    "altura": "0.62",
+    "horaStr": "04:45",
     "fechaStr": "11/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.80",
-        "fechaStr": "09/11/2026",
-        "horaStr": "04:45"
-      },
       {
         "altura": "1.19",
         "fechaStr": "09/11/2026",
@@ -1473,6 +1468,11 @@
         "altura": "0.71",
         "fechaStr": "11/11/2026",
         "horaStr": "03:45"
+      },
+      {
+        "altura": "0.62",
+        "fechaStr": "11/11/2026",
+        "horaStr": "04:45"
       }
     ],
     "tendencia": {
@@ -1483,19 +1483,14 @@
     }
   },
   "martingarcia": {
-    "altura": "0.96",
-    "horaStr": "03:45",
+    "altura": "0.91",
+    "horaStr": "04:45",
     "fechaStr": "11/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.00",
-        "fechaStr": "09/11/2026",
-        "horaStr": "04:45"
-      },
       {
         "altura": "1.08",
         "fechaStr": "09/11/2026",
@@ -1730,13 +1725,18 @@
         "altura": "0.96",
         "fechaStr": "11/11/2026",
         "horaStr": "03:45"
+      },
+      {
+        "altura": "0.91",
+        "fechaStr": "11/11/2026",
+        "horaStr": "04:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.08m)",
-      "diferencia": "-0.08"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "concordia": {
