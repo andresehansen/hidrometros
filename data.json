@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "11/11/2026 a las 07:19 hs",
-  "generadoEn": "2026-11-11T07:19:20.000Z",
+  "fechaReporte": "11/11/2026 a las 08:19 hs",
+  "generadoEn": "2026-11-11T08:19:22.000Z",
   "laplata": {
     "altura": "1.11",
-    "horaStr": "06:45",
+    "horaStr": "07:45",
     "fechaStr": "11/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.23",
-        "fechaStr": "09/11/2026",
-        "horaStr": "07:45"
-      },
       {
         "altura": "1.07",
         "fechaStr": "09/11/2026",
@@ -250,29 +245,34 @@
         "altura": "1.11",
         "fechaStr": "11/11/2026",
         "horaStr": "06:45"
+      },
+      {
+        "altura": "1.11",
+        "fechaStr": "11/11/2026",
+        "horaStr": "07:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.06m)",
-      "diferencia": "+0.06"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "viento": {
-    "velocidad": 5.4,
-    "direccion": "Noreste (NE)",
-    "temperatura": 20.3
+    "velocidad": 5.3,
+    "direccion": "Norte (N)",
+    "temperatura": 22.6
   },
   "pronostico": {
     "pleamar": {
-      "hora": "07:00",
-      "altura": "1.00",
+      "hora": "20:00",
+      "altura": "1.25",
       "fecha": "11/11"
     },
     "bajamar": {
-      "hora": "02:00",
-      "altura": "0.50",
+      "hora": "14:00",
+      "altura": "0.55",
       "fecha": "11/11"
     }
   },
@@ -280,24 +280,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.00m (11/11 a las 07:00 hs). Viento: 5.4 km/h Noreste (NE). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.25m (11/11 a las 20:00 hs). Viento: 5.3 km/h Norte (N). Condiciones habituales de marea.",
     "alturaActual": "1.11",
-    "alturaProyectada": "1.11",
+    "alturaProyectada": "1.25",
     "proximaPleamar": {
-      "hora": "07:00",
-      "altura": "1.00",
+      "hora": "20:00",
+      "altura": "1.25",
       "fecha": "11/11"
     },
     "viento": {
-      "velocidad": 5.4,
-      "direccion": "Noreste (NE)",
+      "velocidad": 5.3,
+      "direccion": "Norte (N)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-11T10:21:39.367Z"
+    "actualizadoEn": "2026-11-11T11:20:54.523Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-11T10:21:33.089Z",
+    "actualizadoEn": "2026-11-11T11:20:48.713Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.70",
-    "horaStr": "06:45",
+    "altura": "0.99",
+    "horaStr": "07:45",
     "fechaStr": "11/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.42",
-        "fechaStr": "09/11/2026",
-        "horaStr": "07:45"
-      },
       {
         "altura": "1.43",
         "fechaStr": "09/11/2026",
@@ -1473,29 +1468,29 @@
         "altura": "0.70",
         "fechaStr": "11/11/2026",
         "horaStr": "06:45"
+      },
+      {
+        "altura": "0.99",
+        "fechaStr": "11/11/2026",
+        "horaStr": "07:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.12m)",
-      "diferencia": "+0.12"
+      "texto": "Subiendo (+0.29m)",
+      "diferencia": "+0.29"
     }
   },
   "martingarcia": {
-    "altura": "0.90",
-    "horaStr": "06:45",
+    "altura": "0.99",
+    "horaStr": "07:45",
     "fechaStr": "11/11/2026",
-    "fuente": "SHN",
-    "antiguo": true,
+    "fuente": "SHN (Atalaya)",
+    "antiguo": false,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.31",
-        "fechaStr": "09/11/2026",
-        "horaStr": "07:45"
-      },
       {
         "altura": "1.38",
         "fechaStr": "09/11/2026",
@@ -1730,13 +1725,18 @@
         "altura": "0.90",
         "fechaStr": "11/11/2026",
         "horaStr": "06:45"
+      },
+      {
+        "altura": "0.99",
+        "fechaStr": "11/11/2026",
+        "horaStr": "07:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.03m)",
-      "diferencia": "+0.03"
+      "texto": "Subiendo (+0.09m)",
+      "diferencia": "+0.09"
     }
   },
   "concordia": {
