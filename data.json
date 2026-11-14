@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "14/11/2026 a las 15:19 hs",
-  "generadoEn": "2026-11-14T15:19:21.000Z",
+  "fechaReporte": "14/11/2026 a las 16:19 hs",
+  "generadoEn": "2026-11-14T16:19:20.000Z",
   "laplata": {
-    "altura": "0.26",
-    "horaStr": "14:45",
+    "altura": "0.39",
+    "horaStr": "15:45",
     "fechaStr": "14/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.00",
-        "fechaStr": "12/11/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "1.30",
         "fechaStr": "12/11/2026",
@@ -250,19 +245,24 @@
         "altura": "0.26",
         "fechaStr": "14/11/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.39",
+        "fechaStr": "14/11/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.13m)",
+      "diferencia": "+0.13"
     }
   },
   "viento": {
-    "velocidad": 16.3,
-    "direccion": "Suroeste (SW)",
-    "temperatura": 26.8
+    "velocidad": 15.5,
+    "direccion": "Sur (S)",
+    "temperatura": 26.4
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.10m (14/11 a las 21:00 hs). Viento: 16.3 km/h Suroeste (SW). Condiciones habituales de marea.",
-    "alturaActual": "0.26",
+    "mensaje": "Pleamar máxima prevista: 1.10m (14/11 a las 21:00 hs). Viento: 15.5 km/h Sur (S). Condiciones habituales de marea.",
+    "alturaActual": "0.39",
     "alturaProyectada": "1.10",
     "proximaPleamar": {
       "hora": "21:00",
@@ -289,15 +289,15 @@
       "fecha": "14/11"
     },
     "viento": {
-      "velocidad": 16.3,
-      "direccion": "Suroeste (SW)",
+      "velocidad": 15.5,
+      "direccion": "Sur (S)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-14T18:20:55.220Z"
+    "actualizadoEn": "2026-11-14T19:20:37.789Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-14T18:20:48.171Z",
+    "actualizadoEn": "2026-11-14T19:20:31.472Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.38",
-    "horaStr": "14:45",
+    "altura": "0.35",
+    "horaStr": "15:45",
     "fechaStr": "14/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.73",
-        "fechaStr": "12/11/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "0.68",
         "fechaStr": "12/11/2026",
@@ -1473,29 +1468,29 @@
         "altura": "0.38",
         "fechaStr": "14/11/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.35",
+        "fechaStr": "14/11/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "martingarcia": {
-    "altura": "0.78",
-    "horaStr": "14:45",
+    "altura": "0.75",
+    "horaStr": "15:45",
     "fechaStr": "14/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.00",
-        "fechaStr": "12/11/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "0.96",
         "fechaStr": "12/11/2026",
@@ -1730,6 +1725,11 @@
         "altura": "0.78",
         "fechaStr": "14/11/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.75",
+        "fechaStr": "14/11/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
