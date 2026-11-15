@@ -1,13 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "15/11/2026 a las 15:19 hs",
-  "generadoEn": "2026-11-15T15:19:21.000Z",
+  "fechaReporte": "15/11/2026 a las 16:19 hs",
+  "generadoEn": "2026-11-15T16:19:23.000Z",
   "laplata": {
     "altura": "0.92",
     "horaStr": "14:45",
     "fechaStr": "15/11/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
+    "ts": 1794764700000,
+    "trabado": false,
+    "textoFB": "0.92m (a las 14:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -260,44 +263,29 @@
     }
   },
   "viento": {
-    "velocidad": 13.8,
+    "velocidad": 11.9,
     "direccion": "Este (E)",
     "temperatura": 24.2
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "22:00",
-      "altura": "1.55",
-      "fecha": "15/11"
-    },
-    "bajamar": {
-      "hora": "05:00",
-      "altura": "0.95",
-      "fecha": "16/11"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.55m (15/11 a las 22:00 hs). Viento: 13.8 km/h Este (E). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "0.92",
-    "alturaProyectada": "1.55",
-    "proximaPleamar": {
-      "hora": "22:00",
-      "altura": "1.55",
-      "fecha": "15/11"
-    },
+    "alturaProyectada": "0.92",
+    "proximaPleamar": null,
     "viento": {
-      "velocidad": 13.8,
+      "velocidad": 11.9,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-15T18:20:32.650Z"
+    "actualizadoEn": "2026-11-15T19:21:17.802Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-15T18:20:26.840Z",
+    "actualizadoEn": "2026-11-15T19:21:11.941Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
