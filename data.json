@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "16/11/2026 a las 15:19 hs",
-  "generadoEn": "2026-11-16T15:19:23.000Z",
+  "fechaReporte": "16/11/2026 a las 16:19 hs",
+  "generadoEn": "2026-11-16T16:19:21.000Z",
   "laplata": {
-    "altura": "0.40",
-    "horaStr": "14:45",
+    "altura": "0.38",
+    "horaStr": "15:45",
     "fechaStr": "16/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.39",
-        "fechaStr": "14/11/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "0.60",
         "fechaStr": "14/11/2026",
@@ -250,19 +245,24 @@
         "altura": "0.40",
         "fechaStr": "16/11/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.38",
+        "fechaStr": "16/11/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "texto": "Bajando (-0.02m)",
+      "diferencia": "-0.02"
     }
   },
   "viento": {
-    "velocidad": 9.9,
+    "velocidad": 11.2,
     "direccion": "Este (E)",
-    "temperatura": 25.1
+    "temperatura": 24.9
   },
   "pronostico": {
     "pleamar": {
@@ -280,8 +280,8 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.10m (16/11 a las 23:00 hs). Viento: 9.9 km/h Este (E). Condiciones habituales de marea.",
-    "alturaActual": "0.40",
+    "mensaje": "Pleamar máxima prevista: 1.10m (16/11 a las 23:00 hs). Viento: 11.2 km/h Este (E). Condiciones habituales de marea.",
+    "alturaActual": "0.38",
     "alturaProyectada": "1.10",
     "proximaPleamar": {
       "hora": "23:00",
@@ -289,15 +289,15 @@
       "fecha": "16/11"
     },
     "viento": {
-      "velocidad": 9.9,
+      "velocidad": 11.2,
       "direccion": "Este (E)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-16T18:21:06.545Z"
+    "actualizadoEn": "2026-11-16T19:20:24.992Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-16T18:20:59.515Z",
+    "actualizadoEn": "2026-11-16T19:20:19.163Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -418,77 +418,17 @@
     }
   },
   "iguazu": {
-    "altura": "21.45",
-    "horaStr": "00:00",
+    "altura": "20.97",
+    "horaStr": "15:00",
     "fechaStr": "16/11/2026",
-    "fuente": "PNA",
+    "fuente": "INA",
     "antiguo": false,
-    "ts": 1794798000000,
+    "ts": 1794852000000,
     "trabado": false,
-    "textoFB": "21.45m (a las 00:00 hs) (Fuente: PNA)",
+    "textoFB": "20.97m (a las 15:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "21.18",
-        "fechaStr": "15/11/2026",
-        "horaStr": "09:30"
-      },
-      {
-        "altura": "21.17",
-        "fechaStr": "15/11/2026",
-        "horaStr": "10:00"
-      },
-      {
-        "altura": "21.16",
-        "fechaStr": "15/11/2026",
-        "horaStr": "10:30"
-      },
-      {
-        "altura": "21.18",
-        "fechaStr": "15/11/2026",
-        "horaStr": "11:00"
-      },
-      {
-        "altura": "21.19",
-        "fechaStr": "15/11/2026",
-        "horaStr": "11:30"
-      },
-      {
-        "altura": "21.20",
-        "fechaStr": "15/11/2026",
-        "horaStr": "12:00"
-      },
-      {
-        "altura": "21.19",
-        "fechaStr": "15/11/2026",
-        "horaStr": "12:30"
-      },
-      {
-        "altura": "21.21",
-        "fechaStr": "15/11/2026",
-        "horaStr": "13:00"
-      },
-      {
-        "altura": "21.19",
-        "fechaStr": "15/11/2026",
-        "horaStr": "13:30"
-      },
-      {
-        "altura": "21.19",
-        "fechaStr": "15/11/2026",
-        "horaStr": "14:00"
-      },
-      {
-        "altura": "21.23",
-        "fechaStr": "15/11/2026",
-        "horaStr": "14:30"
-      },
-      {
-        "altura": "21.23",
-        "fechaStr": "15/11/2026",
-        "horaStr": "15:00"
-      },
       {
         "altura": "21.27",
         "fechaStr": "15/11/2026",
@@ -668,13 +608,73 @@
         "altura": "20.51",
         "fechaStr": "16/11/2026",
         "horaStr": "09:00"
+      },
+      {
+        "altura": "20.48",
+        "fechaStr": "16/11/2026",
+        "horaStr": "09:30"
+      },
+      {
+        "altura": "20.37",
+        "fechaStr": "16/11/2026",
+        "horaStr": "10:00"
+      },
+      {
+        "altura": "20.31",
+        "fechaStr": "16/11/2026",
+        "horaStr": "10:30"
+      },
+      {
+        "altura": "20.27",
+        "fechaStr": "16/11/2026",
+        "horaStr": "11:00"
+      },
+      {
+        "altura": "20.29",
+        "fechaStr": "16/11/2026",
+        "horaStr": "11:30"
+      },
+      {
+        "altura": "20.38",
+        "fechaStr": "16/11/2026",
+        "horaStr": "12:00"
+      },
+      {
+        "altura": "20.46",
+        "fechaStr": "16/11/2026",
+        "horaStr": "12:30"
+      },
+      {
+        "altura": "20.51",
+        "fechaStr": "16/11/2026",
+        "horaStr": "13:00"
+      },
+      {
+        "altura": "20.59",
+        "fechaStr": "16/11/2026",
+        "horaStr": "13:30"
+      },
+      {
+        "altura": "20.74",
+        "fechaStr": "16/11/2026",
+        "horaStr": "14:00"
+      },
+      {
+        "altura": "20.77",
+        "fechaStr": "16/11/2026",
+        "horaStr": "14:30"
+      },
+      {
+        "altura": "20.97",
+        "fechaStr": "16/11/2026",
+        "horaStr": "15:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.91m)",
-      "diferencia": "+0.91"
+      "texto": "Subiendo (+0.20m)",
+      "diferencia": "+0.20"
     }
   },
   "sanjavier": {
@@ -1198,19 +1198,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.61",
-    "horaStr": "14:45",
+    "altura": "0.58",
+    "horaStr": "15:45",
     "fechaStr": "16/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.35",
-        "fechaStr": "14/11/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "0.34",
         "fechaStr": "14/11/2026",
@@ -1445,29 +1440,29 @@
         "altura": "0.61",
         "fechaStr": "16/11/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.58",
+        "fechaStr": "16/11/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.04m)",
-      "diferencia": "-0.04"
+      "texto": "Bajando (-0.03m)",
+      "diferencia": "-0.03"
     }
   },
   "martingarcia": {
-    "altura": "0.96",
-    "horaStr": "14:45",
+    "altura": "0.91",
+    "horaStr": "15:45",
     "fechaStr": "16/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "0.75",
-        "fechaStr": "14/11/2026",
-        "horaStr": "15:45"
-      },
       {
         "altura": "0.73",
         "fechaStr": "14/11/2026",
@@ -1702,13 +1697,18 @@
         "altura": "0.96",
         "fechaStr": "16/11/2026",
         "horaStr": "14:45"
+      },
+      {
+        "altura": "0.91",
+        "fechaStr": "16/11/2026",
+        "horaStr": "15:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "concordia": {
