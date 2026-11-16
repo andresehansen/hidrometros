@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "16/11/2026 a las 02:19 hs",
-  "generadoEn": "2026-11-16T02:19:22.000Z",
+  "fechaReporte": "16/11/2026 a las 03:19 hs",
+  "generadoEn": "2026-11-16T03:19:19.000Z",
   "laplata": {
-    "altura": "1.28",
-    "horaStr": "01:45",
+    "altura": "1.15",
+    "horaStr": "02:45",
     "fechaStr": "16/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "0.78",
-        "fechaStr": "14/11/2026",
-        "horaStr": "02:45"
-      },
       {
         "altura": "0.68",
         "fechaStr": "14/11/2026",
@@ -250,19 +245,24 @@
         "altura": "1.28",
         "fechaStr": "16/11/2026",
         "horaStr": "01:45"
+      },
+      {
+        "altura": "1.15",
+        "fechaStr": "16/11/2026",
+        "horaStr": "02:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "texto": "Bajando (-0.13m)",
+      "diferencia": "-0.13"
     }
   },
   "viento": {
-    "velocidad": 10.7,
+    "velocidad": 11.6,
     "direccion": "Noreste (NE)",
-    "temperatura": 20.8
+    "temperatura": 20.9
   },
   "pronostico": {
     "pleamar": {
@@ -280,24 +280,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.15m (16/11 a las 06:00 hs). Viento: 10.7 km/h Noreste (NE). Condiciones habituales de marea.",
-    "alturaActual": "1.28",
-    "alturaProyectada": "1.28",
+    "mensaje": "Pleamar máxima prevista: 1.15m (16/11 a las 06:00 hs). Viento: 11.6 km/h Noreste (NE). Condiciones habituales de marea.",
+    "alturaActual": "1.15",
+    "alturaProyectada": "1.15",
     "proximaPleamar": {
       "hora": "06:00",
       "altura": "1.15",
       "fecha": "16/11"
     },
     "viento": {
-      "velocidad": 10.7,
+      "velocidad": 11.6,
       "direccion": "Noreste (NE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-16T05:20:34.068Z"
+    "actualizadoEn": "2026-11-16T06:20:17.779Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-16T05:20:25.529Z",
+    "actualizadoEn": "2026-11-16T06:20:09.830Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1198,19 +1198,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.57",
-    "horaStr": "01:45",
+    "altura": "1.46",
+    "horaStr": "02:45",
     "fechaStr": "16/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.02",
-        "fechaStr": "14/11/2026",
-        "horaStr": "02:45"
-      },
       {
         "altura": "0.93",
         "fechaStr": "14/11/2026",
@@ -1445,6 +1440,11 @@
         "altura": "1.57",
         "fechaStr": "16/11/2026",
         "horaStr": "01:45"
+      },
+      {
+        "altura": "1.46",
+        "fechaStr": "16/11/2026",
+        "horaStr": "02:45"
       }
     ],
     "tendencia": {
@@ -1455,19 +1455,14 @@
     }
   },
   "martingarcia": {
-    "altura": "1.64",
-    "horaStr": "01:45",
+    "altura": "1.55",
+    "horaStr": "02:45",
     "fechaStr": "16/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.28",
-        "fechaStr": "14/11/2026",
-        "horaStr": "02:45"
-      },
       {
         "altura": "1.19",
         "fechaStr": "14/11/2026",
@@ -1702,13 +1697,18 @@
         "altura": "1.64",
         "fechaStr": "16/11/2026",
         "horaStr": "01:45"
+      },
+      {
+        "altura": "1.55",
+        "fechaStr": "16/11/2026",
+        "horaStr": "02:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.05m)",
-      "diferencia": "-0.05"
+      "texto": "Bajando (-0.09m)",
+      "diferencia": "-0.09"
     }
   },
   "concordia": {
