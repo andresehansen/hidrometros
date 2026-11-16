@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "16/11/2026 a las 01:59 hs",
-  "generadoEn": "2026-11-16T01:59:12.000Z",
+  "fechaReporte": "16/11/2026 a las 02:19 hs",
+  "generadoEn": "2026-11-16T02:19:22.000Z",
   "laplata": {
     "altura": "1.28",
     "horaStr": "01:45",
@@ -260,9 +260,9 @@
     }
   },
   "viento": {
-    "velocidad": 8.7,
-    "direccion": "Este (E)",
-    "temperatura": 20.5
+    "velocidad": 10.7,
+    "direccion": "Noreste (NE)",
+    "temperatura": 20.8
   },
   "pronostico": {
     "pleamar": {
@@ -280,7 +280,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.15m (16/11 a las 06:00 hs). Viento: 8.7 km/h Este (E). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 1.15m (16/11 a las 06:00 hs). Viento: 10.7 km/h Noreste (NE). Condiciones habituales de marea.",
     "alturaActual": "1.28",
     "alturaProyectada": "1.28",
     "proximaPleamar": {
@@ -289,15 +289,15 @@
       "fecha": "16/11"
     },
     "viento": {
-      "velocidad": 8.7,
-      "direccion": "Este (E)",
+      "velocidad": 10.7,
+      "direccion": "Noreste (NE)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-16T05:00:26.917Z"
+    "actualizadoEn": "2026-11-16T05:20:34.068Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-16T05:00:20.688Z",
+    "actualizadoEn": "2026-11-16T05:20:25.529Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -418,52 +418,17 @@
     }
   },
   "iguazu": {
-    "altura": "21.59",
-    "horaStr": "22:00",
-    "fechaStr": "15/11/2026",
+    "altura": "21.30",
+    "horaStr": "01:30",
+    "fechaStr": "16/11/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1794790800000,
+    "ts": 1794803400000,
     "trabado": false,
-    "textoFB": "21.59m (a las 22:00 hs) (Fuente: INA)",
+    "textoFB": "21.30m (a las 01:30 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "22.13",
-        "fechaStr": "14/11/2026",
-        "horaStr": "22:30"
-      },
-      {
-        "altura": "22.09",
-        "fechaStr": "14/11/2026",
-        "horaStr": "23:00"
-      },
-      {
-        "altura": "22.04",
-        "fechaStr": "14/11/2026",
-        "horaStr": "23:30"
-      },
-      {
-        "altura": "21.89",
-        "fechaStr": "15/11/2026",
-        "horaStr": "00:00"
-      },
-      {
-        "altura": "21.77",
-        "fechaStr": "15/11/2026",
-        "horaStr": "00:30"
-      },
-      {
-        "altura": "21.67",
-        "fechaStr": "15/11/2026",
-        "horaStr": "01:00"
-      },
-      {
-        "altura": "21.62",
-        "fechaStr": "15/11/2026",
-        "horaStr": "01:30"
-      },
       {
         "altura": "21.51",
         "fechaStr": "15/11/2026",
@@ -668,13 +633,48 @@
         "altura": "21.59",
         "fechaStr": "15/11/2026",
         "horaStr": "22:00"
+      },
+      {
+        "altura": "21.58",
+        "fechaStr": "15/11/2026",
+        "horaStr": "22:30"
+      },
+      {
+        "altura": "21.53",
+        "fechaStr": "15/11/2026",
+        "horaStr": "23:00"
+      },
+      {
+        "altura": "21.53",
+        "fechaStr": "15/11/2026",
+        "horaStr": "23:30"
+      },
+      {
+        "altura": "21.46",
+        "fechaStr": "16/11/2026",
+        "horaStr": "00:00"
+      },
+      {
+        "altura": "21.44",
+        "fechaStr": "16/11/2026",
+        "horaStr": "00:30"
+      },
+      {
+        "altura": "21.35",
+        "fechaStr": "16/11/2026",
+        "horaStr": "01:00"
+      },
+      {
+        "altura": "21.30",
+        "fechaStr": "16/11/2026",
+        "horaStr": "01:30"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.03m)",
-      "diferencia": "-0.03"
+      "texto": "Bajando (-0.05m)",
+      "diferencia": "-0.05"
     }
   },
   "sanjavier": {
