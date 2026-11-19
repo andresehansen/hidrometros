@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "19/11/2026 a las 01:19 hs",
-  "generadoEn": "2026-11-19T01:19:20.000Z",
+  "fechaReporte": "19/11/2026 a las 02:19 hs",
+  "generadoEn": "2026-11-19T02:19:21.000Z",
   "laplata": {
-    "altura": "1.40",
-    "horaStr": "00:45",
+    "altura": "1.39",
+    "horaStr": "01:45",
     "fechaStr": "19/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.28",
-        "fechaStr": "17/11/2026",
-        "horaStr": "01:45"
-      },
       {
         "altura": "1.19",
         "fechaStr": "17/11/2026",
@@ -250,16 +245,25 @@
         "altura": "1.40",
         "fechaStr": "19/11/2026",
         "horaStr": "00:45"
+      },
+      {
+        "altura": "1.39",
+        "fechaStr": "19/11/2026",
+        "horaStr": "01:45"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.01m)",
+      "diferencia": "-0.01"
     }
   },
-  "viento": null,
+  "viento": {
+    "velocidad": 12.4,
+    "direccion": "Oeste (W)",
+    "temperatura": 16.8
+  },
   "pronostico": {
     "pleamar": {
       "hora": "13:00",
@@ -276,20 +280,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 0.90m (19/11 a las 13:00 hs). Viento: 0 km/h . Condiciones habituales de marea.",
-    "alturaActual": "1.40",
-    "alturaProyectada": "1.40",
+    "mensaje": "Pleamar máxima prevista: 0.90m (19/11 a las 13:00 hs). Viento: 12.4 km/h Oeste (W). Condiciones habituales de marea.",
+    "alturaActual": "1.39",
+    "alturaProyectada": "1.39",
     "proximaPleamar": {
       "hora": "13:00",
       "altura": "0.90",
       "fecha": "19/11"
     },
-    "viento": null,
-    "actualizadoEn": "2026-11-19T04:20:59.564Z"
+    "viento": {
+      "velocidad": 12.4,
+      "direccion": "Oeste (W)",
+      "esSudeste": false
+    },
+    "actualizadoEn": "2026-11-19T05:20:46.888Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-19T04:20:53.489Z",
+    "actualizadoEn": "2026-11-19T05:20:40.465Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1218,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "1.35",
-    "horaStr": "00:45",
+    "altura": "1.40",
+    "horaStr": "01:45",
     "fechaStr": "19/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "1.54",
-        "fechaStr": "17/11/2026",
-        "horaStr": "01:45"
-      },
       {
         "altura": "1.44",
         "fechaStr": "17/11/2026",
@@ -1465,29 +1468,29 @@
         "altura": "1.35",
         "fechaStr": "19/11/2026",
         "horaStr": "00:45"
+      },
+      {
+        "altura": "1.40",
+        "fechaStr": "19/11/2026",
+        "horaStr": "01:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.18m)",
-      "diferencia": "+0.18"
+      "texto": "Subiendo (+0.05m)",
+      "diferencia": "+0.05"
     }
   },
   "martingarcia": {
-    "altura": "1.26",
-    "horaStr": "00:45",
+    "altura": "1.39",
+    "horaStr": "01:45",
     "fechaStr": "19/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "1.49",
-        "fechaStr": "17/11/2026",
-        "horaStr": "01:45"
-      },
       {
         "altura": "1.46",
         "fechaStr": "17/11/2026",
@@ -1722,13 +1725,18 @@
         "altura": "1.26",
         "fechaStr": "19/11/2026",
         "horaStr": "00:45"
+      },
+      {
+        "altura": "1.39",
+        "fechaStr": "19/11/2026",
+        "horaStr": "01:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.12m)",
-      "diferencia": "+0.12"
+      "texto": "Subiendo (+0.13m)",
+      "diferencia": "+0.13"
     }
   },
   "concordia": {
