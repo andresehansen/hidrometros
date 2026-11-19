@@ -1,16 +1,24 @@
 {
   "schemaVersion": "1.0.0",
   "fechaReporte": "19/11/2026 a las 13:19 hs",
-  "generadoEn": "2026-11-19T13:19:44.000Z",
+  "generadoEn": "2026-11-19T13:19:25.000Z",
   "laplata": {
-    "altura": "0.99",
-    "horaStr": "12:45",
+    "altura": "1.01",
+    "horaStr": "11:45",
     "fechaStr": "19/11/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
+    "ts": 1795099500000,
+    "trabado": false,
+    "textoFB": "1.01m (a las 11:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
+      {
+        "altura": "0.80",
+        "fechaStr": "17/11/2026",
+        "horaStr": "12:45"
+      },
       {
         "altura": "0.52",
         "fechaStr": "17/11/2026",
@@ -245,21 +253,20 @@
         "altura": "1.01",
         "fechaStr": "19/11/2026",
         "horaStr": "11:45"
-      },
-      {
-        "altura": "0.99",
-        "fechaStr": "19/11/2026",
-        "horaStr": "12:45"
       }
     ],
     "tendencia": {
-      "icono": "⬇️",
-      "estado": "bajando",
-      "texto": "Bajando (-0.02m)",
-      "diferencia": "-0.02"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.01m)",
+      "diferencia": "+0.01"
     }
   },
-  "viento": null,
+  "viento": {
+    "velocidad": 18.7,
+    "direccion": "Suroeste (SW)",
+    "temperatura": 25.5
+  },
   "pronostico": {
     "pleamar": {
       "hora": "22:00",
@@ -276,20 +283,24 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.40m (19/11 a las 22:00 hs). Viento: 0 km/h . Condiciones habituales de marea.",
-    "alturaActual": "0.99",
+    "mensaje": "Pleamar máxima prevista: 1.40m (19/11 a las 22:00 hs). Viento: 18.7 km/h Suroeste (SW). Condiciones habituales de marea.",
+    "alturaActual": "1.01",
     "alturaProyectada": "1.40",
     "proximaPleamar": {
       "hora": "22:00",
       "altura": "1.40",
       "fecha": "19/11"
     },
-    "viento": null,
-    "actualizadoEn": "2026-11-19T16:21:31.861Z"
+    "viento": {
+      "velocidad": 18.7,
+      "direccion": "Suroeste (SW)",
+      "esSudeste": false
+    },
+    "actualizadoEn": "2026-11-19T16:21:33.157Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-19T16:21:26.085Z",
+    "actualizadoEn": "2026-11-19T16:21:26.767Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -1222,7 +1233,7 @@
     "horaStr": "12:45",
     "fechaStr": "19/11/2026",
     "fuente": "SHN",
-    "antiguo": false,
+    "antiguo": true,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
