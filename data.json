@@ -1,13 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "19/11/2026 a las 20:24 hs",
-  "generadoEn": "2026-11-19T20:24:47.000Z",
+  "fechaReporte": "19/11/2026 a las 21:19 hs",
+  "generadoEn": "2026-11-19T21:19:19.000Z",
   "laplata": {
     "altura": "0.94",
     "horaStr": "19:45",
     "fechaStr": "19/11/2026",
-    "fuente": "SHN",
+    "fuente": "INA",
     "antiguo": false,
+    "ts": 1795128300000,
+    "trabado": false,
+    "textoFB": "0.94m (a las 19:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
@@ -260,44 +263,29 @@
     }
   },
   "viento": {
-    "velocidad": 4.8,
+    "velocidad": 4.3,
     "direccion": "Suroeste (SW)",
-    "temperatura": 21.4
+    "temperatura": 20.4
   },
-  "pronostico": {
-    "pleamar": {
-      "hora": "01:00",
-      "altura": "1.50",
-      "fecha": "20/11"
-    },
-    "bajamar": {
-      "hora": "09:00",
-      "altura": "0.90",
-      "fecha": "20/11"
-    }
-  },
+  "pronostico": null,
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.50m (20/11 a las 01:00 hs). Viento: 4.8 km/h Suroeste (SW). Condiciones habituales de marea.",
+    "mensaje": "Nivel de marea dentro de parámetros habituales.",
     "alturaActual": "0.94",
-    "alturaProyectada": "1.50",
-    "proximaPleamar": {
-      "hora": "01:00",
-      "altura": "1.50",
-      "fecha": "20/11"
-    },
+    "alturaProyectada": "0.94",
+    "proximaPleamar": null,
     "viento": {
-      "velocidad": 4.8,
+      "velocidad": 4.3,
       "direccion": "Suroeste (SW)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-19T23:26:12.087Z"
+    "actualizadoEn": "2026-11-20T00:21:10.352Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-19T23:26:05.661Z",
+    "actualizadoEn": "2026-11-20T00:21:03.932Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -446,37 +434,17 @@
     }
   },
   "iguazu": {
-    "altura": "20.39",
-    "horaStr": "18:00",
+    "altura": "20.43",
+    "horaStr": "20:00",
     "fechaStr": "19/11/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1795122000000,
+    "ts": 1795129200000,
     "trabado": false,
-    "textoFB": "20.39m (a las 18:00 hs) (Fuente: INA)",
+    "textoFB": "20.43m (a las 20:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.55",
-        "fechaStr": "18/11/2026",
-        "horaStr": "18:30"
-      },
-      {
-        "altura": "20.63",
-        "fechaStr": "18/11/2026",
-        "horaStr": "19:00"
-      },
-      {
-        "altura": "20.67",
-        "fechaStr": "18/11/2026",
-        "horaStr": "19:30"
-      },
-      {
-        "altura": "20.73",
-        "fechaStr": "18/11/2026",
-        "horaStr": "20:00"
-      },
       {
         "altura": "20.75",
         "fechaStr": "18/11/2026",
@@ -696,13 +664,33 @@
         "altura": "20.39",
         "fechaStr": "19/11/2026",
         "horaStr": "18:00"
+      },
+      {
+        "altura": "20.42",
+        "fechaStr": "19/11/2026",
+        "horaStr": "18:30"
+      },
+      {
+        "altura": "20.44",
+        "fechaStr": "19/11/2026",
+        "horaStr": "19:00"
+      },
+      {
+        "altura": "20.41",
+        "fechaStr": "19/11/2026",
+        "horaStr": "19:30"
+      },
+      {
+        "altura": "20.43",
+        "fechaStr": "19/11/2026",
+        "horaStr": "20:00"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.01m)",
-      "diferencia": "+0.01"
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "sanjavier": {
