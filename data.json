@@ -1,29 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "20/11/2026 a las 11:57 hs",
-  "generadoEn": "2026-11-20T11:57:44.000Z",
+  "fechaReporte": "20/11/2026 a las 12:19 hs",
+  "generadoEn": "2026-11-20T12:19:22.000Z",
   "laplata": {
-    "altura": "1.12",
-    "horaStr": "09:45",
+    "altura": "1.03",
+    "horaStr": "11:45",
     "fechaStr": "20/11/2026",
-    "fuente": "INA",
+    "fuente": "SHN",
     "antiguo": false,
-    "ts": 1795178700000,
-    "trabado": false,
-    "textoFB": "1.12m (a las 09:45 hs) (Fuente: INA)",
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.49",
-        "fechaStr": "18/11/2026",
-        "horaStr": "10:45"
-      },
-      {
-        "altura": "1.42",
-        "fechaStr": "18/11/2026",
-        "horaStr": "11:45"
-      },
       {
         "altura": "1.26",
         "fechaStr": "18/11/2026",
@@ -253,218 +240,223 @@
         "altura": "1.12",
         "fechaStr": "20/11/2026",
         "horaStr": "09:45"
+      },
+      {
+        "altura": "1.15",
+        "fechaStr": "20/11/2026",
+        "horaStr": "10:45"
+      },
+      {
+        "altura": "1.03",
+        "fechaStr": "20/11/2026",
+        "horaStr": "11:45"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.03m)",
-      "diferencia": "+0.03"
+      "icono": "⬇️",
+      "estado": "bajando",
+      "texto": "Bajando (-0.12m)",
+      "diferencia": "-0.12"
     }
   },
   "viento": {
-    "velocidad": 12.6,
+    "velocidad": 11.8,
     "direccion": "Norte (N)",
-    "temperatura": 23.9
+    "temperatura": 24.4
   },
-  "pronostico": null,
+  "pronostico": {
+    "pleamar": {
+      "hora": "22:30",
+      "altura": "1.30",
+      "fecha": "20/11"
+    },
+    "bajamar": {
+      "hora": "19:00",
+      "altura": "0.75",
+      "fecha": "20/11"
+    }
+  },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Nivel de marea dentro de parámetros habituales.",
-    "alturaActual": "1.12",
-    "alturaProyectada": "1.12",
-    "proximaPleamar": null,
+    "mensaje": "Pleamar máxima prevista: 1.30m (20/11 a las 22:30 hs). Viento: 11.8 km/h Norte (N). Condiciones habituales de marea.",
+    "alturaActual": "1.03",
+    "alturaProyectada": "1.30",
+    "proximaPleamar": {
+      "hora": "22:30",
+      "altura": "1.30",
+      "fecha": "20/11"
+    },
     "viento": {
-      "velocidad": 12.6,
+      "velocidad": 11.8,
       "direccion": "Norte (N)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-20T14:59:40.599Z"
+    "actualizadoEn": "2026-11-20T15:21:20.800Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-20T14:59:34.222Z",
+    "actualizadoEn": "2026-11-20T15:21:15.009Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
         "cuenca": "Río Iguazú / Alto Paraná",
-        "fechaEmision": "2026-11-18T09:00:00",
+        "fechaEmision": "2026-11-20T09:00:00",
         "tendencia": "estable",
         "proyecciones": [
           {
             "fechaIso": "2026-11-22",
             "fechaStr": "22/11/2026",
-            "min": 15.85,
-            "esperado": 16.75,
-            "max": 17.75
+            "min": 16.24,
+            "esperado": 17.14,
+            "max": 18.14
           },
           {
             "fechaIso": "2026-11-29",
             "fechaStr": "29/11/2026",
-            "min": 14.58,
-            "esperado": 16.66,
-            "max": 19.12
+            "min": 15.02,
+            "esperado": 17.11,
+            "max": 19.57
           },
           {
             "fechaIso": "2026-12-06",
             "fechaStr": "06/12/2026",
-            "min": 14.08,
-            "esperado": 16.67,
-            "max": 19.98
+            "min": 14.54,
+            "esperado": 17.13,
+            "max": 20.44
           },
           {
             "fechaIso": "2026-12-13",
             "fechaStr": "13/12/2026",
-            "min": 13.88,
-            "esperado": 16.73,
-            "max": 20.56
+            "min": 14.34,
+            "esperado": 17.19,
+            "max": 21.02
           }
         ]
       },
       "corrientes": {
         "nombre": "Corrientes",
         "cuenca": "Río Paraná (Confluencia)",
-        "fechaEmision": "2026-11-18T09:00:00",
+        "fechaEmision": "2026-11-20T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-11-22",
             "fechaStr": "22/11/2026",
-            "min": 4.81,
-            "esperado": 5.23,
-            "max": 5.65
+            "min": 4.55,
+            "esperado": 4.97,
+            "max": 5.39
           },
           {
             "fechaIso": "2026-11-29",
             "fechaStr": "29/11/2026",
-            "min": 3.47,
-            "esperado": 4.15,
-            "max": 4.49
+            "min": 3.46,
+            "esperado": 4.14,
+            "max": 4.48
           },
           {
             "fechaIso": "2026-12-06",
             "fechaStr": "06/12/2026",
-            "min": 3.07,
-            "esperado": 3.99,
-            "max": 4.63
+            "min": 3.09,
+            "esperado": 4.01,
+            "max": 4.65
           },
           {
             "fechaIso": "2026-12-13",
             "fechaStr": "13/12/2026",
-            "min": 2.93,
-            "esperado": 3.96,
-            "max": 4.84
+            "min": 2.99,
+            "esperado": 4.02,
+            "max": 4.9
           }
         ]
       },
       "parana": {
         "nombre": "Paraná",
         "cuenca": "Río Paraná Medio",
-        "fechaEmision": "2026-11-18T09:00:00",
+        "fechaEmision": "2026-11-20T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-11-22",
             "fechaStr": "22/11/2026",
-            "min": 4.59,
-            "esperado": 5.05,
-            "max": 5.56
+            "min": 4.62,
+            "esperado": 5.08,
+            "max": 5.6
           },
           {
             "fechaIso": "2026-11-29",
             "fechaStr": "29/11/2026",
-            "min": 4.44,
-            "esperado": 4.96,
+            "min": 4.43,
+            "esperado": 4.95,
             "max": 5.49
           },
           {
             "fechaIso": "2026-12-06",
             "fechaStr": "06/12/2026",
-            "min": 4.04,
-            "esperado": 4.66,
-            "max": 5.26
+            "min": 3.98,
+            "esperado": 4.59,
+            "max": 5.2
           },
           {
             "fechaIso": "2026-12-13",
             "fechaStr": "13/12/2026",
-            "min": 3.55,
-            "esperado": 4.2,
-            "max": 4.93
+            "min": 3.48,
+            "esperado": 4.13,
+            "max": 4.86
           }
         ]
       },
       "rosario": {
         "nombre": "Rosario",
         "cuenca": "Río Paraná Inferior",
-        "fechaEmision": "2026-11-18T09:00:00",
+        "fechaEmision": "2026-11-20T09:00:00",
         "tendencia": "bajante",
         "proyecciones": [
           {
             "fechaIso": "2026-11-22",
             "fechaStr": "22/11/2026",
-            "min": 4.03,
-            "esperado": 4.47,
-            "max": 4.93
+            "min": 4.06,
+            "esperado": 4.5,
+            "max": 4.96
           },
           {
             "fechaIso": "2026-11-29",
             "fechaStr": "29/11/2026",
-            "min": 3.95,
-            "esperado": 4.45,
-            "max": 4.95
+            "min": 3.98,
+            "esperado": 4.47,
+            "max": 4.98
           },
           {
             "fechaIso": "2026-12-06",
             "fechaStr": "06/12/2026",
-            "min": 3.78,
+            "min": 3.77,
             "esperado": 4.37,
             "max": 4.93
           },
           {
             "fechaIso": "2026-12-13",
             "fechaStr": "13/12/2026",
-            "min": 3.54,
-            "esperado": 4.19,
-            "max": 4.86
+            "min": 3.5,
+            "esperado": 4.15,
+            "max": 4.82
           }
         ]
       }
     }
   },
   "iguazu": {
-    "altura": "20.55",
-    "horaStr": "09:00",
+    "altura": "20.59",
+    "horaStr": "11:00",
     "fechaStr": "20/11/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1795176000000,
+    "ts": 1795183200000,
     "trabado": false,
-    "textoFB": "20.55m (a las 09:00 hs) (Fuente: INA)",
+    "textoFB": "20.59m (a las 11:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.06",
-        "fechaStr": "19/11/2026",
-        "horaStr": "09:30"
-      },
-      {
-        "altura": "20.11",
-        "fechaStr": "19/11/2026",
-        "horaStr": "10:00"
-      },
-      {
-        "altura": "20.16",
-        "fechaStr": "19/11/2026",
-        "horaStr": "10:30"
-      },
-      {
-        "altura": "20.18",
-        "fechaStr": "19/11/2026",
-        "horaStr": "11:00"
-      },
       {
         "altura": "20.24",
         "fechaStr": "19/11/2026",
@@ -684,13 +676,33 @@
         "altura": "20.55",
         "fechaStr": "20/11/2026",
         "horaStr": "09:00"
+      },
+      {
+        "altura": "20.54",
+        "fechaStr": "20/11/2026",
+        "horaStr": "09:30"
+      },
+      {
+        "altura": "20.57",
+        "fechaStr": "20/11/2026",
+        "horaStr": "10:00"
+      },
+      {
+        "altura": "20.57",
+        "fechaStr": "20/11/2026",
+        "horaStr": "10:30"
+      },
+      {
+        "altura": "20.59",
+        "fechaStr": "20/11/2026",
+        "horaStr": "11:00"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.02m)",
+      "diferencia": "+0.02"
     }
   },
   "sanjavier": {
