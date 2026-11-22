@@ -1,21 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "21/11/2026 a las 22:19 hs",
-  "generadoEn": "2026-11-21T22:19:22.000Z",
+  "fechaReporte": "21/11/2026 a las 23:19 hs",
+  "generadoEn": "2026-11-21T23:19:22.000Z",
   "laplata": {
-    "altura": "0.78",
-    "horaStr": "21:45",
+    "altura": "1.04",
+    "horaStr": "22:45",
     "fechaStr": "21/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.5,
     "evacuacion": 2.8,
     "historico": [
-      {
-        "altura": "1.49",
-        "fechaStr": "19/11/2026",
-        "horaStr": "22:45"
-      },
       {
         "altura": "1.54",
         "fechaStr": "19/11/2026",
@@ -250,19 +245,24 @@
         "altura": "0.78",
         "fechaStr": "21/11/2026",
         "horaStr": "21:45"
+      },
+      {
+        "altura": "1.04",
+        "fechaStr": "21/11/2026",
+        "horaStr": "22:45"
       }
     ],
     "tendencia": {
       "icono": "⬆️",
       "estado": "subiendo",
-      "texto": "Subiendo (+0.16m)",
-      "diferencia": "+0.16"
+      "texto": "Subiendo (+0.26m)",
+      "diferencia": "+0.26"
     }
   },
   "viento": {
-    "velocidad": 3.2,
-    "direccion": "Sur (S)",
-    "temperatura": 20.2
+    "velocidad": 9.9,
+    "direccion": "Oeste (W)",
+    "temperatura": 19
   },
   "pronostico": {
     "pleamar": {
@@ -271,17 +271,17 @@
       "fecha": "22/11"
     },
     "bajamar": {
-      "hora": "20:00",
-      "altura": "0.60",
-      "fecha": "21/11"
+      "hora": "11:00",
+      "altura": "0.70",
+      "fecha": "22/11"
     }
   },
   "pronosticoSudestada": {
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 1.40m (22/11 a las 03:00 hs). Viento: 3.2 km/h Sur (S). Condiciones habituales de marea.",
-    "alturaActual": "0.78",
+    "mensaje": "Pleamar máxima prevista: 1.40m (22/11 a las 03:00 hs). Viento: 9.9 km/h Oeste (W). Condiciones habituales de marea.",
+    "alturaActual": "1.04",
     "alturaProyectada": "1.40",
     "proximaPleamar": {
       "hora": "03:00",
@@ -289,15 +289,15 @@
       "fecha": "22/11"
     },
     "viento": {
-      "velocidad": 3.2,
-      "direccion": "Sur (S)",
+      "velocidad": 9.9,
+      "direccion": "Oeste (W)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-22T01:21:42.424Z"
+    "actualizadoEn": "2026-11-22T02:21:10.546Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-22T01:21:36.337Z",
+    "actualizadoEn": "2026-11-22T02:21:04.054Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -446,37 +446,17 @@
     }
   },
   "iguazu": {
-    "altura": "21.23",
-    "horaStr": "20:00",
+    "altura": "21.33",
+    "horaStr": "22:00",
     "fechaStr": "21/11/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1795302000000,
+    "ts": 1795309200000,
     "trabado": false,
-    "textoFB": "21.23m (a las 20:00 hs) (Fuente: INA)",
+    "textoFB": "21.33m (a las 22:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.51",
-        "fechaStr": "20/11/2026",
-        "horaStr": "20:30"
-      },
-      {
-        "altura": "20.51",
-        "fechaStr": "20/11/2026",
-        "horaStr": "21:00"
-      },
-      {
-        "altura": "20.48",
-        "fechaStr": "20/11/2026",
-        "horaStr": "21:30"
-      },
-      {
-        "altura": "20.46",
-        "fechaStr": "20/11/2026",
-        "horaStr": "22:00"
-      },
       {
         "altura": "20.44",
         "fechaStr": "20/11/2026",
@@ -696,13 +676,33 @@
         "altura": "21.23",
         "fechaStr": "21/11/2026",
         "horaStr": "20:00"
+      },
+      {
+        "altura": "21.26",
+        "fechaStr": "21/11/2026",
+        "horaStr": "20:30"
+      },
+      {
+        "altura": "21.31",
+        "fechaStr": "21/11/2026",
+        "horaStr": "21:00"
+      },
+      {
+        "altura": "21.32",
+        "fechaStr": "21/11/2026",
+        "horaStr": "21:30"
+      },
+      {
+        "altura": "21.33",
+        "fechaStr": "21/11/2026",
+        "horaStr": "22:00"
       }
     ],
     "tendencia": {
-      "icono": "⬆️",
-      "estado": "subiendo",
-      "texto": "Subiendo (+0.05m)",
-      "diferencia": "+0.05"
+      "icono": "➡️",
+      "estado": "estacionado",
+      "texto": "Estacionado",
+      "diferencia": "0.00"
     }
   },
   "sanjavier": {
@@ -1226,19 +1226,14 @@
     }
   },
   "sanfernando": {
-    "altura": "0.52",
-    "horaStr": "21:45",
+    "altura": "0.44",
+    "horaStr": "22:45",
     "fechaStr": "21/11/2026",
     "fuente": "SHN",
     "antiguo": false,
     "alerta": 2.8,
     "evacuacion": 3.2,
     "historico": [
-      {
-        "altura": "0.89",
-        "fechaStr": "19/11/2026",
-        "horaStr": "22:45"
-      },
       {
         "altura": "1.25",
         "fechaStr": "19/11/2026",
@@ -1473,29 +1468,29 @@
         "altura": "0.52",
         "fechaStr": "21/11/2026",
         "horaStr": "21:45"
+      },
+      {
+        "altura": "0.44",
+        "fechaStr": "21/11/2026",
+        "horaStr": "22:45"
       }
     ],
     "tendencia": {
       "icono": "⬇️",
       "estado": "bajando",
-      "texto": "Bajando (-0.06m)",
-      "diferencia": "-0.06"
+      "texto": "Bajando (-0.08m)",
+      "diferencia": "-0.08"
     }
   },
   "martingarcia": {
-    "altura": "0.88",
-    "horaStr": "21:45",
+    "altura": "0.85",
+    "horaStr": "22:45",
     "fechaStr": "21/11/2026",
     "fuente": "SHN",
     "antiguo": true,
     "alerta": 2.3,
     "evacuacion": 2.6,
     "historico": [
-      {
-        "altura": "0.99",
-        "fechaStr": "19/11/2026",
-        "horaStr": "22:45"
-      },
       {
         "altura": "1.13",
         "fechaStr": "19/11/2026",
@@ -1730,6 +1725,11 @@
         "altura": "0.88",
         "fechaStr": "21/11/2026",
         "horaStr": "21:45"
+      },
+      {
+        "altura": "0.85",
+        "fechaStr": "21/11/2026",
+        "horaStr": "22:45"
       }
     ],
     "tendencia": {
