@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "fechaReporte": "23/11/2026 a las 08:51 hs",
-  "generadoEn": "2026-11-23T08:51:48.000Z",
+  "fechaReporte": "23/11/2026 a las 09:19 hs",
+  "generadoEn": "2026-11-23T09:19:23.000Z",
   "laplata": {
     "altura": "0.86",
     "horaStr": "08:45",
@@ -260,9 +260,9 @@
     }
   },
   "viento": {
-    "velocidad": 7.5,
+    "velocidad": 8,
     "direccion": "Noroeste (NW)",
-    "temperatura": 22.2
+    "temperatura": 23.2
   },
   "pronostico": {
     "pleamar": {
@@ -280,7 +280,7 @@
     "estado": "sin_riesgo",
     "nivelAlerta": "verde",
     "titulo": "🟢 Sin previsión de sudestada para las próximas 24 hs",
-    "mensaje": "Pleamar máxima prevista: 0.95m (23/11 a las 16:00 hs). Viento: 7.5 km/h Noroeste (NW). Condiciones habituales de marea.",
+    "mensaje": "Pleamar máxima prevista: 0.95m (23/11 a las 16:00 hs). Viento: 8 km/h Noroeste (NW). Condiciones habituales de marea.",
     "alturaActual": "0.86",
     "alturaProyectada": "0.95",
     "proximaPleamar": {
@@ -289,15 +289,15 @@
       "fecha": "23/11"
     },
     "viento": {
-      "velocidad": 7.5,
+      "velocidad": 8,
       "direccion": "Noroeste (NW)",
       "esSudeste": false
     },
-    "actualizadoEn": "2026-11-23T11:52:51.825Z"
+    "actualizadoEn": "2026-11-23T12:20:49.896Z"
   },
   "pronosticosINA": {
     "fuente": "Instituto Nacional del Agua (INA - SIyAH)",
-    "actualizadoEn": "2026-11-23T11:52:45.919Z",
+    "actualizadoEn": "2026-11-23T12:20:42.956Z",
     "estaciones": {
       "iguazu": {
         "nombre": "Puerto Iguazú",
@@ -418,37 +418,17 @@
     }
   },
   "iguazu": {
-    "altura": "20.92",
-    "horaStr": "06:00",
+    "altura": "21.03",
+    "horaStr": "08:00",
     "fechaStr": "23/11/2026",
     "fuente": "INA",
     "antiguo": false,
-    "ts": 1795424400000,
+    "ts": 1795431600000,
     "trabado": false,
-    "textoFB": "20.92m (a las 06:00 hs) (Fuente: INA)",
+    "textoFB": "21.03m (a las 08:00 hs) (Fuente: INA)",
     "alerta": 25,
     "evacuacion": 28,
     "historico": [
-      {
-        "altura": "20.90",
-        "fechaStr": "22/11/2026",
-        "horaStr": "06:30"
-      },
-      {
-        "altura": "20.87",
-        "fechaStr": "22/11/2026",
-        "horaStr": "07:00"
-      },
-      {
-        "altura": "20.94",
-        "fechaStr": "22/11/2026",
-        "horaStr": "07:30"
-      },
-      {
-        "altura": "20.88",
-        "fechaStr": "22/11/2026",
-        "horaStr": "08:00"
-      },
       {
         "altura": "20.83",
         "fechaStr": "22/11/2026",
@@ -668,13 +648,33 @@
         "altura": "20.92",
         "fechaStr": "23/11/2026",
         "horaStr": "06:00"
+      },
+      {
+        "altura": "20.91",
+        "fechaStr": "23/11/2026",
+        "horaStr": "06:30"
+      },
+      {
+        "altura": "20.92",
+        "fechaStr": "23/11/2026",
+        "horaStr": "07:00"
+      },
+      {
+        "altura": "21.00",
+        "fechaStr": "23/11/2026",
+        "horaStr": "07:30"
+      },
+      {
+        "altura": "21.03",
+        "fechaStr": "23/11/2026",
+        "horaStr": "08:00"
       }
     ],
     "tendencia": {
-      "icono": "➡️",
-      "estado": "estacionado",
-      "texto": "Estacionado",
-      "diferencia": "0.00"
+      "icono": "⬆️",
+      "estado": "subiendo",
+      "texto": "Subiendo (+0.03m)",
+      "diferencia": "+0.03"
     }
   },
   "sanjavier": {
