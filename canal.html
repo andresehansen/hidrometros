@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Info Río y Clima</title>
+<style>
+:root{--bg:#061826;--bg2:#0b3250;--card:#0e2d47;--line:#1f5a85;--tx:#eef5f6;--mut:#93b6cc;--ac:#5fd0e0;--ok:#3ddc97;--al:#ffb43a;--ev:#ff5a5f}
+*{box-sizing:border-box;margin:0}
+html{font-size:min(1.25vw,2.2vh)}
+body{height:100vh;overflow:hidden;background:linear-gradient(160deg,var(--bg2),var(--bg) 62%);color:var(--tx);font-family:"Trebuchet MS","Segoe UI",Roboto,sans-serif}
+#app{position:relative;z-index:1;height:100vh;padding:3.5vh 4vw;display:flex;flex-direction:column;gap:1.6vh}
+header,footer{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+header b{font-size:1.5rem;letter-spacing:.02em}
+#clock{font-size:1.8rem;font-variant-numeric:tabular-nums}
+.badge{font-size:1rem;padding:.25rem .8rem;border-radius:2rem;background:var(--al);color:#251800;font-weight:700}
+#stage{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:1.6rem}
+h1{font-size:2.4rem;font-weight:700;text-shadow:0 .1rem .6rem #000}
+.slide{display:flex;flex-direction:column;gap:1.6rem;animation:in .7s ease}
+@keyframes in{from{opacity:0}}
+.grid{display:grid;gap:1.4rem;grid-template-columns:repeat(var(--n,3),minmax(0,1fr))}
+.card{background:rgba(9,36,58,.92);border-left:.45rem solid var(--ok);padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.5rem;border-radius:.4rem}
+.card.alerta{border-color:var(--al)}.card.evac{border-color:var(--ev)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;font-size:1.35rem}
+.chip{font-size:1rem;padding:.15rem .7rem;border-radius:2rem;background:var(--ok);color:#03281a;font-weight:700;white-space:nowrap}
+.chip.alerta{background:var(--al);color:#251800}.chip.evac{background:var(--ev);color:#2b0002}
+.val{font-size:4.4rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.val small,.kpi small{font-size:1.6rem;font-weight:400;color:var(--mut)}
+.tr{font-size:1.3rem}.lim,.meta{font-size:1.05rem;color:var(--mut)}
+.old{color:var(--al);font-weight:700}
+.bar{position:relative;height:.6rem;background:#08202f;border-radius:1rem;margin-top:.3rem}
+.bar i{display:block;height:100%;border-radius:1rem;background:var(--ok)}
+.alerta .bar i{background:var(--al)}.evac .bar i{background:var(--ev)}
+.bar u{position:absolute;top:-.3rem;width:.18rem;height:1.2rem;background:var(--tx)}
+.sp{width:100%;height:2.6rem}.sp polyline{stroke:var(--ac);stroke-width:2}
+.banner{padding:1.2rem 1.6rem;font-size:1.9rem;border-left:.45rem solid var(--ok);background:rgba(9,36,58,.92);border-radius:.4rem}
+.banner.al{border-color:var(--al)}.banner.ev{border-color:var(--ev)}
+.banner small{display:block;font-size:1.2rem;color:var(--mut);margin-top:.4rem}
+.kpi{font-size:3.6rem;font-weight:700}.kpi div{font-size:1.3rem;font-weight:400;color:var(--mut)}
+.now{display:flex;align-items:center;gap:2rem}.now .big{font-size:7rem}
+.rows{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:1.2rem;align-items:baseline}
+.rows b{font-size:1.6rem}.rows span{color:var(--mut);font-size:1rem}
+footer{font-size:1rem;color:var(--mut);white-space:nowrap}
+#prog{height:.35rem;background:#08202f;border-radius:1rem;overflow:hidden}
+#prog i{display:block;height:100%;width:0;background:var(--ac)}
+#dots span{display:inline-block;width:.7rem;height:.7rem;border-radius:50%;background:#1b4766;margin-right:.5rem}
+#dots .on{background:var(--ac)}
+#map{position:fixed;inset:0;z-index:0;perspective:1500px;perspective-origin:50% 34%;overflow:hidden}
+#tilt{position:absolute;left:50%;top:34%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(52deg)}
+#world{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;transform-origin:0 0;transition:transform 4.5s cubic-bezier(.45,0,.2,1);will-change:transform}
+.mk{position:absolute;width:0;height:0;transform-style:preserve-3d;opacity:0;transition:opacity 1s}
+.mk.act{opacity:1}
+.pin{position:absolute;left:0;top:0;transform-style:preserve-3d;transform-origin:0 0;transform:translateZ(18px) rotateX(-52deg) scale(var(--inv,1));transition:transform 4.5s cubic-bezier(.45,0,.2,1)}
+.pin .dot{position:absolute;left:-.6rem;top:-.6rem;width:1.2rem;height:1.2rem;border-radius:50%;background:var(--c,var(--ac));border:.17rem solid #fff}
+.pin .ring{position:absolute;left:-1.5rem;top:-1.5rem;width:3rem;height:3rem;border-radius:50%;border:.2rem solid var(--c,var(--ac));animation:pul 2.2s ease-out infinite}
+.pin b{position:absolute;left:1.1rem;top:-1.6rem;white-space:nowrap;font-size:1.4rem;text-shadow:0 .1rem .5rem #000,0 0 .2rem #000}
+@keyframes pul{from{transform:scale(.4);opacity:1}to{transform:scale(1.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.slide{animation:none}}
+</style>
+</head>
+<body>
+<div id="map"><div id="tilt"><div id="world"></div></div></div>
+<div id="app">
+  <header><b>🌊 Reporte Fluvial: Info Río y Clima</b><span id="flags"></span><span id="clock"></span></header>
+  <div id="stage"></div>
+  <div id="prog"><i></i></div>
+  <footer>
+    <span id="dots"></span>
+    <span>Fuentes: AGPSE, SHN, INA, CARU, PNA y Open-Meteo. Datos orientativos. Emergencias: Prefectura 106.</span>
+    <span id="hint">◀ ▶ cambiar · OK pausa · ▲ voz</span>
+  </footer>
+</div>
+<script>
+const DATA_URL = (window.location && window.location.pathname && window.location.pathname.includes('/hidrometros/')) ? './data.json' : 'https://andresehansen.github.io/hidrometros/data.json';
+const MIN_MS=12000,MAX_MS=60000,LAT=-34.8339,LON=-57.8803;
+const T={subiendo:'⬆️',bajando:'⬇️',estacionado:'➡️'};
+const mk=(a,h,f,fu,al,ev,e,d,old)=>({altura:a,horaStr:h,fechaStr:f,fuente:fu,alerta:al,evacuacion:ev,antiguo:!!old,tendencia:{icono:T[e],estado:e,texto:e[0].toUpperCase()+e.slice(1)+' ('+d+'m)'}});
+// Datos de ejemplo (solo si no se puede leer data.json). Sin pronóstico INA.
+const DEMO={fechaReporte:'18/11/2026 a las 10:19 hs',
+ laplata:mk('1.57','09:45','18/11/2026','SHN',2.5,2.8,'subiendo','+0.02'),
+ sanfernando:mk('1.34','09:45','18/11/2026','SHN',2.8,3.2,'subiendo','+0.15'),
+ martingarcia:mk('1.39','09:45','18/11/2026','SHN',2.3,2.6,'subiendo','+0.02',1),
+ iguazu:mk('19.88','09:00','18/11/2026','INA',25,28,'subiendo','+0.03'),
+ sanjavier:mk('2.75','00:00','17/11/2026','PNA',8,10,'bajando','-1.25',1),
+ santotome:mk('6.64','00:00','17/11/2026','PNA',11.5,12.5,'bajando','-0.64',1),
+ concordia:mk('7.74','06:00','18/11/2026','SRH',11,12.5,'bajando','-0.24'),
+ saltogrande:{arriba:mk('35.11','00:00','18/11/2026','CARU',35.5,36,'estacionado','0.00'),abajo:mk('10.98','00:00','18/11/2026','CARU',17.3,17.8,'bajando','-0.32')},
+ viento:{velocidad:11.9,direccion:'Suroeste (SW)',temperatura:24.1},
+ pronostico:{pleamar:{hora:'10:30',altura:'1.50',fecha:'18/11'},bajamar:{hora:'17:00',altura:'1.00',fecha:'18/11'}},
+ pronosticoSudestada:{nivelAlerta:'verde',titulo:'🟢 Sin previsión de sudestada para las próximas 24 hs',mensaje:'Pleamar máxima prevista: 1.50m (18/11 a las 10:30 hs). Condiciones habituales de marea.'}};
+
+const $=s=>document.querySelector(s);
+const fmt=n=>Number(n).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const lim=s=>(s||'').replace(/\s*\(.*?\)/g,'').replace(/\bhs\b/g,'horas').replace(/[^\p{L}\p{N}\s.,:;%°\-]/gu,'').replace(/\s+/g,' ').trim();
+const dir8=d=>['norte','noreste','este','sudeste','sur','sudoeste','oeste','noroeste'][Math.round(d/45)%8];
+const fl=iso=>new Date(iso+'T12:00').toLocaleDateString('es-AR',{day:'numeric',month:'long'});
+const WMO=c=>c===0?['☀️','despejado']:c<=2?['🌤️','parcialmente nublado']:c===3?['☁️','nublado']:c<=48?['🌫️','con niebla']:c<=57?['🌦️','con llovizna']:c<=67?['🌧️','con lluvia']:c<=77?['❄️','con nevadas']:c<=82?['🌧️','con chubascos']:c<=86?['❄️','con nevadas']:['⛈️','con tormentas'];
+
+let D=null,W=null,W2=null,demo=false,wAt=0,S=[],i=0,tok=0,paused=false,mute=false,blocked=false,voice=null;
+
+function estado(e){const a=+e.altura;
+ if(e.evacuacion&&a>=e.evacuacion)return['evac','Evacuación','de evacuación'];
+ if(e.alerta&&a>=e.alerta)return['alerta','Alerta','de alerta'];
+ return['ok','Normal','normal']}
+function spark(h){if(!h||h.length<3)return'';const v=h.slice(-48).map(x=>+x.altura),lo=Math.min(...v),r=(Math.max(...v)-lo)||1;
+ return`<svg class="sp" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline fill="none" vector-effect="non-scaling-stroke" points="${v.map((y,k)=>(k/(v.length-1)*100).toFixed(1)+','+(28-(y-lo)/r*26).toFixed(1)).join(' ')}"/></svg>`}
+function card(n,e){const[c,tx]=estado(e),a=+e.altura,m=e.evacuacion||e.alerta||a*1.2,p=Math.max(2,Math.min(100,a/m*100));
+ return`<div class="card ${c}"><div class="top"><b>${n}</b><span class="chip ${c}">${tx}</span></div>
+ <div class="val">${fmt(a)}<small> m</small></div><div class="tr">${e.tendencia?.icono||''} ${e.tendencia?.texto||''}</div>
+ <div class="bar"><i style="width:${p}%"></i>${e.alerta?`<u style="left:${Math.min(99,e.alerta/m*100)}%"></u>`:''}</div>
+ <div class="lim">Alerta ${e.alerta??'—'} m, evacuación ${e.evacuacion??'—'} m</div>${spark(e.historico)}
+ <div class="meta">${e.fuente||''}, ${e.horaStr||''} del ${e.fechaStr||''}${e.antiguo?' <span class="old">dato con retraso</span>':''}</div></div>`}
+const vozE=(n,e)=>`${n.replace('·',',')}: ${fmt(e.altura)} metros, ${e.tendencia?.estado||'sin tendencia'}. Nivel ${estado(e)[2]}.${e.antiguo?' Dato con retraso.':''}`;
+
+function armar(){
+ const all=[],grp=(t,l,intro,cam)=>{const c=l.filter(x=>x[1]);all.push(...c);
+  return{t,cam,m:c.map(x=>x[2]),h:`<div class="grid" style="--n:${c.length}">${c.map(x=>card(...x)).join('')}</div>`,v:intro+' '+c.map(x=>vozE(...x)).join(' ')}};
+ const g1=grp('🌊 Río de la Plata',[['La Plata',D.laplata,'laplata'],['San Fernando',D.sanfernando,'sanfernando'],['Martín García',D.martingarcia,'martingarcia']],'Río de la Plata.',[-58.2,-34.55,4.6]);
+ const g2=grp('🏞️ Río Uruguay',[['Salto Grande, embalse',D.saltogrande?.arriba,'saltogrande'],['Salto Grande, restitución',D.saltogrande?.abajo,'saltogrande'],['Concordia',D.concordia,'concordia'],['Santo Tomé',D.santotome,'santotome']],'Río Uruguay.',[-57.2,-30.0,2.4]);
+ const g3=grp('💧 Iguazú y Paraná',[['Puerto Iguazú',D.iguazu,'iguazu'],['San Javier',D.sanjavier,'sanjavier']],'Ríos Iguazú y Paraná.',[-57.3,-28.2,1.8]);
+ const bad=all.filter(x=>estado(x[1])[0]!=='ok'),L=[];
+ // portada
+ const sd=D.pronosticoSudestada,lp=D.laplata,c=W?.current;
+ const tem=c?Math.round(c.temperature_2m):Math.round(D.viento?.temperatura),vel=c?Math.round(c.wind_speed_10m):Math.round(D.viento?.velocidad);
+ const dw=c?dir8(c.wind_direction_10m):lim(D.viento?.direccion).toLowerCase();
+ const hr=(D.fechaReporte||'').match(/\d{1,2}:\d{2}/)?.[0]||'';
+ const viejo=!demo&&D.generadoEn&&(Date.now()-Date.parse(D.generadoEn))/36e5>3;
+ const sc=!sd?'':sd.nivelAlerta==='verde'?'':sd.nivelAlerta==='rojo'?'ev':'al';
+ L.push({t:'Reporte del día',cam:[-64,-38.5,.72],m:['laplata','concordia','iguazu'],h:`<div class="banner ${sc}">${D.fechaReporte||''}${sd?`<br>${sd.titulo}<small>${sd.mensaje}</small>`:''}</div>
+  <div class="grid" style="--n:3"><div class="kpi">${fmt(lp.altura)}<small> m</small><div>Río de la Plata en La Plata, ${lp.tendencia?.estado||''}</div></div>
+  <div class="kpi">${tem}<small> °C</small><div>Temperatura</div></div><div class="kpi">${vel}<small> km/h</small><div>Viento del ${dw}</div></div></div>`,
+  v:`Reporte fluvial, actualizado a las ${hr} horas. ${viejo?'Atención: los datos tienen más de tres horas de antigüedad. ':''}${sd?lim(sd.titulo)+'. ':''}En La Plata el río marca ${fmt(lp.altura)} metros y está ${lp.tendencia?.estado}. Temperatura de ${tem} grados, viento del ${dw} a ${vel} kilómetros por hora.`});
+ if(bad.length)L.push({t:'🚨 Atención: niveles de alerta',cam:[-64,-38.5,.72],m:bad.map(x=>x[2]),h:`<div class="grid" style="--n:${Math.min(bad.length,4)}">${bad.slice(0,4).map(x=>card(...x)).join('')}</div>`,v:'Atención. '+bad.map(x=>vozE(...x)).join(' ')});
+ L.push(g1);
+ // mareas
+ const P=D.pronostico;if(P?.pleamar||sd){const m=(n,x)=>x?`<div class="card"><div class="top"><b>${n}</b></div><div class="val">${x.hora}<small> h</small></div><div class="tr">Altura prevista ${fmt(x.altura)} m</div><div class="meta">${x.fecha||''}</div></div>`:'';
+  L.push({t:'🌙 Pronóstico de mareas en La Plata',cam:[-57.9,-34.8,4.6],m:['laplata'],h:`<div class="grid" style="--n:2">${m('Pleamar',P?.pleamar)}${m('Bajamar',P?.bajamar)}</div>${sd?`<div class="banner ${sc}">${sd.titulo}<small>${sd.mensaje}</small></div>`:''}`,
+  v:`Pronóstico de mareas para La Plata. ${P?.pleamar?`Pleamar a las ${P.pleamar.hora}, con ${fmt(P.pleamar.altura)} metros. `:''}${P?.bajamar?`Bajamar a las ${P.bajamar.hora}, con ${fmt(P.bajamar.altura)} metros. `:''}${sd?lim(sd.titulo)+'.':''}`})}
+ // clima
+ const cl=(nom,w,cam,mk)=>{if(!w)return;const c=w.current,d=w.daily,[ic,ds]=WMO(c.weather_code),t=Math.round(c.temperature_2m),v=Math.round(c.wind_speed_10m),dd=dir8(c.wind_direction_10m),
+  nm=k=>k===0?'Hoy':k===1?'Mañana':new Date(d.time[k]+'T12:00').toLocaleDateString('es-AR',{weekday:'long'}),vm=k=>Math.round(d.wind_speed_10m_max?.[k]);
+  L.push({t:'⛅ Clima en '+nom,cam,m:[mk],h:`<div class="now"><div class="big">${ic}</div><div><div class="val">${t}<small> °C</small></div><div class="tr">${ds}, sensación ${Math.round(c.apparent_temperature)}°, humedad ${c.relative_humidity_2m}%, viento del ${dd} a ${v} km/h</div></div></div>
+  <div class="grid" style="--n:${d.time.length}">${d.time.map((f,k)=>`<div class="card"><div class="top"><b>${nm(k)}</b><span>${WMO(d.weather_code[k])[0]}</span></div><div class="val">${Math.round(d.temperature_2m_max[k])}°<small> / ${Math.round(d.temperature_2m_min[k])}°</small></div><div class="meta">Lluvia ${d.precipitation_probability_max[k]??'—'}%, viento hasta ${vm(k)} km/h</div></div>`).join('')}</div>`,
+  v:`Clima en ${nom}. Ahora ${t} grados, ${ds}, viento del ${dd} a ${v} kilómetros por hora. `+d.time.map((f,k)=>`${nm(k)}: máxima de ${Math.round(d.temperature_2m_max[k])}, mínima de ${Math.round(d.temperature_2m_min[k])}, probabilidad de lluvia ${d.precipitation_probability_max[k]??0} por ciento, viento de hasta ${vm(k)} kilómetros por hora.`).join(' ')})};
+ cl('La Plata',W,[-57.9,-34.8,2.3],'laplata');cl('Villa Paranacito',W2,[-58.65,-33.72,3.2],'paranacito');
+ L.push(g2,g3);
+ // INA
+ const I=D.pronosticosINA?.estaciones;if(I){const es=Object.values(I).filter(x=>x.proyecciones?.length);
+  L.push({t:'📈 Pronóstico del INA',cam:[-58.8,-29.5,1.7],m:['iguazu','corrientes','parana','rosario'],h:`<div class="grid" style="--n:${es.length}">${es.map(x=>`<div class="card"><div class="top"><b>${x.nombre}</b><span class="chip">${x.tendencia}</span></div><div class="meta">${x.cuenca}</div><div class="rows">${x.proyecciones.map(p=>`<b>${fmt(p.esperado)} m</b><span>${p.fechaIso.slice(8)}/${p.fechaIso.slice(5,7)}, entre ${fmt(p.min)} y ${fmt(p.max)}</span>`).join('')}</div></div>`).join('')}</div>`,
+  v:'Pronóstico del Instituto Nacional del Agua. '+es.map(x=>{const a=x.proyecciones[0],z=x.proyecciones.at(-1);return`${x.nombre}, ${x.tendencia}: se espera ${fmt(a.esperado)} metros el ${fl(a.fechaIso)} y ${fmt(z.esperado)} metros el ${fl(z.fechaIso)}.`}).join(' ')})}
+ return L}
+
+// ---- mapa 3D (CSS 3D, sin WebGL ni mapas descargados) ----
+const GEO={"ar":"M406 285L400 297L401 304L399 307L400 313L396 322L397 325L396 330L393 334L395 343L392 352L393 363L392 366L389 366L388 367L385 383L388 397L386 400L387 405L391 411L407 421L413 425L415 430L416 434L411 440L412 449L418 456L421 458L425 458L426 460L426 472L417 488L410 497L408 501L407 506L393 516L375 523L357 527L328 532L312 531L307 530L305 527L302 526L301 528L302 532L301 536L302 539L308 542L305 543L307 545L306 555L303 557L300 566L300 573L303 579L300 585L288 591L273 592L270 592L256 586L246 583L247 581L246 581L241 583L240 585L239 591L242 604L241 615L243 619L251 623L253 623L252 628L255 628L263 627L263 623L259 623L260 622L269 619L273 624L273 635L272 639L264 641L262 640L258 632L254 630L250 631L247 634L243 635L242 637L251 641L258 643L255 646L246 649L237 660L236 666L237 673L236 676L237 680L235 685L228 691L227 694L229 697L229 700L216 699L208 705L200 707L193 716L185 729L186 736L187 740L203 756L221 759L224 760L226 766L226 772L223 776L216 779L217 780L222 779L225 782L212 794L198 802L188 811L183 819L184 822L181 836L178 840L171 843L166 839L162 833L162 838L155 840L163 840L167 844L156 851L152 856L151 864L147 869L150 868L153 876L153 883L144 884L155 887L168 905L167 906L166 904L150 900L144 900L133 896L90 896L89 895L89 893L82 887L79 883L82 876L80 871L82 865L81 859L77 857L69 858L64 861L63 861L59 850L55 844L55 838L56 834L53 828L54 825L56 821L63 820L63 817L65 812L72 809L75 806L75 799L80 794L82 790L81 787L77 783L77 781L81 772L81 770L86 766L87 763L90 762L89 756L90 751L95 746L94 737L91 732L95 729L96 727L94 723L94 716L99 714L99 712L103 709L103 706L97 699L87 697L87 694L105 693L107 688L106 684L92 683L92 675L95 670L93 665L94 664L94 661L90 656L90 654L93 652L94 651L93 649L87 647L85 644L85 632L87 629L86 623L88 620L91 620L94 619L94 617L90 606L91 585L90 582L93 572L95 569L93 567L93 563L95 563L96 561L96 557L94 550L98 549L101 540L101 530L108 525L111 525L114 519L111 516L110 505L107 497L107 488L106 484L108 479L106 472L109 466L109 463L112 460L116 459L116 456L123 450L123 435L122 429L120 427L124 424L126 413L131 400L136 398L135 384L137 375L136 372L132 372L131 370L130 365L132 361L130 359L129 349L125 343L124 338L127 335L122 332L119 324L121 312L124 311L126 309L125 305L129 291L133 290L136 285L133 282L134 274L132 261L136 255L140 236L151 222L158 200L161 199L163 200L169 197L169 195L169 193L163 181L164 178L167 172L163 154L165 147L168 143L164 135L165 130L171 123L191 113L198 84L194 79L198 71L203 67L205 62L213 59L216 50L218 51L226 59L243 59L251 62L258 79L259 73L266 57L290 56L295 64L301 68L304 73L310 86L320 95L326 100L330 105L342 111L351 112L355 115L371 128L386 136L389 139L394 139L401 144L406 151L407 155L403 160L400 168L395 173L393 179L393 186L390 192L384 200L384 205L393 204L417 209L420 208L425 210L428 209L432 212L438 205L442 205L448 208L454 196L460 194L465 188L467 186L470 177L472 156L476 158L482 155L488 159L493 176L491 189L492 193L489 199L483 204L482 203L478 208L467 211L465 216L462 217L461 220L458 221L453 227L447 230L448 235L444 234L443 236L436 245L433 252L427 258L421 269L414 274L410 281ZM162 976L163 914L169 921L171 926L169 925L167 926L165 929L166 931L173 933L178 941L192 953L202 958L210 964L221 969L226 970L237 970L239 971L235 977L229 978L222 978L209 981L196 977L172 975ZM253 972L269 972L268 974L264 974L258 974L251 977L248 975Z","nb":"M499 385L490 403L482 411L465 418L448 414L436 417L422 411L415 405L400 405L388 390L387 384L389 369L395 363L393 334L397 325L396 322L401 304L400 297L405 286L414 288L417 284L423 283L440 302L441 310L450 304L460 316L472 322L481 332L491 338L494 347L505 357L496 369L496 382ZM394 5L401 28L398 59L421 64L427 63L431 58L436 63L445 65L450 75L454 111L459 112L472 107L480 113L476 143L472 152L470 177L467 186L460 193L454 196L448 208L438 205L432 212L428 209L417 209L393 204L384 205L384 200L393 186L395 173L407 155L405 149L398 141L389 139L371 128L355 115L330 105L313 89L301 68L295 64L303 30L303 16L314 -10L353 -20L373 -20L393 -5ZM143 -70L141 -78L154 -94L154 -99L158 -103L150 -108L145 -122L151 -133L146 -141L147 -146L157 -163L153 -177L155 -199L161 -210L142 -253L158 -252L163 -249L170 -253L175 -260L183 -261L189 -269L208 -283L230 -286L234 -288L236 -276L233 -266L236 -240L243 -225L253 -217L255 -212L266 -209L272 -211L279 -205L284 -206L292 -196L306 -192L314 -181L329 -182L342 -174L347 -138L341 -136L348 -127L349 -104L390 -104L387 -92L388 -77L397 -70L401 -70L408 -50L402 -30L403 -27L394 -7L400 -1L394 5L393 -5L373 -20L353 -20L314 -10L303 16L303 30L295 63L290 56L266 57L258 79L251 62L243 59L226 59L216 50L213 59L205 62L194 79L186 81L179 79L172 36L164 25L166 18L160 12L160 3L164 -1L161 -8L166 -16L155 -29L152 -55L148 -58ZM123 -46L134 -50L137 -56L136 -64L143 -70L148 -58L152 -55L155 -29L166 -16L161 -8L164 -1L160 3L160 12L166 18L164 25L172 36L179 79L186 81L194 79L198 84L191 113L171 123L164 133L168 143L163 152L167 172L163 181L169 195L163 200L158 200L151 222L140 236L136 255L132 261L133 282L136 285L133 290L129 290L126 309L121 312L119 324L122 332L127 335L124 338L132 361L131 370L136 372L136 398L131 400L124 424L120 427L123 435L123 450L116 459L109 463L106 472L107 497L111 516L114 519L111 525L101 530L98 549L94 550L96 561L92 565L95 569L90 582L90 606L94 617L86 623L87 629L85 632L86 646L94 651L90 654L95 670L92 675L92 683L106 684L107 688L105 693L87 694L87 697L97 699L103 706L99 714L94 716L94 723L96 727L91 732L95 746L90 751L90 762L81 770L77 781L82 790L75 799L75 806L65 812L63 820L56 821L53 828L56 834L55 844L63 861L77 857L81 859L82 876L79 883L89 893L89 895L133 896L166 904L167 906L149 902L145 904L141 909L115 918L110 946L104 949L84 942L79 934L82 931L90 931L92 935L91 939L93 938L94 931L104 925L107 921L105 919L102 917L82 928L76 937L65 931L70 919L73 917L78 919L89 914L98 914L92 911L83 911L79 914L73 911L63 926L59 926L52 919L61 916L63 910L61 913L53 915L44 914L43 907L41 907L38 899L48 903L51 902L51 898L60 900L71 895L76 902L73 906L77 903L74 896L77 892L76 888L62 881L74 887L75 890L58 898L55 897L50 890L40 887L43 884L46 885L45 875L26 870L20 859L29 859L27 853L30 850L36 854L41 863L48 866L50 860L53 858L52 854L45 863L40 857L40 854L45 854L30 845L37 839L45 840L37 834L38 829L48 829L42 824L46 813L44 813L39 826L36 823L37 801L44 797L34 797L31 784L47 785L55 790L58 788L53 784L50 774L45 782L39 783L30 776L32 772L39 775L41 773L33 768L41 761L41 755L37 750L34 749L33 753L22 749L22 742L10 748L14 752L13 754L8 752L6 748L24 732L21 724L41 721L41 714L45 711L48 713L43 727L44 730L35 734L45 732L47 724L50 723L51 730L45 743L48 744L52 736L53 725L53 722L49 720L50 713L60 710L68 713L61 707L56 707L57 703L58 699L72 693L73 689L74 684L60 677L61 669L65 668L66 662L65 653L69 645L72 645L70 635L71 630L74 630L71 623L74 622L79 627L77 615L72 616L70 613L74 609L80 606L81 602L76 607L67 602L61 610L50 609L52 604L47 600L44 587L51 559L57 554L61 538L55 518L56 505L52 496L52 486L53 481L61 481L64 467L66 466L71 447L75 441L74 436L83 423L88 397L96 382L94 367L100 354L95 298L96 289L101 284L103 270L99 250L106 235L118 177L117 162L122 147L120 130L124 100L119 91L120 86L125 80L130 42L128 20L129 -8ZM163 914L162 976L144 976L138 972L132 975L126 973L121 975L90 969L93 964L97 966L102 963L109 964L115 961L117 962L117 966L126 967L113 955L113 949L118 947L117 944L121 942L124 952L118 952L124 957L129 963L138 961L145 963L148 968L153 963L130 952L129 945L146 938L147 936L140 933L125 935L123 926L130 922L124 917L134 919L145 910L151 915L159 912ZM197 984L193 988L188 985L182 987L174 986L170 979L174 978L193 979ZM49 654L42 654L36 650L40 641L43 611L50 613L55 613L57 621L54 625L56 629L49 632L57 642L50 648ZM34 816L34 831L32 840L27 840L25 832L28 824L23 827L21 836L10 834L11 829L15 830L15 826L12 822L20 820L18 814L23 811L23 806L27 804L32 805ZM32 801L24 802L22 799L17 785L23 782L26 780L25 785ZM68 937L69 940L78 940L84 947L79 952L69 956L67 954L71 948L65 947L64 952L62 952L59 950L59 944L48 939L51 936L56 935L64 938L65 935ZM139 978L157 980L166 979L168 981L163 984L170 987L169 989L175 993L175 998L169 994L157 993L156 990L157 987L148 985L147 988L149 993L140 989L139 986L136 987L133 984L135 977ZM102 953L110 955L108 962L96 958L89 960L84 953L85 950L88 949ZM50 683L44 686L44 689L48 696L50 707L44 710L42 705L30 690L34 688L33 685L42 683L44 676L51 680ZM201 -594L213 -581L219 -582L228 -588L231 -584L230 -579L232 -579L240 -591L260 -603L265 -614L277 -620L278 -628L264 -630L260 -660L250 -672L247 -680L252 -676L261 -676L264 -670L279 -670L288 -661L290 -661L293 -673L300 -676L306 -675L313 -678L325 -686L331 -687L339 -697L337 -706L339 -706L350 -707L353 -702L350 -687L360 -683L359 -678L363 -670L356 -660L353 -635L355 -626L358 -624L360 -609L370 -599L378 -594L386 -596L386 -600L390 -604L396 -603L398 -606L406 -608L411 -614L417 -616L423 -613L431 -614L442 -612L443 -617L438 -623L442 -631L447 -627L464 -633L471 -625L483 -619L491 -626L496 -623L500 -626L502 -622L508 -621L515 -628L522 -649L541 -681L547 -675L558 -620L564 -611L575 -606L576 -593L567 -583L557 -566L545 -558L530 -522L524 -522L515 -517L523 -516L525 -514L531 -516L554 -534L558 -511L565 -504L574 -509L580 -506L589 -512L582 -486L586 -490L591 -506L596 -509L602 -518L608 -515L610 -519L607 -521L608 -528L615 -539L628 -541L631 -539L630 -542L634 -542L644 -538L648 -533L657 -531L670 -522L674 -522L677 -512L682 -519L690 -511L689 -510L692 -511L694 -503L689 -497L691 -494L696 -499L698 -494L695 -493L693 -488L690 -470L696 -478L701 -491L704 -490L702 -481L708 -488L718 -490L720 -493L730 -491L745 -482L753 -483L762 -478L784 -482L795 -480L828 -456L837 -442L847 -431L854 -428L857 -422L870 -417L883 -418L893 -416L896 -413L908 -363L908 -337L905 -325L901 -310L891 -293L888 -288L885 -289L885 -284L874 -266L862 -257L854 -241L853 -245L845 -221L833 -200L827 -197L827 -203L823 -207L820 -202L822 -199L814 -180L817 -179L815 -167L816 -165L818 -167L815 -150L819 -116L812 -79L813 -64L802 -49L799 -12L794 -7L786 16L777 25L773 35L771 42L772 56L757 65L751 72L751 78L749 83L729 83L725 76L723 84L708 87L707 86L713 84L709 81L692 86L691 90L693 92L677 101L674 106L663 106L643 119L618 141L619 145L613 152L614 149L609 148L607 152L602 150L603 154L609 157L603 164L605 166L604 173L601 176L606 201L604 226L600 240L590 248L579 262L557 310L548 321L529 339L528 331L532 332L537 330L546 321L548 311L552 311L553 305L558 300L558 292L561 292L561 287L551 290L545 281L548 290L545 301L544 299L540 311L530 319L525 333L527 341L515 368L499 385L496 383L496 367L505 357L494 347L491 338L481 332L472 322L460 316L450 304L441 310L440 302L423 283L417 284L414 288L406 285L421 269L444 234L448 235L447 230L461 220L467 211L478 208L489 199L492 193L493 174L485 156L472 156L480 113L472 107L459 112L454 111L450 75L446 66L436 63L431 58L427 63L421 64L403 59L400 60L397 57L401 28L394 5L400 -1L394 -7L403 -27L402 -30L408 -50L401 -70L397 -70L388 -77L387 -92L390 -104L349 -104L348 -127L340 -137L347 -138L342 -174L329 -182L314 -181L306 -192L292 -196L285 -205L279 -205L272 -211L266 -209L255 -212L253 -217L243 -225L234 -245L236 -251L233 -266L236 -276L234 -288L230 -286L208 -283L189 -269L183 -261L175 -260L170 -253L163 -249L149 -253L133 -254L125 -250L121 -253L118 -252L120 -296L105 -281L85 -280L80 -294L62 -296L67 -308L54 -326L49 -338L50 -342L44 -348L45 -353L50 -355L49 -367L63 -379L61 -389L67 -402L69 -417L92 -434L111 -438L115 -443L123 -444L127 -440L133 -440L146 -527L140 -546L131 -556L131 -576L144 -580L148 -578L151 -578L148 -589L136 -590L136 -608L142 -610L173 -608L172 -616L178 -609L190 -619L196 -608L197 -593ZM582 -554L593 -555L606 -553L609 -550L605 -535L599 -526L599 -521L595 -518L592 -520L591 -515L587 -516L585 -518L583 -512L578 -510L572 -512L562 -510L557 -525L558 -528L561 -528L556 -535L559 -552L568 -557ZM533 -520L531 -519L537 -530L537 -536L542 -544L546 -545L548 -541L546 -531Z"};
+const LON0=-76,LAT0=-20,SC=28,CS=.788,MW=640,MH=1100,NL=6;
+const PX=o=>(o[0]-LON0)*CS*SC,PY=o=>(LAT0-o[1])*SC;
+const MK={laplata:['La Plata',[-57.88,-34.83],()=>D.laplata],sanfernando:['San Fernando',[-58.53,-34.44],()=>D.sanfernando,'left:auto;right:1.1rem'],martingarcia:['Martín García',[-58.25,-34.18],()=>D.martingarcia,'top:-3.4rem'],iguazu:['Iguazú',[-54.58,-25.6],()=>D.iguazu],sanjavier:['San Javier',[-59.93,-30.58],()=>D.sanjavier],santotome:['Santo Tomé',[-56.08,-28.55],()=>D.santotome],concordia:['Concordia',[-58.02,-31.39],()=>D.concordia],saltogrande:['Salto Grande',[-57.94,-31.27],()=>D.saltogrande?.arriba],corrientes:['Corrientes',[-58.83,-27.47]],parana:['Paraná',[-60.52,-31.73]],rosario:['Rosario',[-60.64,-32.95]],paranacito:['Villa Paranacito',[-58.65,-33.72]]};
+// Trazado esquemático de los ríos (no es cartografía oficial)
+const RIV=[[[-54.6,-25.5],[-54.7,-26.4],[-55.9,-27.4],[-57.6,-27.35],[-58.83,-27.5],[-59.3,-29.1],[-59.9,-30.4],[-60.5,-31.7],[-60.64,-32.95],[-60.2,-33.35],[-59.5,-33.8],[-58.9,-34.1]],[[-53.9,-27.2],[-55.1,-27.8],[-56.08,-28.55],[-57.09,-29.72],[-58,-31.4],[-58.2,-32.3],[-58.4,-33.5],[-58.5,-34.1]]];
+function buildMap(){let s='';
+ const L=(z,body)=>`<svg style="position:absolute;left:0;top:0;transform:translateZ(${z}px)" width="${MW}" height="${MH}" viewBox="0 0 ${MW} ${MH}">${body}</svg>`;
+ s+=L(-1,`<path d="${GEO.nb}" fill="#0d3350" stroke="#1d5a82" stroke-width="1"/>`);
+ for(let k=0;k<NL-1;k++)s+=L(k*2.5,`<path d="${GEO.ar}" fill="hsl(205,62%,${16+k*2}%)"/>`);
+ s+=L((NL-1)*2.5,`<path d="${GEO.ar}" fill="#2a7ba9" stroke="#a6eaf3" stroke-width="1.6" stroke-linejoin="round"/>`+RIV.map(r=>`<polyline fill="none" stroke="#bdf3ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${r.map(p=>PX(p).toFixed(0)+','+PY(p).toFixed(0)).join(' ')}"/>`).join(''));
+ s+=Object.entries(MK).map(([k,v])=>`<div class="mk" id="mk-${k}" style="left:${PX(v[1])}px;top:${PY(v[1])}px"><div class="pin"><i class="ring"></i><i class="dot"></i><b style="${v[3]||''}">${v[0]}</b></div></div>`).join('');
+ $('#world').innerHTML=s}
+function setMap(s){if(!s.cam||!$('#world').firstChild)return;const[lo,la,k]=s.cam,kk=k*innerHeight/1080;
+ $('#world').style.transform=`scale(${kk}) translate(${-PX([lo,la])}px,${-PY([lo,la])}px)`;
+ document.querySelectorAll('.pin').forEach(e=>e.style.setProperty('--inv',1/kk));
+ for(const id in MK){const e=$('#mk-'+id),d=MK[id][2]?.();
+  e.classList.toggle('act',(s.m||[]).includes(id));
+  e.style.setProperty('--c',d?{ok:'var(--ok)',alerta:'var(--al)',evac:'var(--ev)'}[estado(d)[0]]:'var(--ac)')}}
+
+// ---- voz ----
+function pickVoice(){const v=speechSynthesis.getVoices();voice=['es-AR','es-US','es-MX','es-ES'].map(l=>v.find(x=>x.lang.replace('_','-')===l)).find(Boolean)||v.find(x=>x.lang.startsWith('es'))||null}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+function say(txt){return new Promise(res=>{
+ if(mute||blocked||!('speechSynthesis' in window)){res();return}
+ const u=new SpeechSynthesisUtterance(txt);u.lang=voice?.lang||'es-AR';if(voice)u.voice=voice;u.rate=.95;
+ u.onend=res;u.onerror=e=>{if(e.error==='not-allowed'){blocked=true;flags()}res()};
+ speechSynthesis.cancel();speechSynthesis.speak(u);setTimeout(res,MAX_MS)})}
+function flags(){$('#flags').innerHTML=(demo?'<span class="badge">Datos de ejemplo</span> ':'')+(blocked?'<span class="badge">🔇 Presioná OK para activar la voz</span> ':'')+(mute?'<span class="badge">Voz silenciada</span> ':'')+(paused?'<span class="badge">⏸ Pausa</span>':'')}
+
+// ---- reproducción ----
+function show(){const s=S[i];setMap(s);$('#stage').innerHTML=`<div class="slide"><h1>${s.t}</h1>${s.h}</div>`;
+ $('#dots').innerHTML=S.map((_,k)=>`<span class="${k===i?'on':''}"></span>`).join('');
+ const est=Math.max(MIN_MS,mute?0:s.v.length/14*1000),t0=Date.now(),t=tok,b=$('#prog i');
+ (function f(){if(t!==tok)return;b.style.width=Math.min(100,(Date.now()-t0)/est*100)+'%';setTimeout(f,250)})()}
+async function play(){const t=++tok;show();
+ await Promise.all([new Promise(r=>setTimeout(r,MIN_MS)),say(S[i].v)]);
+ if(t===tok&&!paused)go(1)}
+function go(d){if('speechSynthesis' in window)speechSynthesis.cancel();i+=d;
+ if(i>=S.length){i=0;S=armar()}if(i<0)i=S.length-1;play()}
+document.addEventListener('keydown',e=>{
+ if(blocked){blocked=false;flags();if(e.key==='Enter'){play();return}}
+ if(e.key==='ArrowRight'){paused=false;flags();go(1)}
+ else if(e.key==='ArrowLeft'){paused=false;flags();go(-1)}
+ else if(e.key==='Enter'){paused=!paused;flags();if(paused){tok++;speechSynthesis?.cancel()}else play()}
+ else if(e.key==='ArrowUp'){mute=!mute;flags();if(mute)speechSynthesis?.cancel()}});
+
+// ---- datos ----
+async function load(){
+ try{const r=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json();demo=false}
+ catch(e){if(!D){D=DEMO;demo=true}}
+ const fw=async(la,lo)=>{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max&timezone=America%2FArgentina%2FBuenos_Aires&forecast_days=3`);if(!r.ok)throw 0;return r.json()};
+ if(Date.now()-wAt>9e5)try{[W,W2]=await Promise.all([fw(LAT,LON),fw(-33.72,-58.65).catch(()=>W2)]);wAt=Date.now()}catch(e){}
+ flags()}
+setInterval(()=>$('#clock').textContent=new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}),1000);
+setInterval(load,5*60e3);
+load().then(()=>{S=armar();buildMap();const w=$('#world');w.style.transition='none';setMap(S[0]);w.offsetWidth;w.style.transition='';play()});
+</script>
+</body>
+</html>
